@@ -165,12 +165,14 @@ class Sky_Addons_Plugin {
 	public function enqueue_styles() {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		wp_enqueue_style(
+		wp_register_style(
 			'sky-elementor-addons',
 			SKY_ADDONS_URL . 'assets/css/sky-addons' . $direction_suffix . '.css',
 			[],
 			SKY_ADDONS_VERSION
 		);
+
+		wp_enqueue_style( 'sky-elementor-addons' );
 	}
 
 	public function enqueue_styles_backend() {
@@ -187,8 +189,8 @@ class Sky_Addons_Plugin {
 	public function enqueue_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script(
-			'sky-elementor-addons-js',
+		wp_register_script(
+			'sky-elementor-addons',
 			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
 			[ 
 				'jquery', 'elementor-frontend'
@@ -196,7 +198,6 @@ class Sky_Addons_Plugin {
 			SKY_ADDONS_VERSION,
 			true
 		);
-
 
 		if ( Sky_Addons_Plugin::elementor()->preview->is_preview_mode() || Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
 			//   todo condition check
@@ -207,14 +208,18 @@ class Sky_Addons_Plugin {
 			wp_enqueue_script( 'ripples' );
 			wp_enqueue_script( 'revealFx' );
 		}
+
 		wp_localize_script(
-			'sky-elementor-addons-js',
+			'sky-elementor-addons',
 			'Sky_AddonsFrontendConfig', // This is used in the js file to group all of your scripts together
 			[ 
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'sky-elementor-addons-js' ),
+				'nonce' => wp_create_nonce( 'sky-elementor-addons' ),
 			]
 		);
+
+		wp_enqueue_script( 'sky-elementor-addons' );
+
 	}
 
 	public function register_site_scripts() {
@@ -260,58 +265,50 @@ class Sky_Addons_Plugin {
 		wp_register_style( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/css/plyr' . $direction_suffix . '.css', [], '6.3.1' );
 	}
 
-	public function enqueue_panel_scripts() {
-	}
-
-	public function enqueue_panel_styles() {
-	}
-
 	public function enqueue_editor_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'sky-addons-editor', SKY_ADDONS_ASSETS_URL . 'js/sky-addons-editor' . $suffix . '.js', [ 
+		wp_register_script( 'sky-addons-editor', SKY_ADDONS_ASSETS_URL . 'js/sky-addons-editor' . $suffix . '.js', [ 
 			'backbone-marionette',
 			'elementor-common-modules',
 			'elementor-editor-modules',
 		], SKY_ADDONS_VERSION, true );
 
 		$localize_data = [ 
-			'pro_installed'       => _is_sky_addons_pro_activated(),
+			'pro_installed' => _is_sky_addons_pro_activated(),
 			'promotional_widgets' => [],
 		];
 
 		if ( ! _is_sky_addons_pro_activated() ) {
-			$pro_widget_map                       = new \Sky_Addons\Includes\Pro_Widget_Map();
+			$pro_widget_map = new \Sky_Addons\Includes\Pro_Widget_Map();
 			$localize_data['promotional_widgets'] = $pro_widget_map->get_pro_widget_map();
 		}
 
 		wp_localize_script( 'sky-addons-editor', 'SkyAddonsEditorConfig', $localize_data );
+
+		wp_enqueue_script( 'sky-addons-editor' );
 	}
 
 	public function enqueue_editor_style() {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
-		wp_enqueue_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
-	}
-
-	public function enqueue_preview_styles() {
-	}
-
-	public function enqueue_site_scripts() {
+		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-widget-icons' );
 	}
 
 	public function elementor_init() {
 		$this->_modules_manager = new Managers();
 
-		// Add element category in panel
+		/**
+		 * Add element category in panel
+		 */
 		Plugin::instance()->elements_manager->add_category(
 			'sky-elementor-addons',
 			[ 
 				'title' => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
-				'icon'  => 'font',
+				'icon' => 'font',
 			]
 		);
 
-		// if (class_exists('Sky_Addons\Templates\Init') && is_admin()) {
 		if ( class_exists( 'Sky_Addons\Templates\Init_Templates' ) ) {
 			\Sky_Addons\Templates\Import_Template::instance()->load();
 			\Sky_Addons\Templates\Library_Load::instance()->load();
@@ -352,21 +349,14 @@ class Sky_Addons_Plugin {
 
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_site_scripts' ] );
-
-		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_style' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 998 );
 
-		add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'enqueue_scripts' ], 998 );
-
+		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_style' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_styles_backend' ], 991 );
-
-
-		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_site_styles' ] );
-		// add_action( 'elementor/frontend/before_register_scripts', [ $this, 'register_site_scripts' ] );
-
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_styles' ], 2998 );
-		// add_action('elementor/editor/before_enqueue_scripts', [$this, 'enqueue_editor_scripts']);
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
+
+		add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'enqueue_scripts' ], 998 );
+		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_site_styles' ] );
 
 		add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
 
@@ -386,7 +376,6 @@ class Sky_Addons_Plugin {
 
 /**
  * Initializes the main plugin
- * 
  */
 function sky_elementor_addons() {
 	if ( ! defined( 'SKY_ADDONS_TEST' ) ) {

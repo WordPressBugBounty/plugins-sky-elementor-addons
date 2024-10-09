@@ -860,7 +860,7 @@ class Logo_Carousel extends Widget_Base {
 			$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none ' . $tippy_class, true );
 
 			if ( ! empty( $item['link']['url'] && 'custom' == $settings['link_to'] ) ) {
-				$this->add_render_attribute( $link_attr, 'href', $item['link']['url'], true );
+				$this->add_render_attribute( $link_attr, 'href', esc_url( $item['link']['url'] ), true );
 
 				if ( $item['link']['is_external'] ) {
 					$this->add_render_attribute( $link_attr, 'target', '_blank', true );
@@ -932,7 +932,7 @@ class Logo_Carousel extends Widget_Base {
 					<figure class="sa-figure">
 						<?php
 						if ( $item['logo']['id'] ) :
-							print( wp_get_attachment_image(
+							print ( wp_get_attachment_image(
 								$item['logo']['id'],
 								$settings['thumbnail_size'],
 								false,

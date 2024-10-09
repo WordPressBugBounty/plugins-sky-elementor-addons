@@ -1029,7 +1029,7 @@ class Panel_Slider extends Widget_Base {
 		$__title_content = '<a ' . $this->get_render_attribute_string( 'title-link-attr' . $index ) . '>' . $title_content . '</a>';
 
 		if ( isset( $item['link']['url'] ) && ! empty( $item['link']['url'] ) ) :
-			$this->add_render_attribute( 'title-link-attr' . $index, 'href', $item['link']['url'], true );
+			$this->add_render_attribute( 'title-link-attr' . $index, 'href', esc_url( $item['link']['url'] ), true );
 
 			if ( $item['link']['is_external'] ) {
 				$this->add_render_attribute( 'title-link-attr' . $index, 'target', '_blank', true );
@@ -1106,7 +1106,7 @@ class Panel_Slider extends Widget_Base {
 						if ( ! $image_url ) {
 							printf( '<img src="%1$s" alt="%2$s" class="%3$s">', esc_url( $placeholder_image_src ), esc_html( $item['title'] ), 'sa-cover' );
 						} else {
-							print( wp_get_attachment_image(
+							print ( wp_get_attachment_image(
 								$item['image']['id'],
 								$settings['thumbnail_size'],
 								false,
