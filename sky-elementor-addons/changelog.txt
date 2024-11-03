@@ -1,3 +1,7 @@
+= 2.6.1 [4th November 2024] =
+
+* Improved: System improved
+
 = 2.6.0 [9th October 2024] =
 
 * Fixed: Critical error fixed in Editor mode

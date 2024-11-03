@@ -496,7 +496,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				'last_name' => $last_name,
 				'email' => get_option( 'admin_email' ),
 				'user_role' => $current_user->roles[0],
-				'website_url' => $current_user->user_url,
+				'website_url' => site_url(),
 				'website_data' => array(
 					'sdk_version' => $this->version,
 					'website_name' => get_bloginfo( 'name' ),

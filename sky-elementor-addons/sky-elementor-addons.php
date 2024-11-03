@@ -4,7 +4,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 2.6.0
+ * Version: 2.6.1
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -12,7 +12,7 @@
  * License: GPLv3 or later
  * License URI: https://opensource.org/licenses/GPL-3.0
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.24.5
+ * Elementor tested up to: 3.25.4
  *
  * @package Sky_Addons
  */
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 // Exit if accessed directly
 
-define( 'SKY_ADDONS_VERSION', '2.6.0' );
+define( 'SKY_ADDONS_VERSION', '2.6.1' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
 define( 'SKY_ADDONS_PLUGIN_BASE', plugin_basename( SKY_ADDONS__FILE__ ) );
@@ -197,7 +197,7 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 			'is_premium'           => false,
 			'popup_notice'         => false,
 			'deactivate_feedback'  => true,
-			'delay_time' 					     => [ 
+			'delay_time' 					 => [ 
 				'time'                => 3 * DAY_IN_SECONDS,
 			],
 			'text_domain'          => 'sky-elementor-addons',
@@ -206,4 +206,33 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 
 	}
 	add_action( 'admin_init', 'dci_plugin_sky_addons' );
+}
+
+
+/**
+ * Review Automation Integration
+ */
+
+if ( ! function_exists( 'sky_addons_rc_plugin' ) ) {
+	function sky_addons_rc_plugin() {
+
+		require_once SKY_ADDONS_PATH . 'includes/feedbacks/start.php';
+
+		wp_register_style( 'rc-sdk-sky-addons', SKY_ADDONS_URL . 'includes/feedbacks/assets/rc.css', array(), '1.0.0', 'all' );
+		wp_enqueue_style( 'rc-sdk-sky-addons' );
+
+		rc_dynamic_init( array(
+			'sdk_version' => '1.0.0',
+			'plugin_name' => 'Sky Addons for Elementor',
+			'plugin_icon' => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-color.svg',
+			'slug' => 'sky-elementor-addons',
+			'menu' => array(
+				'slug' => 'sky-elementor-addons',
+			),
+			'review_url' => 'https://wordpress.org/support/plugin/sky-elementor-addons/reviews/#new-post',
+			'plugin_title' => 'Yay! Great that you\'re using Sky Addons',
+			'plugin_msg' => '<p>Loved using Sky Addons on your website? Share your experience in a review and help us spread the love to everyone right now. Good words will help the community.</p>',
+		) );
+	}
+	add_action( 'admin_init', 'sky_addons_rc_plugin' );
 }
