@@ -927,9 +927,9 @@ class Content_Switcher extends Widget_Base {
 							if ( $primary['content_source'] == 'custom' && ! empty( $primary['content_source'] ) ) :
 								echo wp_kses_post( $this->parse_text_editor( $primary['custom_text'] ) );
 							elseif ( $primary['content_source'] == 'elementor' && ! empty( $primary['template_id'] ) ) :
-								echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $primary['template_id'] );
+								sky_display_el_tem_by_id( $primary['template_id'] );
 							elseif ( $primary['content_source'] == 'anywhere' && ! empty( $primary['anywhere_id'] ) ) :
-								echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $primary['anywhere_id'] );
+								sky_display_el_tem_by_id( $primary['anywhere_id'] );
 							else :
 								echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 							endif;
@@ -941,9 +941,9 @@ class Content_Switcher extends Widget_Base {
 								if ( $secondary['content_source'] == 'custom' && ! empty( $secondary['content_source'] ) ) :
 									echo wp_kses_post( $this->parse_text_editor( $secondary['custom_text'] ) );
 								elseif ( $secondary['content_source'] == 'elementor' && ! empty( $secondary['template_id'] ) ) :
-									echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $secondary['template_id'] );
+									sky_display_el_tem_by_id( $secondary['template_id'] );
 								elseif ( $secondary['content_source'] == 'anywhere' && ! empty( $secondary['anywhere_id'] ) ) :
-									echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $secondary['anywhere_id'] );
+									sky_display_el_tem_by_id( $secondary['anywhere_id'] );
 								else :
 									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 								endif;
@@ -972,9 +972,9 @@ class Content_Switcher extends Widget_Base {
 								if ( $item['content_source'] == 'custom' && ! empty( $item['content_source'] ) ) :
 									echo wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
 								elseif ( $item['content_source'] == 'elementor' && ! empty( $item['template_id'] ) ) :
-									echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['template_id'] );
+									sky_display_el_tem_by_id( $item['template_id'] );
 								elseif ( $item['content_source'] == 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
-									echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['anywhere_id'] );
+									sky_display_el_tem_by_id( $item['anywhere_id'] );
 								else :
 									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 								endif;

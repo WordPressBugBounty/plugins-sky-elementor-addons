@@ -1307,15 +1307,12 @@ class Advanced_Accordion extends Widget_Base {
 							if ( 'custom' == $item['content_source'] && ! empty( $item['content_source'] ) ) :
 								echo wp_kses_post( $this->parse_text_editor( $item['custom_content'] ) );
 							elseif ( 'elementor' == $item['content_source'] && ! empty( $item['template_id'] ) ) :
-								echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['template_id'] );
+								sky_display_el_tem_by_id( $item['template_id'] );
 							elseif ( 'anywhere' == $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
-								echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['anywhere_id'] );
+								sky_display_el_tem_by_id( $item['anywhere_id'] );
 							else :
 								esc_html_e( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 							endif;
-							// TODO modify link
-							// echo sky_template_modify_link(520);
-							// $item['template_id']
 							?>
 						</div>
 					</div>

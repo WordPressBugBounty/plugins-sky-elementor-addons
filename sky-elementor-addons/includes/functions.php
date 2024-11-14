@@ -373,3 +373,24 @@ if ( ! function_exists( 'sa_wp_get_menu' ) ) {
 		return $items;
 	}
 }
+
+/**
+ * Display an Elementor template by its ID.
+ *
+ * @param int $template_id The ID of the Elementor template.
+ */
+if ( ! function_exists( 'sky_display_el_tem_by_id' ) ) {
+	function sky_display_el_tem_by_id( int $template_id ) {
+		$posts = get_posts( [ 
+			'post_type' => 'elementor_library',
+			'post_status' => 'publish',
+			'p' => $template_id
+		] );
+
+		if ( ! empty( $posts ) && $posts[0]->ID === $template_id ) {
+			echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $template_id );
+		} else {
+			echo esc_html__( 'The post is not published or does not exist.', 'sky-elementor-addons' );
+		}
+	}
+}

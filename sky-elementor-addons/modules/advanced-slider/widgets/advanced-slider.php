@@ -2814,9 +2814,9 @@ class Advanced_Slider extends Widget_Base {
 						</div>
 						<?php
 					elseif ( $item['content_source'] == 'elementor' && ! empty( $item['template_id'] ) ) :
-						echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['template_id'] );
+						sky_display_el_tem_by_id( $item['template_id'] );
 					elseif ( $item['content_source'] == 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
-						echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $item['anywhere_id'] );
+						sky_display_el_tem_by_id( $item['anywhere_id'] );
 					else :
 						echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 					endif;

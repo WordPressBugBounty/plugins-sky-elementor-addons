@@ -1264,7 +1264,7 @@ class Sky_Addons_Admin {
 		$action = $this->action();
 		$nonce = $this->verify_nonce( $post_value );
 
-		if ( true || wp_verify_nonce( $nonce, $action ) ) {
+		if ( wp_verify_nonce( $nonce, $action ) ) {
 			$option_name = $post_value['option_page'];
 			$post_value['na'] = 'activated-all';
 

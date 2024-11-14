@@ -49,6 +49,7 @@ class Social_Icons extends Widget_Base
         return [
             'elementor-icons-fa-solid',
             'elementor-icons-fa-brands',
+            'widget-social-icons',
         ];
     }
 
