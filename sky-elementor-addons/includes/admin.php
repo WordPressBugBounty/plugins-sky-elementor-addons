@@ -1260,6 +1260,10 @@ class Sky_Addons_Admin {
 
 	public function save_options() {
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$post_value = $this->option_data_check( $_POST );
 		$action = $this->action();
 		$nonce = $this->verify_nonce( $post_value );

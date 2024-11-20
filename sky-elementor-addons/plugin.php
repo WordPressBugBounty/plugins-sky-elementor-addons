@@ -338,6 +338,7 @@ class Sky_Addons_Plugin {
 		require_once __DIR__ . '/includes/functions.php';
 		if ( is_admin() ) {
 			require_once sky_addons_core()->includes_dir . 'admin.php';
+			require_once sky_addons_core()->includes_dir . 'class-admin-feeds.php';
 		} else {
 			//TODO for frontEnd
 		}
