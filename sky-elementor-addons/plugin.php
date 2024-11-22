@@ -359,9 +359,7 @@ class Sky_Addons_Plugin {
 		add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'enqueue_scripts' ], 998 );
 		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_site_styles' ] );
 
-		add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
-
-		$this->init_plugin();
+		add_action( 'init', [ $this, 'init_plugin' ] );
 	}
 
 	/**

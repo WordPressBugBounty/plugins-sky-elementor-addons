@@ -770,7 +770,7 @@ class Generic_Carousel extends Widget_Base
         $this->add_responsive_control(
             'meta_padding',
             [
-                'label'      => esc_html__('Padding', 'sky-elementor-addons-pro'),
+                'label'      => esc_html__('Padding', 'sky-elementor-addons'),
                 'type'       => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
                 'selectors'  => [
@@ -876,7 +876,7 @@ class Generic_Carousel extends Widget_Base
         $this->start_controls_section(
             'play_btn_style',
             [
-                'label'     => esc_html__('Play Button', 'sky-elementor-addons-pro'),
+                'label'     => esc_html__('Play Button', 'sky-elementor-addons'),
                 'tab'       => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_video' => 'yes'

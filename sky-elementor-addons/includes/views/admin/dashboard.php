@@ -272,7 +272,7 @@ $ribbon_text = '';
 											<?php esc_html_e( 'Sky Addons for Elementor', 'sky-elementor-addons' ); ?>
 										</h4>
 										<p>
-											<?php esc_html_e( 'Power to create stunning websites with one-click. Create beautiful, <br>mobile-ready sites in minutes.', 'sky-elementor-addons' ); ?>
+											<?php esc_html_e( 'Power to create stunning websites with one-click. Create beautiful, mobile-ready sites in minutes.', 'sky-elementor-addons' ); ?>
 										</p>
 										<p class="sa-fw-bold sa-mb-0">
 											<?php

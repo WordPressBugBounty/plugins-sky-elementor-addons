@@ -24,6 +24,7 @@ class Sky_Addons_Admin {
 		$this->dispatch_actions();
 		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 		add_action( 'wp_ajax_sky_save_option_data', [ $this, 'save_options' ] );
+		add_action( 'wp_ajax_sky_black_friday_notice_dismiss', [ $this, 'sky_black_friday_notice_dismiss' ] );
 	}
 
 	public function dispatch_actions() {
@@ -37,6 +38,42 @@ class Sky_Addons_Admin {
 		if ( ! Tracker::is_allow_track() ) {
 			add_action( 'sky_allow_tracker_notice', [ $this, 'allow_tracker_notice' ], 10, 3 );
 		}
+
+		add_action( 'admin_notices', [ $this, 'black_friday_notice' ] );
+	}
+
+	/**
+	 * Notice for 70% Black Friday & Cyber Monday Deal
+	 * Link: https://skyaddons.com/pricing/
+	 * Notice will be not show after 10 Dec 2024
+	 * 
+	 * Success notice
+	 * Transient for 3 days
+	 */
+	public function black_friday_notice() {
+		$black_friday_date = strtotime( '2024-12-10' );
+		$today = strtotime( date( 'Y-m-d' ) );
+
+		// Check if the transient is set, and display the notice
+		$transitent = get_transient( 'sky_black_friday_notice' );
+		if ( $transitent ) {
+			return;
+		}
+
+		if ( $today < $black_friday_date ) {
+			?>
+			<div class="notice notice-success sky_black_friday_notice is-dismissible">
+				<p><?php echo esc_html__( 'Get 70% OFF on Sky Addons Pro. Limited Time Offer! ', 'sky-elementor-addons' ); ?><a href="https://skyaddons.com/pricing/?coupon=BFCY2024" target="_blank"><?php echo esc_html__( 'Get Pro', 'sky-elementor-addons' ); ?></a></p>
+			</div>
+			<?php
+		}
+	}
+
+	/**
+	 * Dismiss Black Friday Notice
+	 */
+	public function sky_black_friday_notice_dismiss() {
+		set_transient( 'sky_black_friday_notice', true, 3 * DAY_IN_SECONDS );
 	}
 
 	public function allow_tracker_notice() {

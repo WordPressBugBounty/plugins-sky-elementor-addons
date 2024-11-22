@@ -1157,7 +1157,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'list_scrollbar_style',
 			[ 
-				'label' => esc_html__( 'Scrollbar', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Scrollbar', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [ 
 					'playlist_show_scrollbar' => 'yes'
@@ -1168,7 +1168,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'list_scrollbar_size',
 			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range' => [ 
@@ -1187,7 +1187,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_scrollbar_color',
 			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} .sa-swiper-scrollbar' => 'background-color: {{VALUE}}',
@@ -1198,7 +1198,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_scrollbar_drag_color',
 			[ 
-				'label' => esc_html__( 'Drag Color', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Drag Color', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} .swiper-scrollbar-drag' => 'background-color: {{VALUE}}',
@@ -1211,7 +1211,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [ 
 					'show_video' => 'yes'
@@ -1232,7 +1232,7 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'item_play_btn_style',
 			[ 
-				'label' => esc_html__( 'Play Button Items', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Play Button Items', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [ 
 					'show_video' => 'yes'

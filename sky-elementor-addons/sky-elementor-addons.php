@@ -4,7 +4,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 2.6.3
+ * Version: 2.6.4
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 // Exit if accessed directly
 
-define( 'SKY_ADDONS_VERSION', '2.6.3' );
+define( 'SKY_ADDONS_VERSION', '2.6.4' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
 define( 'SKY_ADDONS_PLUGIN_BASE', plugin_basename( SKY_ADDONS__FILE__ ) );
@@ -33,6 +33,19 @@ define( 'SKY_ADDONS_ASSETS_URL', SKY_ADDONS_URL . 'assets/' );
 define( 'SKY_ADDONS_ASSETS_PATH', SKY_ADDONS_PATH . 'assets/' );
 define( 'SKY_ADDONS_MODULES_URL', SKY_ADDONS_URL . 'modules/' );
 define( 'SKY_ADDONS_PATH_NAME', basename( dirname( SKY_ADDONS__FILE__ ) ) );
+
+/**
+ * Load gettext translate for our text domain.
+ *
+ * @since 1.0.0
+ *
+ * @return void
+ */
+function sky_addons_load_textdomain() {
+	load_plugin_textdomain( 'sky-elementor-addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+
+add_action( 'init', 'sky_addons_load_textdomain' );
 
 if ( ! function_exists( '_is_sky_addons_pro_activated' ) ) {
 
@@ -56,15 +69,9 @@ if ( ! _is_sky_addons_pro_activated() ) {
 	require_once SKY_ADDONS_INC_PATH . 'pro-widget-map.php';
 }
 
-/**
- * Load gettext translate for our text domain.
- *
- * @since 1.0.0
- *
- * @return void
- */
 function sky_addons_load_plugin() {
-	load_plugin_textdomain( 'sky-elementor-addons', false, SKY_ADDONS_PATH_NAME . '/languages' );
+
+	load_plugin_textdomain( 'sky-elementor-addons' );
 
 	if ( ! did_action( 'elementor/loaded' ) ) {
 		add_action( 'admin_notices', 'sky_addons_fail_load' );
@@ -181,27 +188,27 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 		wp_enqueue_style( 'dci-sdk-sky-addons' );
 
 		dci_dynamic_init( array(
-			'sdk_version'          => '1.2.1',
-			'product_id'           => 1,
-			'plugin_name'          => 'Sky Addons for Elementor', // make simple, must not empty
-			'plugin_title'         => 'Love using Sky Addons? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
-			'plugin_icon'          => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-color.svg', // delete the line of you don't need
-			'api_endpoint'         => 'https://dashboard.wowdevs.com/wp-json/dci/v1/data-insights',
-			'slug'                 => 'sky-elementor-addons',
-			'core_file'            => false,
+			'sdk_version' => '1.2.1',
+			'product_id' => 1,
+			'plugin_name' => 'Sky Addons for Elementor', // make simple, must not empty
+			'plugin_title' => 'Love using Sky Addons? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
+			'plugin_icon' => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-color.svg', // delete the line of you don't need
+			'api_endpoint' => 'https://dashboard.wowdevs.com/wp-json/dci/v1/data-insights',
+			'slug' => 'sky-elementor-addons',
+			'core_file' => false,
 			'plugin_deactivate_id' => false,
-			'menu'                 => array(
-				'slug'                => 'sky-elementor-addons',
+			'menu' => array(
+				'slug' => 'sky-elementor-addons',
 			),
-			'public_key'           => 'pk_KBsDjbVN4rZidFoSQzBFrXIuMmHvOJvm',
-			'is_premium'           => false,
-			'popup_notice'         => false,
-			'deactivate_feedback'  => true,
-			'delay_time' 					 => [ 
-				'time'                => 3 * DAY_IN_SECONDS,
+			'public_key' => 'pk_KBsDjbVN4rZidFoSQzBFrXIuMmHvOJvm',
+			'is_premium' => false,
+			'popup_notice' => false,
+			'deactivate_feedback' => true,
+			'delay_time' => [ 
+				'time' => 3 * DAY_IN_SECONDS,
 			],
-			'text_domain'          => 'sky-elementor-addons',
-			'plugin_msg'           => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
+			'text_domain' => 'sky-elementor-addons',
+			'plugin_msg' => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
 		) );
 
 	}

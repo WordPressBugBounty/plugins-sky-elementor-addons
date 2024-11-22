@@ -582,7 +582,7 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			$prefix . '_icon_size',
 			[ 
-				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons-pro' ),
+				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [ 
@@ -600,7 +600,7 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			$prefix . '_padding',
 			[ 
-				'label'      => esc_html__( 'Padding', 'sky-elementor-addons-pro' ),
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [ 
@@ -613,7 +613,7 @@ trait Global_Widget_Controls {
 			Group_Control_Border::get_type(),
 			[ 
 				'name'     => $prefix . '_border',
-				'label'    => esc_html__( 'Border', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} ' . $selector . '',
 			]
 		);
@@ -621,7 +621,7 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			$prefix . '_border_radius',
 			[ 
-				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons-pro' ),
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [ 
@@ -635,14 +635,14 @@ trait Global_Widget_Controls {
 		$this->start_controls_tab(
 			$prefix . '_tab_normal',
 			[ 
-				'label' => esc_html__( 'Normal', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			$prefix . '_color',
 			[ 
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons-pro' ),
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} ' . $selector . '' => 'color: {{VALUE}}',
@@ -654,7 +654,7 @@ trait Global_Widget_Controls {
 			Group_Control_Background::get_type(),
 			[ 
 				'name'     => $prefix . '_background',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} ' . $selector . '',
 			]
@@ -664,7 +664,7 @@ trait Global_Widget_Controls {
 			Group_Control_Text_Shadow::get_type(),
 			[ 
 				'name'     => $prefix . '_text_shadow',
-				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} ' . $selector . '',
 			]
 		);
@@ -673,7 +673,7 @@ trait Global_Widget_Controls {
 			Group_Control_Box_Shadow::get_type(),
 			[ 
 				'name'     => $prefix . '_box_shadow',
-				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} ' . $selector . '',
 			]
 		);
@@ -683,7 +683,7 @@ trait Global_Widget_Controls {
 		$this->start_controls_tab(
 			$prefix . '_tab_hover',
 			[ 
-				'label' => esc_html__( 'Hover', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -691,7 +691,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$prefix . '_color_hover',
 			[ 
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons-pro' ),
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} ' . $selector . ':hover' => 'color: {{VALUE}}',
@@ -703,7 +703,7 @@ trait Global_Widget_Controls {
 			Group_Control_Background::get_type(),
 			[ 
 				'name'     => $prefix . '_background_hover',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} ' . $selector . ':hover',
 			]
@@ -712,7 +712,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$prefix . '_border_color_hover',
 			[ 
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons-pro' ),
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} ' . $selector . ':hover' => 'border-color: {{VALUE}};',
@@ -727,7 +727,7 @@ trait Global_Widget_Controls {
 			Group_Control_Text_Shadow::get_type(),
 			[ 
 				'name'     => $prefix . '_text_shadow_hover',
-				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} ' . $selector . ':hover',
 			]
 		);
@@ -736,7 +736,7 @@ trait Global_Widget_Controls {
 			Group_Control_Box_Shadow::get_type(),
 			[ 
 				'name'     => $prefix . '_box_shadow_hover',
-				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons-pro' ),
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} ' . $selector . ':hover',
 			]
 		);

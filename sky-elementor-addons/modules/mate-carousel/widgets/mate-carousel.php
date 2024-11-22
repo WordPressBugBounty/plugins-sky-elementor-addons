@@ -932,7 +932,7 @@ class Mate_Carousel extends Widget_Base
         $this->start_controls_section(
             'play_btn_style',
             [
-                'label'     => esc_html__('Play Button', 'sky-elementor-addons-pro'),
+                'label'     => esc_html__('Play Button', 'sky-elementor-addons'),
                 'tab'       => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_video' => 'yes'

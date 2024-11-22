@@ -414,7 +414,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_control(
 			'show_navigation',
 			[ 
-				'label' => esc_html__( 'Show Navigation', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Show Navigation', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 				'separator' => 'before',
@@ -424,7 +424,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_control(
 			'show_navigation_always',
 			[ 
-				'label' => esc_html__( 'Show Navigation always', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Show Navigation always', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::SWITCHER,
 				'selectors' => [ 
 					'{{WRAPPER}} .sa-nav' => 'opacity: 1; visibility: visible;',
@@ -437,7 +437,7 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation',
 			[ 
-				'label' => esc_html__( 'Navigation', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_CONTENT,
 				'condition' => [ 'show_navigation' => 'yes' ],
 			]
@@ -446,7 +446,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_control(
 			'prev_icon',
 			[ 
-				'label' => esc_html__( 'Prev Icon', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Prev Icon', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::ICONS,
 			]
 		);
@@ -454,7 +454,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_control(
 			'next_icon',
 			[ 
-				'label' => esc_html__( 'Next Icon', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Next Icon', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::ICONS,
 			]
 		);
@@ -926,7 +926,7 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation_style',
 			[ 
-				'label' => esc_html__( 'Navigation', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [ 
 					'show_navigation' => 'yes',
@@ -937,7 +937,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_size',
 			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range' => [ 
@@ -955,7 +955,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_spacing',
 			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range' => [ 
@@ -973,7 +973,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_padding',
 			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [ 
@@ -986,7 +986,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Border::get_type(),
 			[ 
 				'name' => 'navigation_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -994,7 +994,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_border_radius',
 			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [ 
@@ -1008,14 +1008,14 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'navigation_tab_normal',
 			[ 
-				'label' => esc_html__( 'Normal', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color',
 			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'color: {{VALUE}}',
@@ -1028,7 +1028,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[ 
 				'name' => 'navigation_bg',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types' => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
@@ -1038,7 +1038,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			[ 
 				'name' => 'navigation_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -1047,7 +1047,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[ 
 				'name' => 'navigation_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -1057,14 +1057,14 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'navigation_tab_hover',
 			[ 
-				'label' => esc_html__( 'Hover', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color_hover',
 			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'color: {{VALUE}}',
@@ -1077,7 +1077,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[ 
 				'name' => 'navigation_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types' => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
@@ -1086,7 +1086,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_control(
 			'navigation_border_color_hover',
 			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [ 
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-color: {{VALUE}};',
@@ -1101,7 +1101,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			[ 
 				'name' => 'navigation_text_shadow_hover',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
@@ -1110,7 +1110,7 @@ class Mate_Slider extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[ 
 				'name' => 'navigation_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
@@ -1124,7 +1124,7 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons-pro' ),
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
 				'tab' => Controls_Manager::TAB_STYLE,
 				'condition' => [ 
 					'show_video' => 'yes',
