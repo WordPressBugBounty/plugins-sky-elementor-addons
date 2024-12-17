@@ -49,6 +49,14 @@ class Mate_Slider extends Widget_Base {
 		return [ 'sky', 'post', 'blogs', 'bloggers', 'mate', 'sliders', 'carousel' ];
 	}
 
+	public function get_style_depends() {
+		return [ 'swiper' ];
+	}
+
+	public function get_script_depends() {
+		return [ 'swiper' ];
+	}
+
 	public function get_query() {
 		return $this->_query;
 	}

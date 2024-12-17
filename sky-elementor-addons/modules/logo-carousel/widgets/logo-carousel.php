@@ -47,12 +47,13 @@ class Logo_Carousel extends Widget_Base {
 
 	public function get_style_depends() {
 		return [ 
+			'swiper',
 			'tippy',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'popper', 'tippyjs' ];
+		return [ 'popper', 'tippyjs', 'swiper' ];
 	}
 
 	protected function register_controls() {

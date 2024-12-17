@@ -45,6 +45,16 @@ class Panel_Slider extends Widget_Base {
 		return [ 'creative', 'panel', 'slider', 'carousel', 'portfolio', 'sky' ];
 	}
 
+	public function get_style_depends() {
+		return [ 
+			'swiper'
+		];
+	}
+
+	public function get_script_depends() {
+		return [ 'swiper' ];
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

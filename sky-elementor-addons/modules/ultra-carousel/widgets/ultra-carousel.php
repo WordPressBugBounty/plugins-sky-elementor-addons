@@ -52,8 +52,13 @@ class Ultra_Carousel extends Widget_Base {
 
 	public function get_style_depends() {
 		return [ 
+			'swiper',
 			'elementor-icons-fa-solid',
 		];
+	}
+
+	public function get_script_depends() {
+		return [ 'swiper' ];
 	}
 
 	public function get_query() {

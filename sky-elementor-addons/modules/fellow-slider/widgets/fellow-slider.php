@@ -58,8 +58,13 @@ class Fellow_Slider extends Widget_Base {
 
 	public function get_style_depends() {
 		return [ 
+			'swiper',
 			'elementor-icons-fa-solid',
 		];
+	}
+
+	public function get_script_depends() {
+		return [ 'swiper' ];
 	}
 
 	protected function register_controls() {

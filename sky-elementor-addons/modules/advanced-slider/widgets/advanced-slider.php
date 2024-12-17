@@ -43,6 +43,14 @@ class Advanced_Slider extends Widget_Base {
 		return [ 'sky', 'slider', 'advanced', 'image', 'photo', 'carousel' ];
 	}
 
+	public function get_style_depends() {
+		return ['swiper'];
+	}
+	
+	public function get_script_depends() {
+		return [ 'swiper' ];
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

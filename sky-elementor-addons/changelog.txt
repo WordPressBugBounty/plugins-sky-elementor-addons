@@ -1,3 +1,21 @@
+= 2.6.5 [18th December 2024] =
+
+* Improved: Swiper Support improved
+
+= 2.6.4 [22th November 2024] =
+
+* Improved: System improved
+* Fixed: Text Domain issue fixed
+
+= 2.6.3 [21th November 2024] =
+
+* Improved: System improved
+
+= 2.6.2 [15th November 2024] =
+
+* Improved: System improved
+* Fixed: System Security improved
+
 = 2.6.1 [4th November 2024] =
 
 * Improved: System improved
