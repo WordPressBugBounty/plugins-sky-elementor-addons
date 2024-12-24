@@ -1132,7 +1132,7 @@ var widgetAudioPlayer = function ($scope, $) {
 
             run: function () {
                 var options = this.getDefaultSettings(),
-                    element = this.findElement('.elementor-widget-container').get(0);
+                    element = this.$element.get(0);
 
                 options.targets = element;
 
@@ -1242,6 +1242,7 @@ var widgetAudioPlayer = function ($scope, $) {
     });
 
 }(jQuery));
+
 jQuery('body').on('click', '.sa-element-link', function () {
     var timeout,
         $element = jQuery(this),
@@ -1530,7 +1531,7 @@ jQuery('body').on('click', '.sa-element-link', function () {
                 }
 
                 if ($(this.$element).hasClass('elementor-widget')) {
-                    elementContainer = $('.elementor-element-' + elementID).find('.elementor-widget-container');
+                    elementContainer = $('.elementor-element-' + elementID + ' > :first-child');
                     elementContainer.css({
                         'position': 'relative',
                         'overflow': 'hidden',
@@ -1616,6 +1617,7 @@ jQuery('body').on('click', '.sa-element-link', function () {
     });
 
 }(jQuery));
+
 ;
 (function ($) {
     var $window = $(window),
@@ -1693,15 +1695,13 @@ jQuery('body').on('click', '.sa-element-link', function () {
                 var options = this.getDefaultSettings(),
                     elementID = this.getID(),
                     elementContainer = $('.elementor-element-' + elementID),
-                    element = '.elementor-element-' + elementID;
+                    element = $('.elementor-element-' + elementID + ' > :first-child');
 
                 if (this.settings('enable') !== 'yes') {
                     return;
                 }
 
                 if ($(this.$element).hasClass('elementor-widget')) {
-                    elementContainer = $('.elementor-element-' + elementID).find('.elementor-widget-container');
-                    element = $('.elementor-element-' + elementID).find('.elementor-widget-container');
                     elementContainer.css({
                         'position': 'relative',
                     });
@@ -1761,6 +1761,7 @@ jQuery('body').on('click', '.sa-element-link', function () {
     });
 
 }(jQuery));
+
 ;
 (function ($) {
     var $window = $(window),
@@ -1843,10 +1844,10 @@ jQuery('body').on('click', '.sa-element-link', function () {
             run: function () {
                 var options = this.getDefaultSettings(),
                     elementID = this.getID(),
-                    element = this.findElement('.elementor-widget-container').get(0);
+                    element = this.$element.get(0);
 
                 if ($(this.element).hasClass('elementor-widget')) {
-                    element = $('.elementor-element-' + elementID).find('.elementor-widget-container');
+                    element = $('.elementor-element-' + elementID);
                 }
 
                 if (this.settings('enable') !== 'yes') {

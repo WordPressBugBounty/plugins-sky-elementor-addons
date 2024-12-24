@@ -8,11 +8,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Sky_Elementor_Addons_Pro_Updater {
 	private $plugin_slug = 'sky-elementor-addons-pro/sky-elementor-addons-pro.php';
-	private $update_url = 'https://licenses.wowdevs.com/wp-content/uploads/2024/12/sky-elementor-addons-pro-v.2.1.0.zip?v=2.1.0';
+	private $update_url = 'https://licenses.wowdevs.com/wp-content/uploads/2024/12/sky-elementor-addons-pro-v.2.1.1.zip?v=2.1.1';
 
 	public function __construct() {
 		add_action( 'wp_ajax_update_sky_pro_plugin', [ $this, 'ajax_handle_update' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
+		$has_license = get_option('sky_addons_pro_license_key', false);
+		
+		if ( $has_license ) {
+			$license_key = trim( str_replace( ' ', '', $has_license ) );
+			update_option( "sky_addons_pro_license_key", $license_key );
+		}
 
 		add_action( 'admin_notices', function () {
 			?>
