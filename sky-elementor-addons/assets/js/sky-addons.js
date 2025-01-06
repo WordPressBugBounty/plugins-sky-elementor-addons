@@ -1695,7 +1695,8 @@ jQuery('body').on('click', '.sa-element-link', function () {
                 var options = this.getDefaultSettings(),
                     elementID = this.getID(),
                     elementContainer = $('.elementor-element-' + elementID),
-                    element = $('.elementor-element-' + elementID + ' > :first-child');
+                    element = $('.elementor-element-' + elementID );
+                    // element = $('.elementor-element-' + elementID + ' > :first-child');
 
                 if (this.settings('enable') !== 'yes') {
                     return;

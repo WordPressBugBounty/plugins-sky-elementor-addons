@@ -1,3 +1,15 @@
+= 2.6.8 [06th January 2025] =
+
+* Fixed: Ripple Effects Fixed (Thanks to Johnathan)
+
+= 2.6.7 [25th December 2024] =
+
+* Improved: System improved
+
+= 2.6.6 [20th December 2024] =
+
+* Improved: System improved for Pro
+
 = 2.6.5 [18th December 2024] =
 
 * Improved: Swiper Support improved
