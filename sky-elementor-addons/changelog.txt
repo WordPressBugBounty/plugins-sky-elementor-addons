@@ -1,3 +1,8 @@
+= 2.6.9 [18th January 2025] =
+
+* Fixed: Button Alignment isse fixed in Card widget (Thanks to Faye)
+* Improved: Templates Library improved
+
 = 2.6.8 [06th January 2025] =
 
 * Fixed: Ripple Effects Fixed (Thanks to Johnathan)

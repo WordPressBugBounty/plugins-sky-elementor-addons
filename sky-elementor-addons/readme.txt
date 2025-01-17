@@ -1,6 +1,6 @@
 === Sky Addons for Elementor (Free Templates Library, Live Copy, Animations, Post Grid, Post Carousel, Particles, Sliders, Chart, Blog, Video Gallery) ===
 Plugin Name: Sky Addons for Elementor
-Version: 2.6.8
+Version: 2.6.9
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, techfyd
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.0.0
-Stable tag: 2.6.8
+Stable tag: 2.6.9
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -17,7 +17,7 @@ On-Demand Elementor Best Addons. Power to create stunning websites with one-clic
 
 
 == Description ==
-Sky Addons offers a wide range of extensions and widgets. We provide all the tools you need to make your website more advanced and engaging. With features like card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
+Sky Addons for Elementor is a powerful and feature-rich plugin designed to supercharge your Elementor experience. Unlock a vast library of Free Templates and elevate your website with advanced features like Live Copy, Animations, Post Grid, Post Carousel, Particles, Sliders, Charts, Blog Enhancements, and a dynamic Video Gallery.
 
 
 **Creativity of Sky Addons**
@@ -29,7 +29,9 @@ https://youtu.be/wSIDsoSKK1c
 https://youtu.be/3qv5FfTVcbk
 
 
-The team at Sky Addons has been working to bring you the best possible Elementor Addons. We're committed to delivering professional-grade and beautifully designed Elementor Addons that'll make your life so much easier and help you save time and money. With one-click installs, you can create beautiful, mobile-ready sites in minutes with no hassle.
+Take your designs to the next level with trendsetting widgets and seamless integrations. Perfect for creators, developers, and marketers looking to build visually stunning and highly functional websites with ease.
+
+Stay ahead of the curve with Sky Addons – your ultimate toolkit for Elementor!
 
 
 ### Premium Quality Elementor Widgets and Extensions Free For Forever
@@ -250,6 +252,11 @@ You can ask any questions on the support forum of WordPress. We have a support t
 20. Image Compare Widget
 
 == Changelog ==
+
+= 2.6.9 [18th January 2025] =
+
+* Fixed: Button Alignment isse fixed in Card widget (Thanks to Faye)
+* Improved: Templates Library improved
 
 = 2.6.8 [06th January 2025] =
 

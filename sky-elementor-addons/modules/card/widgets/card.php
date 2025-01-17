@@ -309,16 +309,13 @@ class Card extends Widget_Base {
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon' => 'eicon-text-align-right',
 					],
-					'justify' => [ 
-						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
-					],
 				],
 				'condition' => [ 
 					'button_full_width' => 'yes'
 				],
+				'default' => 'center',
 				'selectors' => [ 
-					'{{WRAPPER}} .sa-card .sa-button' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .sa-button' => 'justify-content: {{VALUE}};',
 				],
 			]
 		);
@@ -1555,8 +1552,8 @@ class Card extends Widget_Base {
 				<?php
 				if ( $settings['show_button'] == 'yes' ) :
 
-					$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-d-inline-flex sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
-					$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] == 'yes' ) ? 'sa-d-flex' : '' );
+					$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
+					$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] == 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
 
 					if ( ! empty( $settings['link']['url'] ) ) {
 						$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );

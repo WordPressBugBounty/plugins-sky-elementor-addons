@@ -393,6 +393,7 @@ class Changelog extends Widget_Base {
 		$final_response_data = str_replace( ']', ')', $final_response_data );
 		$final_response_data = str_replace( 'Added:', '<span class="sa-label-changelog sa-added">Added:</span> ', $final_response_data );
 		$final_response_data = str_replace( 'Updated:', '<span class="sa-label-changelog sa-updated">Updated:</span> ', $final_response_data );
+		$final_response_data = str_replace( 'Improved:', '<span class="sa-label-changelog sa-updated">Improved:</span> ', $final_response_data );
 		$final_response_data = str_replace( 'Fixed:', '<span class="sa-label-changelog sa-fixed">Fixed:</span> ', $final_response_data );
 		$final_response_data = str_replace( 'Removed:', '<span class="sa-label-changelog sa-removed">Removed:</span> ', $final_response_data );
 		$final_response_data = str_replace( 'Changed:', '<span class="sa-label-changelog sa-changed">Changed:</span> ', $final_response_data );
