@@ -41,9 +41,9 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_advanced_skills',
-			[ 
+			[
 				'label' => esc_html__( 'Skill Bars', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -51,27 +51,27 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'skill_name',
-			[ 
-				'label' => esc_html__( 'Skill Name', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( 'Design', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Skill Name', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Design', 'sky-elementor-addons' ),
 				'label_block' => true,
 			]
 		);
 
 		$repeater->add_control(
 			'skill_max_value',
-			[ 
-				'label' => esc_html__( 'Skill Max Value', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Skill Max Value', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%' ],
-				'range' => [ 
-					'%' => [ 
+				'range'      => [
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default' => [ 
+				'default'    => [
 					'unit' => '%',
 					'size' => 100,
 				],
@@ -80,17 +80,17 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'skill_value',
-			[ 
-				'label' => esc_html__( 'Skill Value (Out of 100)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Skill Value (Out of 100)', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%' ],
-				'range' => [ 
-					'%' => [ 
+				'range'      => [
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default' => [ 
+				'default'    => [
 					'unit' => '%',
 					'size' => 80,
 				],
@@ -99,22 +99,22 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'skill_item_customize',
-			[ 
-				'label' => esc_html__( 'Customize ?', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'     => esc_html__( 'Customize ?', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
 
 		$repeater->add_control(
 			'base_color_item',
-			[ 
-				'label' => esc_html__( 'Base Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Base Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-item{{CURRENT_ITEM}} .sa-skill-progress' => 'background-color: {{VALUE}}',
 				],
-				'condition' => [ 
+				'condition' => [
 					'skill_item_customize' => 'yes',
 				],
 			]
@@ -122,10 +122,10 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'fill_heading_item',
-			[ 
-				'label' => esc_html__( 'Fill Progress', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Fill Progress', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'condition' => [
 					'skill_item_customize' => 'yes',
 				],
 			]
@@ -133,12 +133,12 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'fill_background_item',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-advanced-skills .sa-skill-item{{CURRENT_ITEM}} .sa-skill-progress-bar',
-				'condition' => [ 
+			[
+				'name'      => 'fill_background_item',
+				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'     => [ 'classic', 'gradient' ],
+				'selector'  => '{{WRAPPER}} .sa-advanced-skills .sa-skill-item{{CURRENT_ITEM}} .sa-skill-progress-bar',
+				'condition' => [
 					'skill_item_customize' => 'yes',
 				],
 			]
@@ -146,13 +146,13 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'name_color_item',
-			[ 
-				'label' => esc_html__( 'Skill Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Skill Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-skill-item{{CURRENT_ITEM}} .sa-skill-name' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 
+				'condition' => [
 					'skill_item_customize' => 'yes',
 				],
 			]
@@ -160,13 +160,13 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$repeater->add_control(
 			'value_color_item',
-			[ 
-				'label' => esc_html__( 'Percentage / Value Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Percentage / Value Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-skill-item{{CURRENT_ITEM}} .sa-skill-value' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 
+				'condition' => [
 					'skill_item_customize' => 'yes',
 				],
 			]
@@ -174,42 +174,42 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'skill_list',
-			[ 
-				'label' => '',
-				'type' => Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'default' => [ 
-					[ 
-						'skill_name' => esc_html__( 'HTML', 'sky-elementor-addons' ),
-						'skill_value' => [ 
+			[
+				'label'       => '',
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => [
+					[
+						'skill_name'  => esc_html__( 'HTML', 'sky-elementor-addons' ),
+						'skill_value' => [
 							'size' => 80,
 							'unit' => '%',
 						],
 					],
-					[ 
-						'skill_name' => esc_html__( 'CSS', 'sky-elementor-addons' ),
-						'skill_value' => [ 
+					[
+						'skill_name'  => esc_html__( 'CSS', 'sky-elementor-addons' ),
+						'skill_value' => [
 							'size' => 90,
 							'unit' => '%',
 						],
 					],
-					[ 
-						'skill_name' => esc_html__( 'JS', 'sky-elementor-addons' ),
-						'skill_value' => [ 
+					[
+						'skill_name'  => esc_html__( 'JS', 'sky-elementor-addons' ),
+						'skill_value' => [
 							'size' => 65,
 							'unit' => '%',
 						],
 					],
-					[ 
-						'skill_name' => esc_html__( 'PHP', 'sky-elementor-addons' ),
-						'skill_value' => [ 
+					[
+						'skill_name'  => esc_html__( 'PHP', 'sky-elementor-addons' ),
+						'skill_value' => [
 							'size' => 70,
 							'unit' => '%',
 						],
 					],
-					[ 
-						'skill_name' => esc_html__( 'WordPress', 'sky-elementor-addons' ),
-						'skill_value' => [ 
+					[
+						'skill_name'  => esc_html__( 'WordPress', 'sky-elementor-addons' ),
+						'skill_value' => [
 							'size' => 97,
 							'unit' => '%',
 						],
@@ -221,13 +221,13 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'skill_layout',
-			[ 
-				'label' => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'default',
-				'options' => [ 
+			[
+				'label'     => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'default',
+				'options'   => [
 					'default' => esc_html__( 'Default', 'sky-elementor-addons' ),
-					'vision' => esc_html__( 'Vision', 'sky-elementor-addons' ),
+					'vision'  => esc_html__( 'Vision', 'sky-elementor-addons' ),
 				],
 				'separator' => 'before',
 			]
@@ -235,16 +235,16 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'name_position',
-			[ 
-				'label' => esc_html__( 'Name Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'inner',
-				'options' => [ 
-					'top' => esc_html__( 'Top', 'sky-elementor-addons' ),
-					'inner' => esc_html__( 'Inner', 'sky-elementor-addons' ),
+			[
+				'label'     => esc_html__( 'Name Position', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'inner',
+				'options'   => [
+					'top'    => esc_html__( 'Top', 'sky-elementor-addons' ),
+					'inner'  => esc_html__( 'Inner', 'sky-elementor-addons' ),
 					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 				],
-				'condition' => [ 
+				'condition' => [
 					'skill_layout' => 'default',
 				],
 			]
@@ -252,17 +252,17 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'skill_val_position',
-			[ 
-				'label' => esc_html__( 'Skill Value Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'inner',
-				'options' => [ 
-					'top' => esc_html__( 'Top', 'sky-elementor-addons' ),
-					'inner' => esc_html__( 'Inner', 'sky-elementor-addons' ),
-					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
+			[
+				'label'     => esc_html__( 'Skill Value Position', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'inner',
+				'options'   => [
+					'top'      => esc_html__( 'Top', 'sky-elementor-addons' ),
+					'inner'    => esc_html__( 'Inner', 'sky-elementor-addons' ),
+					'bottom'   => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 					'with-top' => esc_html__( 'With Top', 'sky-elementor-addons' ),
 				],
-				'condition' => [ 
+				'condition' => [
 					'skill_layout' => 'default',
 				],
 			]
@@ -270,21 +270,21 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'display_direction',
-			[ 
-				'label' => esc_html__( 'Display Direction', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'inline',
-				'options' => [ 
-					'inline' => esc_html__( 'Inline', 'sky-elementor-addons' ),
-					'column' => esc_html__( 'Block', 'sky-elementor-addons' ),
+			[
+				'label'        => esc_html__( 'Display Direction', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'inline',
+				'options'      => [
+					'inline'         => esc_html__( 'Inline', 'sky-elementor-addons' ),
+					'column'         => esc_html__( 'Block', 'sky-elementor-addons' ),
 					'column-reverse' => esc_html__( 'Block Reverse', 'sky-elementor-addons' ),
-					'row-reverse' => esc_html__( 'Inline reverse', 'sky-elementor-addons' ),
+					'row-reverse'    => esc_html__( 'Inline reverse', 'sky-elementor-addons' ),
 				],
-				'selectors' => [ 
+				'selectors'    => [
 					'{{WRAPPER}} .sa-style--vision' => 'flex-direction: {{VALUE}};',
 				],
 				'prefix_class' => 'sa-display-direction-',
-				'condition' => [ 
+				'condition'    => [
 					'skill_layout' => 'vision',
 				],
 			]
@@ -294,30 +294,30 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_skill_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'progress_bar_striped',
-			[ 
-				'label' => esc_html__( 'Skill Bars Striped', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'        => esc_html__( 'Skill Bars Striped', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'progress-bar-striped-',
-				'condition' => [ 
+				'condition'    => [
 					'rainbow_anim!' => 'yes',
 				],
 			]
@@ -325,42 +325,42 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'progress_bar_animated',
-			[ 
-				'label' => esc_html__( 'Skill Bars Animated', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'        => esc_html__( 'Skill Bars Animated', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'progress-bar-animated-',
-				'condition' => [ 
+				'condition'    => [
 					'progress_bar_striped' => 'yes',
-					'rainbow_anim!' => 'yes',
+					'rainbow_anim!'        => 'yes',
 				],
 			]
 		);
 
 		$this->add_control(
 			'rainbow_anim',
-			[ 
-				'label' => esc_html__( 'Rainbow Animation', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'        => esc_html__( 'Rainbow Animation', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'rainbow-anim-',
-				'separator' => 'before',
+				'separator'    => 'before',
 			]
 		);
 
 		$this->add_control(
 			'rainbow_anim_speed',
-			[ 
-				'label' => esc_html__( 'Animation Speed (sec)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Animation Speed (sec)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 1,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}}' => '--sky-rainbow-anim-speed: {{SIZE}}s;',
 				],
-				'condition' => [ 
+				'condition' => [
 					'rainbow_anim' => 'yes',
 				],
 			]
@@ -368,15 +368,15 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'rainbow_colors',
-			[ 
-				'label' => esc_html__( 'Rainbow Colors', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXTAREA,
+			[
+				'label'       => esc_html__( 'Rainbow Colors', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXTAREA,
 				'placeholder' => 'Input your colors. example: red, #eee000, indigo',
-				'default' => 'red, green, blue, orange, yellow, indigo, violet',
-				'selectors' => [ 
+				'default'     => 'red, green, blue, orange, yellow, indigo, violet',
+				'selectors'   => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress-bar' => 'background: linear-gradient(270deg, {{VALUE}} ); background-size: 300% 300%;',
 				],
-				'condition' => [ 
+				'condition'   => [
 					'rainbow_anim' => 'yes',
 				],
 			]
@@ -386,61 +386,61 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_skill_bars_style',
-			[ 
+			[
 				'label' => esc_html__( 'Skill Bars', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'content_align',
-			[ 
-				'label' => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'label_block' => false,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'                => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
+				'type'                 => Controls_Manager::CHOOSE,
+				'label_block'          => false,
+				'options'              => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-left',
+						'icon'  => 'eicon-h-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-center',
+						'icon'  => 'eicon-h-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-right',
+						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'toggle' => false,
-				'selectors' => [ 
+				'toggle'               => false,
+				'selectors'            => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-style--vision' => '{{VALUE}};',
 				],
-				'selectors_dictionary' => [ 
-					'left' => 'text-align: left;',
+				'selectors_dictionary' => [
+					'left'   => 'text-align: left;',
 					'center' => 'text-align: center;',
-					'right' => 'text-align: right;',
+					'right'  => 'text-align: right;',
 				],
-				'condition' => [ 
+				'condition'            => [
 					'display_direction' => [ 'column', 'column-reverse' ],
-					'skill_layout' => 'vision',
+					'skill_layout'      => 'vision',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'skill_bars_height',
-			[ 
-				'label' => esc_html__( 'Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -448,17 +448,17 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_responsive_control(
 			'skill_bars_spacing',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-item:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -466,11 +466,11 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_responsive_control(
 			'skill_bars_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress , {{WRAPPER}} .sa-advanced-skills .sa-skill-progress-bar' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -478,9 +478,9 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-advanced-skills .sa-skill-progress',
 			]
 		);
@@ -489,18 +489,18 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_progress_style',
-			[ 
+			[
 				'label' => esc_html__( 'Skill Bars (Progress)', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'base_color',
-			[ 
-				'label' => esc_html__( 'Base Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Base Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress' => 'background-color: {{VALUE}}',
 				],
 			]
@@ -508,11 +508,11 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_responsive_control(
 			'base_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -520,30 +520,30 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'fill_heading',
-			[ 
-				'label' => esc_html__( 'Fill Progress', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'Fill Progress', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'fill_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'fill_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-advanced-skills .sa-skill-progress-bar',
 			]
 		);
 
 		$this->add_responsive_control(
 			'fill_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills .sa-skill-progress-bar' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -553,62 +553,62 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_skill_content_style',
-			[ 
+			[
 				'label' => esc_html__( 'Skill Bars Content', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'name_heading',
-			[ 
+			[
 				'label' => esc_html__( 'Skill Name', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+				'type'  => Controls_Manager::HEADING,
 			]
 		);
 
 		$this->add_responsive_control(
 			'name_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills' => '--sky-name-spacing: {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'display_direction' => [ 'column', 'column-reverse' ],
-					'skill_layout' => 'vision',
+					'skill_layout'      => 'vision',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'name_width',
-			[ 
-				'label' => esc_html__( 'Width', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default' => [ 
+				'default'    => [
 					'unit' => 'px',
 					'size' => 100,
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-skill-name-wrapper' => 'min-width: {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'display_direction' => [ 'inline', 'row-reverse' ],
 				],
 			]
@@ -616,10 +616,10 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'name_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-skill-name' => 'color: {{VALUE}}',
 				],
 			]
@@ -627,38 +627,38 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'name_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'name_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-skill-name',
 			]
 		);
 
 		$this->add_control(
 			'value_heading',
-			[ 
-				'label' => esc_html__( 'Percentage / Value', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'Percentage / Value', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_responsive_control(
 			'value_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-advanced-skills' => '--sky-perc-spacing: {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'display_direction' => [ 'column', 'column-reverse' ],
 				],
 			]
@@ -666,10 +666,10 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'value_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-skill-value' => 'color: {{VALUE}}',
 				],
 			]
@@ -677,9 +677,9 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'value_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'value_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-skill-value',
 			]
 		);
@@ -688,11 +688,11 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_top_perc_style',
-			[ 
-				'label' => esc_html__( 'Value Position With Top', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'skill_layout' => 'default',
+			[
+				'label'     => esc_html__( 'Value Position With Top', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'skill_layout'       => 'default',
 					'skill_val_position' => 'with-top',
 				],
 			]
@@ -700,16 +700,16 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_control(
 			'top_perc_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => -360,
 						'max' => 360,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-advanced-skills' => '--sky-value-top-rotate: {{SIZE}}deg',
 				],
 			]
@@ -717,44 +717,44 @@ class Advanced_Skill_Bars extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'top_perc_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'top_perc_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-skill-value.sa-value-top::before',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'top_perc_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'top_perc_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-skill-value.sa-value-top::before',
 			]
 		);
 
 		$this->add_responsive_control(
 			'top_perc_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-skill-value.sa-value-top::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
-		//        $this->add_control(
-		//            'top_perc_color',         [
-		//                'label'     => esc_html__('Color', 'sky-elementor-addons'),
-		//                'type'      => Controls_Manager::COLOR,
-		//                'selectors' => [
-		//                        '{{WRAPPER}} .sa-skill-value.sa-value-top' => 'color: {{VALUE}}',
-		//                ],
-		//            ]
-		//        );
+		// $this->add_control(
+		// 'top_perc_color',         [
+		// 'label'     => esc_html__('Color', 'sky-elementor-addons'),
+		// 'type'      => Controls_Manager::COLOR,
+		// 'selectors' => [
+		// '{{WRAPPER}} .sa-skill-value.sa-value-top' => 'color: {{VALUE}}',
+		// ],
+		// ]
+		// );
 
 		$this->end_controls_section();
 	}
@@ -786,8 +786,8 @@ class Advanced_Skill_Bars extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$skill_style = $settings['skill_layout'];
-		$name_position = $settings['name_position']; //;'bottom';
-		$skill_val_position = $settings['skill_val_position']; //'inner'; //with-top
+		$name_position = $settings['name_position']; // ;'bottom';
+		$skill_val_position = $settings['skill_val_position']; // 'inner'; //with-top
 		?>
 		<div class="sa-advanced-skills">
 
@@ -797,14 +797,14 @@ class Advanced_Skill_Bars extends Widget_Base {
 				$skill_value = $item['skill_value']['size'];
 				$skill_name = $item['skill_name'];
 
-				$this->add_render_attribute( 'sa-skill-item', 'class', [ 
+				$this->add_render_attribute( 'sa-skill-item', 'class', [
 					'sa-skill-item',
 					'elementor-repeater-item-' . $item['_id'],
 				], true );
 				?>
 
 				<?php if ( $skill_style == 'default' ) : ?>
-					<div <?php $this->print_render_attribute_string('sa-skill-item' ); ?>>
+					<div <?php $this->print_render_attribute_string( 'sa-skill-item' ); ?>>
 
 						<?php if ( $name_position == 'top' || $skill_val_position == 'top' ) : ?>
 							<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between  sa-w-100">
@@ -875,14 +875,14 @@ class Advanced_Skill_Bars extends Widget_Base {
 				elseif ( $skill_style == 'vision' ) :
 					$display_layout = $settings['skill_layout'] == 'vision' ? 'flex' : 'block';
 
-					$this->add_render_attribute( 'sa-skill-item-vision', 'class', [ 
+					$this->add_render_attribute( 'sa-skill-item-vision', 'class', [
 						'sa-style--vision sa-skill-item sa-align-items-center',
 						'sa-d-' . esc_attr( $display_layout ),
 						'elementor-repeater-item-' . $item['_id'],
 					], true );
 					?>
 
-					<div <?php $this->print_render_attribute_string('sa-skill-item-vision' ); ?>>
+					<div <?php $this->print_render_attribute_string( 'sa-skill-item-vision' ); ?>>
 						<?php $this->render_skill_name( $skill_name ); ?>
 						<div class="sa-skill-progress">
 							<div class="sa-skill-progress-bar sa-px-2" data-width="<?php echo esc_attr( $skill_value ); ?>%"

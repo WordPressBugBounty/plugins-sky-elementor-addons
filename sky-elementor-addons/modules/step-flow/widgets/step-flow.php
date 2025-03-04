@@ -12,8 +12,9 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Icons_Manager;
 use Elementor\Widget_Base;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 class Step_Flow extends Widget_Base {
 
@@ -41,20 +42,20 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_step_flow_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'icon',
-			[ 
-				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
+			[
+				'label'       => esc_html__( 'Icon', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::ICONS,
 				'label_block' => true,
-				'default' => [ 
-					'value' => 'fas fa-laptop',
+				'default'     => [
+					'value'   => 'fas fa-laptop',
 					'library' => 'fa-solid',
 				],
 			]
@@ -62,21 +63,21 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'title',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'default' => esc_html__( 'Your Step Heading', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => esc_html__( 'Your Step Heading', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your title here', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'separator' => 'before'
+				'dynamic'     => [ 'active' => true ],
+				'separator'   => 'before',
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
 				'options' => sky_title_tags(),
 			]
@@ -84,138 +85,137 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'desc',
-			[ 
-				'label' => esc_html__( 'Description', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'rows' => 10,
-				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus luctus nec.' ),
+			[
+				'label'       => esc_html__( 'Description', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 10,
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus luctus nec.' ),
 				'placeholder' => esc_html__( 'Type your description here', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'separator' => 'before'
+				'dynamic'     => [ 'active' => true ],
+				'separator'   => 'before',
 			]
 		);
 
 		$this->add_control(
 			'link',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::URL,
-				'placeholder' => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
+			[
+				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
 				'show_external' => true,
-				'default' => [ 
-					'url' => '',
+				'default'       => [
+					'url'         => '',
 					'is_external' => false,
 				],
-				'dynamic' => [ 'active' => true ],
-				'separator' => 'before'
+				'dynamic'       => [ 'active' => true ],
+				'separator'     => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_badge',
-			[ 
-				'label' => esc_html__( 'Show Badge', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Badge', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'badge_text',
-			[ 
-				'label' => esc_html__( 'Badge Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( 'Step 1', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Badge Text', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Step 1', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Badge Text', 'sky-elementor-addons' ),
-				'condition' => [ 
-					'show_badge' => 'yes'
-				]
+				'condition'   => [
+					'show_badge' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'badge_position',
-			[ 
-				'label' => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'top-left',
-				'options' => [ 
-					'top-left' => esc_html__( 'Top Left', 'sky-elementor-addons' ),
-					'top-right' => esc_html__( 'Top Right', 'sky-elementor-addons' ),
-					'bottom-left' => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
-					'bottom-right' => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
-					'top-center' => esc_html__( 'Top Center', 'sky-elementor-addons' ),
+			[
+				'label'     => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'top-left',
+				'options'   => [
+					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
+					'top-right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
+					'bottom-left'   => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
+					'bottom-right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
+					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
 					'bottom-center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
 				],
-				'condition' => [ 
-					'show_badge' => 'yes'
-				]
+				'condition' => [
+					'show_badge' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'show_direction',
-			[ 
-				'label' => esc_html__( 'Show Direction', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Direction', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'direction_type',
-			[ 
-				'label' => esc_html__( 'Direction Type', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'style-arrow',
-				'options' => [ 
+			[
+				'label'        => esc_html__( 'Direction Type', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'style-arrow',
+				'options'      => [
 					'style-arrow' => esc_html__( 'Arrow', 'sky-elementor-addons' ),
-					'style-line' => esc_html__( 'Line', 'sky-elementor-addons' ),
+					'style-line'  => esc_html__( 'Line', 'sky-elementor-addons' ),
 				],
 				'prefix_class' => 'sa-direction-',
-				'condition' => [ 
-					'show_direction' => 'yes'
-				]
+				'condition'    => [
+					'show_direction' => 'yes',
+				],
 			]
 		);
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_step_flow_style',
-			[ 
+			[
 				'label' => esc_html__( 'Step Flow', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'step_flow_alignment',
-			[ 
-				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow' => 'text-align: {{VALUE}} !important;',
 				],
 			]
@@ -223,11 +223,11 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_responsive_control(
 			'content_padding',
-			[ 
-				'label' => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-content-area' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -237,52 +237,51 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_icon_style',
-			[ 
+			[
 				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_spacing',
-			[ 
-				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap' => 'margin-bottom: {{SIZE}}{{UNIT}}!important;',
 				],
 			]
 		);
 
-
 		$this->add_responsive_control(
 			'icon_size',
-			[ 
-				'label' => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 200,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 200,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i' => 'font-size: {{SIZE}}{{UNIT}} !important;',
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap svg' => 'width: {{SIZE}}{{UNIT}}; height: auto;',
 				],
@@ -291,108 +290,107 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'icon_offset_popover',
-			[ 
-				'label' => esc_html__( 'Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::POPOVER_TOGGLE,
-				'label_off' => esc_html__( 'Default', 'sky-elementor-addons' ),
-				'label_on' => esc_html__( 'Custom', 'sky-elementor-addons' ),
+			[
+				'label'        => esc_html__( 'Offset', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::POPOVER_TOGGLE,
+				'label_off'    => esc_html__( 'Default', 'sky-elementor-addons' ),
+				'label_on'     => esc_html__( 'Custom', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
 			]
 		);
-
 
 		$this->start_popover();
 
 		$this->add_responsive_control(
 			'icon_horizontal_offset',
-			[ 
-				'label' => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -300,
+				'range'          => [
+					'px' => [
+						'min'  => -300,
 						'step' => 2,
-						'max' => 300,
+						'max'  => 300,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'icon_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'icon_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-h-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-h-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_vertical_offset',
-			[ 
-				'label' => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -300,
+				'range'          => [
+					'px' => [
+						'min'  => -300,
 						'step' => 2,
-						'max' => 300,
+						'max'  => 300,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'icon_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'icon_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-v-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-v-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -360,
-						'max' => 360,
+				'range'          => [
+					'px' => [
+						'min'  => -360,
+						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'condition' => [ 
-					'icon_offset_popover' => 'yes'
+				'condition'      => [
+					'icon_offset_popover' => 'yes',
 				],
-				'render_type' => 'ui',
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-rotate: {{SIZE}}deg;'
+				'render_type'    => 'ui',
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-media-rotate: {{SIZE}}deg;',
 				],
 			]
 		);
@@ -401,11 +399,11 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_responsive_control(
 			'icon_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -413,23 +411,23 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'icon_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-icon-wrap',
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'show_adv_border_radius!' => 'yes',
 				],
 			]
@@ -437,23 +435,23 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'show_adv_border_radius',
-			[ 
+			[
 				'label' => esc_html__( 'Advanced Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'adv_border_radius',
-			[ 
-				'label' => esc_html__( 'Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Radius', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
+				'dynamic'   => [ 'active' => true ],
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap' => 'border-radius: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'show_adv_border_radius' => 'yes',
 				],
 			]
@@ -461,64 +459,62 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'adv_border_radius_note',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), "https://9elements.github.io/fancy-border-radius/" ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition' => [ 
+				'condition'       => [
 					'show_adv_border_radius' => 'yes',
 				],
 			]
 		);
 
-
 		$this->start_controls_tabs( 'tabs_icon_style' );
 
 		$this->start_controls_tab(
 			'tab_icon_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color',
-			[ 
-				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg!' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg!' => 'yes',
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'icon_bg',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'icon_bg',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-icon-wrap',
 			]
 		);
 
-
 		$this->add_control(
 			'icon_opacity',
-			[ 
-				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'max' => 1,
-						'min' => 0.10,
+			[
+				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'max'  => 1,
+						'min'  => 0.10,
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, svg' => 'opacity: {{SIZE}};',
 				],
 			]
@@ -526,108 +522,107 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'icon_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-icon-wrap',
 			]
 		);
 
 		$this->add_control(
 			'icon_is_svg',
-			[ 
+			[
 				'label' => esc_html__( 'SVG Using?', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'icon_is_svg_note',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => esc_html__( 'Please activate this option if you are using SVG image as a Icon.', 'sky-elementor-addons' ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Please activate this option if you are using SVG image as a Icon.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition' => [ 
-					'icon_is_svg!' => 'yes'
-				]
+				'condition'       => [
+					'icon_is_svg!' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'icon_svg_fill_color',
-			[ 
-				'label' => esc_html__( 'Fill Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Fill Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap *' => 'fill: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'icon_svg_stroke_color',
-			[ 
-				'label' => esc_html__( 'Stroke Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Stroke Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap *' => 'stroke: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg' => 'yes',
+				],
 			]
 		);
-
 
 		$this->end_controls_tab();
 
 		$this->start_controls_tab(
 			'tab_icon_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color_hover',
-			[ 
-				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} > .elementor-widget-container:hover  .sa-step-flow .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg!' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg!' => 'yes',
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'icon_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'icon_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}}  .elementor-widget-container:hover .sa-step-flow .sa-icon-wrap',
 			]
 		);
 
 		$this->add_control(
 			'icon_opacity_hover',
-			[ 
-				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'max' => 1,
-						'min' => 0.10,
+			[
+				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'max'  => 1,
+						'min'  => 0.10,
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .elementor-widget-container:hover .sa-step-flow .sa-icon-wrap i, svg' => 'opacity: {{SIZE}};',
 				],
 			]
@@ -635,78 +630,77 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'icon_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}}  .elementor-widget-container:hover .sa-step-flow .sa-icon-wrap',
 			]
 		);
 
 		$this->add_control(
 			'icon_is_svg_hover',
-			[ 
+			[
 				'label' => esc_html__( 'SVG Using?', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'icon_is_svg_hover_note_hover',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => esc_html__( 'Please activate this option if you are using SVG image as a Icon.', 'sky-elementor-addons' ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Please activate this option if you are using SVG image as a Icon.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition' => [ 
-					'icon_is_svg_hover!' => 'yes'
-				]
+				'condition'       => [
+					'icon_is_svg_hover!' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'icon_svg_fill_color_hover',
-			[ 
-				'label' => esc_html__( 'Fill Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Fill Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .elementor-widget-container:hover .sa-icon-wrap *' => 'fill: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg_hover' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg_hover' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'icon_svg_stroke_color_hover',
-			[ 
-				'label' => esc_html__( 'Stroke Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Stroke Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .elementor-widget-container:hover .sa-icon-wrap *' => 'stroke: {{VALUE}}',
 				],
-				'condition' => [ 
-					'icon_is_svg_hover' => 'yes'
-				]
+				'condition' => [
+					'icon_is_svg_hover' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'icon_transition',
-			[ 
-				'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'max' => 3,
+			[
+				'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'max'  => 3,
 						'step' => 0.1,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, svg' => 'transition-duration: {{SIZE}}s',
 				],
 			]
 		);
-
 
 		$this->end_controls_tab();
 
@@ -716,117 +710,115 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_badge_style',
-			[ 
-				'label' => esc_html__( 'Badge', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_badge' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Badge', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_badge' => 'yes',
+				],
 			]
 		);
-
 
 		$this->add_control(
 			'badge_offset_popover',
-			[ 
-				'label' => esc_html__( 'Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::POPOVER_TOGGLE,
-				'label_off' => esc_html__( 'Default', 'sky-elementor-addons' ),
-				'label_on' => esc_html__( 'Custom', 'sky-elementor-addons' ),
+			[
+				'label'        => esc_html__( 'Offset', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::POPOVER_TOGGLE,
+				'label_off'    => esc_html__( 'Default', 'sky-elementor-addons' ),
+				'label_on'     => esc_html__( 'Custom', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
 			]
 		);
-
 
 		$this->start_popover();
 
 		$this->add_responsive_control(
 			'badge_horizontal_offset',
-			[ 
-				'label' => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -300,
+				'range'          => [
+					'px' => [
+						'min'  => -300,
 						'step' => 2,
-						'max' => 300,
+						'max'  => 300,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'badge_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'badge_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}}' => '--sky-step-flow-badge-h-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}}' => '--sky-step-flow-badge-h-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'badge_vertical_offset',
-			[ 
-				'label' => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -300,
+				'range'          => [
+					'px' => [
+						'min'  => -300,
 						'step' => 2,
-						'max' => 300,
+						'max'  => 300,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'badge_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'badge_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow .sa-badge' => '--sky-step-flow-badge-v-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow .sa-badge' => '--sky-step-flow-badge-v-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'badge_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -360,
-						'max' => 360,
+				'range'          => [
+					'px' => [
+						'min'  => -360,
+						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'render_type' => 'ui',
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow .sa-badge' => '--sky-step-flow-badge-rotate: {{SIZE}}deg;'
+				'render_type'    => 'ui',
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow .sa-badge' => '--sky-step-flow-badge-rotate: {{SIZE}}deg;',
 				],
 			]
 		);
@@ -835,11 +827,11 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_responsive_control(
 			'badge_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -847,10 +839,10 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'badge_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-badge' => 'color: {{VALUE}}',
 				],
 			]
@@ -858,30 +850,30 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'badge_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'badge_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-badge',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'badge_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'badge_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-badge',
 			]
 		);
 
 		$this->add_responsive_control(
 			'badge_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
 				],
 			]
@@ -889,18 +881,18 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'badge_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'badge_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-badge',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'badge_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'badge_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-badge',
 			]
 		);
@@ -909,33 +901,33 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'title!' => '',
-				]
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[ 
-				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 100,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -943,9 +935,9 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'title_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-title',
 			]
 		);
@@ -954,17 +946,17 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_title_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-title' => 'color: {{VALUE}}',
 				],
 			]
@@ -972,9 +964,9 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'title_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-title',
 			]
 		);
@@ -983,17 +975,17 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_title_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-title:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -1001,9 +993,9 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'title_text_shadow_hover',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_text_shadow_hover',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-title:hover',
 			]
 		);
@@ -1016,20 +1008,20 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_desc_style',
-			[ 
-				'label' => esc_html__( 'Description', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Description', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'desc!' => '',
-				]
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'desc_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'desc_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-step-flow .sa-desc',
 			]
 		);
@@ -1038,17 +1030,17 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_desc_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'desc_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-desc' => 'color: {{VALUE}}',
 				],
 			]
@@ -1058,22 +1050,21 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_desc_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'desc_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-desc:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
-
 
 		$this->end_controls_tab();
 
@@ -1083,21 +1074,21 @@ class Step_Flow extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_direction_style',
-			[ 
-				'label' => esc_html__( 'Direction', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_direction' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Direction', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_direction' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'direction_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-arrow-color: {{VALUE}}',
 				],
 			]
@@ -1105,60 +1096,58 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'direction_style',
-			[ 
-				'label' => esc_html__( 'Style', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'solid',
-				'options' => [ 
-					'solid' => esc_html__( 'Solid', 'sky-elementor-addons' ),
+			[
+				'label'     => esc_html__( 'Style', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => [
+					'solid'  => esc_html__( 'Solid', 'sky-elementor-addons' ),
 					'dotted' => esc_html__( 'Dotted', 'sky-elementor-addons' ),
 					'dashed' => esc_html__( 'Dashed', 'sky-elementor-addons' ),
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-arrow-style: {{VALUE}};',
 				],
 			]
 		);
 
-
 		$this->add_responsive_control(
 			'direction_thickness',
-			[ 
-				'label' => esc_html__( 'Thickness', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Thickness', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 5,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 5,
 						'step' => 1,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-arrow-thickness: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 
-
 		$this->add_responsive_control(
 			'direction_width',
-			[ 
-				'label' => esc_html__( 'Width', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 150,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 150,
 						'step' => 1,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 150,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap .sa-step-arrow' => 'width: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1166,108 +1155,106 @@ class Step_Flow extends Widget_Base {
 
 		$this->add_control(
 			'direction_offset_popover',
-			[ 
-				'label' => esc_html__( 'Offset', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::POPOVER_TOGGLE,
-				'label_off' => esc_html__( 'Default', 'sky-elementor-addons' ),
-				'label_on' => esc_html__( 'Custom', 'sky-elementor-addons' ),
+			[
+				'label'        => esc_html__( 'Offset', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::POPOVER_TOGGLE,
+				'label_off'    => esc_html__( 'Default', 'sky-elementor-addons' ),
+				'label_on'     => esc_html__( 'Custom', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
 			]
 		);
-
 
 		$this->start_popover();
 
 		$this->add_responsive_control(
 			'direction_top_offset',
-			[ 
-				'label' => esc_html__( 'Offset Top', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'tablet_default' => [ 
+			[
+				'label'          => esc_html__( 'Offset Top', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -100,
+				'range'          => [
+					'px' => [
+						'min'  => -100,
 						'step' => 2,
-						'max' => 100,
+						'max'  => 100,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'direction_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'direction_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-top-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-top-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'direction_left_offset',
-			[ 
-				'label' => esc_html__( 'Offset Left', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'tablet_default' => [ 
+			[
+				'label'          => esc_html__( 'Offset Left', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -100,
+				'range'          => [
+					'px' => [
+						'min'  => -100,
 						'step' => 2,
-						'max' => 100,
+						'max'  => 100,
 					],
 				],
-				'render_type' => 'ui',
-				'condition' => [ 
-					'direction_offset_popover' => 'yes'
+				'render_type'    => 'ui',
+				'condition'      => [
+					'direction_offset_popover' => 'yes',
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-left-offset: {{SIZE}}px;'
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-left-offset: {{SIZE}}px;',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'direction_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'devices' => [ 'desktop', 'tablet', 'mobile' ],
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
+				'default'        => [
 					'size' => 0,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 0,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 0,
 				],
-				'range' => [ 
-					'px' => [ 
-						'min' => -360,
-						'max' => 360,
+				'range'          => [
+					'px' => [
+						'min'  => -360,
+						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'condition' => [ 
-					'direction_offset_popover' => 'yes'
+				'condition'      => [
+					'direction_offset_popover' => 'yes',
 				],
-				'render_type' => 'ui',
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-rotate: {{SIZE}}deg;'
+				'render_type'    => 'ui',
+				'selectors'      => [
+					'{{WRAPPER}} .sa-step-flow' => '--sky-step-flow-direction-rotate: {{SIZE}}deg;',
 				],
 			]
 		);
 
 		$this->end_popover();
-
 
 		$this->end_controls_section();
 	}
@@ -1306,7 +1293,7 @@ class Step_Flow extends Widget_Base {
 					endif;
 
 					if ( ! empty( $settings['icon']['value'] ) ) :
-						Icons_Manager::render_icon( $settings['icon'], [ 
+						Icons_Manager::render_icon( $settings['icon'], [
 							'aria-hidden' => 'true',
 						] );
 					endif;

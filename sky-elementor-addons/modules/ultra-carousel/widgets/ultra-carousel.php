@@ -51,7 +51,7 @@ class Ultra_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'swiper',
 			'elementor-icons-fa-solid',
 		];
@@ -68,18 +68,18 @@ class Ultra_Carousel extends Widget_Base {
 	protected function register_controls() {
 		$this->start_controls_section(
 			'section_ultra_carousel_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'columns',
-			[ 
-				'label' => esc_html__( 'Columns', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [ 
+			[
+				'label'          => esc_html__( 'Columns', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SELECT,
+				'options'        => [
 					1 => esc_html__( '1 Column', 'sky-elementor-addons' ),
 					2 => esc_html__( '2 Columns', 'sky-elementor-addons' ),
 					3 => esc_html__( '3 Columns', 'sky-elementor-addons' ),
@@ -87,17 +87,17 @@ class Ultra_Carousel extends Widget_Base {
 					5 => esc_html__( '5 Columns', 'sky-elementor-addons' ),
 					6 => esc_html__( '6 Columns', 'sky-elementor-addons' ),
 				],
-				'default' => 3,
+				'default'        => 3,
 				'tablet_default' => 2,
 				'mobile_default' => 1,
-				'render_type' => 'template',
+				'render_type'    => 'template',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
-			[ 
-				'name' => 'primary_thumbnail',
+			[
+				'name'    => 'primary_thumbnail',
 				'exclude' => [ 'custom' ],
 				'default' => 'large',
 			]
@@ -105,28 +105,28 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'content_alignment',
-			[ 
-				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item' => 'text-align: {{VALUE}};',
 					'{{WRAPPER}} .sa-post-meta, {{WRAPPER}} .sa-post-category' => 'justify-content: {{VALUE}};',
 				],
@@ -140,48 +140,48 @@ class Ultra_Carousel extends Widget_Base {
 		 */
 		$this->start_controls_section(
 			'section_post_query_builder',
-			[ 
+			[
 				'label' => __( 'Query', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->register_query_builder_controls();
 
 		// $this->update_control(
-		//     'posts_per_page',
-		//     [
-		//         'default' => 3,
-		//     ]
+		// 'posts_per_page',
+		// [
+		// 'default' => 3,
+		// ]
 		// );
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'show_title',
-			[ 
-				'label' => esc_html__( 'Show Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Title', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
+				'condition' => [
 					'show_title' => 'yes',
 				],
 			]
@@ -189,48 +189,48 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_control(
 			'show_image',
-			[ 
-				'label' => esc_html__( 'Show Image', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HIDDEN,
+			[
+				'label'   => esc_html__( 'Show Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::HIDDEN,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_category',
-			[ 
-				'label' => esc_html__( 'Show Category', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Category', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_author',
-			[ 
-				'label' => esc_html__( 'Show Author', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Author', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'no',
 			]
 		);
 
 		$this->add_control(
 			'show_excerpt',
-			[ 
-				'label' => esc_html__( 'Show Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'     => esc_html__( 'Show Text', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'excerpt_length',
-			[ 
-				'label' => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'This is for the main content, but not for excerpts. If you set the offset to 0, then you\'ll get the full text instead.', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 15,
-				'condition' => [ 
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 15,
+				'condition'   => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -238,11 +238,11 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_control(
 			'strip_shortcode',
-			[ 
-				'label' => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -254,34 +254,33 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_control(
 			'show_date',
-			[ 
-				'label' => esc_html__( 'Show Date', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'no',
+			[
+				'label'     => esc_html__( 'Show Date', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
 				'separator' => 'before',
 			]
 		);
 
 		$this->register_post_date_controls();
 
-
 		$this->add_control(
 			'show_video',
-			[ 
-				'label' => esc_html__( 'Show Video', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Video', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_button',
-			[ 
-				'label' => esc_html__( 'Show Read More', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Read More', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
@@ -289,10 +288,10 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_video_settings',
-			[ 
-				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
 					'show_video' => 'yes',
 				],
 			]
@@ -307,20 +306,20 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_button',
-			[ 
-				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
-					'show_button' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'show_button' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'button_text',
-			[ 
-				'label' => esc_html__( 'Button Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'   => esc_html__( 'Button Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'READ MORE', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
 			]
@@ -328,32 +327,32 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_control(
 			'button_icon',
-			[ 
+			[
 				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
 		$this->add_control(
 			'button_icon_position',
-			[ 
-				'label' => esc_html__( 'Icon Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'label_block' => false,
-				'options' => [ 
-					'before' => [ 
+			[
+				'label'          => esc_html__( 'Icon Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options'        => [
+					'before' => [
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-left',
+						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [ 
+					'after' => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-right',
+						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default' => 'after',
-				'toggle' => false,
-				'condition' => [ 
-					'button_icon[value]!' => ''
+				'default'        => 'after',
+				'toggle'         => false,
+				'condition'      => [
+					'button_icon[value]!' => '',
 				],
 				'style_transfer' => true,
 			]
@@ -361,20 +360,20 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'button_icon_spacing',
-			[ 
-				'label' => esc_html__( 'Icon Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Icon Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 20,
 					],
 				],
-				'condition' => [ 
-					'button_icon[value]!' => ''
+				'condition'  => [
+					'button_icon[value]!' => '',
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-button-icon-before .sa-button-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .sa-button-icon-after .sa-button-icon' => 'margin-left: {{SIZE}}{{UNIT}};',
 				],
@@ -389,26 +388,26 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_carousel_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Carousel Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'carousel_height',
-			[ 
-				'label' => esc_html__( 'Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 100,
-						'max' => 500,
+				'range'      => [
+					'px' => [
+						'min'  => 100,
+						'max'  => 500,
 						'step' => 5,
-					]
+					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .swiper' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -424,9 +423,9 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_carousel_navigation',
-			[ 
+			[
 				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -434,16 +433,15 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->end_controls_section();
 
-
 		/**
 		 * Global Pagination Controls
 		 */
 
 		$this->start_controls_section(
 			'section_carousel_pagination',
-			[ 
+			[
 				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -453,19 +451,19 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_ultra_carousel_style',
-			[ 
+			[
 				'label' => esc_html__( 'Ultra Carousel', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -473,28 +471,28 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'item_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'default' => [ 
-					'top' => '.8',
-					'right' => '.8',
-					'bottom' => '.8',
-					'left' => '.8',
-					'unit' => 'em',
+				'default'    => [
+					'top'      => '.8',
+					'right'    => '.8',
+					'bottom'   => '.8',
+					'left'     => '.8',
+					'unit'     => 'em',
 					'isLinked' => true,
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-item, {{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
 				],
 			]
@@ -502,9 +500,9 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
@@ -513,10 +511,10 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_image_style',
-			[ 
-				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_image' => 'yes',
 				],
 			]
@@ -524,38 +522,38 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'image_overlay',
-				'label' => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
-				'types' => [ 'gradient' ],
-				'separator' => 'before',
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => 'Image Overlay'
+			[
+				'name'           => 'image_overlay',
+				'label'          => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
+				'types'          => [ 'gradient' ],
+				'separator'      => 'before',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => 'Image Overlay',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-post-img-wrapper:after',
+				'selector'       => '{{WRAPPER}} .sa-post-img-wrapper:after',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'img_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'img_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->add_responsive_control(
 			'img_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-img'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					'{{WRAPPER}} .sa-post-img  ::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -563,17 +561,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'img_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'img_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
-			[ 
-				'name' => 'img_css_filters',
+			[
+				'name'     => 'img_css_filters',
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
@@ -582,10 +580,10 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_title' => 'yes',
 				],
 			]
@@ -593,17 +591,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -617,14 +615,14 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'title_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				// 'default'    => [
-				//     'size'  
+				// 'size'
 				// ]
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-title a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -632,18 +630,18 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_background',
-				'label' => esc_html__( 'Title Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'separator' => 'before',
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => 'Title Background'
+			[
+				'name'           => 'title_background',
+				'label'          => esc_html__( 'Title Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'separator'      => 'before',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => 'Title Background',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-post-title a',
+				'selector'       => '{{WRAPPER}} .sa-post-title a',
 			]
 		);
 
@@ -651,9 +649,9 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_text_style',
-			[ 
-				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+			[
+				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'show_excerpt' => 'yes' ],
 			]
 		);
@@ -667,10 +665,10 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_category_style',
-			[ 
-				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_category' => 'yes',
 				],
 			]
@@ -678,17 +676,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'category_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-category' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -696,17 +694,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'category_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}}' => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -722,18 +720,18 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_meta_style',
-			[ 
-				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'conditions' => [ 
+			[
+				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'conditions' => [
 					'relation' => 'or',
-					'terms' => [ 
-						[ 
-							'name' => 'show_author',
+					'terms'    => [
+						[
+							'name'  => 'show_author',
 							'value' => 'yes',
 						],
-						[ 
-							'name' => 'show_date',
+						[
+							'name'  => 'show_date',
 							'value' => 'yes',
 						],
 					],
@@ -743,17 +741,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'meta_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -761,17 +759,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->add_responsive_control(
 			'meta_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-meta' => 'grid-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -793,18 +791,17 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_button_style',
-			[ 
-				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_button' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_button' => 'yes',
+				],
 			]
 		);
 
 		/**
-		 * Global Read more 
-		 *
+		 * Global Read more
 		 */
 		$this->general_button_controls_style();
 
@@ -812,10 +809,10 @@ class Ultra_Carousel extends Widget_Base {
 
 		$this->start_controls_section(
 			'play_btn_style',
-			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_video' => 'yes',
 				],
 			]
@@ -824,8 +821,8 @@ class Ultra_Carousel extends Widget_Base {
 		/*
 		 * Global Controls
 		 */
-		$this->player_button_style( [ 
-			'prefix' => 'play_button',
+		$this->player_button_style( [
+			'prefix'   => 'play_button',
 			'selector' => '.sa-post-play-button',
 		] );
 
@@ -835,7 +832,6 @@ class Ultra_Carousel extends Widget_Base {
 		 * Global Navigation Style Controls
 		 */
 		$this->register_navigation_style_controls( 'ultra-carousel' );
-
 
 		/**
 		 * Global Pagination Controls
@@ -949,11 +945,11 @@ class Ultra_Carousel extends Widget_Base {
 
 					<?php
 
-					$this->render_post_category( [ 
+					$this->render_post_category( [
 						'wrapper_class' => 'sa-post-category-style-1 sa-mb-3',
 					] );
 
-					$this->render_post_title( [ 
+					$this->render_post_title( [
 						'wrapper_class' => 'sa-mb-2',
 					] );
 
@@ -978,17 +974,17 @@ class Ultra_Carousel extends Widget_Base {
 		$this->render_header_attributes( 'ultra-carousel' );
 
 		$this->add_render_attribute(
-			[ 
-				'carousel' => [ 
+			[
+				'carousel' => [
 					'class' => [ 'sa-ultra-carousel', 'sa-swiper-global-carousel', 'sa-img-effect-1-1' ],
-					'id' => $id,
-				]
+					'id'    => $id,
+				],
 			]
 		);
 
 		?>
 
-		<div <?php $this->print_render_attribute_string('carousel' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'carousel' ); ?>>
 			<div class="swiper">
 				<div class="swiper-wrapper">
 
@@ -1016,7 +1012,6 @@ class Ultra_Carousel extends Widget_Base {
 			$this->render_item( get_the_ID(), $thumbnail_size, $settings['excerpt_length'] );
 
 		endwhile;
-
 
 		wp_reset_postdata();
 

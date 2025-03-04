@@ -8,6 +8,6 @@
 				<div class="elementor-loader-box"></div>
 			</div>
 		</div>
-		<div class="elementor-loading-title"><?php esc_html_e('Loading', 'sky-elementor-addons'); ?></div>
+		<div class="elementor-loading-title"><?php esc_html_e( 'Loading', 'sky-elementor-addons' ); ?></div>
 	</div>
 </script>

@@ -48,7 +48,7 @@ class Luster_Grid extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'elementor-icons-fa-solid',
 		];
 	}
@@ -60,52 +60,52 @@ class Luster_Grid extends Widget_Base {
 	protected function register_controls() {
 		$this->start_controls_section(
 			'section_post_list_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'row_gap',
-			[ 
-				'label' => esc_html__( 'Row Gap', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Row Gap', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
-					]
-				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-luster-grid' => 'grid-row-gap: {{SIZE}}{{UNIT}};',
 					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-luster-grid' => 'grid-row-gap: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'column_gap',
-			[ 
-				'label' => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
-					]
-				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-luster-grid' => 'grid-column-gap: {{SIZE}}{{UNIT}};',
 					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-luster-grid' => 'grid-column-gap: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
-			[ 
-				'name' => 'primary_thumbnail',
+			[
+				'name'    => 'primary_thumbnail',
 				'exclude' => [ 'custom' ],
 				'default' => 'large',
 			]
@@ -113,28 +113,28 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_responsive_control(
 			'content_alignment',
-			[ 
-				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item' => 'text-align: {{VALUE}};',
 					'{{WRAPPER}} .sa-post-meta, {{WRAPPER}} .sa-post-category' => 'justify-content: {{VALUE}};',
 				],
@@ -148,9 +148,9 @@ class Luster_Grid extends Widget_Base {
 		 */
 		$this->start_controls_section(
 			'section_post_query_builder',
-			[ 
+			[
 				'label' => __( 'Query', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -158,7 +158,7 @@ class Luster_Grid extends Widget_Base {
 
 		$this->update_control(
 			'posts_per_page',
-			[ 
+			[
 				'default' => 3,
 			]
 		);
@@ -167,29 +167,29 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'show_title',
-			[ 
-				'label' => esc_html__( 'Show Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Title', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
+				'condition' => [
 					'show_title' => 'yes',
 				],
 			]
@@ -197,48 +197,48 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_control(
 			'show_image',
-			[ 
-				'label' => esc_html__( 'Show Image', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HIDDEN,
+			[
+				'label'   => esc_html__( 'Show Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::HIDDEN,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_category',
-			[ 
-				'label' => esc_html__( 'Show Category', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Category', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_author',
-			[ 
-				'label' => esc_html__( 'Show Author', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Author', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_excerpt',
-			[ 
-				'label' => esc_html__( 'Show Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'     => esc_html__( 'Show Text', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'excerpt_length',
-			[ 
-				'label' => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'This is for the main content, but not for excerpts. If you set the offset to 0, then you\'ll get the full text instead.', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 30,
-				'condition' => [ 
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 30,
+				'condition'   => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -246,11 +246,11 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_control(
 			'strip_shortcode',
-			[ 
-				'label' => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -262,10 +262,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_control(
 			'show_date',
-			[ 
-				'label' => esc_html__( 'Show Date', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Date', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -274,19 +274,19 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_control(
 			'show_video',
-			[ 
-				'label' => esc_html__( 'Show Video', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Video', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_pagination',
-			[ 
-				'label' => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'     => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
@@ -295,10 +295,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_video_settings',
-			[ 
-				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
 					'show_video' => 'yes',
 				],
 			]
@@ -313,19 +313,19 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_list_style',
-			[ 
+			[
 				'label' => esc_html__( 'Luster Grid', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -333,38 +333,38 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'item_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'default' => [ 
-					'top' => '.25',
-					'right' => '.25',
-					'bottom' => '.25',
-					'left' => '.25',
-					'unit' => 'em',
+				'default'    => [
+					'top'      => '.25',
+					'right'    => '.25',
+					'bottom'   => '.25',
+					'left'     => '.25',
+					'unit'     => 'em',
 					'isLinked' => true,
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-item, {{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-item, {{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
@@ -373,10 +373,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_image_style',
-			[ 
-				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_image' => 'yes',
 				],
 			]
@@ -384,38 +384,38 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'image_overlay',
-				'label' => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
-				'types' => [ 'gradient' ],
-				'separator' => 'before',
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => 'Image Overlay'
+			[
+				'name'           => 'image_overlay',
+				'label'          => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
+				'types'          => [ 'gradient' ],
+				'separator'      => 'before',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => 'Image Overlay',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-post-img-wrapper:after',
+				'selector'       => '{{WRAPPER}} .sa-post-img-wrapper:after',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'img_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'img_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->add_responsive_control(
 			'img_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-img'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					'{{WRAPPER}} .sa-post-img  ::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -423,17 +423,17 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'img_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'img_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
-			[ 
-				'name' => 'img_css_filters',
+			[
+				'name'     => 'img_css_filters',
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
@@ -442,10 +442,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_title' => 'yes',
 				],
 			]
@@ -453,19 +453,19 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -474,10 +474,10 @@ class Luster_Grid extends Widget_Base {
 		 */
 		$this->add_control(
 			'title_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-title a' => 'color: {{VALUE}}',
 				],
 			]
@@ -485,10 +485,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_control(
 			'title_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-title a:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -496,18 +496,18 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'title_typography',
-				'label' => esc_html__( 'Primary Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_typography',
+				'label'    => esc_html__( 'Primary Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item:nth-child(3n+1) .sa-post-title',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'secondary_title_typography',
-				'label' => esc_html__( 'Secondary Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'secondary_title_typography',
+				'label'    => esc_html__( 'Secondary Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item:not(:nth-child(3n+1)) .sa-post-title',
 				// 'selector' => '(desktop){{WRAPPER}} .sa-post-item:not(:nth-child(3n+1)) .sa-post-title, (tablet){{WRAPPER}} .sa-post-item:not(:nth-child(3n+1)) .sa-post-title',
 			]
@@ -515,49 +515,47 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'title_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-title a',
 			]
 		);
 
 		// $this->register_post_title_controls_style();
 
-
-
 		$this->add_responsive_control(
 			'title_bar_size',
-			[ 
-				'label' => esc_html__( 'Bar Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bar Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 20,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-title:after' => 'height: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title:after' => 'height: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_bar_color',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'separator' => 'before',
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => 'Bar Color'
+			[
+				'name'           => 'title_bar_color',
+				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'separator'      => 'before',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => 'Bar Color',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-post-title:after',
+				'selector'       => '{{WRAPPER}} .sa-post-title:after',
 			]
 		);
 
@@ -565,9 +563,9 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_text_style',
-			[ 
-				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+			[
+				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'show_excerpt' => 'yes' ],
 			]
 		);
@@ -581,10 +579,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_category_style',
-			[ 
-				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_category' => 'yes',
 				],
 			]
@@ -592,37 +590,37 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_responsive_control(
 			'category_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-category' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-category' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'category_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}}' => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}}' => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -636,18 +634,18 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_meta_style',
-			[ 
-				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'conditions' => [ 
+			[
+				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'conditions' => [
 					'relation' => 'or',
-					'terms' => [ 
-						[ 
-							'name' => 'show_author',
+					'terms'    => [
+						[
+							'name'  => 'show_author',
 							'value' => 'yes',
 						],
-						[ 
-							'name' => 'show_date',
+						[
+							'name'  => 'show_date',
 							'value' => 'yes',
 						],
 					],
@@ -657,37 +655,37 @@ class Luster_Grid extends Widget_Base {
 
 		$this->add_responsive_control(
 			'meta_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'meta_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-meta' => 'grid-gap: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-meta' => 'grid-gap: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -707,10 +705,10 @@ class Luster_Grid extends Widget_Base {
 
 		$this->start_controls_section(
 			'play_btn_style',
-			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
 					'show_video' => 'yes',
 				],
 			]
@@ -719,8 +717,8 @@ class Luster_Grid extends Widget_Base {
 		/*
 		 * Global Controls
 		 */
-		$this->player_button_style( [ 
-			'prefix' => 'play_button',
+		$this->player_button_style( [
+			'prefix'   => 'play_button',
 			'selector' => '.sa-post-play-button',
 		] );
 
@@ -820,7 +818,7 @@ class Luster_Grid extends Widget_Base {
 
 			<?php $this->render_post_thumb_with_video( $post_id, $image_size ); ?>
 			<?php
-			$this->render_post_category( [ 
+			$this->render_post_category( [
 				'wrapper_class' => 'sa-post-category-style-1 sa-p-4 sa-mb-2 sa-w-100',
 			] );
 			?>
@@ -835,7 +833,7 @@ class Luster_Grid extends Widget_Base {
 
 				<?php
 
-				$this->render_post_title( [ 
+				$this->render_post_title( [
 					'wrapper_class' => 'sa-mb-2',
 				] );
 
@@ -848,7 +846,7 @@ class Luster_Grid extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$this->add_render_attribute( 'luster-grid', [ 
+		$this->add_render_attribute( 'luster-grid', [
 			'class' => 'sa-luster-grid',
 		] );
 

@@ -53,16 +53,16 @@ function sa_elementor() {
 if ( ! function_exists( 'sky_title_tags' ) ) {
 	function sky_title_tags() {
 
-		$title_tags = [ 
-			'h1' => 'H1',
-			'h2' => 'H2',
-			'h3' => 'H3',
-			'h4' => 'H4',
-			'h5' => 'H5',
-			'h6' => 'H6',
-			'div' => 'div',
+		$title_tags = [
+			'h1'   => 'H1',
+			'h2'   => 'H2',
+			'h3'   => 'H3',
+			'h4'   => 'H4',
+			'h5'   => 'H5',
+			'h6'   => 'H6',
+			'div'  => 'div',
 			'span' => 'span',
-			'p' => 'p',
+			'p'    => 'p',
 		];
 
 		return $title_tags;
@@ -71,7 +71,6 @@ if ( ! function_exists( 'sky_title_tags' ) ) {
 
 /**
  * Check you are in Editor
- * 
  */
 
 if ( ! function_exists( 'sky_editor_mode' ) ) {
@@ -134,9 +133,9 @@ if ( ! function_exists( 'sky_anywhere_template_settings' ) ) {
 
 		if ( post_type_exists( 'ae_global_templates' ) ) {
 			$anywhere = get_posts( array(
-				'fields' => 'ids', // Only get post IDs
+				'fields'         => 'ids', // Only get post IDs
 				'posts_per_page' => -1,
-				'post_type' => 'ae_global_templates',
+				'post_type'      => 'ae_global_templates',
 			) );
 
 			$anywhere_settings = [ '0' => esc_html__( 'Select Template', 'sky-elementor-addons' ) ];
@@ -194,13 +193,13 @@ if ( ! function_exists( 'sky_post_time_ago_kit' ) ) {
 	function sky_post_time_ago_kit( $from, $to = '' ) {
 		$diff = human_time_diff( $from, $to );
 		$replace = array(
-			' hour' => 'h',
-			' hours' => 'h',
-			' day' => 'd',
-			' days' => 'd',
-			' minute' => 'm',
+			' hour'    => 'h',
+			' hours'   => 'h',
+			' day'     => 'd',
+			' days'    => 'd',
+			' minute'  => 'm',
 			' minutes' => 'm',
-			' second' => 's',
+			' second'  => 's',
 			' seconds' => 's',
 		);
 
@@ -381,10 +380,10 @@ if ( ! function_exists( 'sa_wp_get_menu' ) ) {
  */
 if ( ! function_exists( 'sky_display_el_tem_by_id' ) ) {
 	function sky_display_el_tem_by_id( int $template_id ) {
-		$posts = get_posts( [ 
-			'post_type' => 'elementor_library',
+		$posts = get_posts( [
+			'post_type'   => 'elementor_library',
 			'post_status' => 'publish',
-			'p' => $template_id
+			'p'           => $template_id,
 		] );
 
 		if ( ! empty( $posts ) && $posts[0]->ID === $template_id ) {

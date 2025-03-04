@@ -6,7 +6,7 @@
 	<div id="elementor-template-library-header-preview-insert-wrapper" class="elementor-templates-modal__header__item">
 		<a href="{{ liveurl }}" target="_blank" class="elementor-template-library-template-action header-live-preview">
 			<i class="eicon-editor-external-link" aria-hidden="true"></i>
-			<?php esc_html_e('Live Preview', 'sky-elementor-addons'); ?>
+			<?php esc_html_e( 'Live Preview', 'sky-elementor-addons' ); ?>
 		</a>
 		{{{ skyAddons.library.getModal().getTemplateActionButton( obj ) }}}
 	</div>

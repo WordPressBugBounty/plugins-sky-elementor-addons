@@ -11,8 +11,9 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Widget_Base;
 use Sky_Addons\Includes\Parsedown;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 class Changelog extends Widget_Base {
 
@@ -40,40 +41,40 @@ class Changelog extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'remote_url',
-			[ 
-				'label' => esc_html__( 'Remote URL', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'   => esc_html__( 'Remote URL', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
 				'default' => '',
 			]
 		);
 
 		$this->add_control(
 			'cache_data',
-			[ 
-				'label' => esc_html__( 'Cache', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'On', 'sky-elementor-addons' ),
-				'label_off' => esc_html__( 'Off', 'sky-elementor-addons' ),
+			[
+				'label'        => esc_html__( 'Cache', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'On', 'sky-elementor-addons' ),
+				'label_off'    => esc_html__( 'Off', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
-				'default' => 'yes',
+				'default'      => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'cache_time',
-			[ 
-				'label' => esc_html__( 'Cache Time (Days)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 3,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Cache Time (Days)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 3,
+				'condition' => [
 					'cache_data' => 'yes',
 				],
 			]
@@ -83,18 +84,18 @@ class Changelog extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_style',
-			[ 
+			[
 				'label' => esc_html__( 'Heading', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'heading_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .elementor-widget-container > p' => 'color: {{VALUE}}',
 				],
 			]
@@ -102,9 +103,9 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'heading_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'heading_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .elementor-widget-container > p',
 			]
 		);
@@ -113,36 +114,36 @@ class Changelog extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_label_style',
-			[ 
+			[
 				'label' => esc_html__( 'Labels', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'label_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'label_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-label-changelog',
 			]
 		);
 
 		$this->add_control(
 			'heading_fixed',
-			[ 
-				'label' => esc_html__( 'Fixed', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Fixed', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'fixed_color',
-			[ 
-				'label' => esc_html__( 'Fixed Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Fixed Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-fixed' => 'color: {{VALUE}}',
 				],
 			]
@@ -150,30 +151,29 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'fixed_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'fixed_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-fixed',
 			]
 		);
 
-
 		$this->add_control(
 			'heading_added',
-			[ 
-				'label' => esc_html__( 'Added', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Added', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'added_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-added' => 'color: {{VALUE}}',
 				],
 			]
@@ -181,29 +181,29 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'added_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'added_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-added',
 			]
 		);
 
 		$this->add_control(
 			'heading_updated',
-			[ 
-				'label' => esc_html__( 'Updated', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Updated', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'updated_color',
-			[ 
-				'label' => esc_html__( 'Updated Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Updated Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-updated' => 'color: {{VALUE}}',
 				],
 			]
@@ -211,29 +211,29 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'updated_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'updated_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-updated',
 			]
 		);
 
 		$this->add_control(
 			'heading_note',
-			[ 
-				'label' => esc_html__( 'Note', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Note', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'note_color',
-			[ 
-				'label' => esc_html__( 'Note Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Note Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-note' => 'color: {{VALUE}}',
 				],
 			]
@@ -241,29 +241,29 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'note_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'note_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-note',
 			]
 		);
 
 		$this->add_control(
 			'heading_changed',
-			[ 
-				'label' => esc_html__( 'Changed', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Changed', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'changed_color',
-			[ 
-				'label' => esc_html__( 'Changed Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Changed Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-changed' => 'color: {{VALUE}}',
 				],
 			]
@@ -271,29 +271,29 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'changed_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'changed_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-changed',
 			]
 		);
 
 		$this->add_control(
 			'heading_removed',
-			[ 
-				'label' => esc_html__( 'Removed', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Removed', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'removed_color',
-			[ 
-				'label' => esc_html__( 'Removed Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Removed Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-removed' => 'color: {{VALUE}}',
 				],
 			]
@@ -301,36 +301,35 @@ class Changelog extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'removed_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'removed_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-label-changelog.sa-removed',
 			]
 		);
 
 		$this->add_control(
 			'heading_style',
-			[ 
-				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'heading_text_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} li:not(span)' => 'color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
-
 	}
 
 
@@ -353,7 +352,7 @@ class Changelog extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$id = 'tf_changelog_' . $this->get_id();
-		require_once( SKY_ADDONS_INC_PATH . 'class-parsedown.php' );
+		require_once SKY_ADDONS_INC_PATH . 'class-parsedown.php';
 
 		$transient_key = $id . '_data';
 		$response_data = get_transient( $transient_key );
@@ -377,7 +376,6 @@ class Changelog extends Widget_Base {
 				$cache_time = ! empty( $settings['cache_time'] ) ? $settings['cache_time'] : 3;
 				set_transient( $transient_key, $response_data, apply_filters( 'sky-addons/changelog/cached-time', DAY_IN_SECONDS * $cache_time ) );
 			}
-
 		}
 
 		$final_response_data = $response_data;

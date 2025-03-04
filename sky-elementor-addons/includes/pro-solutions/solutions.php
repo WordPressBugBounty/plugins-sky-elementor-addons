@@ -14,23 +14,23 @@ class Sky_Elementor_Addons_Pro_Updater {
 		add_action( 'wp_ajax_update_sky_pro_plugin', [ $this, 'ajax_handle_update' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
-		$has_license = get_option('sky_addons_pro_license_key', false);
-		
+		$has_license = get_option( 'sky_addons_pro_license_key', false );
+
 		if ( $has_license ) {
 			$license_key = trim( str_replace( ' ', '', $has_license ) );
-			update_option( "sky_addons_pro_license_key", $license_key );
+			update_option( 'sky_addons_pro_license_key', $license_key );
 		}
 
 		add_action( 'admin_notices', function () {
 			?>
 			<div class="notice notice-error">
 				<div class="sky-addons-update-solutions">
-					<h3><?php echo esc_html__( 'Update Sky Addons (Premium) Plugin', 'sky-elementor-addons' ) ?></h3>
+					<h3><?php echo esc_html__( 'Update Sky Addons (Premium) Plugin', 'sky-elementor-addons' ); ?></h3>
 					<p>
-						<?php echo esc_html__( 'Your current version of Sky Addons Pro is outdated. Please update to the latest version for optimal functionality and security.', 'sky-elementor-addons' ) ?>
+						<?php echo esc_html__( 'Your current version of Sky Addons Pro is outdated. Please update to the latest version for optimal functionality and security.', 'sky-elementor-addons' ); ?>
 					</p>
 					<button id="update-sky-pro-plugin" class="button button-primary" style="margin: 16px 0px;">
-						<?php echo esc_html__( 'Click Here to Update now.', 'sky-elementor-addons' ) ?>
+						<?php echo esc_html__( 'Click Here to Update now.', 'sky-elementor-addons' ); ?>
 					</button>
 				</div>
 			</div>
@@ -71,16 +71,16 @@ class Sky_Elementor_Addons_Pro_Updater {
 				// wp_send_json_success( [ 'message' => 'Plugin updated successfully!' ] );
 				wp_die();
 			}
-		} catch (\Exception $e) {
+		} catch ( \Exception $e ) {
 			wp_send_json_error( [ 'message' => $e->getMessage() ] );
 		}
 	}
 
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'sky-pro-updater', SKY_ADDONS_URL . 'includes/pro-solutions/updater.js', [ 'jquery' ], '1.0', true );
-		wp_localize_script( 'sky-pro-updater', 'SkyUpdater', [ 
+		wp_localize_script( 'sky-pro-updater', 'SkyUpdater', [
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( 'update_sky_pro_plugin' ),
+			'nonce'    => wp_create_nonce( 'update_sky_pro_plugin' ),
 		] );
 	}
 

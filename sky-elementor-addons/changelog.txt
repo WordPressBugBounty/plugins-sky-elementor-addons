@@ -1,3 +1,8 @@
+= 2.7.0 [5th March 2025] =
+
+* Added: Completely new admin UI added
+* Improved: System improved
+
 = 2.6.9 [18th January 2025] =
 
 * Fixed: Button Alignment isse fixed in Card widget (Thanks to Faye)

@@ -30,8 +30,8 @@ class Module extends Module_Base {
 
 		$element->start_controls_section(
 			'section_sky_addons_wrapper_link_controls',
-			[ 
-				'tab' => $tabs,
+			[
+				'tab'   => $tabs,
 				'label' => esc_html__( 'Wrapper Links', 'sky-elementor-addons' ) . sky_addons_get_icon(),
 			]
 		);
@@ -41,16 +41,16 @@ class Module extends Module_Base {
 	public function register_controls( $widget, $args ) {
 		$widget->add_control(
 			'sky_wrapper_link',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::URL,
-				'placeholder' => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
+			[
+				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
 				'show_external' => true,
-				'default' => [ 
+				'default'       => [
 					'url' => '',
 				],
-				'dynamic' => [ 'active' => true ],
-				'render_type' => 'none',
+				'dynamic'       => [ 'active' => true ],
+				'render_type'   => 'none',
 			]
 		);
 	}
@@ -62,10 +62,10 @@ class Module extends Module_Base {
 
 			$widget->add_render_attribute(
 				'_wrapper',
-				[ 
+				[
 					'data-sa-element-link' => wp_json_encode( $wrapper_link, true ),
-					'class' => 'sa-element-link',
-					'style' => 'cursor: pointer',
+					'class'                => 'sa-element-link',
+					'style'                => 'cursor: pointer',
 				]
 			);
 		}
@@ -73,11 +73,11 @@ class Module extends Module_Base {
 
 	protected function add_actions() {
 
-		//section
+		// section
 		add_action( 'elementor/element/section/section_advanced/after_section_end', [ $this, 'register_section' ] );
 		add_action( 'elementor/element/section/section_sky_addons_wrapper_link_controls/before_section_end', [ $this, 'register_controls' ], 10, 2 );
 
-		//container
+		// container
 		add_action( 'elementor/element/container/section_layout_container/after_section_end', [ $this, 'register_section' ] );
 		add_action( 'elementor/element/container/section_sky_addons_wrapper_link_controls/before_section_end', [ $this, 'register_controls' ], 10, 2 );
 

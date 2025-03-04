@@ -34,11 +34,11 @@ class Library_Load {
 	}
 
 	public function register_ajax_actions( Ajax $ajax ) {
-		$ajax->register_ajax_action( 'get_sky_templates_library_data', function ($data) {
+		$ajax->register_ajax_action( 'get_sky_templates_library_data', function ( $data ) {
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				throw new \Exception( 'Access Denied' );
 			}
-			if ( ! empty ( $data['editor_post_id'] ) ) {
+			if ( ! empty( $data['editor_post_id'] ) ) {
 				$editor_post_id = absint( $data['editor_post_id'] );
 				if ( ! get_post( $editor_post_id ) ) {
 					throw new \Exception( esc_html__( 'Post not found.', 'sky-elementor-addons' ) );
@@ -54,9 +54,9 @@ class Library_Load {
 		if ( ! empty( $args['sync'] ) ) {
 			$library_data::get_library_data( true );
 		}
-		return [ 
+		return [
 			'templates' => $library_data->get_items(),
-			'tags' => $library_data->get_tags(),
+			'tags'      => $library_data->get_tags(),
 			'type_tags' => $library_data->get_type_tags(),
 		];
 	}

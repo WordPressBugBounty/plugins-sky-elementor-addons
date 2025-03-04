@@ -21,8 +21,9 @@ use Sky_Addons\Traits\Global_Widget_Functions;
 use Sky_Addons\Traits\Global_Widget_Controls;
 
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 class Stellar_Slider extends Widget_Base {
 
@@ -53,7 +54,7 @@ class Stellar_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'swiper',
 			'elementor-icons-fa-solid',
 		];
@@ -71,25 +72,25 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'height',
-			[ 
-				'label' => esc_html__( 'Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em', 'vh' ],
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'       => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px', 'em', 'vh' ],
+				'range'       => [
+					'px' => [
 						'min' => 400,
 						'max' => 1000,
 					],
 				],
-				'selectors' => [ 
+				'selectors'   => [
 					'{{WRAPPER}} .swiper' => 'height: {{SIZE}}{{UNIT}};',
 				],
 				'render_type' => 'template',
@@ -98,43 +99,43 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'height_notice',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => esc_html__( 'Note: Video Height is not working, because of Aspect Ratio. Now Aspect Ratio Working.', 'sky-elementor-addons' ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Note: Video Height is not working, because of Aspect Ratio. Now Aspect Ratio Working.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-				'condition' => [ 
-					'slider_aspect_ratio!' => ''
-				]
+				'condition'       => [
+					'slider_aspect_ratio!' => '',
+				],
 
 			]
 		);
 
 		$this->add_control(
 			'slider_aspect_ratio',
-			[ 
-				'label' => esc_html__( 'Aspect Ratio', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '',
-				'options' => [ 
-					'' => esc_html__( 'Select Aspect Ratio', 'sky-elementor-addons' ),
-					'11' => '1:1',
-					'21' => '2:1',
-					'32' => '3:2',
-					'43' => '4:3',
-					'85' => '8:5',
+			[
+				'label'        => esc_html__( 'Aspect Ratio', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => '',
+				'options'      => [
+					''    => esc_html__( 'Select Aspect Ratio', 'sky-elementor-addons' ),
+					'11'  => '1:1',
+					'21'  => '2:1',
+					'32'  => '3:2',
+					'43'  => '4:3',
+					'85'  => '8:5',
 					'169' => '16:9',
 					'219' => '21:9',
 					'916' => '9:16',
 				],
 				'prefix_class' => 'sa-ss-ratio-yes sa-ratio-',
-				'render_type' => 'template',
+				'render_type'  => 'template',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
-			[ 
-				'name' => 'primary_thumbnail',
+			[
+				'name'    => 'primary_thumbnail',
 				'exclude' => [ 'custom' ],
 				'default' => 'full',
 			]
@@ -142,53 +143,53 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'content_alignment',
-			[ 
-				'label' => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'label_block' => false,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'                => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
+				'type'                 => Controls_Manager::CHOOSE,
+				'label_block'          => false,
+				'options'              => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'toggle' => true,
-				'desktop_default' => 'left',
-				'tablet_default' => 'left',
-				'mobile_default' => 'left',
+				'toggle'               => true,
+				'desktop_default'      => 'left',
+				'tablet_default'       => 'left',
+				'mobile_default'       => 'left',
 				// 'prefix_class'         => 'sa-ss-%s-',
-				'style_transfer' => true,
-				'selectors' => [ 
+				'style_transfer'       => true,
+				'selectors'            => [
 					'{{WRAPPER}} .sa-content-container' => '{{VALUE}};',
-					'{{WRAPPER}} .sa-post-meta' => '{{VALUE}};',
-					'{{WRAPPER}} .sa-buttons-wrapper' => '{{VALUE}};',
+					'{{WRAPPER}} .sa-post-meta'         => '{{VALUE}};',
+					'{{WRAPPER}} .sa-buttons-wrapper'   => '{{VALUE}};',
 				],
-				'selectors_dictionary' => [ 
-					'left' => 'text-align: left; justify-content: flex-start; align-items: left;',
-					'center' => 'text-align: center; justify-content: center; align-items: center;',
-					'right' => 'text-align: right; justify-content: right; align-items: flex-end;',
-					'justify' => 'text-align: left; justify-content: left; align-items: flex-start;'
-				]
+				'selectors_dictionary' => [
+					'left'    => 'text-align: left; justify-content: flex-start; align-items: left;',
+					'center'  => 'text-align: center; justify-content: center; align-items: center;',
+					'right'   => 'text-align: right; justify-content: right; align-items: flex-end;',
+					'justify' => 'text-align: left; justify-content: left; align-items: flex-start;',
+				],
 			]
 		);
 
 		$this->add_control(
 			'show_social_icons',
-			[ 
-				'label' => esc_html__( 'Show Social Icons', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Social Icons', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -200,9 +201,9 @@ class Stellar_Slider extends Widget_Base {
 		 */
 		$this->start_controls_section(
 			'section_post_query_builder',
-			[ 
+			[
 				'label' => __( 'Query', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -210,7 +211,7 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->update_control(
 			'posts_per_page',
-			[ 
+			[
 				'default' => 4,
 			]
 		);
@@ -219,11 +220,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_social_icon',
-			[ 
-				'label' => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
-				'condition' => [ 
-					'show_social_icons' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
+				'condition' => [
+					'show_social_icons' => 'yes',
+				],
 			]
 		);
 
@@ -231,15 +232,15 @@ class Stellar_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'social_icon',
-			[ 
-				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
-				'default' => [ 
-					'value' => 'fab fa-facebook-f',
+			[
+				'label'       => esc_html__( 'Icon', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::ICONS,
+				'default'     => [
+					'value'   => 'fab fa-facebook-f',
 					'library' => 'fa-brands',
 				],
-				'recommended' => [ 
-					'fa-brands' => [ 
+				'recommended' => [
+					'fa-brands' => [
 						'android',
 						'apple',
 						'behance',
@@ -297,7 +298,7 @@ class Stellar_Slider extends Widget_Base {
 						'youtube',
 						'500px',
 					],
-					'fa-solid' => [ 
+					'fa-solid' => [
 						'envelope',
 						'link',
 						'rss',
@@ -308,13 +309,13 @@ class Stellar_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'link',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::URL,
-				'default' => [ 
+			[
+				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::URL,
+				'default'     => [
 					'is_external' => 'true',
 				],
-				'dynamic' => [ 
+				'dynamic'     => [
 					'active' => true,
 				],
 				'placeholder' => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
@@ -323,26 +324,26 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'social_icon_list',
-			[ 
-				'label' => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'default' => [ 
-					[ 
-						'social_icon' => [ 
-							'value' => 'fab fa-facebook-f',
+			[
+				'label'       => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => [
+					[
+						'social_icon' => [
+							'value'   => 'fab fa-facebook-f',
 							'library' => 'fa-brands',
 						],
 					],
-					[ 
-						'social_icon' => [ 
-							'value' => 'fab fa-twitter',
+					[
+						'social_icon' => [
+							'value'   => 'fab fa-twitter',
 							'library' => 'fa-brands',
 						],
 					],
-					[ 
-						'social_icon' => [ 
-							'value' => 'fab fa-youtube',
+					[
+						'social_icon' => [
+							'value'   => 'fab fa-youtube',
 							'library' => 'fa-brands',
 						],
 					],
@@ -353,11 +354,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'social_icon_default_color',
-			[ 
-				'label' => esc_html__( 'Default Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'        => esc_html__( 'Default Color', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'sa-social-default-color-',
-				'render_type' => 'template'
+				'render_type'  => 'template',
 			]
 		);
 
@@ -365,17 +366,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
 				'options' => sky_title_tags(),
 			]
@@ -383,52 +384,52 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_category',
-			[ 
-				'label' => esc_html__( 'Show Category', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Category', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_author',
-			[ 
-				'label' => esc_html__( 'Show Author', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Author', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_excerpt',
-			[ 
-				'label' => esc_html__( 'Show Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Text', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'excerpt_length',
-			[ 
-				'label' => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'This is for the main content, but not for excerpts. If you set the offset to 0, then you\'ll get the full text instead.', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 30,
-				'condition' => [ 
-					'show_excerpt' => 'yes'
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 30,
+				'condition'   => [
+					'show_excerpt' => 'yes',
 				],
 			]
 		);
 
 		$this->add_control(
 			'strip_shortcode',
-			[ 
-				'label' => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -440,10 +441,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_date',
-			[ 
-				'label' => esc_html__( 'Show Date', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Date', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -452,10 +453,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_video',
-			[ 
-				'label' => esc_html__( 'Show Video', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Video', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -464,12 +465,12 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_video_settings',
-			[ 
-				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
-					'show_video' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'show_video' => 'yes',
+				],
 			]
 		);
 
@@ -480,35 +481,34 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_slider_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'transition_effect',
-			[ 
-				'label' => esc_html__( 'Transition Effect', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Transition Effect', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'fade',
-				'options' => [ 
+				'options' => [
 					'slide' => esc_html__( 'Slide', 'sky-elementor-addons' ),
-					'fade' => esc_html__( 'Fade', 'sky-elementor-addons' ),
+					'fade'  => esc_html__( 'Fade', 'sky-elementor-addons' ),
 				],
 			]
 		);
 
 		$this->add_control(
 			'cross_fade',
-			[ 
-				'label' => esc_html__( 'Cross Fade', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Cross Fade', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => [
 					'transition_effect' => 'fade',
 				],
 			]
@@ -516,20 +516,20 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default' => [ 
+				'default'   => [
 					'unit' => 'px',
 					'size' => 30,
 				],
-				'condition' => [ 
+				'condition' => [
 					'transition_effect' => 'coverflow',
 				],
 			]
@@ -537,10 +537,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'slide_shadows',
-			[ 
-				'label' => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [
 					'transition_effect' => [ 'coverflow', 'flip', 'cube' ],
 				],
 			]
@@ -548,30 +548,30 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'autoplay',
-			[ 
-				'label' => esc_html__( 'Autoplay', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Autoplay', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'autoplay_speed',
-			[ 
-				'label' => esc_html__( 'Autoplay Speed (sec)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 10,
+			[
+				'label'     => esc_html__( 'Autoplay Speed (sec)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 10,
 						'step' => .5,
 					],
 				],
-				'default' => [ 
+				'default'   => [
 					'unit' => 'px',
 					'size' => 5,
 				],
-				'condition' => [ 
+				'condition' => [
 					'autoplay' => 'yes',
 				],
 			]
@@ -579,26 +579,26 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'loop',
-			[ 
-				'label' => esc_html__( 'Loop', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Loop', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'speed',
-			[ 
-				'label' => esc_html__( 'Slide Speed (sec)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'min' => 1,
-						'max' => 10,
+			[
+				'label'   => esc_html__( 'Slide Speed (sec)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SLIDER,
+				'range'   => [
+					'px' => [
+						'min'  => 1,
+						'max'  => 10,
 						'step' => .5,
 					],
 				],
-				'default' => [ 
+				'default' => [
 					'unit' => 'px',
 					'size' => 1,
 				],
@@ -607,10 +607,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'pause_on_hover',
-			[ 
-				'label' => esc_html__( 'Pause On Hover', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Pause On Hover', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [
 					'autoplay' => 'yes',
 				],
 			]
@@ -618,30 +618,30 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'observer',
-			[ 
-				'label' => esc_html__( 'Observer', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before',
+			[
+				'label'       => esc_html__( 'Observer', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
+				'separator'   => 'before',
 				'description' => esc_html__( 'Note: Please use it when you using slider on a hidden element.', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'show_navigation',
-			[ 
-				'label' => esc_html__( 'Show Navigation', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Navigation', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_pagination',
-			[ 
-				'label' => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -650,50 +650,49 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_navigation',
-			[ 
-				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 'show_navigation' => 'yes' ]
+			[
+				'label'     => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'show_navigation' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
 			'prev_icon',
-			[ 
+			[
 				'label' => esc_html__( 'Prev Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
 		$this->add_control(
 			'next_icon',
-			[ 
+			[
 				'label' => esc_html__( 'Next Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_pagination',
-			[ 
-				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 'show_pagination' => 'yes' ]
+			[
+				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'show_pagination' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
 			'pagination_type',
-			[ 
-				'label' => esc_html__( 'Pagination Type', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Pagination Type', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'bullets',
-				'options' => [ 
-					'none' => esc_html__( 'None', 'sky-elementor-addons' ),
-					'bullets' => esc_html__( 'Bullets', 'sky-elementor-addons' ),
+				'options' => [
+					'none'     => esc_html__( 'None', 'sky-elementor-addons' ),
+					'bullets'  => esc_html__( 'Bullets', 'sky-elementor-addons' ),
 					'fraction' => esc_html__( 'Fraction', 'sky-elementor-addons' ),
 				],
 			]
@@ -701,10 +700,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'dynamic_bullets',
-			[ 
-				'label' => esc_html__( 'Dynamic Bullets', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'condition' => [ 'pagination_type' => 'bullets' ]
+			[
+				'label'     => esc_html__( 'Dynamic Bullets', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
@@ -712,17 +711,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_buttons',
-			[ 
+			[
 				'label' => esc_html__( 'Buttons', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'button_text',
-			[ 
-				'label' => esc_html__( 'Read More Button Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'   => esc_html__( 'Read More Button Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'READ MORE', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
 			]
@@ -730,9 +729,9 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'play_button_text',
-			[ 
-				'label' => esc_html__( 'Play Button Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'   => esc_html__( 'Play Button Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'PLAY', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
 			]
@@ -742,25 +741,25 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_common_style',
-			[ 
+			[
 				'label' => esc_html__( 'Common', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'container_width',
-			[ 
-				'label' => esc_html__( 'Container Width', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Container Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 500,
 						'max' => 2000,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-content-container' => 'max-width: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -768,11 +767,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'container_padding',
-			[ 
-				'label' => esc_html__( 'Container Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Container Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-content-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -780,48 +779,47 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'image_background',
-				'label' => esc_html__( 'Overlay', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => esc_html__( 'Overlay', 'sky-elementor-addons' ),
+			[
+				'name'           => 'image_background',
+				'label'          => esc_html__( 'Overlay', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label'   => esc_html__( 'Overlay', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#0504046B',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-stellar-slider .swiper-slide:before',
+				'selector'       => '{{WRAPPER}} .sa-stellar-slider .swiper-slide:before',
 			]
 		);
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
+			[
 				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-title-wrapper' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -829,10 +827,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'title_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-title' => 'color: {{VALUE}}',
 				],
 			]
@@ -840,10 +838,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'title_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-title:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -851,26 +849,26 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'title_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-title',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'title_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-title',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Stroke::get_type(),
-			[ 
-				'name' => 'title_text_stroke',
+			[
+				'name'     => 'title_text_stroke',
 				'selector' => '{{WRAPPER}} .sa-post-title',
 			]
 		);
@@ -879,26 +877,26 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_text_style',
-			[ 
-				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 'show_excerpt' => 'yes' ]
+			[
+				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'show_excerpt' => 'yes' ],
 			]
 		);
 
 		$this->add_responsive_control(
 			'text_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -913,49 +911,49 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_category_style',
-			[ 
-				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_category' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_category' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'category_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-category' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 
 		// $this->add_responsive_control(
-		//     'category_space_between',
-		//     [
-		//         'label'      => esc_html__('Space Between', 'sky-elementor-addons'),
-		//         'type'       => Controls_Manager::SLIDER,
-		//         'size_units' => ['px', 'em'],
-		//         'range'      => [
-		//             'px' => [
-		//                 'min' => 0,
-		//                 'max' => 50,
-		//             ],
-		//         ],
-		//         'selectors'  => [
-		//             '{{WRAPPER}}'  => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
-		//         ],
-		//     ]
+		// 'category_space_between',
+		// [
+		// 'label'      => esc_html__('Space Between', 'sky-elementor-addons'),
+		// 'type'       => Controls_Manager::SLIDER,
+		// 'size_units' => ['px', 'em'],
+		// 'range'      => [
+		// 'px' => [
+		// 'min' => 0,
+		// 'max' => 50,
+		// ],
+		// ],
+		// 'selectors'  => [
+		// '{{WRAPPER}}'  => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
+		// ],
+		// ]
 		// );
 
 		/**
@@ -966,31 +964,30 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_author_style',
-			[ 
-				'label' => esc_html__( 'Author', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_author' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Author', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_author' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'meta_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -998,10 +995,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'author_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-author-text a' => 'color: {{VALUE}}',
 				],
 			]
@@ -1009,10 +1006,10 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'author_color_hover',
-			[ 
-				'label' => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-author-text:hover  a' => 'color: {{VALUE}}',
 				],
 			]
@@ -1020,48 +1017,48 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'author_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'author_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-author-text',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'author_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'author_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-author-text',
 			]
 		);
 
 		$this->add_control(
 			'author_heading_style',
-			[ 
-				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_responsive_control(
 			'author_img_width',
-			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 50,
 						'max' => 500,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-author-thumb' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1069,11 +1066,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'author_img_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-author-thumb' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1081,25 +1078,25 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'author_img_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-post-author-thumb',
-				'fields_options' => [ 
-					'border' => [ 
+			[
+				'name'           => 'author_img_border',
+				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector'       => '{{WRAPPER}} .sa-post-author-thumb',
+				'fields_options' => [
+					'border' => [
 						'default' => 'solid',
 					],
-					'width' => [ 
-						'default' => [ 
-							'top' => '2',
-							'right' => '2',
-							'bottom' => '2',
-							'left' => '2',
-							'unit' => 'px',
+					'width' => [
+						'default' => [
+							'top'      => '2',
+							'right'    => '2',
+							'bottom'   => '2',
+							'left'     => '2',
+							'unit'     => 'px',
 							'isLinked' => false,
 						],
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#fff',
 					],
 				],
@@ -1108,11 +1105,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'author_img_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-author-thumb' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1120,36 +1117,36 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'author_img_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'author_img_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-author-thumb',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
-			[ 
-				'name' => 'author_img_css_filters',
+			[
+				'name'     => 'author_img_css_filters',
 				'selector' => '{{WRAPPER}} .sa-post-author-thumb',
 			]
 		);
 
 		$this->add_control(
 			'author_date_heading_style',
-			[ 
-				'label' => esc_html__( 'Date', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'Date', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'author_date_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}}' => '--sa-post-author-date-color: {{VALUE}}',
 				],
 			]
@@ -1157,18 +1154,18 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'author_date_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'author_date_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-date, {{WRAPPER}} .sa-icon-wrap',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'author_date_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'author_date_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-date, {{WRAPPER}} .sa-icon-wrap',
 			]
 		);
@@ -1177,19 +1174,19 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_buttons_style',
-			[ 
+			[
 				'label' => esc_html__( 'Buttons', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'button_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1197,30 +1194,29 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'button_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'button_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-button',
 			]
 		);
 
-
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'button_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'button_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-button',
 			]
 		);
 
 		$this->add_responsive_control(
 			'button_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
 				],
 			]
@@ -1228,18 +1224,18 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'button_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'button_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-button',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'button_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'button_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-button',
 			]
 		);
@@ -1248,17 +1244,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_buttons_read_more',
-			[ 
+			[
 				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'button_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-read-more, {{WRAPPER}} .sa-read-more:focus' => 'color: {{VALUE}}',
 				],
 			]
@@ -1266,20 +1262,20 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'button_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'button_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-read-more, {{WRAPPER}} .sa-read-more:focus',
 			]
 		);
 
 		$this->add_control(
 			'button_border_color_override',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-read-more' => 'border-color: {{VALUE}};',
 				],
 			]
@@ -1287,19 +1283,19 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'button_hover',
-			[ 
-				'label' => esc_html__( 'H O V E R', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'H O V E R', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'button_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-read-more:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -1307,20 +1303,20 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'button_background_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'button_background_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-read-more:hover',
 			]
 		);
 
 		$this->add_control(
 			'button_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-read-more:hover' => 'border-color: {{VALUE}};',
 				],
 			]
@@ -1330,20 +1326,20 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_buttons_play',
-			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'condition' => [ 
-					'show_video' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'condition' => [
+					'show_video' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'play_button_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button, {{WRAPPER}} .sa-play-button:focus' => 'color: {{VALUE}}',
 				],
 			]
@@ -1351,41 +1347,40 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'play_button_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'play_button_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-play-button, {{WRAPPER}} .sa-play-button:focus',
 			]
 		);
 
 		$this->add_control(
 			'play_button_border_color',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
 
-
 		$this->add_control(
 			'play_button_hover',
-			[ 
-				'label' => esc_html__( 'H O V E R', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HEADING,
+			[
+				'label'     => esc_html__( 'H O V E R', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'play_button_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -1393,20 +1388,20 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'play_button_background_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'play_button_background_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-play-button:hover',
 			]
 		);
 
 		$this->add_control(
 			'play_button_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'border-color: {{VALUE}};',
 				],
 			]
@@ -1420,45 +1415,45 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_navigation_style',
-			[ 
-				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_navigation' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_navigation' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'navigation_bottom_spacing',
-			[ 
-				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .sa-navigation-wrapper' => 'bottom: {{SIZE}}{{UNIT}};'
+				'selectors' => [
+					'{{WRAPPER}} .sa-navigation-wrapper' => 'bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'navigation_size',
-			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 5,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} ' => '--sa-navigation-size: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1466,17 +1461,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'navigation_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} ' => '--sa-navigation-spacing: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1484,11 +1479,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'navigation_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1496,25 +1491,25 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'navigation_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
-				'fields_options' => [ 
-					'border' => [ 
+			[
+				'name'           => 'navigation_border',
+				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector'       => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
+				'fields_options' => [
+					'border' => [
 						'default' => 'solid',
 					],
-					'width' => [ 
-						'default' => [ 
-							'top' => '2',
-							'right' => '2',
-							'bottom' => '2',
-							'left' => '2',
-							'unit' => 'px',
+					'width' => [
+						'default' => [
+							'top'      => '2',
+							'right'    => '2',
+							'bottom'   => '2',
+							'left'     => '2',
+							'unit'     => 'px',
 							'isLinked' => false,
 						],
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#e0528d',
 					],
 				],
@@ -1525,17 +1520,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'navigation_tab_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev svg *, {{WRAPPER}} .sa-swiper-button-next svg *' => 'fill: {{VALUE}}',
 				],
@@ -1544,17 +1539,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'navigation_bg',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => esc_html__( 'Background', 'elementor' ),
+			[
+				'name'           => 'navigation_bg',
+				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
+				'fields_options' => [
+					'background' => [
+						'label'   => esc_html__( 'Background', 'elementor' ),
 						'default' => 'classic',
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#fff',
 					],
 				],
@@ -1563,29 +1558,29 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'navigation_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'navigation_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'navigation_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'navigation_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
 
 		$this->add_responsive_control(
 			'navigation_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1595,17 +1590,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'navigation_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color_hover',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev:hover svg *, {{WRAPPER}} .sa-swiper-button-next:hover svg *' => 'fill: {{VALUE}}',
 				],
@@ -1614,32 +1609,32 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'navigation_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'fields_options' => [ 
-					'background' => [ 
-						'label' => esc_html__( 'Background', 'elementor' ),
+			[
+				'name'           => 'navigation_bg_hover',
+				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'fields_options' => [
+					'background' => [
+						'label'   => esc_html__( 'Background', 'elementor' ),
 						'default' => 'classic',
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#e0528d',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
+				'selector'       => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
 
 		$this->add_control(
 			'navigation_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'navigation_border_border!' => '',
 				],
 			]
@@ -1647,29 +1642,29 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'navigation_text_shadow_hover',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'navigation_text_shadow_hover',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'navigation_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'navigation_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
 
 		$this->add_responsive_control(
 			'navigation_border_radius_hover',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1683,89 +1678,89 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_pagination_style',
-			[ 
-				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_pagination' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_pagination' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'pagination_bottom_spacing',
-			[ 
-				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
-					'{{WRAPPER}} .swiper-pagination-fraction, .swiper-pagination-custom, {{WRAPPER}} .swiper-horizontal > .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}};'
+				'selectors' => [
+					'{{WRAPPER}} .swiper-pagination-fraction, .swiper-pagination-custom, {{WRAPPER}} .swiper-horizontal > .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'bullet_size',
-			[ 
-				'label' => esc_html__( 'Bullet Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bullet Height', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 1,
-						'max' => 50,
+				'range'      => [
+					'px' => [
+						'min'  => 1,
+						'max'  => 50,
 						'step' => .5,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}}' => '--sa-pagination-bullet-height: {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 'pagination_type' => 'bullets' ]
+				'condition'  => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
 		$this->add_responsive_control(
 			'bullet_width',
-			[ 
-				'label' => esc_html__( 'Bullet Width', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bullet Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 1,
-						'max' => 50,
+				'range'      => [
+					'px' => [
+						'min'  => 1,
+						'max'  => 50,
 						'step' => .5,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}}' => '--sa-pagination-bullet-width: {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 'pagination_type' => 'bullets' ]
+				'condition'  => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
 		$this->add_responsive_control(
 			'bullet_spacing',
-			[ 
-				'label' => esc_html__( 'Bullet Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bullet Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 4,
-						'max' => 20,
+				'range'      => [
+					'px' => [
+						'min'  => 4,
+						'max'  => 20,
 						'step' => .5,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .swiper-pagination-bullets .swiper-pagination-bullet' => 'margin: 0px {{SIZE}}{{UNIT}};',
 				],
-				'condition' => [ 'pagination_type' => 'bullets' ]
+				'condition'  => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
@@ -1775,73 +1770,73 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'style_pagination_normal_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'fraction_color',
-			[ 
-				'label' => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#ddd',
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ddd',
+				'selectors' => [
 					'{{WRAPPER}} .swiper-pagination.swiper-pagination-fraction' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 'pagination_type' => 'fraction' ]
+				'condition' => [ 'pagination_type' => 'fraction' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'pagination_fraction_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .swiper-pagination-fraction',
-				'condition' => [ 'pagination_type' => 'fraction' ]
+			[
+				'name'      => 'pagination_fraction_typography',
+				'label'     => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector'  => '{{WRAPPER}} .swiper-pagination-fraction',
+				'condition' => [ 'pagination_type' => 'fraction' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'pagination_color',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
+			[
+				'name'           => 'pagination_color',
+				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
 						'label' => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .swiper-pagination-bullet',
-				'condition' => [ 'pagination_type' => 'bullets' ]
+				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet',
+				'condition'      => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'pagination_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .swiper-pagination-bullet',
-				'condition' => [ 'pagination_type' => 'bullets' ],
-				'fields_options' => [ 
-					'border' => [ 
+			[
+				'name'           => 'pagination_border',
+				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet',
+				'condition'      => [ 'pagination_type' => 'bullets' ],
+				'fields_options' => [
+					'border' => [
 						'default' => 'solid',
 					],
-					'width' => [ 
-						'default' => [ 
-							'top' => '8',
-							'right' => '8',
-							'bottom' => '8',
-							'left' => '8',
-							'unit' => 'px',
+					'width' => [
+						'default' => [
+							'top'      => '8',
+							'right'    => '8',
+							'bottom'   => '8',
+							'left'     => '8',
+							'unit'     => 'px',
 							'isLinked' => false,
 						],
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#0A0A0AC4',
 					],
 				],
@@ -1850,14 +1845,14 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'pagination_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .swiper-pagination-bullet' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'condition' => [ 'pagination_type' => 'bullets' ],
+				'condition'  => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
@@ -1865,73 +1860,73 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'style_pagination_active_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Active', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'fraction_active_color',
-			[ 
-				'label' => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'default' => '#fff',
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#fff',
+				'selectors' => [
 					'{{WRAPPER}} .swiper-pagination-fraction .swiper-pagination-current' => 'color: {{VALUE}}',
 				],
-				'condition' => [ 'pagination_type' => 'fraction' ]
+				'condition' => [ 'pagination_type' => 'fraction' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'pagination_fraction_typography_active',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .swiper-pagination-fraction .swiper-pagination-current',
-				'condition' => [ 'pagination_type' => 'fraction' ]
+			[
+				'name'      => 'pagination_fraction_typography_active',
+				'label'     => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector'  => '{{WRAPPER}} .swiper-pagination-fraction .swiper-pagination-current',
+				'condition' => [ 'pagination_type' => 'fraction' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'pagination_active_color',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
-				'exclude' => [ 'image' ],
-				'fields_options' => [ 
-					'background' => [ 
+			[
+				'name'           => 'pagination_active_color',
+				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
 						'label' => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
 					],
 				],
-				'selector' => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
-				'condition' => [ 'pagination_type' => 'bullets' ]
+				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
+				'condition'      => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'pagination_border_active',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
-				'condition' => [ 'pagination_type' => 'bullets' ],
-				'fields_options' => [ 
-					'border' => [ 
+			[
+				'name'           => 'pagination_border_active',
+				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
+				'condition'      => [ 'pagination_type' => 'bullets' ],
+				'fields_options' => [
+					'border' => [
 						'default' => 'solid',
 					],
-					'width' => [ 
-						'default' => [ 
-							'top' => '6',
-							'right' => '6',
-							'bottom' => '6',
-							'left' => '6',
-							'unit' => 'px',
+					'width' => [
+						'default' => [
+							'top'      => '6',
+							'right'    => '6',
+							'bottom'   => '6',
+							'left'     => '6',
+							'unit'     => 'px',
 							'isLinked' => false,
 						],
 					],
-					'color' => [ 
+					'color' => [
 						'default' => '#fff',
 					],
 				],
@@ -1940,14 +1935,14 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'pagination_border_radius_active',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'condition' => [ 'pagination_type' => 'bullets' ],
+				'condition'  => [ 'pagination_type' => 'bullets' ],
 			]
 		);
 
@@ -1959,29 +1954,29 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_social_icons_style',
-			[ 
-				'label' => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_social_icons' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_social_icons' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'social_icons_icon_size',
-			[ 
-				'label' => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 100,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons .sa-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1989,18 +1984,18 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'social_icons_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 50,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 50,
 						'step' => 1,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -2008,11 +2003,11 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'social_icons_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -2020,23 +2015,23 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'social_icons_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'social_icons_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link',
 			]
 		);
 
 		$this->add_responsive_control(
 			'social_icons_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons .sa-link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
 				],
 			]
@@ -2044,23 +2039,23 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_socials_adv_border_radius',
-			[ 
+			[
 				'label' => esc_html__( 'Advanced Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'socials_adv_border_radius',
-			[ 
-				'label' => esc_html__( 'Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Radius', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
+				'dynamic'   => [ 'active' => true ],
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link' => 'border-radius: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'show_socials_adv_border_radius' => 'yes',
 				],
 			]
@@ -2070,17 +2065,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'social_icons_tab_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'social_icons_color',
-			[ 
-				'label' => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link' => 'color: {{VALUE}}',
 				],
 			]
@@ -2088,36 +2083,36 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'social_icons_bg',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'social_icons_bg',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'social_icons_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'social_icons_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link',
 			]
 		);
 
 		$this->add_control(
 			'social_icons_opacity',
-			[ 
-				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'max' => 1,
-						'min' => 0.10,
+			[
+				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'max'  => 1,
+						'min'  => 0.10,
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link' => 'opacity: {{SIZE}};',
 				],
 			]
@@ -2127,17 +2122,17 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'social_icons_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'social_icons_color_hover',
-			[ 
-				'label' => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -2145,23 +2140,23 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'social_icons_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'social_icons_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover',
 			]
 		);
 
 		$this->add_control(
 			'social_icons_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'social_icons_border_border!' => '',
 				],
 			]
@@ -2169,14 +2164,14 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'social_icons_border_radius_hover',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons .sa-link:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'condition' => [ 
+				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
 				],
 			]
@@ -2184,35 +2179,35 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'social_icons_shadow_hover',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'social_icons_shadow_hover',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'social_icons_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'social_icons_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover',
 			]
 		);
 
 		$this->add_control(
 			'social_icons_opacity_hover',
-			[ 
-				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'max' => 1,
-						'min' => 0.10,
+			[
+				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'max'  => 1,
+						'min'  => 0.10,
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-social-icons .sa-link:hover' => 'opacity: {{SIZE}};',
 				],
 			]
@@ -2220,9 +2215,9 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->add_control(
 			'icons_hover_animation',
-			[ 
+			[
 				'label' => esc_html__( 'Hover Animation', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::HOVER_ANIMATION,
+				'type'  => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
 
@@ -2307,11 +2302,11 @@ class Stellar_Slider extends Widget_Base {
 				}
 
 				$link_key = 'link_' . $index;
-				$this->add_render_attribute( $link_key, 'class', [ 
+				$this->add_render_attribute( $link_key, 'class', [
 					'sa-link sa-text-decoration-none sa-p-3 sa-icon-wrap sa-rounded',
 					$class_animation,
 					'elementor-repeater-item-' . $item['_id'],
-					'elementor-social-icon-' . $social
+					'elementor-social-icon-' . $social,
 				] );
 
 				$this->add_link_attributes( $link_key, $item['link'] );
@@ -2390,7 +2385,7 @@ class Stellar_Slider extends Widget_Base {
 			if ( $settings['video_open'] == 'file' ) {
 				$tag = 'a';
 			}
-			$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'class' => 'sa-play-button sa-button sa-text-decoration-none sa-rounded',
 			] );
 
@@ -2412,9 +2407,9 @@ class Stellar_Slider extends Widget_Base {
 		<div class="swiper-slide sa-position-relative">
 			<div class="sa-img-wrap sa-position-absolute sa-w-100 sa-h-100">
 				<?php
-				$this->render_post_image( [ 
-					'wrapper_class' => 'sa-cover',
-					'image_id' => get_post_thumbnail_id( $post_id ),
+				$this->render_post_image( [
+					'wrapper_class'  => 'sa-cover',
+					'image_id'       => get_post_thumbnail_id( $post_id ),
 					'thumbnail_size' => $image_size,
 				] );
 				?>
@@ -2424,8 +2419,8 @@ class Stellar_Slider extends Widget_Base {
 				<div class="sa-content-container sa-p-5 sa-d-flex sa-flex-column">
 					<div class="sa-content">
 						<?php
-						$cat_attr = [ 
-							'class' => 'sa-post-category sa-post-category-style-1 sa-mb-4',
+						$cat_attr = [
+							'class'                => 'sa-post-category sa-post-category-style-1 sa-mb-4',
 							'data-swiper-parallax' => -220,
 						];
 						$this->render_post_category_attr( 'cat' . $_title_id, $cat_attr );
@@ -2479,9 +2474,9 @@ class Stellar_Slider extends Widget_Base {
 		<div class="sa-swiper-button-prev sa-slider-navigation sa-icon-wrap">
 			<?php
 			if ( ! empty( $settings['prev_icon']['value'] ) ) :
-				Icons_Manager::render_icon( $settings['prev_icon'], [ 
+				Icons_Manager::render_icon( $settings['prev_icon'], [
 					'aria-hidden' => 'true',
-					'class' => 'fa-fw'
+					'class'       => 'fa-fw',
 				] );
 			else :
 				?>
@@ -2496,9 +2491,9 @@ class Stellar_Slider extends Widget_Base {
 		<div class="sa-swiper-button-next sa-slider-navigation sa-icon-wrap">
 			<?php
 			if ( ! empty( $settings['next_icon']['value'] ) ) :
-				Icons_Manager::render_icon( $settings['next_icon'], [ 
+				Icons_Manager::render_icon( $settings['next_icon'], [
 					'aria-hidden' => 'true',
-					'class' => 'fa-fw'
+					'class'       => 'fa-fw',
 				] );
 			else :
 				?>
@@ -2523,36 +2518,36 @@ class Stellar_Slider extends Widget_Base {
 		$id = 'sa-stellar-slider' . $this->get_id();
 
 		$this->add_render_attribute(
-			[ 
-				'slider' => [ 
-					'class' => 'sa-stellar-slider',
-					'id' => $id,
-					'data-settings' => [ 
-						wp_json_encode( array_filter( [ 
-							'effect' => $settings['transition_effect'],
-							'fadeEffect' => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] == 'yes' ) ? true : false,
-							'autoplay' => $settings["autoplay"] == 'yes' ? [ 
-								"delay" => $settings["autoplay_speed"]['size'] * 1000
+			[
+				'slider' => [
+					'class'         => 'sa-stellar-slider',
+					'id'            => $id,
+					'data-settings' => [
+						wp_json_encode( array_filter( [
+							'effect'       => $settings['transition_effect'],
+							'fadeEffect'   => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] == 'yes' ) ? true : false,
+							'autoplay'     => $settings['autoplay'] == 'yes' ? [
+								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop' => ( $settings['loop'] == 'yes' ) ? true : false,
-							'speed' => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 2000,
-							'pauseOnHover' => ( $settings["autoplay"] == 'yes' && $settings["pause_on_hover"] == 'yes' ) ? true : false,
-							'observer' => $settings['observer'] == 'yes' ? true : false,
-							'parallax' => true,
-							'navigation' => [ 
+							'loop'         => ( $settings['loop'] == 'yes' ) ? true : false,
+							'speed'        => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 2000,
+							'pauseOnHover' => ( $settings['autoplay'] == 'yes' && $settings['pause_on_hover'] == 'yes' ) ? true : false,
+							'observer'     => $settings['observer'] == 'yes' ? true : false,
+							'parallax'     => true,
+							'navigation'   => [
 								'nextEl' => "#$id .sa-swiper-button-next",
 								'prevEl' => "#$id .sa-swiper-button-prev",
 							],
-							'pagination' => [ 
-								'el' => "#$id .swiper-pagination",
-								'clickable' => true,
-								'type' => $settings['pagination_type'] != 'none' ? $settings['pagination_type'] : false,
+							'pagination'   => [
+								'el'             => "#$id .swiper-pagination",
+								'clickable'      => true,
+								'type'           => $settings['pagination_type'] != 'none' ? $settings['pagination_type'] : false,
 								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] == 'yes' ) ) ? true : false,
 							],
 
-						] ) )
-					]
-				]
+						] ) ),
+					],
+				],
 			]
 		);
 
@@ -2579,7 +2574,6 @@ class Stellar_Slider extends Widget_Base {
 						$this->render_item( get_the_ID(), $thumbnail_size, $settings['excerpt_length'] );
 
 					endwhile;
-
 
 					wp_reset_postdata();
 

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Dynamic Select.
  *
- * A base control for creating Dynamic_Select control. 
+ * A base control for creating Dynamic_Select control.
  * Displays a select box control based on select on elementor select2 control
  * It accepts an array in which the `key` is the value and the `value` is the
  * option name. Set `multiple` to `true` to allow multiple value selection.
@@ -27,6 +27,7 @@ class Dynamic_Select extends Base_Data_Control {
 	 * Get the type of Control
 	 *
 	 * Retrieve the type of Control.
+	 *
 	 * @since 1.1.0
 	 * @access public
 	 */
@@ -43,25 +44,24 @@ class Dynamic_Select extends Base_Data_Control {
 	 * @return array Control default settings.
 	 * @since 1.1.0
 	 * @access protected
-	 *
 	 */
 	protected function get_default_settings() {
-		return [ 
-			'options' => [],
-			'multiple' => false,
+		return [
+			'options'        => [],
+			'multiple'       => false,
 			/**
 			 * Select2 library options
 			 */
 			'select2options' => [],
 			/**
-			 * The lockedOptions array can be passed option keys. 
+			 * The lockedOptions array can be passed option keys.
 			 * The passed option keys will be non-delete able
 			 */
-			'lockedOptions' => [],
+			'lockedOptions'  => [],
 			/**
 			 * The query arguments can be passed array,
 			 */
-			'query_args' => array(),
+			'query_args'     => array(),
 
 		];
 	}
@@ -70,6 +70,7 @@ class Dynamic_Select extends Base_Data_Control {
 	 * Render Select2 control
 	 *
 	 * object.
+	 *
 	 * @since 1.1.0
 	 * @access public
 	 */
@@ -103,6 +104,7 @@ class Dynamic_Select extends Base_Data_Control {
 	 * Enqueue Scripts & Styles.
 	 *
 	 * Used to register and enqueue Custom Scripts and Styles
+	 *
 	 * @since 1.1.0
 	 */
 	public function enqueue() {
@@ -111,10 +113,10 @@ class Dynamic_Select extends Base_Data_Control {
 		wp_localize_script(
 			'sky-dynamic-select',
 			'sky_dynamic_select',
-			[ 
-				'nonce' => wp_create_nonce( 'sky_dynamic_select' ),
-				'action' => 'sky_addons_dynamic_select_input_data',
-				'ajax_url' => admin_url( 'admin-ajax.php' )
+			[
+				'nonce'    => wp_create_nonce( 'sky_dynamic_select' ),
+				'action'   => 'sky_addons_dynamic_select_input_data',
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
 			]
 		);
 	}

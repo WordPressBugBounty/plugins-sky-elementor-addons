@@ -5,7 +5,7 @@
 		</div>
 		<img class="skyTemplatesLibrary_template-thumbnail" src="{{ thumbnail }}">
 		<# if ( obj.isPro ) { #>
-		<span class="skyTemplatesLibrary_template-badge"><?php esc_html_e('Pro', 'sky-elementor-addons'); ?></span>
+		<span class="skyTemplatesLibrary_template-badge"><?php esc_html_e( 'Pro', 'sky-elementor-addons' ); ?></span>
 		<# } #>
 		<div class="skyTemplatesLibrary_template-name">{{{ title }}}</div>
 	</div>

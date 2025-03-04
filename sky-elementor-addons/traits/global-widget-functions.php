@@ -7,8 +7,9 @@ use Elementor\Icons_Manager;
 use Elementor\Embed;
 use Elementor\Plugin;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 trait Global_Widget_Functions {
 
@@ -32,9 +33,9 @@ trait Global_Widget_Functions {
 				$image_id,
 				$thumbnail_size,
 				false,
-				[ 
+				[
 					'class' => $wrapper_class,
-					'alt' => esc_html( get_the_title() )
+					'alt'   => esc_html( get_the_title() ),
 				]
 			) );
 		}
@@ -63,10 +64,10 @@ trait Global_Widget_Functions {
 
 	/**
 	 * Feature Version - Alpha
+	 *
 	 * @since 1.0.11
 	 * Used - Mate Slider
 	 */
-
 	protected function render_post_title_attr( $id, $add = [] ) {
 		$settings = $this->get_settings_for_display();
 
@@ -109,6 +110,7 @@ trait Global_Widget_Functions {
 
 	/**
 	 * Feature Version - Alpha
+	 *
 	 * @since 1.0.11
 	 * Used - Mate Slider
 	 */
@@ -208,8 +210,6 @@ trait Global_Widget_Functions {
 	/**
 	 * Start Video Lightbox in Global Posts
 	 */
-
-
 	public function get_post_lightbox_embed_params() {
 		$settings = $this->get_settings_for_display();
 
@@ -250,37 +250,37 @@ trait Global_Widget_Functions {
 
 		if ( $settings['video_open'] !== 'file' ) {
 
-			$lightbox_options = [ 
-				'type' => 'video',
+			$lightbox_options = [
+				'type'         => 'video',
 				// 'videoType' => $settings['video_type'],
-				'url' => $lightbox_url,
-				'modalOptions' => [ 
-					'id' => 'elementor-lightbox-' . $id,
-					'entranceAnimation' => $settings['lightbox_content_animation'],
+				'url'          => $lightbox_url,
+				'modalOptions' => [
+					'id'                       => 'elementor-lightbox-' . $id,
+					'entranceAnimation'        => $settings['lightbox_content_animation'],
 					'entranceAnimation_tablet' => isset( $settings['lightbox_content_animation_tablet'] ) ? $settings['lightbox_content_animation_tablet'] : '',
 					'entranceAnimation_mobile' => isset( $settings['lightbox_content_animation_mobile'] ) ? $settings['lightbox_content_animation_mobile'] : '',
-					'videoAspectRatio' => $settings['aspect_ratio'],
+					'videoAspectRatio'         => $settings['aspect_ratio'],
 				],
 			];
 
-			$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'data-elementor-open-lightbox' => 'yes',
-				'data-elementor-lightbox' => wp_json_encode( $lightbox_options ),
-				'e-action-hash' => Plugin::instance()->frontend->create_action_hash( 'lightbox', $lightbox_options ),
+				'data-elementor-lightbox'      => wp_json_encode( $lightbox_options ),
+				'e-action-hash'                => Plugin::instance()->frontend->create_action_hash( 'lightbox', $lightbox_options ),
 			] );
 		} else {
-			$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'href' => $lightbox_url,
 			] );
 			if ( 'yes' == $settings['file_new_tab'] ) {
-				$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'target' => '_blank',
 				] );
 			}
 		}
 
 		if ( Plugin::$instance->editor->is_edit_mode() ) {
-			$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'class' => 'elementor-clickable',
 			] );
 		}
@@ -337,18 +337,18 @@ trait Global_Widget_Functions {
 				<a class="sa-w-100 sa-h-100" href="<?php echo esc_url( get_permalink() ); ?>"
 					title="<?php echo esc_html( get_the_title() ); ?>">
 					<?php
-					// $this->render_post_image(get_post_thumbnail_id($post_id), $image_size); 
-					$this->render_post_image( [ 
-						'image_id' => get_post_thumbnail_id( $post_id ),
+					// $this->render_post_image(get_post_thumbnail_id($post_id), $image_size);
+					$this->render_post_image( [
+						'image_id'       => get_post_thumbnail_id( $post_id ),
 						'thumbnail_size' => $image_size,
 					] );
 					?>
 				</a>
 			<?php else : ?>
 				<?php
-				// $this->render_post_image(get_post_thumbnail_id($post_id), $image_size); 
-				$this->render_post_image( [ 
-					'image_id' => get_post_thumbnail_id( $post_id ),
+				// $this->render_post_image(get_post_thumbnail_id($post_id), $image_size);
+				$this->render_post_image( [
+					'image_id'       => get_post_thumbnail_id( $post_id ),
 					'thumbnail_size' => $image_size,
 				] );
 				?>
@@ -356,7 +356,7 @@ trait Global_Widget_Functions {
 
 			<?php
 			if ( 'yes' == $settings['show_video'] && ! empty( $video_url ) ) :
-				$this->add_render_attribute( 'lightbox-attr-' . $id, [ 
+				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'class' => $play_class,
 				] );
 				?>
@@ -378,8 +378,6 @@ trait Global_Widget_Functions {
 	/**
 	 * End Video Lightbox in Global Posts
 	 */
-
-
 	protected function render_post_general_button() {
 		$settings = $this->get_settings_for_display();
 		$id = $this->get_id();
@@ -404,9 +402,9 @@ trait Global_Widget_Functions {
 		<a <?php $this->print_render_attribute_string( $link_attr ); ?>>
 			<?php
 			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
-				Icons_Manager::render_icon( $settings['button_icon'], [ 
+				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
-					'class' => 'sa-button-icon'
+					'class'       => 'sa-button-icon',
 				] );
 			}
 
@@ -422,8 +420,9 @@ trait Global_Widget_Functions {
 
 			endif;
 			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
-				Icons_Manager::render_icon( $settings['button_icon'], [ 
-					'aria-hidden' => 'true', 'class' => 'sa-button-icon'
+				Icons_Manager::render_icon( $settings['button_icon'], [
+					'aria-hidden' => 'true',
+					'class'       => 'sa-button-icon',
 				] );
 			}
 			?>

@@ -32,6 +32,5 @@ if ( ! function_exists( 'dci_dynamic_init' ) ) {
 		if ( function_exists( 'dci_sdk_insights' ) ) {
 			dci_sdk_insights( $params );
 		}
-
 	}
 }

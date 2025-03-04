@@ -50,9 +50,9 @@ class Admin_Feeds {
 					</a>
 					<p>
 						<?php echo wp_kses_post( wp_trim_words( wp_strip_all_tags( $feed->content ), 50 ) ); ?>
-            <a href="<?php echo esc_url( $feed->demo_link ); ?>" target="_blank">
-              <?php esc_html_e( 'View Demo', $this->settings['text_domain'] ); ?>
-            </a>
+			<a href="<?php echo esc_url( $feed->demo_link ); ?>" target="_blank">
+				<?php esc_html_e( 'View Demo', $this->settings['text_domain'] ); ?>
+			</a>
 					</p>
 				</div>
 				<?php
@@ -117,11 +117,11 @@ class Admin_Feeds {
 			$rss_items = $rss->get_items( 0, $maxitems );
 
 			// Convert RSS items to a simpler array to avoid serialization issues
-			$simplified_rss_items = array_map( function ($item) {
-				return [ 
-					'title' => $item->get_title(),
-					'link' => $item->get_permalink(),
-					'date' => $item->get_date( 'U' ),
+			$simplified_rss_items = array_map( function ( $item ) {
+				return [
+					'title'   => $item->get_title(),
+					'link'    => $item->get_permalink(),
+					'date'    => $item->get_date( 'U' ),
 					'content' => $item->get_content(),
 				];
 			}, $rss_items );
@@ -175,26 +175,26 @@ class Admin_Feeds {
 }
 
 $settings = array(
-	'feed_title' => 'Sky Addons for Elementor',
-	'transient_key' => 'skyaddons_feeds',
-	'feed_link' => 'https://wowdevs.com/feed',
+	'feed_title'       => 'Sky Addons for Elementor',
+	'transient_key'    => 'skyaddons_feeds',
+	'feed_link'        => 'https://wowdevs.com/feed',
 	'remote_feed_link' => 'https://dashboard.wowdevs.com/wp-json/wowdevs/v1/products-feed/all?category=sky-addons',
-	'text_domain' => 'semantic-linkboss',
-	'footer_links' => [ 
-		[ 
-			'url' => 'https://wowdevs.com/blog/',
+	'text_domain'      => 'semantic-linkboss',
+	'footer_links'     => [
+		[
+			'url'   => 'https://wowdevs.com/blog/',
 			'title' => 'Blog',
 		],
-		[ 
-			'url' => 'https://wowdevs.com/knowledge-base/',
+		[
+			'url'   => 'https://wowdevs.com/knowledge-base/',
 			'title' => 'Docs',
 		],
-		[ 
-			'url' => 'https://skyaddons.com/pricing/',
+		[
+			'url'   => 'https://skyaddons.com/pricing/',
 			'title' => 'Get Pro',
 		],
-		[ 
-			'url' => 'https://skyaddons.com/changelog/',
+		[
+			'url'   => 'https://skyaddons.com/changelog/',
 			'title' => 'Changelog',
 		],
 	],

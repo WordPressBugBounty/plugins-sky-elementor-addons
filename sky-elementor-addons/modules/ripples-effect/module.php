@@ -32,8 +32,8 @@ class Module extends Module_Base {
 
 		$element->start_controls_section(
 			'section_sky_addons_rf_controls',
-			[ 
-				'tab' => $tab,
+			[
+				'tab'   => $tab,
 				'label' => esc_html__( 'Ripples Effect', 'sky-elementor-addons' ) . sky_addons_get_icon(),
 			]
 		);
@@ -45,82 +45,80 @@ class Module extends Module_Base {
 
 		$element->add_control(
 			'sa_rf_enable',
-			[ 
-				'label' => esc_html__( 'Enable', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'render_type' => 'template',
+			[
+				'label'              => esc_html__( 'Enable', 'sky-elementor-addons' ),
+				'type'               => Controls_Manager::SWITCHER,
+				'render_type'        => 'template',
 				'frontend_available' => true,
 			]
 		);
 
-
-
 		$element->add_control(
 			'sa_rf_drop_radius',
-			[ 
-				'label' => esc_html__( 'Drop Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'description' => esc_html__( 'The size of the drop that results by clicking or moving the mouse over the canvas. Default - 20', 'sky-elementor-addons' ),
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'              => esc_html__( 'Drop Radius', 'sky-elementor-addons' ),
+				'type'               => Controls_Manager::SLIDER,
+				'description'        => esc_html__( 'The size of the drop that results by clicking or moving the mouse over the canvas. Default - 20', 'sky-elementor-addons' ),
+				'range'              => [
+					'px' => [
 						'max' => 20,
 						'min' => 1,
 					],
 				],
 				'frontend_available' => true,
-				'render_type' => 'template',
-				'condition' => [ 
-					'sa_rf_enable' => 'yes'
+				'render_type'        => 'template',
+				'condition'          => [
+					'sa_rf_enable' => 'yes',
 				],
 			]
 		);
 
 		$element->add_control(
 			'sa_rf_perturbance',
-			[ 
-				'label' => esc_html__( 'Perturbance', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'description' => esc_html__( 'Basically the amount of refraction caused by a ripple. 0 means there is no refraction. Default - 0.03', 'sky-elementor-addons' ),
-				'range' => [ 
-					'px' => [ 
-						'max' => 1,
-						'min' => 0.01,
+			[
+				'label'              => esc_html__( 'Perturbance', 'sky-elementor-addons' ),
+				'type'               => Controls_Manager::SLIDER,
+				'description'        => esc_html__( 'Basically the amount of refraction caused by a ripple. 0 means there is no refraction. Default - 0.03', 'sky-elementor-addons' ),
+				'range'              => [
+					'px' => [
+						'max'  => 1,
+						'min'  => 0.01,
 						'step' => 0.01,
 					],
 				],
 				'frontend_available' => true,
-				'render_type' => 'template',
-				'condition' => [ 
-					'sa_rf_enable' => 'yes'
+				'render_type'        => 'template',
+				'condition'          => [
+					'sa_rf_enable' => 'yes',
 				],
 			]
 		);
 
 		$element->add_control(
 			'sa_rf_resolution',
-			[ 
-				'label' => esc_html__( 'Resolution', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'description' => esc_html__( 'The width and height of the WebGL texture to render to. The larger this value, the smoother the rendering and the slower the ripples will propagate. Default - 256', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'condition' => [ 
-					'sa_rf_enable' => 'yes'
+			[
+				'label'              => esc_html__( 'Resolution', 'sky-elementor-addons' ),
+				'type'               => Controls_Manager::NUMBER,
+				'description'        => esc_html__( 'The width and height of the WebGL texture to render to. The larger this value, the smoother the rendering and the slower the ripples will propagate. Default - 256', 'sky-elementor-addons' ),
+				'dynamic'            => [ 'active' => true ],
+				'condition'          => [
+					'sa_rf_enable' => 'yes',
 				],
 				'frontend_available' => true,
-				'render_type' => 'template',
+				'render_type'        => 'template',
 			]
 		);
 
 		$element->add_control(
 			'sa_rf_z_index',
-			[ 
-				'label' => esc_html__( 'Z-index', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
+			[
+				'label'       => esc_html__( 'Z-index', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::NUMBER,
 				'render_type' => 'template',
-				'condition' => [ 
+				'condition'   => [
 					'sa_rf_enable' => 'yes',
 				],
-				'selectors' => [ 
+				'selectors'   => [
 					'.elementor-element-{{ID}} canvas' => 'z-index: {{VALUE}} !important;',
 				],
 			]

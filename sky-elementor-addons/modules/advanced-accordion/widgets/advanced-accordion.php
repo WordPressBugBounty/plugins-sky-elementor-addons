@@ -41,7 +41,7 @@ class Advanced_Accordion extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'sa-accordion',
 			'elementor-icons-fa-solid',
 		];
@@ -55,9 +55,9 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_ad_acc',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -65,93 +65,93 @@ class Advanced_Accordion extends Widget_Base {
 
 		$repeater->add_control(
 			'title',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'rows' => 2,
-				'default' => esc_html__( 'Accordion Title', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 2,
+				'default'     => esc_html__( 'Accordion Title', 'sky-elementor-addons' ),
 				'label_block' => true,
 			]
 		);
 
 		$repeater->add_control(
 			'title_icon',
-			[ 
-				'label' => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
-				'skin' => 'inline',
+			[
+				'label'       => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::ICONS,
+				'skin'        => 'inline',
 				'label_block' => false,
-				'separator' => 'before',
+				'separator'   => 'before',
 			]
 		);
 
 		$repeater->add_control(
 			'content_source',
-			[ 
-				'label' => esc_html__( 'Choose Source', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Choose Source', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'custom',
-				'options' => [ 
-					'custom' => esc_html__( 'Custom Content', 'sky-elementor-addons' ),
+				'options' => [
+					'custom'    => esc_html__( 'Custom Content', 'sky-elementor-addons' ),
 					'elementor' => esc_html__( 'Elementor Template', 'sky-elementor-addons' ),
-					'anywhere' => esc_html__( 'AE Template', 'sky-elementor-addons' ),
+					'anywhere'  => esc_html__( 'AE Template', 'sky-elementor-addons' ),
 				],
 			]
 		);
 
 		$repeater->add_control(
 			'custom_content',
-			[ 
-				'label' => esc_html__( 'Custom Content', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::WYSIWYG,
-				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Custom Content', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::WYSIWYG,
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your description here', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
-				'condition' => [ 'content_source' => 'custom' ],
+				'dynamic'     => [ 'active' => true ],
+				'condition'   => [ 'content_source' => 'custom' ],
 			]
 		);
 
 		$repeater->add_control(
 			'template_id',
-			[ 
-				'label' => esc_html__( 'Select Template', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '0',
-				'options' => sky_elementor_template_settings(),
+			[
+				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => sky_elementor_template_settings(),
 				'label_block' => 'true',
-				'condition' => [ 'content_source' => 'elementor' ],
+				'condition'   => [ 'content_source' => 'elementor' ],
 			]
 		);
 
 		$repeater->add_control(
 			'anywhere_id',
-			[ 
-				'label' => esc_html__( 'Select Template', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => '0',
-				'options' => sky_anywhere_template_settings(),
+			[
+				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => sky_anywhere_template_settings(),
 				'label_block' => 'true',
-				'condition' => [ 'content_source' => 'anywhere' ],
+				'condition'   => [ 'content_source' => 'anywhere' ],
 			]
 		);
 
 		$this->add_control(
 			'acc_list',
-			[ 
-				'label' => '',
-				'type' => Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'default' => [ 
-					[ 
+			[
+				'label'       => '',
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => [
+					[
 						'title' => esc_html__( 'Add Your Title Here #1', 'sky-elementor-addons' ),
 					],
-					[ 
+					[
 						'title' => esc_html__( 'Add Your Title Here #2', 'sky-elementor-addons' ),
 					],
-					[ 
+					[
 						'title' => esc_html__( 'Add Your Title Here #3', 'sky-elementor-addons' ),
 					],
-					[ 
+					[
 						'title' => esc_html__( 'Add Your Title Here #4', 'sky-elementor-addons' ),
 					],
 				],
@@ -161,56 +161,56 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_title_icon',
-			[ 
+			[
 				'label' => esc_html__( 'Show Title Icon?', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'icon_align',
-			[ 
-				'label' => esc_html__( 'Icon Alignment', 'elementor' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'        => esc_html__( 'Icon Alignment', 'elementor' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => [
+					'left' => [
 						'title' => esc_html__( 'Start', 'elementor' ),
-						'icon' => 'eicon-h-align-left',
+						'icon'  => 'eicon-h-align-left',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'End', 'elementor' ),
-						'icon' => 'eicon-h-align-right',
+						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default' => is_rtl() ? 'right' : 'left',
-				'toggle' => false,
-				'separator' => 'before',
+				'default'      => is_rtl() ? 'right' : 'left',
+				'toggle'       => false,
+				'separator'    => 'before',
 				'prefix_class' => 'sa-icon-direction-',
 			]
 		);
 
 		$this->add_control(
 			'selected_icon',
-			[ 
-				'label' => esc_html__( 'Icon', 'elementor' ),
-				'type' => Controls_Manager::ICONS,
-				'default' => [ 
-					'value' => 'fas fa-plus',
+			[
+				'label'       => esc_html__( 'Icon', 'elementor' ),
+				'type'        => Controls_Manager::ICONS,
+				'default'     => [
+					'value'   => 'fas fa-plus',
 					'library' => 'fa-solid',
 				],
-				'recommended' => [ 
-					'fa-solid' => [ 
+				'recommended' => [
+					'fa-solid' => [
 						'chevron-down',
 						'angle-down',
 						'angle-double-down',
@@ -218,26 +218,26 @@ class Advanced_Accordion extends Widget_Base {
 						'caret-square-down',
 						'plus',
 					],
-					'fa-regular' => [ 
+					'fa-regular' => [
 						'caret-square-down',
 					],
 				],
-				'skin' => 'inline',
+				'skin'        => 'inline',
 				'label_block' => false,
 			]
 		);
 
 		$this->add_control(
 			'selected_active_icon',
-			[ 
-				'label' => esc_html__( 'Active Icon', 'elementor' ),
-				'type' => Controls_Manager::ICONS,
-				'default' => [ 
-					'value' => 'fas fa-minus',
+			[
+				'label'       => esc_html__( 'Active Icon', 'elementor' ),
+				'type'        => Controls_Manager::ICONS,
+				'default'     => [
+					'value'   => 'fas fa-minus',
 					'library' => 'fa-solid',
 				],
-				'recommended' => [ 
-					'fa-solid' => [ 
+				'recommended' => [
+					'fa-solid' => [
 						'chevron-up',
 						'angle-up',
 						'angle-double-up',
@@ -245,13 +245,13 @@ class Advanced_Accordion extends Widget_Base {
 						'caret-square-up',
 						'minus',
 					],
-					'fa-regular' => [ 
+					'fa-regular' => [
 						'caret-square-up',
 					],
 				],
-				'skin' => 'inline',
+				'skin'        => 'inline',
 				'label_block' => false,
-				'condition' => [ 
+				'condition'   => [
 					'selected_icon[value]!' => '',
 				],
 			]
@@ -261,24 +261,24 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_acc_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'acc_duration',
-			[ 
-				'label' => esc_html__( 'Duration', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'   => esc_html__( 'Duration', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SLIDER,
+				'range'   => [
+					'px' => [
 						'min' => 400,
 						'max' => 1000,
 					],
 				],
-				'default' => [ 
+				'default' => [
 					'unit' => 'px',
 					'size' => 400,
 				],
@@ -287,28 +287,28 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'acc_collapse',
-			[ 
-				'label' => esc_html__( 'Collapse', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Collapse', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'acc_show_multiple',
-			[ 
+			[
 				'label' => esc_html__( 'Show Multiple?', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'acc_open_default',
-			[ 
-				'label' => esc_html__( 'Open Item Default', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'       => esc_html__( 'Open Item Default', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
 				'placeholder' => esc_html__( '1 or 1, 2, 3', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
+				'dynamic'     => [ 'active' => true ],
 			]
 		);
 
@@ -316,24 +316,24 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_item_style',
-			[ 
+			[
 				'label' => esc_html__( 'Item', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'item_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} ' => '--sa-acc-item-spacing: {{SIZE}}px;',
 				],
 			]
@@ -341,20 +341,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'item_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item',
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-ac-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -362,19 +362,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'item_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'item_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item',
 			]
 		);
@@ -383,20 +383,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'item_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'item_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'item_border_border!' => '',
 				],
 			]
@@ -404,9 +404,9 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item:hover',
 			]
 		);
@@ -415,20 +415,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'item_tab_active',
-			[ 
+			[
 				'label' => esc_html__( 'Active', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'item_border_color_active',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'item_border_border!' => '',
 				],
 			]
@@ -436,9 +436,9 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow_active',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow_active',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active',
 			]
 		);
@@ -451,37 +451,37 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
+			[
 				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'title_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--titler)',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'title_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--titler)',
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-ac-item .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -489,20 +489,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'title_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-ac-item .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -512,17 +512,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_tab_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
 			]
@@ -530,19 +530,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_bg',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_bg',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
@@ -551,17 +551,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_color_hover',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-trigger:hover .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
 			]
@@ -569,13 +569,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'title_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-trigger:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'title_border_border!' => '',
 				],
 			]
@@ -583,19 +583,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item .sa-ac-trigger:hover:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item .sa-ac-trigger:hover',
 			]
 		);
@@ -604,17 +604,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_tab_active',
-			[ 
+			[
 				'label' => esc_html__( 'Active', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_color_active',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
 			]
@@ -622,13 +622,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'title_border_color_active',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'title_border_border!' => '',
 				],
 			]
@@ -636,19 +636,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_bg_active',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_bg_active',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_box_shadow_active',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_box_shadow_active',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)',
 			]
 		);
@@ -661,26 +661,26 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_title_icon_style',
-			[ 
-				'label' => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+			[
+				'label'     => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'show_title_icon' => 'yes' ],
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_icon_size',
-			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 6,
 						'max' => 40,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -688,17 +688,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_responsive_control(
 			'title_icon_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					// '{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => '--sa-acc-icon-spacing: {{SIZE}}px;',
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'margin-right: {{SIZE}}{{UNIT}};',
 				],
@@ -707,11 +707,11 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_responsive_control(
 			'title_icon_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -719,20 +719,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'title_icon_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_icon_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-title-icon.sa-icon-wrap',
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_icon_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -742,17 +742,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_icon_tab_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_icon_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
 			]
@@ -760,19 +760,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_icon_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_icon_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-title-icon.sa-icon-wrap',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_icon_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_icon_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-title-icon.sa-icon-wrap',
 			]
 		);
@@ -781,17 +781,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_icon_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_icon_color_hover',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
 			]
@@ -799,13 +799,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'title_icon_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'title_icon_border_border!' => '',
 				],
 			]
@@ -813,19 +813,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_icon_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_icon_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_icon_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_icon_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap',
 			]
 		);
@@ -834,17 +834,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'title_icon_tab_active',
-			[ 
+			[
 				'label' => esc_html__( 'Active', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'title_icon_color_active',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
 			]
@@ -852,13 +852,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'title_icon_border_color_active',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'title_icon_border_border!' => '',
 				],
 			]
@@ -866,19 +866,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'title_icon_bg_active',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'title_icon_bg_active',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'title_icon_box_shadow_active',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'title_icon_box_shadow_active',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap',
 			]
 		);
@@ -891,25 +891,25 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_icon_style',
-			[ 
+			[
 				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_size',
-			[ 
-				'label' => esc_html__( 'Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 6,
 						'max' => 40,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-trigger-icon .sa-icon-wrap' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -917,16 +917,16 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'icon_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'     => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} ' => '--sa-acc-icon-spacing: {{SIZE}}px;',
 				],
 			]
@@ -934,11 +934,11 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_responsive_control(
 			'icon_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -946,20 +946,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'icon_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
 
 		$this->add_responsive_control(
 			'icon_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -969,17 +969,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'icon_tab_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
 			]
@@ -987,19 +987,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'icon_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'icon_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'icon_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
@@ -1008,17 +1008,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'icon_tab_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color_hover',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
 			]
@@ -1026,13 +1026,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'icon_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'icon_border_border!' => '',
 				],
 			]
@@ -1040,19 +1040,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'icon_bg_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'icon_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'icon_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
@@ -1061,17 +1061,17 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_tab(
 			'icon_tab_active',
-			[ 
+			[
 				'label' => esc_html__( 'Active', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color_active',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
 			]
@@ -1079,13 +1079,13 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'icon_border_color_active',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'icon_border_border!' => '',
 				],
 			]
@@ -1093,19 +1093,19 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'icon_bg_active',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'icon_bg_active',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'icon_box_shadow_active',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'icon_box_shadow_active',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper',
 			]
 		);
@@ -1118,36 +1118,36 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_content_style',
-			[ 
+			[
 				'label' => esc_html__( 'Content', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'content_alignment',
-			[ 
-				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-content' => 'text-align: {{VALUE}};',
 				],
 			]
@@ -1155,10 +1155,10 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_control(
 			'content_color',
-			[ 
-				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-ac-content' => 'color: {{VALUE}}',
 				],
 			]
@@ -1166,30 +1166,30 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'content_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient', 'video' ],
+			[
+				'name'     => 'content_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient', 'video' ],
 				'selector' => '{{WRAPPER}} .sa-ac-content',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'content_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'content_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-content',
 			]
 		);
 
 		$this->add_responsive_control(
 			'content_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-ac-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1197,20 +1197,20 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'content_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'content_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-panel',
 			]
 		);
 
 		$this->add_responsive_control(
 			'content_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-ac-panel' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -1218,9 +1218,9 @@ class Advanced_Accordion extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'content_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'content_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-ac-panel',
 			]
 		);
@@ -1231,7 +1231,7 @@ class Advanced_Accordion extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		//        acc_open_default
+		// acc_open_default
 		$acc_open = explode( ',', $settings['acc_open_default'] );
 
 		$open_init_arr = [];
@@ -1240,18 +1240,18 @@ class Advanced_Accordion extends Widget_Base {
 		}
 
 		$this->add_render_attribute(
-			[ 
-				'advanced-accordion' => [ 
-					'id' => 'sa-advanced-acc-' . $this->get_id(),
-					'class' => 'sa-advanced-accordion',
-					'data-settings' => [ 
+			[
+				'advanced-accordion' => [
+					'id'            => 'sa-advanced-acc-' . $this->get_id(),
+					'class'         => 'sa-advanced-accordion',
+					'data-settings' => [
 						wp_json_encode(
-							[ 
-								'id' => 'sa-advanced-acc-' . $this->get_id(),
-								'duration' => ( ! empty( $settings['acc_duration']['size'] ) ) ? $settings['acc_duration']['size'] : 400,
-								'collapse' => ( isset( $settings['acc_collapse'] ) && ( $settings['acc_collapse'] == 'yes' ) ) ? true : false,
+							[
+								'id'           => 'sa-advanced-acc-' . $this->get_id(),
+								'duration'     => ( ! empty( $settings['acc_duration']['size'] ) ) ? $settings['acc_duration']['size'] : 400,
+								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( $settings['acc_collapse'] == 'yes' ) ) ? true : false,
 								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( $settings['acc_show_multiple'] == 'yes' ) ) ? true : false,
-								'openOnInit' => ( ! empty( $settings['acc_open_default'] ) ) ? $open_init_arr : [],
+								'openOnInit'   => ( ! empty( $settings['acc_open_default'] ) ) ? $open_init_arr : [],
 							]
 						),
 					],

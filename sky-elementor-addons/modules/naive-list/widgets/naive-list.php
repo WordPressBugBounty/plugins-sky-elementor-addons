@@ -16,8 +16,9 @@ use Sky_Addons\Includes\Controls\GroupQuery\Group_Control;
 use Sky_Addons\Traits\Global_Widget_Functions;
 use Sky_Addons\Traits\Global_Widget_Controls;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 class Naive_List extends Widget_Base {
 
@@ -48,7 +49,7 @@ class Naive_List extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'elementor-icons-fa-solid',
 		];
 	}
@@ -61,92 +62,92 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_naive_list_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'content_layout',
-			[ 
-				'label' => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [ 
-					'default' => esc_html__( 'Default', 'sky-elementor-addons' ),
+			[
+				'label'          => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SELECT,
+				'options'        => [
+					'default'  => esc_html__( 'Default', 'sky-elementor-addons' ),
 					'layout_1' => esc_html__( 'Layout 1', 'sky-elementor-addons' ),
 					'layout_2' => esc_html__( 'Layout 2', 'sky-elementor-addons' ),
 				],
-				'default' => 'default',
+				'default'        => 'default',
 				'tablet_default' => 'default',
 				'mobile_default' => 'default',
-				'prefix_class' => 'sa-naive-list-',
+				'prefix_class'   => 'sa-naive-list-',
 			]
 		);
 
 		$this->add_responsive_control(
 			'columns',
-			[ 
-				'label' => esc_html__( 'Columns', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [ 
+			[
+				'label'          => esc_html__( 'Columns', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SELECT,
+				'options'        => [
 					1 => esc_html__( '1 Column', 'sky-elementor-addons' ),
 					2 => esc_html__( '2 Columns', 'sky-elementor-addons' ),
 					3 => esc_html__( '3 Columns', 'sky-elementor-addons' ),
 					4 => esc_html__( '4 Columns', 'sky-elementor-addons' ),
 				],
-				'default' => 1,
+				'default'        => 1,
 				'tablet_default' => 1,
 				'mobile_default' => 1,
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-naive-list' => 'grid-template-columns: repeat({{SIZE}}, 1fr);',
-					],
+				'selectors'      => [
+					'{{WRAPPER}} .sa-naive-list' => 'grid-template-columns: repeat({{SIZE}}, 1fr);',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'row_gap',
-			[ 
-				'label' => esc_html__( 'Row Gap', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Row Gap', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
-					]
-				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-naive-list' => 'grid-row-gap: {{SIZE}}{{UNIT}};',
 					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-naive-list' => 'grid-row-gap: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'column_gap',
-			[ 
-				'label' => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'          => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'size_units'     => [ 'px', 'em' ],
+				'range'          => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
-					]
-				],
-				'default' => [ 
-						'unit' => 'px',
-						'size' => 36,
 					],
-				'tablet_default' => [ 
+				],
+				'default'        => [
+					'unit' => 'px',
+					'size' => 36,
+				],
+				'tablet_default' => [
 					'unit' => 'px',
 					'size' => 18,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'unit' => 'px',
 					'size' => 24,
 				],
-				'selectors' => [ 
+				'selectors'      => [
 					'{{WRAPPER}} .sa-naive-list' => 'grid-column-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -154,8 +155,8 @@ class Naive_List extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
-			[ 
-				'name' => 'primary_thumbnail',
+			[
+				'name'    => 'primary_thumbnail',
 				'exclude' => [ 'custom' ],
 				'default' => 'large',
 			]
@@ -163,28 +164,28 @@ class Naive_List extends Widget_Base {
 
 		$this->add_responsive_control(
 			'content_alignment',
-			[ 
-				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item' => 'text-align: {{VALUE}};',
 					'{{WRAPPER}} .sa-post-meta, {{WRAPPER}} .sa-post-category' => 'justify-content: {{VALUE}};',
 					'{{WRAPPER}} .sa-post-text' => 'max-width: 100%;',
@@ -194,15 +195,14 @@ class Naive_List extends Widget_Base {
 
 		$this->end_controls_section();
 
-
 		/**
 		 * Global Query Builder Settings
 		 */
 		$this->start_controls_section(
 			'section_post_query_builder',
-			[ 
+			[
 				'label' => __( 'Query', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -210,7 +210,7 @@ class Naive_List extends Widget_Base {
 
 		$this->update_control(
 			'posts_per_page',
-			[ 
+			[
 				'default' => 6,
 			]
 		);
@@ -219,91 +219,91 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'show_title',
-			[ 
-				'label' => esc_html__( 'Show Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Title', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
-				'condition' => [ 
-					'show_title' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
+				'condition' => [
+					'show_title' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'show_image',
-			[ 
-				'label' => esc_html__( 'Show Image', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_category',
-			[ 
-				'label' => esc_html__( 'Show Category', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Category', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_author',
-			[ 
-				'label' => esc_html__( 'Show Author', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Show Author', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'show_excerpt',
-			[ 
-				'label' => esc_html__( 'Show Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Text', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'excerpt_length',
-			[ 
-				'label' => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Text Limit', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'This is for the main content, but not for excerpts. If you set the offset to 0, then you\'ll get the full text instead.', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
-				'default' => 25,
-				'condition' => [ 
-					'show_excerpt' => 'yes'
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 25,
+				'condition'   => [
+					'show_excerpt' => 'yes',
 				],
 			]
 		);
 
 		$this->add_control(
 			'strip_shortcode',
-			[ 
-				'label' => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'condition' => [
 					'show_excerpt' => 'yes',
 				],
 			]
@@ -315,10 +315,10 @@ class Naive_List extends Widget_Base {
 
 		$this->add_control(
 			'show_date',
-			[ 
-				'label' => esc_html__( 'Show Date', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Date', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -327,30 +327,30 @@ class Naive_List extends Widget_Base {
 
 		$this->add_control(
 			'show_video',
-			[ 
-				'label' => esc_html__( 'Show Video', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+			[
+				'label'     => esc_html__( 'Show Video', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_pagination',
-			[ 
-				'label' => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'     => esc_html__( 'Show Pagination', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'show_button',
-			[ 
-				'label' => esc_html__( 'Show Read More', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Read More', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
@@ -358,12 +358,12 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_video_settings',
-			[ 
-				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
-					'show_video' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'show_video' => 'yes',
+				],
 			]
 		);
 
@@ -376,20 +376,20 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_button',
-			[ 
-				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => [ 
-					'show_button' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'show_button' => 'yes',
+				],
 			]
 		);
 
 		$this->add_control(
 			'button_text',
-			[ 
-				'label' => esc_html__( 'Button Text', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'   => esc_html__( 'Button Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'READ MORE', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
 			]
@@ -397,32 +397,32 @@ class Naive_List extends Widget_Base {
 
 		$this->add_control(
 			'button_icon',
-			[ 
+			[
 				'label' => esc_html__( 'Icon', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::ICONS,
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
 		$this->add_control(
 			'button_icon_position',
-			[ 
-				'label' => esc_html__( 'Icon Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'label_block' => false,
-				'options' => [ 
-					'before' => [ 
+			[
+				'label'          => esc_html__( 'Icon Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options'        => [
+					'before' => [
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-left',
+						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [ 
+					'after' => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
-						'icon' => 'eicon-h-align-right',
+						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default' => 'after',
-				'toggle' => false,
-				'condition' => [ 
-					'button_icon[value]!' => ''
+				'default'        => 'after',
+				'toggle'         => false,
+				'condition'      => [
+					'button_icon[value]!' => '',
 				],
 				'style_transfer' => true,
 			]
@@ -430,23 +430,23 @@ class Naive_List extends Widget_Base {
 
 		$this->add_responsive_control(
 			'button_icon_spacing',
-			[ 
-				'label' => esc_html__( 'Icon Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Icon Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 20,
 					],
 				],
-				'condition' => [ 
-						'button_icon[value]!' => ''
-					],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-button-icon-before .sa-button-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
-						'{{WRAPPER}} .sa-button-icon-after .sa-button-icon' => 'margin-left: {{SIZE}}{{UNIT}};',
-					],
+				'condition'  => [
+					'button_icon[value]!' => '',
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-button-icon-before .sa-button-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-button-icon-after .sa-button-icon' => 'margin-left: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -454,19 +454,19 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_post_list_style',
-			[ 
+			[
 				'label' => esc_html__( 'Naive List', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -474,26 +474,26 @@ class Naive_List extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'item_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				// 'fields_options' => [
-				//     'border' => [
-				//         'default' => 'solid',
-				//     ],
-				//     'width'  => [
-				//         'default' => [
-				//             'top'      => '1',
-				//             'right'    => '1',
-				//             'bottom'   => '1',
-				//             'left'     => '1',
-				//             'unit'     => 'px',
-				//             'isLinked' => false,
-				//         ],
-				//     ],
-				//     'color'  => [
-				//         'default' => '#eaeaea',
-				//     ],
+				// 'border' => [
+				// 'default' => 'solid',
+				// ],
+				// 'width'  => [
+				// 'default' => [
+				// 'top'      => '1',
+				// 'right'    => '1',
+				// 'bottom'   => '1',
+				// 'left'     => '1',
+				// 'unit'     => 'px',
+				// 'isLinked' => false,
+				// ],
+				// ],
+				// 'color'  => [
+				// 'default' => '#eaeaea',
+				// ],
 				// ],
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
@@ -501,21 +501,21 @@ class Naive_List extends Widget_Base {
 
 		$this->add_responsive_control(
 			'item_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				// 'default'      => [
-				//     'top'      => '.25',
-				//     'right'    => '.25',
-				//     'bottom'   => '.25',
-				//     'left'     => '.25',
-				//     'unit'     => 'em',
-				//     'isLinked' => true,
+				// 'top'      => '.25',
+				// 'right'    => '.25',
+				// 'bottom'   => '.25',
+				// 'left'     => '.25',
+				// 'unit'     => 'em',
+				// 'isLinked' => true,
 				// ],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+				],
 			]
 		);
 
@@ -525,26 +525,26 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_tab(
 			'item_style_normal_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'item_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'item_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
@@ -553,39 +553,39 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_tab(
 			'item_style_hover_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'item_background_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'item_background_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-post-item:hover',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'item_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'item_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-item:hover',
 			]
 		);
 
 		$this->add_control(
 			'item_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'item_border_border!' => '',
 				],
 			]
@@ -599,40 +599,40 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_image_style',
-			[ 
-				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_image' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_image' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'img_height',
-			[ 
-				'label' => esc_html__( 'Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 50,
 						'max' => 500,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-img-wrapper' => 'min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-img-wrapper' => 'min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'img_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -640,20 +640,20 @@ class Naive_List extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'img_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'img_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->add_responsive_control(
 			'img_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-post-img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -661,41 +661,40 @@ class Naive_List extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
-			[ 
-				'name' => 'img_css_filters',
+			[
+				'name'     => 'img_css_filters',
 				'selector' => '{{WRAPPER}} .sa-post-img',
 			]
 		);
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_title_style',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_title' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_title' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'title_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -708,28 +707,28 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_text_style',
-			[ 
-				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 'show_excerpt' => 'yes' ]
+			[
+				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'show_excerpt' => 'yes' ],
 			]
 		);
 
 		$this->add_responsive_control(
 			'text_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -742,49 +741,49 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_category_style',
-			[ 
-				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_category' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_category' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'category_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-category' => 'left: {{SIZE}}{{UNIT}};',
-						'{{WRAPPER}} .sa-post-category' => 'top: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-category' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-category' => 'top: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'category_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}}' => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}}' => '--sa-post-category-spacing: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -796,61 +795,60 @@ class Naive_List extends Widget_Base {
 
 		$this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'section_meta_style',
-			[ 
-				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'conditions' => [ 
+			[
+				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'        => Controls_Manager::TAB_STYLE,
+				'conditions' => [
 					'relation' => 'or',
-					'terms' => [ 
-						[ 
-							'name' => 'show_author',
-							'value' => 'yes'
+					'terms'    => [
+						[
+							'name'  => 'show_author',
+							'value' => 'yes',
 						],
-						[ 
-							'name' => 'show_date',
-							'value' => 'yes'
-						]
-					]
+						[
+							'name'  => 'show_date',
+							'value' => 'yes',
+						],
+					],
 				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'meta_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-meta' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'meta_space_between',
-			[ 
-				'label' => esc_html__( 'Space Between', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Space Between', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 50,
 					],
 				],
-				'selectors' => [ 
-						'{{WRAPPER}} .sa-post-meta' => 'grid-gap: {{SIZE}}{{UNIT}};',
-					],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-meta' => 'grid-gap: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
@@ -863,25 +861,23 @@ class Naive_List extends Widget_Base {
 		$this->end_controls_section();
 
 		/**
-		 * Global Pagination 
-		 *
+		 * Global Pagination
 		 */
 		$this->register_post_pagination_controls_style();
 
 		$this->start_controls_section(
 			'section_button_style',
-			[ 
-				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_button' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_button' => 'yes',
+				],
 			]
 		);
 
 		/**
-		 * Global Read more 
-		 *
+		 * Global Read more
 		 */
 		$this->general_button_controls_style();
 
@@ -889,20 +885,20 @@ class Naive_List extends Widget_Base {
 
 		$this->start_controls_section(
 			'play_btn_style',
-			[ 
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [ 
-					'show_video' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_video' => 'yes',
+				],
 			]
 		);
 
 		/**
 		 * Global Controls
 		 */
-		$this->player_button_style( [ 
-			'prefix' => 'play_button',
+		$this->player_button_style( [
+			'prefix'   => 'play_button',
 			'selector' => '.sa-post-play-button',
 		] );
 
@@ -1028,21 +1024,21 @@ class Naive_List extends Widget_Base {
 		<div class="sa-post-item sa-d-flex">
 			<div class="sa-post-img-parent sa-position-relative">
 				<?php
-				$this->render_post_thumb_with_video( $post_id, $image_size, [ 
-					'wrapper_class' => 'sa-h-100'
+				$this->render_post_thumb_with_video( $post_id, $image_size, [
+					'wrapper_class' => 'sa-h-100',
 				] );
 				?>
 				<?php
-				$this->render_post_category( [ 
-					'wrapper_class' => 'sa-post-category sa-post-category-style-1 sa-mb-3 sa-position-absolute'
+				$this->render_post_category( [
+					'wrapper_class' => 'sa-post-category sa-post-category-style-1 sa-mb-3 sa-position-absolute',
 				] );
 				?>
 			</div>
 			<div class="sa-post-content-wrapper sa-d-flex sa-flex-column sa-justify-content-center">
 				<?php
 
-				$this->render_post_title( [ 
-					'wrapper_class' => 'sa-mb-4'
+				$this->render_post_title( [
+					'wrapper_class' => 'sa-mb-4',
 				] );
 				?>
 
@@ -1070,7 +1066,7 @@ class Naive_List extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$this->add_render_attribute( 'naive-list', [ 
+		$this->add_render_attribute( 'naive-list', [
 			'class' => 'sa-naive-list sa-img-effect-1',
 		] );
 

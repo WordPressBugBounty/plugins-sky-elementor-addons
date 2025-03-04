@@ -1,8 +1,8 @@
 <script type="text/template" id="sa-skyTemplatesLibrary_templates">
 	<div id="skyTemplatesLibrary_toolbar">
 		<div id="skyTemplatesLibrary_toolbar-search">
-			<label for="skyTemplatesLibrary_search" class="elementor-screen-only"><?php esc_html_e('Search Templates:', 'sky-elementor-addons'); ?></label>
-			<input id="skyTemplatesLibrary_search" placeholder="<?php esc_attr_e('Search', 'sky-elementor-addons'); ?>">
+			<label for="skyTemplatesLibrary_search" class="elementor-screen-only"><?php esc_html_e( 'Search Templates:', 'sky-elementor-addons' ); ?></label>
+			<input id="skyTemplatesLibrary_search" placeholder="<?php esc_attr_e( 'Search', 'sky-elementor-addons' ); ?>">
 			<i class="eicon-search"></i>
 		</div>
 		<div id="skyTemplatesLibrary_toolbar-counter"></div>
@@ -12,7 +12,7 @@
 				<# if ( selectedTag ) { #>
 				<span class="skyTemplatesLibrary_filter-btn">{{{ skyAddons.library.getTags()[selectedTag] }}} <i class="eicon-caret-right"></i></span>
 				<# } else { #>
-				<span class="skyTemplatesLibrary_filter-btn"><?php esc_html_e('Filter', 'sky-elementor-addons'); ?> <i class="eicon-caret-right"></i></span>
+				<span class="skyTemplatesLibrary_filter-btn"><?php esc_html_e( 'Filter', 'sky-elementor-addons' ); ?> <i class="eicon-caret-right"></i></span>
 				<# } #>
 				<ul id="skyTemplatesLibrary_filter-tags" class="skyTemplatesLibrary_filter-tags">
 					<li data-tag="">All</li>

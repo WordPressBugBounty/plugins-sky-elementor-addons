@@ -4,8 +4,9 @@ namespace Sky_Addons;
 
 use Elementor\Element_Base;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 final class Managers {
 
@@ -26,12 +27,10 @@ final class Managers {
 
 		if ( ! $inactive_widgets ) {
 			return $module_data['default_activation'];
-		} else {
-			if ( ! in_array( $module_id, $inactive_widgets ) ) {
+		} elseif ( ! in_array( $module_id, $inactive_widgets ) ) {
 				return true;
-			} else {
-				return false;
-			}
+		} else {
+			return false;
 		}
 	}
 
@@ -105,7 +104,6 @@ final class Managers {
 
 		// $modules[] = 'post-test';
 
-
 		// extensions
 
 		if ( ! in_array( 'animated-gradient-bg', self::get_inactive_extensions() ) ) {
@@ -132,7 +130,6 @@ final class Managers {
 		if ( ! in_array( 'wrapper-link', self::get_inactive_extensions() ) ) {
 			$modules[] = 'wrapper-link';
 		}
-
 
 		// Fetch all modules data
 		foreach ( $modules as $module ) {
@@ -161,4 +158,3 @@ final class Managers {
 }
 
 // Managers::init();
-

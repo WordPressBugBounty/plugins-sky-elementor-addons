@@ -301,7 +301,7 @@ $ribbon_text = '';
 										<?php esc_html_e( 'Documentation', 'sky-elementor-addons' ); ?>
 									</h4>
 									<div class="sa-info-text sa-mb-4">
-										<?php esc_html_e( 'It\'s hard to create good documentation. It\'s even harder to make it awesome. But we think we\'ve solved this for you. We\'ve created a complete package, with everything you need to make your documentation as awesome as the product you\'re building.', 'sky-elementor-addons' ) ?>
+										<?php esc_html_e( 'It\'s hard to create good documentation. It\'s even harder to make it awesome. But we think we\'ve solved this for you. We\'ve created a complete package, with everything you need to make your documentation as awesome as the product you\'re building.', 'sky-elementor-addons' ); ?>
 									</div>
 									<a class="sa-info-btn sa-anim-btn-1" href="https://skyaddons.com/blog/">
 										<?php esc_html_e( 'Check now', 'sky-elementor-addons' ); ?>
@@ -353,7 +353,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_inactive_widgets">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 							<div class="sa-section-action sa-mb-3 sa-mb-3">
 
 								<?php apply_filters( 'sky_allow_tracker_notice', false ); ?>
@@ -405,6 +405,7 @@ $ribbon_text = '';
 									/**
 									 * Analytics Setup
 									 * Count used widgets
+									 *
 									 * @since 1.0.6
 									 */
 									$used_widgets = $sky_addons_admin->get_used_widgets_obj();
@@ -433,7 +434,7 @@ $ribbon_text = '';
 											</div>
 											<small title="Total Used">
 												Used -
-												<?php echo esc_html( sprintf( "%02d", $used_widgets_count ) ); ?>
+												<?php echo esc_html( sprintf( '%02d', $used_widgets_count ) ); ?>
 											</small>
 										</div>
 										<div class="sa-d-flex sa-mx-2 sa-align-items-center sa-d-none">
@@ -487,7 +488,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_inactive_3rd_party_widgets">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 							<div class="sa-section-action sa-mb-3 sa-mb-3">
 
 								<?php apply_filters( 'sky_allow_tracker_notice', false ); ?>
@@ -539,6 +540,7 @@ $ribbon_text = '';
 									/**
 									 * Analytics Setup
 									 * Count used widgets
+									 *
 									 * @since 1.0.6
 									 */
 									$used_widgets = $sky_addons_admin->get_used_widgets_obj();
@@ -567,7 +569,7 @@ $ribbon_text = '';
 											</div>
 											<small title="Total Used">
 												Used -
-												<?php echo esc_html( sprintf( "%02d", $used_widgets_count ) ); ?>
+												<?php echo esc_html( sprintf( '%02d', $used_widgets_count ) ); ?>
 											</small>
 										</div>
 										<div class="sa-d-flex sa-mx-2 sa-align-items-center sa-d-none">
@@ -621,7 +623,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_inactive_extensions">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 
 							<div class="sa-section-action sa-mb-3">
 								<div class="sa-d-flex sa-align-items-center sa-pe-2 sa-mb-2">
@@ -727,7 +729,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_api">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 							<p class="sa-py-3 sa-mb-3">
 								<?php esc_html_e( 'Sometimes you want to use advanced features of API-related functionality. In this case, sometimes we need an API key to access your data. You can store your API keys here. If you are not using below widgets then you can skip the section.', 'sky-elementor-addons' ); ?>
 							</p>
@@ -759,7 +761,6 @@ $ribbon_text = '';
 													esc_attr( $element['name'] ),
 													esc_html( $value ),
 													esc_attr( $pro_check )
-
 												);
 												?>
 												<p>
@@ -788,7 +789,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_inactive_widgets">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 							<div class="sa-section-action sa-mb-3 sa-mb-3">
 
 								<?php apply_filters( 'sky_allow_tracker_notice', false ); ?>
@@ -839,6 +840,7 @@ $ribbon_text = '';
 									/**
 									 * Analytics Setup
 									 * Condition applied in reverse thinking
+									 *
 									 * @since 1.0.6
 									 */
 									$used_widgets = $sky_addons_admin->get_used_widgets_obj();
@@ -849,6 +851,7 @@ $ribbon_text = '';
 									/**
 									 * Analytics Setup
 									 * Counting total uses of Widgets
+									 *
 									 * @since 1.0.6
 									 */
 
@@ -879,7 +882,7 @@ $ribbon_text = '';
 											</div>
 											<small title="Total Used">
 												Used -
-												<?php echo esc_html( sprintf( "%02d", $used_widgets_count ) ); ?>
+												<?php echo esc_html( sprintf( '%02d', $used_widgets_count ) ); ?>
 											</small>
 										</div>
 										<div class="sa-item-switcher sa-ms-2">
@@ -895,6 +898,7 @@ $ribbon_text = '';
 												 * Analytics Setup
 												 * Extra suffix (id) added - analytics
 												 * Solved ID conflict of checkbox
+												 *
 												 * @since 1.0.6
 												 */
 												printf(
@@ -931,7 +935,7 @@ $ribbon_text = '';
 							action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 							<input type="hidden" name="sky_input_options[option_page]" value="sky_addons_inactive_widgets">
 							<input type="hidden" name="action" value="sky_save_option_data">
-							<?php wp_nonce_field( "skyoption" ); ?>
+							<?php wp_nonce_field( 'skyoption' ); ?>
 							<div class="sa-section-action sa-mb-3 sa-mb-3">
 
 								<?php apply_filters( 'sky_allow_tracker_notice', false ); ?>
@@ -982,6 +986,7 @@ $ribbon_text = '';
 									/**
 									 * Analytics Setup
 									 * Condition applied in reverse thinking
+									 *
 									 * @since 1.0.6
 									 */
 									$used_widgets = $sky_addons_admin->get_used_widgets_obj();
@@ -1018,6 +1023,7 @@ $ribbon_text = '';
 												 * Analytics Setup
 												 * Extra suffix (id) added - analytics
 												 * Solved ID conflict of checkbox
+												 *
 												 * @since 1.0.6
 												 */
 												printf(

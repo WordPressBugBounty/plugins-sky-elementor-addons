@@ -14,8 +14,9 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
+}
 
 class Glory_Slider extends Widget_Base {
 
@@ -40,7 +41,7 @@ class Glory_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 
+		return [
 			'swiper',
 			'elementor-icons-fa-solid',
 		];
@@ -54,17 +55,17 @@ class Glory_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_glory_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Glory Video Slider', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'slider_note',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => esc_html__( 'Note: We recommend that you select full width for your Section and disable any gaps between Columns.', 'sky-elementor-addons' ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Note: We recommend that you select full width for your Section and disable any gaps between Columns.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 
 			]
@@ -72,20 +73,20 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'slider_size',
-			[ 
-				'label' => esc_html__( 'Size Height', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em', 'vh' ],
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'       => esc_html__( 'Size Height', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px', 'em', 'vh' ],
+				'range'       => [
+					'px' => [
 						'min' => 400,
 						'max' => 1000,
 					],
 				],
-				'selectors' => [ 
+				'selectors'   => [
 					'{{WRAPPER}} .sa-glory-slider' => 'height: {{SIZE}}{{UNIT}}; --sa-glory-slider-size: {{SIZE}}{{UNIT}};',
 				],
-				'render_type' => 'template'
+				'render_type' => 'template',
 			]
 		);
 
@@ -95,42 +96,42 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->start_controls_tab(
 			'tab_video',
-			[ 
+			[
 				'label' => esc_html__( 'Video', 'sky-elementor-addons' ),
 			]
 		);
 
 		$repeater->add_control(
 			'video_type',
-			[ 
-				'label' => esc_html__( 'Source', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Source', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'youtube',
-				'options' => [ 
-					'youtube' => esc_html__( 'YouTube', 'sky-elementor-addons' ),
-					'vimeo' => esc_html__( 'Vimeo', 'sky-elementor-addons' ),
+				'options' => [
+					'youtube'     => esc_html__( 'YouTube', 'sky-elementor-addons' ),
+					'vimeo'       => esc_html__( 'Vimeo', 'sky-elementor-addons' ),
 					'dailymotion' => esc_html__( 'Dailymotion', 'sky-elementor-addons' ),
-					'hosted' => esc_html__( 'Self Hosted', 'sky-elementor-addons' ),
+					'hosted'      => esc_html__( 'Self Hosted', 'sky-elementor-addons' ),
 				],
 			]
 		);
 
 		$repeater->add_control(
 			'youtube_url',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'dynamic' => [ 
-					'active' => true,
-					'categories' => [ 
+			[
+				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [
+					'active'     => true,
+					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
 					],
 				],
 				'placeholder' => esc_html__( 'Enter your URL', 'sky-elementor-addons' ) . ' (YouTube)',
-				'default' => 'https://youtu.be/aqz-KE-bpKQ',
+				'default'     => 'https://youtu.be/aqz-KE-bpKQ',
 				'label_block' => true,
-				'condition' => [ 
+				'condition'   => [
 					'video_type' => 'youtube',
 				],
 			]
@@ -138,20 +139,20 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'vimeo_url',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'dynamic' => [ 
-					'active' => true,
-					'categories' => [ 
+			[
+				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [
+					'active'     => true,
+					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
 					],
 				],
 				'placeholder' => esc_html__( 'Enter your URL', 'sky-elementor-addons' ) . ' (Vimeo)',
-				'default' => 'https://vimeo.com/226020936',
+				'default'     => 'https://vimeo.com/226020936',
 				'label_block' => true,
-				'condition' => [ 
+				'condition'   => [
 					'video_type' => 'vimeo',
 				],
 			]
@@ -159,20 +160,20 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'dailymotion_url',
-			[ 
-				'label' => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'dynamic' => [ 
-					'active' => true,
-					'categories' => [ 
+			[
+				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [
+					'active'     => true,
+					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
 					],
 				],
 				'placeholder' => esc_html__( 'Enter your URL', 'sky-elementor-addons' ) . ' (Dailymotion)',
-				'default' => 'https://www.dailymotion.com/video/x6tqhqb',
+				'default'     => 'https://www.dailymotion.com/video/x6tqhqb',
 				'label_block' => true,
-				'condition' => [ 
+				'condition'   => [
 					'video_type' => 'dailymotion',
 				],
 			]
@@ -180,10 +181,10 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'external_url_set',
-			[ 
-				'label' => esc_html__( 'External URL', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'condition' => [ 
+			[
+				'label'     => esc_html__( 'External URL', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [
 					'video_type' => 'hosted',
 				],
 			]
@@ -191,24 +192,24 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'external_url',
-			[ 
-				'label' => esc_html__( 'URL', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::URL,
+			[
+				'label'        => esc_html__( 'URL', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::URL,
 				'autocomplete' => false,
-				'options' => false,
-				'label_block' => true,
-				'show_label' => false,
-				'dynamic' => [ 
-					'active' => true,
-					'categories' => [ 
+				'options'      => false,
+				'label_block'  => true,
+				'show_label'   => false,
+				'dynamic'      => [
+					'active'     => true,
+					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
 					],
 				],
-				'media_type' => 'video',
-				'placeholder' => esc_html__( 'Enter your URL', 'sky-elementor-addons' ),
-				'condition' => [ 
-					'video_type' => 'hosted',
+				'media_type'   => 'video',
+				'placeholder'  => esc_html__( 'Enter your URL', 'sky-elementor-addons' ),
+				'condition'    => [
+					'video_type'       => 'hosted',
 					'external_url_set' => 'yes',
 				],
 			]
@@ -216,18 +217,18 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->add_control(
 			'hosted_url',
-			[ 
-				'label' => esc_html__( 'Choose File', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::MEDIA,
-				'dynamic' => [ 
-					'active' => true,
-					'categories' => [ 
+			[
+				'label'      => esc_html__( 'Choose File', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::MEDIA,
+				'dynamic'    => [
+					'active'     => true,
+					'categories' => [
 						TagsModule::MEDIA_CATEGORY,
 					],
 				],
 				'media_type' => 'video',
-				'condition' => [ 
-					'video_type' => 'hosted',
+				'condition'  => [
+					'video_type'        => 'hosted',
 					'external_url_set!' => 'yes',
 				],
 			]
@@ -237,56 +238,55 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->start_controls_tab(
 			'tab_content',
-			[ 
+			[
 				'label' => esc_html__( 'Content', 'sky-elementor-addons' ),
 			]
 		);
 
-
 		$repeater->add_control(
 			'title',
-			[ 
-				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXTAREA,
-				'default' => esc_html__( 'List Title', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'default'     => esc_html__( 'List Title', 'sky-elementor-addons' ),
 				'label_block' => true,
-				'rows' => 4,
-				'dynamic' => [ 'active' => true ],
+				'rows'        => 4,
+				'dynamic'     => [ 'active' => true ],
 			]
 		);
 
 		$repeater->add_control(
 			'credit',
-			[ 
-				'label' => esc_html__( 'Credit / Subtitle', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => esc_html__( 'by John Doe', 'sky-elementor-addons' ),
+			[
+				'label'       => esc_html__( 'Credit / Subtitle', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'by John Doe', 'sky-elementor-addons' ),
 				'label_block' => true,
-				'dynamic' => [ 'active' => true ],
+				'dynamic'     => [ 'active' => true ],
 			]
 		);
 
 		$repeater->add_control(
 			'add_credit_url',
-			[ 
+			[
 				'label' => esc_html__( 'Add Credit URL', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$repeater->add_control(
 			'credit_url',
-			[ 
-				'label' => esc_html__( 'Credit URL', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::URL,
-				'placeholder' => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
+			[
+				'label'         => esc_html__( 'Credit URL', 'sky-elementor-addons' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
 				'show_external' => true,
-				'default' => [ 
-					'url' => '',
+				'default'       => [
+					'url'         => '',
 					'is_external' => false,
 				],
-				'dynamic' => [ 'active' => true ],
-				'condition' => [ 'add_credit_url' => 'yes' ]
+				'dynamic'       => [ 'active' => true ],
+				'condition'     => [ 'add_credit_url' => 'yes' ],
 			]
 		);
 
@@ -294,17 +294,17 @@ class Glory_Slider extends Widget_Base {
 
 		$repeater->start_controls_tab(
 			'tab_poster',
-			[ 
+			[
 				'label' => esc_html__( 'Poster', 'sky-elementor-addons' ),
 			]
 		);
 
 		$repeater->add_control(
 			'poster',
-			[ 
-				'label' => esc_html__( 'Poster', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::MEDIA,
-				'dynamic' => [ 'active' => true ],
+			[
+				'label'       => esc_html__( 'Poster', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::MEDIA,
+				'dynamic'     => [ 'active' => true ],
 				'label_block' => true,
 			]
 		);
@@ -315,72 +315,71 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'video_list',
-			[ 
-				'label' => '',
-				'type' => Controls_Manager::REPEATER,
-				'fields' => $repeater->get_controls(),
-				'separator' => 'before',
-				'default' => [ 
-					[ 
-						'title' => esc_html__( 'Youtube Video Title #1', 'sky-elementor-addons' ),
+			[
+				'label'       => '',
+				'type'        => Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'separator'   => 'before',
+				'default'     => [
+					[
+						'title'  => esc_html__( 'Youtube Video Title #1', 'sky-elementor-addons' ),
 						'credit' => esc_html__( 'by John Doe', 'sky-elementor-addons' ),
 					],
-					[ 
-						'title' => esc_html__( 'Vimeo Video Title #2', 'sky-elementor-addons' ),
-						'credit' => esc_html__( 'by Mark Doe', 'sky-elementor-addons' ),
-						'video_type' => 'vimeo'
+					[
+						'title'      => esc_html__( 'Vimeo Video Title #2', 'sky-elementor-addons' ),
+						'credit'     => esc_html__( 'by Mark Doe', 'sky-elementor-addons' ),
+						'video_type' => 'vimeo',
 					],
-					[ 
-						'title' => esc_html__( 'Dailymotion Video Title #3', 'sky-elementor-addons' ),
-						'credit' => esc_html__( 'by Fatin Rushdi ', 'sky-elementor-addons' ),
-						'video_type' => 'dailymotion'
+					[
+						'title'      => esc_html__( 'Dailymotion Video Title #3', 'sky-elementor-addons' ),
+						'credit'     => esc_html__( 'by Fatin Rushdi ', 'sky-elementor-addons' ),
+						'video_type' => 'dailymotion',
 					],
-					[ 
-						'title' => esc_html__( 'Remote Video Title #4', 'sky-elementor-addons' ),
+					[
+						'title'  => esc_html__( 'Remote Video Title #4', 'sky-elementor-addons' ),
 						'credit' => esc_html__( 'by Mike Ross', 'sky-elementor-addons' ),
 					],
-					[ 
-						'title' => esc_html__( 'Youtube Video Title #5', 'sky-elementor-addons' ),
+					[
+						'title'  => esc_html__( 'Youtube Video Title #5', 'sky-elementor-addons' ),
 						'credit' => esc_html__( 'by John Doe', 'sky-elementor-addons' ),
 					],
-					[ 
-						'title' => esc_html__( 'Youtube Video Title #6', 'sky-elementor-addons' ),
+					[
+						'title'  => esc_html__( 'Youtube Video Title #6', 'sky-elementor-addons' ),
 						'credit' => esc_html__( 'by Mike Doe', 'sky-elementor-addons' ),
 					],
-					[ 
-						'title' => esc_html__( 'Youtube Video Title #7', 'sky-elementor-addons' ),
-						'credit' => esc_html__( 'by Michael N. Chiles', 'sky-elementor-addons' ),
-						'video_type' => 'dailymotion'
+					[
+						'title'      => esc_html__( 'Youtube Video Title #7', 'sky-elementor-addons' ),
+						'credit'     => esc_html__( 'by Michael N. Chiles', 'sky-elementor-addons' ),
+						'video_type' => 'dailymotion',
 					],
 				],
 				'title_field' => '{{{ title }}}',
 			]
 		);
 
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_player_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Player Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'speed',
-			[ 
-				'label' => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'min' => 100,
-						'max' => 5000,
+			[
+				'label'   => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SLIDER,
+				'range'   => [
+					'px' => [
+						'min'  => 100,
+						'max'  => 5000,
 						'step' => 100,
 					],
 				],
-				'default' => [ 
+				'default' => [
 					'unit' => 'px',
 					'size' => 1200,
 				],
@@ -389,12 +388,12 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_toggle',
-			[ 
-				'label' => esc_html__( 'Coverflow Effect', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::POPOVER_TOGGLE,
+			[
+				'label'        => esc_html__( 'Coverflow Effect', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::POPOVER_TOGGLE,
 				'return_value' => 'yes',
 				// 'condition'    => [
-				//     'transition_effect' => 'coverflow'
+				// 'transition_effect' => 'coverflow'
 				// ]
 			]
 		);
@@ -403,21 +402,21 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_depth',
-			[ 
-				'label' => esc_html__( 'Depth', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'       => esc_html__( 'Depth', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
 						'min' => 1,
 						'max' => 10,
 					],
 				],
-				'default' => [ 
+				'default'     => [
 					'unit' => 'px',
 					'size' => 100,
 				],
 				'render_type' => 'template',
-				'condition' => [ 
+				'condition'   => [
 					'coverflow_toggle' => 'yes',
 				],
 			]
@@ -425,21 +424,21 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_modifier',
-			[ 
-				'label' => esc_html__( 'Modifier', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'       => esc_html__( 'Modifier', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
 						'min' => 1,
 						'max' => 10,
 					],
 				],
-				'default' => [ 
+				'default'     => [
 					'unit' => 'px',
 					'size' => 1,
 				],
 				'render_type' => 'template',
-				'condition' => [ 
+				'condition'   => [
 					'coverflow_toggle' => 'yes',
 				],
 			]
@@ -447,22 +446,22 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_rotate',
-			[ 
-				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
-						'min' => -360,
-						'max' => 360,
+			[
+				'label'       => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
+						'min'  => -360,
+						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'default' => [ 
+				'default'     => [
 					'unit' => 'px',
 					'size' => 50,
 				],
 				'render_type' => 'template',
-				'condition' => [ 
+				'condition'   => [
 					'coverflow_toggle' => 'yes',
 				],
 			]
@@ -470,21 +469,21 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'coverflow_stretch',
-			[ 
-				'label' => esc_html__( 'Stretch', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'range' => [ 
-					'px' => [ 
+			[
+				'label'       => esc_html__( 'Stretch', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default' => [ 
+				'default'     => [
 					'unit' => 'px',
 					'size' => 0,
 				],
 				'render_type' => 'template',
-				'condition' => [ 
+				'condition'   => [
 					'coverflow_toggle' => 'yes',
 				],
 			]
@@ -492,9 +491,9 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'slide_shadows',
-			[ 
+			[
 				'label' => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
@@ -502,83 +501,83 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_title',
-			[ 
-				'label' => esc_html__( 'Show Title', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'separator' => 'before'
+			[
+				'label'     => esc_html__( 'Show Title', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'title_tag',
-			[ 
-				'label' => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'h3',
-				'options' => sky_title_tags(),
-				'condition' => [ 
-					'show_title' => 'yes'
-				]
+			[
+				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h3',
+				'options'   => sky_title_tags(),
+				'condition' => [
+					'show_title' => 'yes',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'player_content_position',
-			[ 
-				'label' => esc_html__( 'Text Position', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'label_block' => false,
-				'options' => [ 
-					'top-left' => esc_html__( 'Top Left', 'sky-elementor-addons' ),
-					'top-center' => esc_html__( 'Top Center', 'sky-elementor-addons' ),
-					'top-right' => esc_html__( 'Top Right', 'sky-elementor-addons' ),
-					'bottom-left' => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
+			[
+				'label'                => esc_html__( 'Text Position', 'sky-elementor-addons' ),
+				'type'                 => Controls_Manager::SELECT,
+				'label_block'          => false,
+				'options'              => [
+					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
+					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
+					'top-right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
+					'bottom-left'   => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
 					'bottom-center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
-					'bottom-right' => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
+					'bottom-right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
 				],
-				'desktop_default' => 'top-left',
-				'tablet_default' => 'top-left',
-				'mobile_default' => 'top-left',
-				'style_transfer' => true,
-				'selectors' => [ 
+				'desktop_default'      => 'top-left',
+				'tablet_default'       => 'top-left',
+				'mobile_default'       => 'top-left',
+				'style_transfer'       => true,
+				'selectors'            => [
 					'{{WRAPPER}} .sa-glory-player .sa-player-content-wrapper' => '{{VALUE}};',
 				],
-				'selectors_dictionary' => [ 
-					'top-left' => 'top: 0%; left: 0; transform: translate(0%, 0%);right: auto;',
-					'top-center' => 'top: 0; left: 50%; transform: translate(-50%, 0%);',
-					'top-right' => 'top: 0%; right: 0; transform: translate(0%, 0%);left: auto;',
-					'bottom-left' => 'bottom: 0; left: 0%; transform: translate(0%, 0%);top: auto;',
+				'selectors_dictionary' => [
+					'top-left'      => 'top: 0%; left: 0; transform: translate(0%, 0%);right: auto;',
+					'top-center'    => 'top: 0; left: 50%; transform: translate(-50%, 0%);',
+					'top-right'     => 'top: 0%; right: 0; transform: translate(0%, 0%);left: auto;',
+					'bottom-left'   => 'bottom: 0; left: 0%; transform: translate(0%, 0%);top: auto;',
 					'bottom-center' => 'bottom: 0; left: 50%; transform: translate(-50%, 0%);top: auto;',
-					'bottom-right' => 'bottom: 0; right: 0%; transform: translate(0%, 0%);top: auto;left:auto;',
-				]
+					'bottom-right'  => 'bottom: 0; right: 0%; transform: translate(0%, 0%);top: auto;left:auto;',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'player_content_alignment',
-			[ 
-				'label' => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::CHOOSE,
-				'options' => [ 
-					'left' => [ 
+			[
+				'label'     => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => [
+					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-left',
+						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [ 
+					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-center',
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [ 
+					'right' => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-right',
+						'icon'  => 'eicon-text-align-right',
 					],
-					'justify' => [ 
+					'justify' => [
 						'title' => esc_html__( 'Justified', 'sky-elementor-addons' ),
-						'icon' => 'eicon-text-align-justify',
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} .sa-glory-player .sa-player-content-wrapper' => 'text-align: {{VALUE}};',
 				],
 			]
@@ -586,10 +585,10 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'show_play_button_on_hover',
-			[ 
-				'label' => esc_html__( 'Show Play Button On Hover', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
-				'prefix_class' => 'sa-play-button-on-hover-'
+			[
+				'label'        => esc_html__( 'Show Play Button On Hover', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'sa-play-button-on-hover-',
 			]
 		);
 
@@ -597,28 +596,28 @@ class Glory_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_playlist_settings',
-			[ 
+			[
 				'label' => esc_html__( 'Thumbnail Settings', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_responsive_control(
 			'item_gap',
-			[ 
-				'label' => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
-				'default' => [ 
+			[
+				'label'          => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [
 					'size' => 20,
 				],
-				'tablet_default' => [ 
+				'tablet_default' => [
 					'size' => 20,
 				],
-				'mobile_default' => [ 
+				'mobile_default' => [
 					'size' => 10,
 				],
-				'range' => [ 
-					'px' => [ 
+				'range'          => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -628,64 +627,60 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'playlist_mouse_wheel',
-			[ 
-				'label' => esc_html__( 'Mouse Wheel', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+			[
+				'label'   => esc_html__( 'Mouse Wheel', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
 
-
 		$this->end_controls_section();
 
 		// $this->start_controls_section(
-		//     'video_player_style',
-		//     [
-		//         'label' => esc_html__('Video Player', 'sky-elementor-addons'),
-		//         'tab'   => Controls_Manager::TAB_STYLE,
-		//     ]
+		// 'video_player_style',
+		// [
+		// 'label' => esc_html__('Video Player', 'sky-elementor-addons'),
+		// 'tab'   => Controls_Manager::TAB_STYLE,
+		// ]
 		// );
 
-
-
 		// $this->add_group_control(
-		//     Group_Control_Border::get_type(),
-		//     [
-		//         'name'     => 'player_border',
-		//         'label'    => esc_html__('Border', 'sky-elementor-addons'),
-		//         'selector' => '{{WRAPPER}} .swiper-slide-active .sa-player-wrapper',
-		//     ]
+		// Group_Control_Border::get_type(),
+		// [
+		// 'name'     => 'player_border',
+		// 'label'    => esc_html__('Border', 'sky-elementor-addons'),
+		// 'selector' => '{{WRAPPER}} .swiper-slide-active .sa-player-wrapper',
+		// ]
 		// );
 
 		// $this->add_responsive_control(
-		//     'player_border_radius',
-		//     [
-		//         'label'      => esc_html__('Border Radius', 'sky-elementor-addons'),
-		//         'type'       => Controls_Manager::DIMENSIONS,
-		//         'size_units' => ['px', 'em', '%'],
-		//         'selectors'  => [
-		//             '{{WRAPPER}} .swiper-slide-active .sa-player-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
-		//         ],
-		//     ]
+		// 'player_border_radius',
+		// [
+		// 'label'      => esc_html__('Border Radius', 'sky-elementor-addons'),
+		// 'type'       => Controls_Manager::DIMENSIONS,
+		// 'size_units' => ['px', 'em', '%'],
+		// 'selectors'  => [
+		// '{{WRAPPER}} .swiper-slide-active .sa-player-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+		// ],
+		// ]
 		// );
 
 		// $this->end_controls_section();
 
-
 		$this->start_controls_section(
 			'video_content_style',
-			[ 
+			[
 				'label' => esc_html__( 'Player Content', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'poster_overlay',
-			[ 
-				'label' => esc_html__( 'Poster Overlay', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Poster Overlay', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .swiper-slide-active .sa-player-wrapper::after' => 'background: {{VALUE}}',
 				],
 			]
@@ -693,11 +688,11 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'player_content_padding',
-			[ 
-				'label' => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-player-content-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -705,18 +700,18 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'video_title_heading',
-			[ 
-				'type' => Controls_Manager::HEADING,
+			[
+				'type'  => Controls_Manager::HEADING,
 				'label' => esc_html__( 'T I T L E', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'video_title_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-player-title' => 'color: {{VALUE}}',
 				],
 			]
@@ -724,30 +719,30 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'video_title_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'video_title_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-player-title',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'video_title_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'video_title_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-player-title',
 			]
 		);
 
 		$this->add_responsive_control(
 			'video_title_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-player-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -755,35 +750,34 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'video_title_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'video_title_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-player-title',
 			]
 		);
 
 		$this->add_control(
 			'video_credit_heading',
-			[ 
-				'type' => Controls_Manager::HEADING,
+			[
+				'type'  => Controls_Manager::HEADING,
 				'label' => esc_html__( 'C R E D I T / S U B T I T L E', 'sky-elementor-addons' ),
 			]
 		);
 
-
 		$this->add_responsive_control(
 			'video_credit_spacing',
-			[ 
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-player-credit' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -791,10 +785,10 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_control(
 			'video_credit_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-player-credit' => 'color: {{VALUE}}',
 				],
 			]
@@ -802,30 +796,30 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'video_credit_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'video_credit_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-player-credit',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'video_credit_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'video_credit_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-player-credit',
 			]
 		);
 
 		$this->add_responsive_control(
 			'video_credit_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-player-credit' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -833,9 +827,9 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'video_credit_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'video_credit_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-player-credit',
 			]
 		);
@@ -844,25 +838,25 @@ class Glory_Slider extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_play_button_style',
-			[ 
+			[
 				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'play_button_icon_size',
-			[ 
-				'label' => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
-				'range' => [ 
-					'px' => [ 
+				'range'      => [
+					'px' => [
 						'min' => 6,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-play-button' => 'font-size: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -870,11 +864,11 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_responsive_control(
 			'play_button_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-play-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
@@ -882,20 +876,20 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'play_button_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'play_button_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-play-button',
 			]
 		);
 
 		$this->add_responsive_control(
 			'play_button_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-play-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
 				],
 			]
@@ -905,17 +899,17 @@ class Glory_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_play_button_normal',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'play_button_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button' => 'color: {{VALUE}}',
 				],
 			]
@@ -923,28 +917,28 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'play_button_background',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'play_button_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-play-button',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'play_button_text_shadow',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'play_button_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-play-button',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'play_button_box_shadow',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'play_button_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-play-button',
 			]
 		);
@@ -953,18 +947,17 @@ class Glory_Slider extends Widget_Base {
 
 		$this->start_controls_tab(
 			'tab_play_button_hover',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
-
 		$this->add_control(
 			'play_button_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -972,23 +965,23 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
-			[ 
-				'name' => 'play_button_background_hover',
-				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types' => [ 'classic', 'gradient' ],
+			[
+				'name'     => 'play_button_background_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-play-button:hover',
 			]
 		);
 
 		$this->add_control(
 			'play_button_border_color_hover',
-			[ 
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [ 
+				'condition' => [
 					'play_button_border_border!' => '',
 				],
 			]
@@ -996,94 +989,91 @@ class Glory_Slider extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
-			[ 
-				'name' => 'play_button_text_shadow_hover',
-				'label' => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'play_button_text_shadow_hover',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-play-button:hover',
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
-			[ 
-				'name' => 'play_button_box_shadow_hover',
-				'label' => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+			[
+				'name'     => 'play_button_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-play-button:hover',
 			]
 		);
-
 
 		$this->end_controls_tab();
 
 		$this->end_controls_tabs();
 
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'section_thumbs_style',
-			[ 
+			[
 				'label' => esc_html__( 'Thumbnail', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_responsive_control(
 			'thumbs_padding',
-			[ 
-				'label' => esc_html__( 'Padding', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-thumb-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
-		//  $this->add_group_control(
-		//     Group_Control_Background::get_type(),
-		//     [
-		//         'name'     => 'playlist_navigation_background',
-		//         'label'    => esc_html__('Background', 'sky-elementor-addons'),
-		//         'types'    => ['classic', 'gradient'],
-		//         'selector' => '{{WRAPPER}} .sa-video-gallery-playlist .sa-playlist-prev, {{WRAPPER}} .sa-video-gallery-playlist .sa-playlist-next',
-		//     ]
+		// $this->add_group_control(
+		// Group_Control_Background::get_type(),
+		// [
+		// 'name'     => 'playlist_navigation_background',
+		// 'label'    => esc_html__('Background', 'sky-elementor-addons'),
+		// 'types'    => ['classic', 'gradient'],
+		// 'selector' => '{{WRAPPER}} .sa-video-gallery-playlist .sa-playlist-prev, {{WRAPPER}} .sa-video-gallery-playlist .sa-playlist-next',
+		// ]
 		// );
 
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
-			[ 
-				'name' => 'thumbs_border',
-				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
+			[
+				'name'     => 'thumbs_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-thumb-wrapper',
 			]
 		);
 
 		$this->add_responsive_control(
 			'thumbs_border_radius',
-			[ 
-				'label' => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::DIMENSIONS,
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} .sa-thumb-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
 				],
 			]
 		);
 
-
 		$this->add_control(
 			'play_button_border_color_active',
-			[ 
-				'label' => esc_html__( 'Border Color Active', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Border Color Active', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} .sa-glory-thumbs .swiper-slide.swiper-slide-active .sa-thumb-wrapper' => 'border-color: {{VALUE}};',
 				],
 				// 'condition' => [
-				//     'thumbs_border_border!' => '',
+				// 'thumbs_border_border!' => '',
 				// ],
-				'separator' => 'before'
+				'separator' => 'before',
 			]
 		);
 
@@ -1122,76 +1112,75 @@ class Glory_Slider extends Widget_Base {
 		$viewport_lg = ! empty( $elementor_vp_lg ) ? $elementor_vp_lg - 1 : 1023;
 		$viewport_md = ! empty( $elementor_vp_md ) ? $elementor_vp_md - 1 : 767;
 
-
-		$item_gap = ! empty( $settings["item_gap"]["size"] ) || ( $settings["item_gap"]["size"] === 0 ) ? (int) $settings["item_gap"]["size"] : 16;
-		$item_gap_tablet = ! empty( $settings["item_gap_tablet"]["size"] ) || ( $settings["item_gap"]["size"] === 0 ) ? (int) $settings["item_gap_tablet"]["size"] : 16;
-		$item_gap_mobile = ! empty( $settings["item_gap_mobile"]["size"] ) || ( $settings["item_gap"]["size"] === 0 ) ? (int) $settings["item_gap_mobile"]["size"] : 10;
+		$item_gap = ! empty( $settings['item_gap']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap']['size'] : 16;
+		$item_gap_tablet = ! empty( $settings['item_gap_tablet']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_tablet']['size'] : 16;
+		$item_gap_mobile = ! empty( $settings['item_gap_mobile']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_mobile']['size'] : 10;
 
 		$speed = ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1200;
 
 		$this->add_render_attribute(
-			[ 
-				'player-settings' => [ 
-					'class' => 'sa-glory-slider',
-					'id' => $id,
-					'data-player-settings' => [ 
-						wp_json_encode( array_filter( [ 
-							'effect' => 'coverflow',
-							'slidesPerView' => 1.2,
+			[
+				'player-settings' => [
+					'class'                => 'sa-glory-slider',
+					'id'                   => $id,
+					'data-player-settings' => [
+						wp_json_encode( array_filter( [
+							'effect'          => 'coverflow',
+							'slidesPerView'   => 1.2,
 							// 'touchRatio'          => 0.8,
 							// 'slideToClickedSlide' => true,
-							'centeredSlides' => true,
-							'loop' => true,
-							'speed' => $speed,
-							'loopedSlides' => 10,
-							'spaceBetween' => 0,
-							'freeMode' => false,
-							'lazy' => true,
-							'parallax' => true,
-							'observer' => true,
-							'observeParents' => true,
-							'coverflowEffect' => [ 
-								'depth' => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
-								'modifier' => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
-								'rotate' => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
-								'stretch' => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
+							'centeredSlides'  => true,
+							'loop'            => true,
+							'speed'           => $speed,
+							'loopedSlides'    => 10,
+							'spaceBetween'    => 0,
+							'freeMode'        => false,
+							'lazy'            => true,
+							'parallax'        => true,
+							'observer'        => true,
+							'observeParents'  => true,
+							'coverflowEffect' => [
+								'depth'        => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
+								'modifier'     => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
+								'rotate'       => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
+								'stretch'      => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
 
 								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
 							],
-							"breakpoints" => [ 
-								(int) $viewport_md => [ 
+							'breakpoints'     => [
+								(int) $viewport_md => [
 									'slidesPerView' => 1.4,
 								],
-								(int) $viewport_lg => [ 
+								(int) $viewport_lg => [
 									'slidesPerView' => 1.7,
-								]
-							],
-						] ) )
-					],
-					'data-thumbs-settings' => [ 
-						wp_json_encode( array_filter( [ 
-							'slidesPerView' => 'auto',
-							"spaceBetween" => $item_gap_mobile,
-							'centeredSlides' => true,
-							'freeMode' => false,
-							'loop' => true,
-							'speed' => $speed,
-							'loopedSlides' => 10,
-							'watchSlidesVisibility' => true,
-							'watchSlidesProgress' => true,
-							'slideToClickedSlide' => true,
-							'mousewheel' => ( $settings['playlist_mouse_wheel'] == 'yes' ) ? true : false,
-							"breakpoints" => [ 
-								(int) $viewport_md => [ 
-									"spaceBetween" => $item_gap_tablet,
 								],
-								(int) $viewport_lg => [ 
-									"spaceBetween" => $item_gap,
-								]
 							],
-						] ) )
-					]
-				]
+						] ) ),
+					],
+					'data-thumbs-settings' => [
+						wp_json_encode( array_filter( [
+							'slidesPerView'         => 'auto',
+							'spaceBetween'          => $item_gap_mobile,
+							'centeredSlides'        => true,
+							'freeMode'              => false,
+							'loop'                  => true,
+							'speed'                 => $speed,
+							'loopedSlides'          => 10,
+							'watchSlidesVisibility' => true,
+							'watchSlidesProgress'   => true,
+							'slideToClickedSlide'   => true,
+							'mousewheel'            => ( $settings['playlist_mouse_wheel'] == 'yes' ) ? true : false,
+							'breakpoints'           => [
+								(int) $viewport_md => [
+									'spaceBetween' => $item_gap_tablet,
+								],
+								(int) $viewport_lg => [
+									'spaceBetween' => $item_gap,
+								],
+							],
+						] ) ),
+					],
+				],
 			]
 		);
 		?>

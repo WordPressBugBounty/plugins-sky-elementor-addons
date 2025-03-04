@@ -41,19 +41,19 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_layout',
-			[ 
+			[
 				'label' => esc_html__( 'Table Of Contents', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'select_layout',
-			[ 
-				'label' => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
+			[
+				'label'   => esc_html__( 'Select Layout', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
 				'default' => 'simple',
-				'options' => [ 
+				'options' => [
 					'simple' => esc_html__( 'Simple', 'sky-elementor-addons' ),
 				],
 			]
@@ -61,32 +61,32 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->add_control(
 			'parent_selector',
-			[ 
-				'label' => esc_html__( 'Container Selector', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::TEXT,
+			[
+				'label'       => esc_html__( 'Container Selector', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
 				'label_block' => false,
-				'default' => '.elementor',
+				'default'     => '.elementor',
 				'placeholder' => '.elementor',
 			]
 		);
 
 		$this->add_control(
 			'heading_selectors',
-			[ 
-				'label' => esc_html__( 'Select Heading Tag', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT2,
-				'multiple' => true,
+			[
+				'label'       => esc_html__( 'Select Heading Tag', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
 				'description' => 'Select tags for Table of Contents.',
-				'default' => [ 'h2', 'h3', 'h4' ],
-				'options' => sky_title_tags(),
+				'default'     => [ 'h2', 'h3', 'h4' ],
+				'options'     => sky_title_tags(),
 			]
 		);
 
 		$this->add_control(
 			'parent_selector_note',
-			[ 
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => esc_html__( 'Note: Class or ID of Container/Post main area. Otherwise, it will automatically pull inappropriate contents. Example: .elementor, #post', 'sky-elementor-addons' ),
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Note: Class or ID of Container/Post main area. Otherwise, it will automatically pull inappropriate contents. Example: .elementor, #post', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 
 			]
@@ -96,59 +96,58 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->start_controls_section(
 			'section_additional',
-			[ 
+			[
 				'label' => esc_html__( 'Additional', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_CONTENT,
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
 		$this->add_control(
 			'simple_auto_hash',
-			[ 
+			[
 				'label' => esc_html__( 'Auto Hash Location', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SWITCHER,
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'animate_time',
-			[ 
-				'label' => esc_html__( 'Animate Time (ms)', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::NUMBER,
+			[
+				'label'       => esc_html__( 'Animate Time (ms)', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::NUMBER,
 				'description' => esc_html__( 'Scrolling Animate Time', 'sky-elementor-addons' ),
-				'default' => 1500,
-				'separator' => 'before'
+				'default'     => 1500,
+				'separator'   => 'before',
 			]
 		);
-
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
 			'style_simple',
-			[ 
+			[
 				'label' => esc_html__( 'List Style', 'sky-elementor-addons' ),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'select_list_style',
-			[ 
-				'label' => esc_html__( 'Select Style', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SELECT,
-				'default' => 'decimal',
-				'options' => [ 
-					'decimal' => esc_html__( 'Decimal', 'sky-elementor-addons' ),
-					'circle' => esc_html__( 'Circle', 'sky-elementor-addons' ),
-					'disc' => esc_html__( 'Disc', 'sky-elementor-addons' ),
-					'square' => esc_html__( 'Square', 'sky-elementor-addons' ),
+			[
+				'label'     => esc_html__( 'Select Style', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'decimal',
+				'options'   => [
+					'decimal'     => esc_html__( 'Decimal', 'sky-elementor-addons' ),
+					'circle'      => esc_html__( 'Circle', 'sky-elementor-addons' ),
+					'disc'        => esc_html__( 'Disc', 'sky-elementor-addons' ),
+					'square'      => esc_html__( 'Square', 'sky-elementor-addons' ),
 					'lower-alpha' => esc_html__( 'Lower Alpha', 'sky-elementor-addons' ),
 					'upper-alpha' => esc_html__( 'Upper Alpha', 'sky-elementor-addons' ),
 					'lower-roman' => esc_html__( 'Lower Roman', 'sky-elementor-addons' ),
 					'upper-roman' => esc_html__( 'Upper Roman', 'sky-elementor-addons' ),
 				],
-				'selectors' => [ 
+				'selectors' => [
 					'{{WRAPPER}} ul' => 'list-style: {{VALUE}};',
 				],
 			]
@@ -156,22 +155,22 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->add_responsive_control(
 			'simple_spacing',
-			[ 
-				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::SLIDER,
+			[
+				'label'      => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', '%' ],
-				'range' => [ 
-					'px' => [ 
-						'min' => 0,
-						'max' => 100,
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [ 
+					'%' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'selectors' => [ 
+				'selectors'  => [
 					'{{WRAPPER}} li:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -179,9 +178,9 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
-			[ 
-				'name' => 'simple_typography',
-				'label' => esc_html__( 'Typography', 'sky-elementor-addons' ),
+			[
+				'name'     => 'simple_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} a',
 			]
 		);
@@ -192,17 +191,17 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->start_controls_tab(
 			'style_normal_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'simple_list_color',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} a' => 'color: {{VALUE}}',
 				],
 			]
@@ -212,17 +211,17 @@ class Table_Of_Contents extends Widget_Base {
 
 		$this->start_controls_tab(
 			'style_hover_tab',
-			[ 
+			[
 				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'simple_list_color_hover',
-			[ 
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [ 
+			[
+				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
 					'{{WRAPPER}} a:hover' => 'color: {{VALUE}}',
 				],
 			]
@@ -241,16 +240,16 @@ class Table_Of_Contents extends Widget_Base {
 
 		$heading_selectors = implode( ',', $settings['heading_selectors'] );
 
-		$this->add_render_attribute( 'sa-table-of-contents', [ 
-			'class' => 'sa-table-of-contents',
-			'data-settings' => [ 
+		$this->add_render_attribute( 'sa-table-of-contents', [
+			'class'         => 'sa-table-of-contents',
+			'data-settings' => [
 				wp_json_encode(
-					array_filter( [ 
-						'id' => $id,
-						'parentSelector' => ! empty( $settings['parent_selector'] ) ? $settings['parent_selector'] : '.elementor',
+					array_filter( [
+						'id'               => $id,
+						'parentSelector'   => ! empty( $settings['parent_selector'] ) ? $settings['parent_selector'] : '.elementor',
 						'headingSelectors' => ! empty( $heading_selectors ) ? $heading_selectors : 'h2,h3',
-						'autoHash' => $settings['simple_auto_hash'],
-						'animateTime' => ! empty( $settings['animate_time'] ) ? (int) $settings['animate_time'] : 1500,
+						'autoHash'         => $settings['simple_auto_hash'],
+						'animateTime'      => ! empty( $settings['animate_time'] ) ? (int) $settings['animate_time'] : 1500,
 					] )
 				),
 			],

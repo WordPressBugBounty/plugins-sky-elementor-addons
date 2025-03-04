@@ -8,7 +8,6 @@ class Module extends Module_Base {
 
 	public function __construct() {
 		parent::__construct();
-
 	}
 
 	public function get_name() {
@@ -16,9 +15,8 @@ class Module extends Module_Base {
 	}
 
 	public function get_widgets() {
-		return [ 
+		return [
 			'Changelog',
 		];
 	}
-
 }
