@@ -1,3 +1,7 @@
+= 2.7.2 [6th March 2025] =
+
+* Fixed: API Route fixed for sub folders
+
 = 2.7.0 [5th March 2025] =
 
 * Added: Completely new admin UI added
