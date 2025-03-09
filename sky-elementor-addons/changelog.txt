@@ -1,4 +1,8 @@
-= 2.7.2 [6th March 2025] =
+= 2.7.2 [10th March 2025] =
+
+* Improved: System improved
+
+= 2.7.1 [6th March 2025] =
 
 * Fixed: API Route fixed for sub folders
 

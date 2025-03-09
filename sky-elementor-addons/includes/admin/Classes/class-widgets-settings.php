@@ -69,16 +69,15 @@ class Widgets_Settings {
 			$this->namespace,
 			'/' . $this->rest_base,
 			array(
-				'methods'             => WP_REST_Server::READABLE,
+				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => array( $this, 'get_settings' ),
-				// 'permission_callback' => array( $this, 'permissions_check' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'permissions_check' ),
 			)
 		);
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base,
+			'/' . $this->rest_base . '/update',
 			array(
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => array( $this, 'set_settings' ),
