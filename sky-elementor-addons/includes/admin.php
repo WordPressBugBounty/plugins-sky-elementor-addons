@@ -35,8 +35,8 @@ class Sky_Addons_Admin {
 
 		add_filter( 'plugin_action_links_' . plugin_basename( SKY_ADDONS__FILE__ ), [ $this, 'add_action_links' ] );
 
-		if ( ! Tracker::is_allow_track() ) {
-			add_action( 'sky_allow_tracker_notice', [ $this, 'allow_tracker_notice' ], 10, 3 );
+		if ( class_exists('Tracker') && ! Tracker::is_allow_track() ) {
+			// add_action( 'sky_allow_tracker_notice', [ $this, 'allow_tracker_notice' ], 10, 3 );
 		}
 
 		add_action( 'admin_notices', [ $this, 'black_friday_notice' ] );

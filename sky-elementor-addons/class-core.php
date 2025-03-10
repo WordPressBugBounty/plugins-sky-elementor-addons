@@ -69,7 +69,6 @@ final class Core {
 	 * @since 3.0.0
 	 */
 	public function include_files() {
-		require_once SKY_ADDONS_INC_PATH . 'admin.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-dashboard.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-widgets-settings.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/class-menu.php';

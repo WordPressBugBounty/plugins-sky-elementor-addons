@@ -364,9 +364,11 @@ class Sky_Addons_Plugin {
 	 */
 	public function init_plugin() {
 		require_once __DIR__ . '/includes/functions.php';
-		// if ( is_admin() ) {
-		// require_once sky_addons_core()->includes_dir . 'admin.php';
-		// }
+
+		/**
+		 * No admin Check, Because it's required also for REST API
+		 */
+		require_once sky_addons_core()->includes_dir . 'admin.php';
 	}
 
 

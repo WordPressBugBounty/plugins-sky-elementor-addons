@@ -1,3 +1,7 @@
+= 2.7.3 [11th March 2025] =
+
+* Improved: API Route improved
+
 = 2.7.2 [10th March 2025] =
 
 * Improved: System improved
