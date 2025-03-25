@@ -1921,3 +1921,137 @@ jQuery('body').on('click', '.sa-element-link', function () {
     });
 
 }(jQuery));
+
+;
+(function ($) {
+  var $window = $(window),
+    debounce = function (func, wait, immediate) {
+      // 'private' variable for instance
+      // The returned function will be able to reference this due to closure.
+      // Each call to the returned function will share this common timer.
+      var timeout;
+
+      // Calling debounce returns a new anonymous function
+      return function () {
+        // reference the context and args for the setTimeout function
+        var context = this,
+          args = arguments;
+
+        // Should the function be called now? If immediate is true
+        //   and not already in a timeout then the answer is: Yes
+        var callNow = immediate && !timeout;
+
+        // This is the basic debounce behaviour where you can call this
+        //   function several times, but it will only execute once
+        //   [before or after imposing a delay]. 
+        //   Each time the returned function is called, the timer starts over.
+        clearTimeout(timeout);
+
+        // Set the new timeout
+        timeout = setTimeout(function () {
+
+          // Inside the timeout function, clear the timeout variable
+          // which will let the next execution run when in 'immediate' mode
+          timeout = null;
+
+          // Check if the function already ran with the immediate flag
+          if (!immediate) {
+            // Call the original function with apply
+            // apply lets you define the 'this' object as well as the arguments
+            //    (both captured before setTimeout)
+            func.apply(context, args);
+          }
+        }, wait);
+
+        // Immediate mode and no wait timer? Execute the function..
+        if (callNow)
+          func.apply(context, args);
+      };
+    };
+  $window.on('elementor/frontend/init', function () {
+    var ModuleHandler = elementorModules.frontend.handlers.Base,
+      SimpleParallax;
+
+    SimpleParallax = ModuleHandler.extend({
+
+      bindEvents: function () {
+        this.run();
+      },
+
+      getDefaultSettings: function () {
+        return {
+          enable: 'yes',
+          media_type: 'image',
+          scale: 1.3,
+          orientation: 'up',
+          delay: 0,
+        };
+      },
+
+      settings: function (key) {
+        return this.getElementSettings('sa_sp_' + key);
+      },
+
+      onElementChange: debounce(function (prop) {
+        if (prop.indexOf('sa_sp') !== -1) {
+          this.destroy();
+          this.run();
+        }
+      }, 400),
+
+      run: function () {
+        var options = this.getDefaultSettings(),
+          element = this.$element.get(0),
+          obj = this;
+
+        
+        if (this.settings('enable') !== 'yes') {
+          return;
+        }
+        console.log(this.settings('enable'));
+
+        if (this.settings('scale')) {
+          options.scale = this.settings('scale');
+        }
+        if (this.settings('orientation')) {
+          options.orientation = this.settings('orientation');
+        }
+        if (this.settings('delay')) {
+          options.delay = this.settings('delay');
+        }
+        if (this.settings('transition')) {
+          options.transition = this.settings('transition');
+        }
+        if (this.settings('max_transition')) {
+          options.maxTransition = this.settings('max_transition');
+        }
+        if (this.settings('overflow')) {
+          options.overflow = this.settings('overflow');
+        }
+
+        var container = this.$element.find('.elementor-widget-container');
+        if (container.length) {
+          let mediaType = obj.settings('media_type');
+          let mediaElements = container.find(mediaType === 'video' ? 'video' : 'img');
+          if (mediaElements.length) {
+            mediaElements.each(function () {
+              /**
+               * Convert to html collection selector 
+               */
+              let img = $(this).get(0);
+              new simpleParallax(img, options);
+            });
+          }
+        }
+      }
+    });
+
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope) {
+      elementorFrontend.elementsHandler.addHandler(SimpleParallax, {
+        $element: $scope
+      });
+    });
+  });
+
+}(jQuery));

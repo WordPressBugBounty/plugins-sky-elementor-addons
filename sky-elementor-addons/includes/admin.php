@@ -23,8 +23,7 @@ class Sky_Addons_Admin {
 	private function __construct() {
 		$this->dispatch_actions();
 		// add_action( 'admin_menu', [ $this, 'admin_menu' ] );
-		add_action( 'wp_ajax_sky_save_option_data', [ $this, 'save_options' ] );
-		add_action( 'wp_ajax_sky_black_friday_notice_dismiss', [ $this, 'sky_black_friday_notice_dismiss' ] );
+		// add_action( 'wp_ajax_sky_black_friday_notice_dismiss', [ $this, 'sky_black_friday_notice_dismiss' ] );
 	}
 
 	public function dispatch_actions() {
@@ -35,11 +34,11 @@ class Sky_Addons_Admin {
 
 		add_filter( 'plugin_action_links_' . plugin_basename( SKY_ADDONS__FILE__ ), [ $this, 'add_action_links' ] );
 
-		if ( class_exists('Tracker') && ! Tracker::is_allow_track() ) {
+		if ( class_exists( 'Tracker' ) && ! Tracker::is_allow_track() ) {
 			// add_action( 'sky_allow_tracker_notice', [ $this, 'allow_tracker_notice' ], 10, 3 );
 		}
 
-		add_action( 'admin_notices', [ $this, 'black_friday_notice' ] );
+		// add_action( 'admin_notices', [ $this, 'black_friday_notice' ] );
 	}
 
 	/**
@@ -89,15 +88,12 @@ class Sky_Addons_Admin {
 	public function load_admin_scripts() {
 		wp_enqueue_script( 'sky-admin-js', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin.js', [
 			'jquery',
-		], '1.0.0', true );
-		wp_enqueue_script( 'sweetalert2', SKY_ADDONS_ASSETS_URL . 'vendor/js/sweetalert2.js', [], '1.0.0', true );
-		wp_enqueue_script( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/js/metis-menu.js', [ 'jquery' ], '3.0.7', true );
+		], SKY_ADDONS_VERSION, true );
 
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		wp_enqueue_style( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/css/metis-menu' . $direction_suffix . '.css', [], '3.0.7' );
-		wp_enqueue_style( 'sky-admin-css', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin' . $direction_suffix . '.css', [], '1.0.0' );
-		wp_enqueue_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], '1.0.0' );
+		// wp_enqueue_style( 'sky-admin-css', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
 	}
 
 	public static function modules_demo_server() {
@@ -187,9 +183,9 @@ class Sky_Addons_Admin {
 	}
 
 	public function admin_settings() {
-		if ( is_readable( sky_addons_core()->templates_dir . 'admin/dashboard.php' ) ) {
-			require_once sky_addons_core()->templates_dir . 'admin/dashboard.php';
-		}
+		// if ( is_readable( sky_addons_core()->templates_dir . 'admin/dashboard.php' ) ) {
+		// require_once sky_addons_core()->templates_dir . 'admin/dashboard.php';
+		// }
 	}
 
 	/**
@@ -272,23 +268,9 @@ class Sky_Addons_Admin {
 		return $names;
 	}
 
-	public static function option_init_check( $option_names = [] ) {
-		$default = [];
-		foreach ( $option_names as $option_name ) {
-			$option_value = get_option( $option_name, [] );
-			// used on first testing
-			// if (in_array("no_db", $option_value)) {
-			// $default[$option_name] = 'no_db';
-			// }
-			if ( $option_value ) {
-				$default[ $option_name ] = true;
-			} else {
-				$default[ $option_name ] = false;
-			}
-		}
-		return $default;
-	}
-
+	/**
+	 * Elements List
+	 */
 	public static function get_element_list() {
 
 		$inactive_widgets = self::get_inactive_widgets();
@@ -1254,7 +1236,7 @@ class Sky_Addons_Admin {
 			return $widget;
 		}, $widgets_fields['sky_addons_widgets']);
 
-    $widgets_fields['sky_addons_3rd_party_widget'] = array_map(
+		$widgets_fields['sky_addons_3rd_party_widget'] = array_map(
 			function ( $widget ) use ( $used_widgets ) {
 				$widget_name          = $widget['name'];
 				$widget['total_used'] = isset( $used_widgets[ 'sky-' . $widget_name ] ) ? $used_widgets[ 'sky-' . $widget_name ] : 0;
@@ -1286,66 +1268,6 @@ class Sky_Addons_Admin {
 
 	public function verify_nonce( $post_value ) {
 		return ! empty( $post_value['_wpnonce'] ) ? $post_value['_wpnonce'] : '';
-	}
-
-	public function save_options() {
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		$post_value = $this->option_data_check( $_POST );
-		$action = $this->action();
-		$nonce = $this->verify_nonce( $post_value );
-
-		if ( wp_verify_nonce( $nonce, $action ) ) {
-			$option_name = $post_value['option_page'];
-			$post_value['na'] = 'activated-all';
-
-			unset( $post_value['_wpnonce'] );
-			unset( $post_value['action'] );
-			unset( $post_value['_wp_http_referer'] );
-			unset( $post_value['option_page'] );
-
-			if ( $option_name == self::API_DB_KEY || count( $post_value ) > 1 ) {
-				unset( $post_value['na'] );
-			}
-
-			$filter_value = $post_value;
-
-			if ( $option_name !== self::API_DB_KEY ) {
-				// TODO - same data not updating
-				$filter_value = array_keys( $post_value );
-			}
-
-			$savedOption = get_option( $option_name, [] );
-			$response = new \stdClass();
-
-			if ( $savedOption === $post_value || update_option( $option_name, $filter_value ) || add_option( $option_name, $filter_value ) ) {
-				$response->status = true;
-				$response->msg = esc_html__( 'Successfully Updated.', 'sky-elementor-addons' );
-				$response->msg_details = esc_html__( 'Great, your settings saved successfully in your system.', 'sky-elementor-addons' );
-			} else {
-				$response->status = false;
-				$response->msg = esc_html__( 'Already Updated.', 'sky-elementor-addons' );
-				$response->msg_details = esc_html__( 'There is no change in your settings. So there is no need to save the settings again.', 'sky-elementor-addons' );
-			}
-			wp_send_json( $response );
-		}
-	}
-
-	public static function sky_dashboard_footer() {
-		?>
-		<div class="sa-dashboard-footer sa-d-flex sa-justify-content-between sa-align-items-center sa-p-4 sa-my-4">
-			<div>
-				<?php esc_html_e( 'Thank you for using Sky Addons.', 'sky-elementor-addons' ); ?>
-			</div>
-			<div>
-				<?php esc_html_e( '@copyright (2021 - ' . date( 'Y' ) . ')', 'sky-elementor-addons' ); ?> <a
-					href="https://wowdevs.com/" target="_blank" class="sa-text-decoration-none">wowDevs.com</a>
-			</div>
-		</div>
-		<?php
 	}
 
 	public static function init() {

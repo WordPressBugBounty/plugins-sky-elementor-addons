@@ -529,17 +529,6 @@ class Animated_Heading extends Widget_Base {
 
 		$title = $settings['title'];
 
-		// if (!empty($settings['link']['url'])) {
-		// 	$this->add_link_attributes('url', $settings['link']);
-
-		// 	$title = sprintf('<a %1$s>%2$s</a>', $this->get_render_attribute_string('url'), $title);
-		// }
-
-		// $title_html = sprintf('<%1$s %2$s>%3$s</%1$s>', Utils::validate_html_tag($settings['header_size']), $this->get_render_attribute_string('title'), $title);
-
-		// // PHPCS - the variable $title_html holds safe data.
-		// echo $title_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
 		if ( 'typed' == $settings['animate_style'] ) {
 			$title = '';
 		}

@@ -102,9 +102,20 @@ final class Managers {
 		$modules[] = 'ultra-grid';
 		$modules[] = 'ultra-carousel';
 
-		// $modules[] = 'post-test';
+		/**
+		 * All Post Modules of Theme Builder
+		 */
 
-		// extensions
+		$modules[] = 'page-title';
+		$modules[] = 'post-title';
+		$modules[] = 'post-excerpt';
+		$modules[] = 'post-content';
+		$modules[] = 'post-featured-image';
+		$modules[] = 'post-comments';
+
+		/**
+	 * All Extensions
+	 */
 
 		if ( ! in_array( 'animated-gradient-bg', self::get_inactive_extensions() ) ) {
 			$modules[] = 'animated-gradient-bg';
@@ -126,6 +137,9 @@ final class Managers {
 		}
 		if ( ! in_array( 'ripples-effect', self::get_inactive_extensions() ) ) {
 			$modules[] = 'ripples-effect';
+		}
+		if ( ! in_array( 'simple-parallax', self::get_inactive_extensions() ) ) {
+			$modules[] = 'simple-parallax';
 		}
 		if ( ! in_array( 'wrapper-link', self::get_inactive_extensions() ) ) {
 			$modules[] = 'wrapper-link';

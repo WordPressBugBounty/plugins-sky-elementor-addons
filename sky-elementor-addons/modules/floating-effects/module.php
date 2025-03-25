@@ -649,31 +649,15 @@ class Module extends Module_Base {
 
 	public function widget_floating_ef_before_render( $widget ) {
 			$settings = $widget->get_settings_for_display();
-		if ( $settings['sa_floating_ef_enable'] == 'yes' ) {
+		if ( 'yes' === $settings['sa_floating_ef_enable'] ) {
 				wp_enqueue_script( 'anime' );
 		}
 	}
 
 	protected function add_actions() {
 
-			add_action(
-				'elementor/element/common/_section_style/after_section_end',
-				[
-					$this,
-					'register_section',
-				]
-			);
-
-			add_action(
-				'elementor/element/common/section_sky_addons_floating_ef_controls/before_section_end',
-				[
-					$this,
-					'register_controls',
-				],
-				10,
-				2
-			);
-
+			add_action( 'elementor/element/common/_section_style/after_section_end', [ $this,'register_section' ] );
+			add_action( 'elementor/element/common/section_sky_addons_floating_ef_controls/before_section_end', [ $this, 'register_controls' ], 10, 2 );
 			add_action( 'elementor/frontend/widget/before_render', [ $this, 'widget_floating_ef_before_render' ], 10, 1 );
 	}
 }

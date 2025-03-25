@@ -69,18 +69,18 @@ final class Core {
 	 * @since 3.0.0
 	 */
 	public function include_files() {
-		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-dashboard.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-widgets-settings.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/class-menu.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/class-admin.php';
-		new Admin();
+		// require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-dashboard.php';
+		// require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-widgets-settings.php';
+		// require_once SKY_ADDONS_INC_PATH . 'admin/class-menu.php';
+		// require_once SKY_ADDONS_INC_PATH . 'admin/class-admin.php';
+		// new Admin();
 
-		/**
-		 * Admin Files Only
-		 */
-		if ( is_admin() ) {
-			require_once SKY_ADDONS_INC_PATH . 'class-admin-feeds.php';
-		}
+		// /**
+		// * Admin Files Only
+		// */
+		// if ( is_admin() ) {
+		// require_once SKY_ADDONS_INC_PATH . 'class-admin-feeds.php';
+		// }
 	}
 }
 

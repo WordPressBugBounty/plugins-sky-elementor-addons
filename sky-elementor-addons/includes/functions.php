@@ -19,7 +19,7 @@ if ( ! function_exists( 'sky_addons_core' ) ) {
 
 if ( ! function_exists( 'sky_addons_get_icon' ) ) {
 	function sky_addons_get_icon() {
-		return '<span class="sky-ctrl-section-icon-wrapper"><img src="' . sky_addons_core()->images . 'sky-logo-color.svg" class="sky-ctrl-section-icon" alt="Sky Addons" title="Sky Addons"></span>';
+		return '<span class="sky-ctrl-section-icon-wrapper"><img src="' . sky_addons_core()->images . 'sky-logo-gradient.png" class="sky-ctrl-section-icon" alt="Sky Addons" title="Sky Addons"></span>';
 	}
 }
 
@@ -211,7 +211,7 @@ if ( ! function_exists( 'sky_post_time_ago' ) ) {
 	function sky_post_time_ago( $format = '' ) {
 		$display_ago = esc_html__( 'ago', 'sky-elementor-addons' );
 
-		if ( $format == 'short' ) {
+		if ( 'short' === $format ) {
 			$output = sky_post_time_ago_kit( strtotime( get_the_date() ), current_time( 'timestamp' ) );
 		} else {
 			$output = human_time_diff( strtotime( get_the_date() ), current_time( 'timestamp' ) );
@@ -391,5 +391,30 @@ if ( ! function_exists( 'sky_display_el_tem_by_id' ) ) {
 		} else {
 			echo esc_html__( 'The post is not published or does not exist.', 'sky-elementor-addons' );
 		}
+	}
+}
+
+
+/**
+ * Render Elementor Content
+ *
+ * @param $content_id
+ *
+ * Used in Themes Builder
+ */
+if ( ! function_exists( 'wowdevs_render_elementor_content' ) ) {
+	function wowdevs_render_elementor_content( $content_id ) {
+
+		$elementor_instance = \Elementor\Plugin::instance();
+		$has_css            = false;
+
+		/**
+		 * CSS Print Method Internal and Exteral option support for Header and Footer Builder.
+		 */
+		if ( ( 'internal' === get_option( 'elementor_css_print_method' ) ) || \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+			$has_css = true;
+		}
+
+		return $elementor_instance->frontend->get_builder_content_for_display( $content_id, $has_css );
 	}
 }
