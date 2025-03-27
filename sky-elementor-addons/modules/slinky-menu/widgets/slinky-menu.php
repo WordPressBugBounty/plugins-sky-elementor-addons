@@ -543,7 +543,7 @@ class Slinky_Menu extends Widget_Base {
 				wp_json_encode(array_filter([
 					'id'    => '#' . $id,
 					'speed' => ! empty( $settings['speed']['size'] ) ? $settings['speed']['size'] : 300,
-					'title' => ( 'yes' == $settings['show_title'] ) ? $settings['show_title'] : false,
+					'title' => ( 'yes' === $settings['show_title'] ) ? $settings['show_title'] : false,
 				])),
 			],
 		]);
