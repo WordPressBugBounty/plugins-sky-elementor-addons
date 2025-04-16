@@ -1620,146 +1620,149 @@ jQuery('body').on('click', '.sa-element-link', function () {
 
 ;
 (function ($) {
-    var $window = $(window),
-        debounce = function (func, wait, immediate) {
-            // 'private' variable for instance
-            // The returned function will be able to reference this due to closure.
-            // Each call to the returned function will share this common timer.
-            var timeout;
+  var $window = $(window),
+    debounce = function (func, wait, immediate) {
+      // 'private' variable for instance
+      // The returned function will be able to reference this due to closure.
+      // Each call to the returned function will share this common timer.
+      var timeout;
 
-            // Calling debounce returns a new anonymous function
-            return function () {
-                // reference the context and args for the setTimeout function
-                var context = this,
-                    args = arguments;
+      // Calling debounce returns a new anonymous function
+      return function () {
+        // reference the context and args for the setTimeout function
+        var context = this,
+          args = arguments;
 
-                // Should the function be called now? If immediate is true
-                //   and not already in a timeout then the answer is: Yes
-                var callNow = immediate && !timeout;
+        // Should the function be called now? If immediate is true
+        //   and not already in a timeout then the answer is: Yes
+        var callNow = immediate && !timeout;
 
-                // This is the basic debounce behaviour where you can call this
-                //   function several times, but it will only execute once
-                //   [before or after imposing a delay].
-                //   Each time the returned function is called, the timer starts over.
-                clearTimeout(timeout);
+        // This is the basic debounce behaviour where you can call this
+        //   function several times, but it will only execute once
+        //   [before or after imposing a delay].
+        //   Each time the returned function is called, the timer starts over.
+        clearTimeout(timeout);
 
-                // Set the new timeout
-                timeout = setTimeout(function () {
+        // Set the new timeout
+        timeout = setTimeout(function () {
 
-                    // Inside the timeout function, clear the timeout variable
-                    // which will let the next execution run when in 'immediate' mode
-                    timeout = null;
+          // Inside the timeout function, clear the timeout variable
+          // which will let the next execution run when in 'immediate' mode
+          timeout = null;
 
-                    // Check if the function already ran with the immediate flag
-                    if (!immediate) {
-                        // Call the original function with apply
-                        // apply lets you define the 'this' object as well as the arguments
-                        //    (both captured before setTimeout)
-                        func.apply(context, args);
-                    }
-                }, wait);
+          // Check if the function already ran with the immediate flag
+          if (!immediate) {
+            // Call the original function with apply
+            // apply lets you define the 'this' object as well as the arguments
+            //    (both captured before setTimeout)
+            func.apply(context, args);
+          }
+        }, wait);
 
-                // Immediate mode and no wait timer? Execute the function..
-                if (callNow)
-                    func.apply(context, args);
-            };
+        // Immediate mode and no wait timer? Execute the function..
+        if (callNow)
+          func.apply(context, args);
+      };
+    };
+  $window.on('elementor/frontend/init', function () {
+    var ModuleHandler = elementorModules.frontend.handlers.Base,
+      RipplesEffect;
+
+    RipplesEffect = ModuleHandler.extend({
+
+      bindEvents: function () {
+        this.run();
+      },
+
+      getDefaultSettings: function () {
+        return {
+          interactive: true,
         };
-    $window.on('elementor/frontend/init', function () {
-        var ModuleHandler = elementorModules.frontend.handlers.Base,
-            RipplesEffect;
+      },
 
-        RipplesEffect = ModuleHandler.extend({
+      settings: function (key) {
+        return this.getElementSettings('sa_rf_' + key);
+      },
 
-            bindEvents: function () {
-                this.run();
-            },
+      onElementChange: debounce(function (prop) {
+        if (prop.indexOf('sa_rf_') !== -1) {
+          $(this.RippleEl).ripples('destroy');
+          this.run();
+        }
+      }, 600),
 
-            getDefaultSettings: function () {
-                return {
-                    interactive: true,
-                };
-            },
+      run: function () {
+        var options = this.getDefaultSettings(),
+          elementID = this.getID(),
+          elementContainer = $('.elementor-element-' + elementID),
+          element = $('.elementor-element-' + elementID);
+        // element = $('.elementor-element-' + elementID + ' > :first-child');
 
-            settings: function (key) {
-                return this.getElementSettings('sa_rf_' + key);
-            },
+        if (this.settings('enable') !== 'yes') {
+          return;
+        }
 
-            onElementChange: debounce(function (prop) {
-                if (prop.indexOf('sa_rf_') !== -1) {
-                    $(this.RippleEl).ripples('destroy');
-                    this.run();
-                }
-            }, 600),
+        if ($(this.$element).hasClass('elementor-widget')) {
+          elementContainer.css({
+            'position': 'relative',
+          });
+        }
 
-            run: function () {
-                var options = this.getDefaultSettings(),
-                    elementID = this.getID(),
-                    elementContainer = $('.elementor-element-' + elementID),
-                    element = $('.elementor-element-' + elementID );
-                    // element = $('.elementor-element-' + elementID + ' > :first-child');
+        if ($(this.$element).hasClass('elementor-column')) {
+          elementContainer = $('.elementor-element-' + elementID).find('.elementor-column-wrap');
+          element = $('.elementor-element-' + elementID).find('.elementor-column-wrap'); // need to verify clearly
+          elementContainer.css({
+            'position': 'relative',
+          });
+        }
 
-                if (this.settings('enable') !== 'yes') {
-                    return;
-                }
+        if (this.settings('drop_radius.size')) {
+          options.dropRadius = this.settings('drop_radius.size') || 20;
+        }
+        if (this.settings('perturbance.size')) {
+          options.perturbance = this.settings('perturbance.size') || 0.03;
+        }
+        if (this.settings('resolution')) {
+          options.resolution = this.settings('resolution') || 256;
+        }
 
-                if ($(this.$element).hasClass('elementor-widget')) {
-                    elementContainer.css({
-                        'position': 'relative',
-                    });
-                }
+        options.id = elementID;
+        options.crossOrigin = 'anonymous';
 
-                if ($(this.$element).hasClass('elementor-column')) {
-                    elementContainer = $('.elementor-element-' + elementID).find('.elementor-column-wrap');
-                    element = $('.elementor-element-' + elementID).find('.elementor-column-wrap'); // need to verify clearly
-                    elementContainer.css({
-                        'position': 'relative',
-                    });
-                }
-
-                if (this.settings('drop_radius.size')) {
-                    options.dropRadius = this.settings('drop_radius.size') || 20;
-                }
-                if (this.settings('perturbance.size')) {
-                    options.perturbance = this.settings('perturbance.size') || 0.03;
-                }
-                if (this.settings('resolution')) {
-                    options.resolution = this.settings('resolution') || 256;
-                }
-
-                options.id = 's';
-
-                $(element).ripples(options);
-
-                this.RippleEl = element;
-            }
+        $(document).ready(function () {
+          $(element).ripples(options);
+          this.RippleEl = element;
         });
 
-
-        elementorFrontend.hooks.addAction('frontend/element_ready/section', function ($scope) {
-            elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
-                $element: $scope
-            });
-        });
-
-        elementorFrontend.hooks.addAction('frontend/element_ready/container', function ($scope) {
-            elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
-                $element: $scope
-            });
-        });
-
-        elementorFrontend.hooks.addAction('frontend/element_ready/column', function ($scope) {
-            elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
-                $element: $scope
-            });
-        });
-
-        elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope) {
-            elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
-                $element: $scope
-            });
-        });
-
+      }
     });
+
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/section', function ($scope) {
+      elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
+        $element: $scope
+      });
+    });
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/container', function ($scope) {
+      elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
+        $element: $scope
+      });
+    });
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/column', function ($scope) {
+      elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
+        $element: $scope
+      });
+    });
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/widget', function ($scope) {
+      elementorFrontend.elementsHandler.addHandler(RipplesEffect, {
+        $element: $scope
+      });
+    });
+
+  });
 
 }(jQuery));
 
@@ -2008,7 +2011,6 @@ jQuery('body').on('click', '.sa-element-link', function () {
         if (this.settings('enable') !== 'yes') {
           return;
         }
-        console.log(this.settings('enable'));
 
         if (this.settings('scale')) {
           options.scale = this.settings('scale');

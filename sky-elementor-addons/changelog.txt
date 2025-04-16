@@ -1,3 +1,12 @@
+= 3.0.3 [16th April 2025] =
+
+* Improved: System improved
+* Fixed: Security issue fixed (Thanks to Darius Sveikauskas)
+
+= 3.0.2 [27th March 2025] =
+
+* Fixed: Ripples Effect fixed (Thanks to Lucas)
+
 = 3.0.1 [27th March 2025] =
 
 * Fixed: Slinky menu custom link fixed (Thanks to Lucas)

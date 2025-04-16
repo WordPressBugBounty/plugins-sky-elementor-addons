@@ -850,7 +850,7 @@ class Logo_Carousel extends Widget_Base {
 			$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] == 'yes' ) ? ' sa-tippy-tooltip' : '';
 			$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none ' . $tippy_class, true );
 
-			if ( ! empty( $item['link']['url'] && 'custom' == $settings['link_to'] ) ) {
+			if ( ! empty( $item['link']['url'] && 'custom' === $settings['link_to'] ) ) {
 				$this->add_render_attribute( $link_attr, 'href', esc_url( $item['link']['url'] ), true );
 
 				if ( $item['link']['is_external'] ) {
@@ -871,10 +871,10 @@ class Logo_Carousel extends Widget_Base {
 			 * @since 1.0.10
 			 */
 
-			if ( 'file' == $settings['link_to'] && $settings['open_lightbox'] ) {
+			if ( 'file' === $settings['link_to'] && $settings['open_lightbox'] ) {
 				$this->add_lightbox_data_attributes( $link_attr, $item['logo']['id'], $settings['open_lightbox'], $this->get_id() );
 
-				$this->add_render_attribute( $link_attr, 'href', $image, true );
+				$this->add_render_attribute( $link_attr, 'href', esc_url( $image ), true );
 			}
 
 			// perfect alt

@@ -422,6 +422,7 @@ class Sky_Addons_Plugin {
 			'web_url'      => esc_url( home_url() ),
 			'rest_url'     => esc_url( get_rest_url() ),
 			'version'      => SKY_ADDONS_VERSION,
+			'pro_version'  => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
 			'nonce'        => wp_create_nonce( 'wp_rest' ),
 			'assets_url'   => SKY_ADDONS_ASSETS_URL,
 			'logo'         => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',

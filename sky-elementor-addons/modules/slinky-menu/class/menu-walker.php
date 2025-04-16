@@ -89,7 +89,12 @@ class Menu_Walker extends \Walker_Nav_Menu {
 		$output .= sprintf( '<li%s%s%s>', $id_attr, $attributes, $class_attr );
 
 		$link_attributes = '';
-		foreach ( array( 'attr_title' => 'title', 'target' => 'target', 'xfn' => 'rel', 'url' => 'href' ) as $var => $attr ) {
+		foreach ( array(
+			'attr_title' => 'title',
+			'target'     => 'target',
+			'xfn'        => 'rel',
+			'url'        => 'href',
+		) as $var => $attr ) {
 			if ( ! empty( $item->$var ) ) {
 				$link_attributes .= sprintf( ' %s="%s"', esc_attr( $attr ), esc_url( $item->$var ) );
 			}

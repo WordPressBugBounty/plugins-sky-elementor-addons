@@ -25,7 +25,7 @@ class Module extends Module_Base {
 			'section_sky_addons_sp_controls',
 			[
 				'tab'   => Controls_Manager::TAB_ADVANCED,
-				'label' => esc_html__( 'Simple Parallax', 'sky-elementor-addons' ) . sky_addons_get_icon(),
+				'label' => esc_html__( 'Parallax Effects', 'sky-elementor-addons' ) . sky_addons_get_icon(),
 			]
 		);
 		$element->end_controls_section();

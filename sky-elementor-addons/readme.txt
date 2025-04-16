@@ -1,15 +1,15 @@
 === Sky Addons for Elementor (Free Templates Library, Live Copy, Animations, Post Grid, Post Carousel, Particles, Sliders, Chart, Blog, Video Gallery) ===
 Plugin Name: Sky Addons for Elementor
-Version: 3.0.1
+Version: 3.0.3
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder
 Tags: Elementor, Elementor Addons, Elementor Widgets, Elementor Post builder, woocommerce page builder
 Donate link: https://skyaddons.com/
 Requires at least: 5.0
-Tested up to: 6.7.2
+Tested up to: 6.8
 Requires PHP: 7.0.0
-Stable tag: 3.0.1
+Stable tag: 3.0.3
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -252,6 +252,15 @@ You can ask any questions on the support forum of WordPress. We have a support t
 20. Image Compare Widget
 
 == Changelog ==
+
+= 3.0.3 [16th April 2025] =
+
+* Improved: System improved
+* Fixed: Security issue fixed (Thanks to Darius Sveikauskas)
+
+= 3.0.2 [27th March 2025] =
+
+* Fixed: Ripples Effect fixed (Thanks to Lucas)
 
 = 3.0.1 [27th March 2025] =
 
