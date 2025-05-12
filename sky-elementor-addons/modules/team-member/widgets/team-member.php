@@ -49,6 +49,10 @@ class Team_Member extends Widget_Base {
 		];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/team-member/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

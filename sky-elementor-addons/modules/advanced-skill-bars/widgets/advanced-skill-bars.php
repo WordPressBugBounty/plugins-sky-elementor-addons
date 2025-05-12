@@ -37,6 +37,10 @@ class Advanced_Skill_Bars extends Widget_Base {
 		return [ 'sky', 'advanced', 'progress', 'bars', 'skills' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/advanced-skills-bar/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

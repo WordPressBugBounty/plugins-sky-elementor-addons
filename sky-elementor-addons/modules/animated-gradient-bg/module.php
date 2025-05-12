@@ -54,7 +54,7 @@ class Module extends Module_Base {
 			]
 		);
 
-		$sa_agbg_direction_value = sky_addons_init_pro() == true ? true : false;
+		$sa_agbg_direction_value = ( true === sky_addons_init_pro() ) ? true : false;
 
 		$element->add_control(
 			'sa_agbg_direction',
@@ -187,9 +187,9 @@ class Module extends Module_Base {
 		);
 	}
 
-	public function widget_agbg_before_render( $widget ) {
+	public function widget_before_render( $widget ) {
 		$settings                      = $widget->get_settings_for_display();
-		if ( $settings['sa_agbg_enable'] == 'yes' ) {
+		if ( 'yes' === $settings['sa_agbg_enable'] ) {
 			wp_enqueue_script( 'granim' );
 		}
 	}
@@ -258,9 +258,9 @@ class Module extends Module_Base {
 			2
 		);
 
-		add_action( 'elementor/frontend/section/before_render', [ $this, 'widget_agbg_before_render' ], 10, 1 );
-		add_action( 'elementor/frontend/container/before_render', [ $this, 'widget_agbg_before_render' ], 10, 1 );
-		add_action( 'elementor/frontend/column/before_render', [ $this, 'widget_agbg_before_render' ], 10, 1 );
-		add_action( 'elementor/frontend/widget/before_render', [ $this, 'widget_agbg_before_render' ], 10, 1 );
+		add_action( 'elementor/frontend/section/before_render', [ $this, 'widget_before_render' ], 10, 1 );
+		add_action( 'elementor/frontend/container/before_render', [ $this, 'widget_before_render' ], 10, 1 );
+		add_action( 'elementor/frontend/column/before_render', [ $this, 'widget_before_render' ], 10, 1 );
+		add_action( 'elementor/frontend/widget/before_render', [ $this, 'widget_before_render' ], 10, 1 );
 	}
 }

@@ -57,6 +57,10 @@ class Logo_Carousel extends Widget_Base {
 		return [ 'popper', 'tippyjs', 'swiper' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/logo-carousel/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

@@ -39,6 +39,10 @@ class Tidy_List extends Widget_Base {
 		return [ 'sky', 'list', 'listgroup' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/tidy-list/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

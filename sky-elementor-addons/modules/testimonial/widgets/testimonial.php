@@ -39,6 +39,10 @@ class Testimonial extends Widget_Base {
 		return [ 'sky', 'testimonial', 'review', 'clients', 'rating' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/testimonial/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

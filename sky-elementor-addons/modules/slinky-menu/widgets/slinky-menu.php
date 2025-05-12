@@ -49,6 +49,10 @@ class Slinky_Menu extends Widget_Base {
 		return [ 'slinky' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/slinky-vertical-menu/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

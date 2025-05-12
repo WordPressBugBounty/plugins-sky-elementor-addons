@@ -45,6 +45,10 @@ class List_Group extends Widget_Base {
 		];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/list-group/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -554,6 +558,18 @@ class List_Group extends Widget_Base {
 				'label'     => esc_html__( 'Number / Icon', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'      => 'number_typography',
+				'label'     => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector'  => '{{WRAPPER}} .sa-number',
+				'condition' => [
+					'media_type' => 'number',
+				],
 			]
 		);
 

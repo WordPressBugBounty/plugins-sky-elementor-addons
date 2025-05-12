@@ -45,6 +45,10 @@ class Content_Switcher extends Widget_Base {
 		];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/content-switcher/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

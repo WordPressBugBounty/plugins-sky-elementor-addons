@@ -35,6 +35,10 @@ class Portion_Effect extends Widget_Base {
 		return [ 'sky', 'portion', 'effect', 'image', 'photo', 'portfolio' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/portion-effect/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

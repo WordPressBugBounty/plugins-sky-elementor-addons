@@ -2,7 +2,6 @@
 
 namespace Sky_Addons\Modules\SocialIcons\Widgets;
 
-use Elementor\Utils;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
@@ -47,6 +46,11 @@ class Social_Icons extends Widget_Base {
 			'widget-social-icons',
 		];
 	}
+
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/social-icons/';
+	}
+
 
 	protected function register_controls() {
 
@@ -427,9 +431,7 @@ class Social_Icons extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons .sa-link, 
-                         {{WRAPPER}} .sa-social-icons .sa-link svg' => 'margin-right: {{SIZE}}{{UNIT}}; margin-bottom: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icon-separator'                                                                      => 'margin-right: {{SIZE}}{{UNIT}};  margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-social-icons' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -442,7 +444,6 @@ class Social_Icons extends Widget_Base {
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons .sa-link'     => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link svg' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -807,17 +808,15 @@ class Social_Icons extends Widget_Base {
 					<?php
 					Icons_Manager::render_icon( $item['social_icon'] );
 
-					if ( $settings['hide_socials_name'] != 'yes' && ! empty( $item['social_label'] ) ) : ?>
+					if ( 'yes' !== $settings['hide_socials_name'] && ! empty( $item['social_label'] ) ) : ?>
 						<span class="sa-social-label"><?php echo esc_html( $item['social_label'] ); ?></span>
 					<?php endif; ?>
 				</a>
-				<?php if ( $settings['show_separator'] == 'yes' && $settings['separator_select'] == 'default' ) : ?>
+				<?php if ( 'yes' === $settings['show_separator'] && 'default' === $settings['separator_select'] ) : ?>
 					<span class="sa-social-icon-separator sa-default"> </span>
-				<?php elseif ( $settings['show_separator'] == 'yes' && ! empty( $settings['separator_text'] ) ) : ?>
+				<?php elseif ( 'yes' === $settings['show_separator'] && ! empty( $settings['separator_text'] ) ) : ?>
 					<span class="sa-social-icon-separator"><?php echo esc_html( $settings['separator_text'] ); ?></span>
 					<?php
-				else :
-
 				endif;
 				?>
 			<?php endforeach; ?>

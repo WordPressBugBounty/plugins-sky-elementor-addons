@@ -233,6 +233,21 @@ class Card extends Widget_Base {
 		);
 
 		$this->add_control(
+			'link',
+			[
+				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
+				'show_external' => true,
+				'default'       => [
+					'url'         => '',
+					'is_external' => false,
+				],
+				'dynamic'       => [ 'active' => true ],
+			]
+		);
+
+		$this->add_control(
 			'show_button',
 			[
 				'label'     => esc_html__( 'Show Button', 'sky-elementor-addons' ),
@@ -262,21 +277,6 @@ class Card extends Widget_Base {
 				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'Click here', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
-			]
-		);
-
-		$this->add_control(
-			'link',
-			[
-				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type'          => Controls_Manager::URL,
-				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
-				'show_external' => true,
-				'default'       => [
-					'url'         => '',
-					'is_external' => false,
-				],
-				'dynamic'       => [ 'active' => true ],
 			]
 		);
 
@@ -1518,11 +1518,13 @@ class Card extends Widget_Base {
 				}
 
 				if ( ! empty( $settings['title'] ) ) {
+					$this->add_link_attributes( 'link_title', $settings['link'] );
 					printf(
-						'<%1$s class="%2$s">%3$s</%1$s>',
+						'<%1$s class="%2$s"><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
 						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 						'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-4',
-						wp_kses_post( $settings['title'] )
+						wp_kses_post( $settings['title'] ),
+						$this->get_render_attribute_string( 'link_title' )
 					);
 				}
 

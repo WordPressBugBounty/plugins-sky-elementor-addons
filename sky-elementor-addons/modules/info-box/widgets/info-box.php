@@ -48,6 +48,10 @@ class Info_Box extends Widget_Base {
 		];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/info-box/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -219,6 +223,20 @@ class Info_Box extends Widget_Base {
 		);
 
 		$this->add_control(
+			'link',
+			[
+				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
+				'type'          => Controls_Manager::URL,
+				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
+				'show_external' => true,
+				'default'       => [
+					'url' => '',
+				],
+				'dynamic'       => [ 'active' => true ],
+			]
+		);
+
+		$this->add_control(
 			'show_button',
 			[
 				'label'     => esc_html__( 'Show Button', 'sky-elementor-addons' ),
@@ -227,14 +245,6 @@ class Info_Box extends Widget_Base {
 				'separator' => 'before',
 			]
 		);
-
-		// $this->add_control(
-		// 'module_link', [
-		// 'label'     => esc_html__('Module Link', 'sky-elementor-addons'),
-		// 'type'      => Controls_Manager::SWITCHER,
-		// 'separator' => 'before'
-		// ]
-		// );
 
 		$this->end_controls_section();
 
@@ -246,20 +256,6 @@ class Info_Box extends Widget_Base {
 				'condition' => [
 					'show_button' => 'yes',
 				],
-			]
-		);
-
-		$this->add_control(
-			'link',
-			[
-				'label'         => esc_html__( 'Link', 'sky-elementor-addons' ),
-				'type'          => Controls_Manager::URL,
-				'placeholder'   => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
-				'show_external' => true,
-				'default'       => [
-					'url' => '',
-				],
-				'dynamic'       => [ 'active' => true ],
 			]
 		);
 
@@ -1307,10 +1303,6 @@ class Info_Box extends Widget_Base {
 			// $html .= '<figure class="elementor-image-box-img">' . $image_html . '</figure>';
 		}
 
-		// TODO future
-		// if ( $settings[ 'module_link' ] == 'yes' ) :
-		// $this->add_render_attribute('wrapper-link', 'class', 'sa-link sa-info-box-module-link');
-		// endif;
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'wrapper-link', 'href', esc_url( $settings['link']['url'] ) );
 
@@ -1327,12 +1319,6 @@ class Info_Box extends Widget_Base {
 		?>
 
 		<div class="sa-info-box">
-			<?php
-			// TODO future
-			// if ( $settings[ 'module_link' ] == 'yes' ) :
-			// echo '<a ' . $this->get_render_attribute_string('wrapper-link') . ' ></a>';
-			// endif;
-			?>
 			<?php if ( ! empty( $settings['image']['url'] ) && $settings['media_type'] == 'image' ) : ?>
 				<figure class="sa-infobox-figure sa-media-image">
 					<?php echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) ); ?>
@@ -1359,12 +1345,13 @@ class Info_Box extends Widget_Base {
 				if ( ! empty( $settings['title'] ) ) {
 					$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-fs-4' . $desc_exists );
 					$this->add_inline_editing_attributes( 'title', 'none' );
-
+					$this->add_link_attributes( 'link_title', $settings['link'] );
 					printf(
-						'<%1$s %2$s>%3$s</%1$s>',
+						'<%1$s %2$s><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
 						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 						wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
-						wp_kses_post( $settings['title'] )
+						wp_kses_post( $settings['title'] ),
+						$this->get_render_attribute_string( 'link_title' )
 					);
 				}
 

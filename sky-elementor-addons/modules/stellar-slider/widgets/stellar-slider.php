@@ -68,6 +68,10 @@ class Stellar_Slider extends Widget_Base {
 		return $this->_query;
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/carousel-slider/stellar-blog-slider/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

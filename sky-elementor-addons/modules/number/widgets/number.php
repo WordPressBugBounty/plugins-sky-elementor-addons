@@ -36,6 +36,10 @@ class Number extends Widget_Base {
 		return [ 'sky', 'number', 'counter' ];
 	}
 
+	public function get_custom_help_url() {
+		return 'https://wowdevs.com/docs/sky-addons/widgets/number/';
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(

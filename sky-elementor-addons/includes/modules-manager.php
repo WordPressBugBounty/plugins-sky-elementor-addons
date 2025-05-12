@@ -132,6 +132,9 @@ final class Managers {
 		if ( ! in_array( 'floating-effects', self::get_inactive_extensions() ) ) {
 			$modules[] = 'floating-effects';
 		}
+		if ( ! in_array( 'gradient-text', self::get_inactive_extensions() ) ) {
+			$modules[] = 'gradient-text';
+		}
 		if ( ! in_array( 'reveal-effects', self::get_inactive_extensions() ) ) {
 			$modules[] = 'reveal-effects';
 		}

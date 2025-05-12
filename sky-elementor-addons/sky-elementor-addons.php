@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.0.3
+ * Version: 3.1.0
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -11,17 +11,16 @@
  * License: GPLv3 or later
  * License URI: https://opensource.org/licenses/GPL-3.0
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.28.3
+ * Elementor tested up to: 3.28.4
  *
  * @package Sky_Addons
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	// Exit if accessed directly
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.0.3' );
+define( 'SKY_ADDONS_VERSION', '3.1.0' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
 define( 'SKY_ADDONS_PLUGIN_BASE', plugin_basename( SKY_ADDONS__FILE__ ) );
@@ -46,11 +45,6 @@ function sky_addons_load_textdomain() {
 }
 
 add_action( 'init', 'sky_addons_load_textdomain' );
-
-// add_action('plugins_loaded', function() {
-// require_once SKY_ADDONS_PATH . 'class-core.php';
-// \Sky_Addons\Core::instance();
-// });
 
 if ( ! function_exists( '_is_sky_addons_pro_activated' ) ) {
 
@@ -199,7 +193,7 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 				'product_id'           => 1,
 				'plugin_name'          => 'Sky Addons for Elementor', // make simple, must not empty
 				'plugin_title'         => 'Love using Sky Addons? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
-				'plugin_icon'          => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-color.svg', // delete the line of you don't need
+				'plugin_icon'          => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.svg', // delete the line of you don't need
 				'api_endpoint'         => 'https://dashboard.wowdevs.com/wp-json/dci/v1/data-insights',
 				'slug'                 => 'sky-elementor-addons',
 				'core_file'            => false,
@@ -239,7 +233,7 @@ if ( ! function_exists( 'sky_addons_rc_plugin' ) ) {
 			array(
 				'sdk_version'  => '1.0.0',
 				'plugin_name'  => 'Sky Addons for Elementor',
-				'plugin_icon'  => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-color.svg',
+				'plugin_icon'  => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.svg',
 				'slug'         => 'sky-elementor-addons',
 				'menu'         => array(
 					'slug' => 'sky-elementor-addons',

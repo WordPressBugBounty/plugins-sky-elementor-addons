@@ -97,7 +97,6 @@ class Sky_Addons_Admin {
 	}
 
 	public static function modules_demo_server() {
-		// return defined( 'SKY_ADDONS_MODULES_DEMO' ) ? SKY_ADDONS_MODULES_DEMO : 'https://demo.skyaddons.com/';
 		return 'https://skyaddons.com/';
 	}
 
@@ -1187,6 +1186,17 @@ class Sky_Addons_Admin {
 					'demo_url'     => self::modules_demo_server() . 'elementor-floating-effects-extensions/',
 				],
 				[
+					'name'         => 'gradient-text',
+					'label'        => esc_html__( 'Gradient Text', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'gradient-text', $inactive_extensions ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'custom new',
+					'widget_type'  => 'free',
+					'demo_url'     => self::modules_demo_server() . 'elementor-gradient-text-extensions/',
+				],
+				[
 					'name'         => 'particles',
 					'label'        => esc_html__( 'Particles', 'sky-elementor-addons' ),
 					'type'         => 'checkbox',
@@ -1253,15 +1263,15 @@ class Sky_Addons_Admin {
 					'demo_url'     => self::modules_demo_server() . 'elementor-smooth-scroll-extensions/',
 				],
 				[
-					'name'         => 'visibility-controls',
-					'label'        => esc_html__( 'Visibility Controls', 'sky-elementor-addons' ),
+					'name'         => 'display-conditions',
+					'label'        => esc_html__( 'Display Conditions', 'sky-elementor-addons' ),
 					'type'         => 'checkbox',
-					'value'        => ! in_array( 'visibility-controls', $inactive_extensions ) ? 'on' : 'off',
+					'value'        => ! in_array( 'display-conditions', $inactive_extensions ) ? 'on' : 'off',
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
 					'widget_type'  => 'pro',
-					'demo_url'     => self::modules_demo_server() . 'elementor-visibility-controls-extensions/',
+					'demo_url'     => self::modules_demo_server() . 'elementor-display-conditions-extensions/',
 				],
 				[
 					'name'         => 'wrapper-link',
