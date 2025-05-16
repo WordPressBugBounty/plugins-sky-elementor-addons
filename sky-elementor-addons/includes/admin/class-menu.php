@@ -38,6 +38,45 @@ class Menu {
 		$parent_slug = 'sky-addons';
 		$capability  = 'manage_options';
 		add_menu_page( esc_html__( 'Sky Addons', 'sky-addons' ), esc_html__( 'Sky Addons', 'sky-addons' ), $capability, $parent_slug, array( $this, 'plugin_layout' ), $this->get_b64_icon(), 59 );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'sky-elementor-addons' ), esc_html__( 'Dashboard', 'sky-elementor-addons' ), $capability, $parent_slug, [
+			$this,
+			'plugin_layout',
+		] );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Widgets', 'sky-elementor-addons' ), esc_html__( 'Widgets', 'sky-elementor-addons' ), $capability, $parent_slug . '#widgets', [
+			$this,
+			'plugin_layout',
+		] );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Extensions', 'sky-elementor-addons' ), esc_html__( 'Extensions', 'sky-elementor-addons' ), $capability, $parent_slug . '#extensions', [
+			$this,
+			'plugin_layout',
+		] );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Theme Builder', 'sky-elementor-addons' ), esc_html__( 'Theme Builder', 'sky-elementor-addons' ), $capability, $parent_slug . '#theme_builder', [
+			$this,
+			'plugin_layout',
+		] );
+
+		// add_submenu_page( $parent_slug, esc_html__( 'API Data', 'sky-elementor-addons' ), esc_html__( 'API Data', 'sky-elementor-addons' ), $capability, $parent_slug . '#api', [
+		// $this,
+		// 'admin_settings',
+		// ] );
+
+		if ( ! _is_sky_addons_pro_activated() ) {
+			add_submenu_page( $parent_slug, esc_html__( 'Get PRO', 'sky-elementor-addons' ), esc_html__( 'Get PRO', 'sky-elementor-addons' ), $capability, $parent_slug . '#license', [
+				$this,
+				'plugin_layout',
+			] );
+		}
+
+		if ( _is_sky_addons_pro_activated() ) {
+			add_submenu_page( $parent_slug, esc_html__( 'License', 'sky-elementor-addons' ), esc_html__( 'License', 'sky-elementor-addons' ), $capability, $parent_slug . '#license', [
+				$this,
+				'plugin_layout',
+			] );
+		}
 	}
 
 	/**

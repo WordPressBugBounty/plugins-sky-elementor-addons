@@ -564,12 +564,10 @@ class List_Group extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
-				'name'      => 'number_typography',
-				'label'     => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector'  => '{{WRAPPER}} .sa-number',
-				'condition' => [
-					'media_type' => 'number',
-				],
+				'name'        => 'number_typography',
+				'label'       => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'This typography will be applied to the number/text.', 'sky-elementor-addons' ),
+				'selector'    => '{{WRAPPER}} .sa-number',
 			]
 		);
 

@@ -1,3 +1,7 @@
+= 3.1.1 [16th May 2025] =
+
+* Improved: System improved
+
 = 3.1.0 [12th May 2025] =
 
 * Added: Gradient Text Extensions added

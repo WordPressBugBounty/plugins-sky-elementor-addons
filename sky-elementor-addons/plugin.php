@@ -408,7 +408,7 @@ class Sky_Addons_Plugin {
 	 * @since 2.6.5
 	 */
 	public function app_enqueue_styles( $hook_suffix ) {
-		if ( 'toplevel_page_sky-addons' !== $hook_suffix && 'semantic-linkboss_page_semantic-linkboss-get-pro' !== $hook_suffix ) {
+		if ( 'toplevel_page_sky-addons' !== $hook_suffix && 'sky-addons_page_sky-addons-pro' !== $hook_suffix ) {
 			return;
 		}
 		$direction_suffix = is_rtl() ? '.rtl' : '';

@@ -354,7 +354,7 @@ class Sky_Addons_Admin {
 					'video_url'    => '#',
 					'content_type' => 'custom',
 					'widget_type'  => 'pro',
-					'demo_url'     => self::modules_demo_server() . 'elements/elementor-breadcrumbs-widget/',
+					'demo_url'     => self::modules_demo_server() . 'elementor-breadcrumbs-widget/',
 				],
 				[
 					'name'         => 'card',

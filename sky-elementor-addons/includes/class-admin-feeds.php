@@ -179,7 +179,7 @@ $settings = array(
 	'transient_key'    => 'skyaddons_feeds',
 	'feed_link'        => 'https://wowdevs.com/feed',
 	'remote_feed_link' => 'https://dashboard.wowdevs.com/wp-json/wowdevs/v1/products-feed/all?category=sky-addons',
-	'text_domain'      => 'semantic-linkboss',
+	'text_domain'      => 'sky-elementor-addons',
 	'footer_links'     => [
 		[
 			'url'   => 'https://wowdevs.com/blog/',
