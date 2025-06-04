@@ -1,6 +1,6 @@
 === Sky Addons for Elementor - Powerful & Essential Addons with Theme Builder, Templates, Blocks & Widgets ===
 Plugin Name: Sky Addons for Elementor
-Version: 3.1.1
+Version: 3.1.2
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -19,7 +19,7 @@ Sky Addons is a powerful and essential Elementor addon plugin with 105 widgets a
 **Sky Addons for Elementor** is a **powerful and essential addon plugin for Elementor**, packed with **105+ advanced widgets** and **2,000+ ready-to-use sections and templates** & complete **Theme Builder** that covers **free Header Footer, Single Post Template, 404 Page, Custom Hooks**, and **Archive Page Builder**. 
 Build stunning, mobile-ready websites in minutes**—no coding required**.
 
-**🔥🔥 Key Features at a Glance**
+**🔥🔥 🚀 Why Choose Sky Addons ?**
 ✅105+ Advanced **Elementor Widgets**
 ✅ Full **Theme Builder**: Header, Footer, Single Post, Archive, 404, Custom Hooks
 ✅ 2,000+ Ready-to-Use **Elementor Templates & Kits**
@@ -35,43 +35,19 @@ https://youtu.be/wSIDsoSKK1c
 
 ## Useful Links
 
-[Widgets Demo](https://skyaddons.com/elementor-widgets/) | [Docs](https://wowdevs.com/docs/sky-addons/) | [Videos](https://www.youtube.com/@wowdevs) | [Support](https://wowdevs.com/support/) | [IdeaSharing](https://skyaddons.com/roadmaps/) | [FacebookGroup](https://www.facebook.com/groups/wowdevs) | [Get Pro](https://skyaddons.com/pricing/)
+[Widgets Demo](https://skyaddons.com/elementor-widgets/) | [Docs](https://skyaddons.com/docs/sky-addons/) | [Videos](https://www.youtube.com/@wowdevs?sub_confirmation=1) | [Support](https://wowdevs.com/support/) | [IdeaSharing](https://skyaddons.com/roadmaps/) | [FacebookGroup](https://www.facebook.com/groups/wowdevs) | [Get Pro](https://skyaddons.com/pricing/)
 
-## 🚀 Why Choose Sky Addons?
-### ✅ Essential Elementor Widgets & Features (105+)
-Boost Elementor’s power with advanced widgets like Cards, Sliders, Accordions, Charts, Carousels, Tables, Grids, Forms, Tooltips, Reviews, and more.
-
-### ✅ Full Theme Builder (Free)
-Design global templates for:
-- Headers & Footers
-- Single Posts
-- Archive Pages (categories, tags, etc.)
-- 404 Pages
-- Custom Hook Locations
-
-### ✅ 2,000+ Pre-Made Templates & Kits
-Access a massive library of:
-- Landing Pages
-- Full Website Kits
-- Section Templates
-- Blog Layouts
-- WooCommerce Pages
-
-### ✅ Lightweight & Speed Optimized
-Built for performance — Sky Addons is highly optimized and doesn’t slow down your website.
-
-### ✅ Easy to Customize
-Fine-tune every widget, template, and block using Elementor’s visual editor.
-
-### ✅ Works with Any Theme
-Compatible with all WordPress themes and popular plugins like WooCommerce, Yoast, ACF, WPML, and more.
-
-### ✅ Reliable Support
-Our friendly team is always ready to help. Premium users get priority access.
-
-**Developed for Creative Designers**
+**🔥 Build Stunning Websites in Minutes — Zero Code Required**
 
 https://youtu.be/3qv5FfTVcbk
+
+**🚀🎯 Templates Library**
+
+https://youtu.be/XptjIgsazyw
+
+**🚀🎯 Live Copy Paste (Cross Domain Copy Paste)**
+
+https://youtu.be/uy4UfxryuZ0
 
 == 🚀🚀 Elementor Widgets & Features ==
 
@@ -177,29 +153,29 @@ https://youtu.be/3qv5FfTVcbk
 * **[Ripples Effect](https://skyaddons.com/elementor-ripples-effect-extensions/)**: Create stunning water ripple animations that respond to user interactions on your Elementor website.
 * **[Wrapper Link](https://skyaddons.com/elementor-wrapper-link-extensions/)**: Convert entire sections or columns into clickable areas to improve conversion rates and user experience.
 * **[Custom Clip-Path](https://skyaddons.com/elementor-custom-clip-path-extensions/)**: Design unique shape masks for images and sections without requiring graphic design skills.
-* **[Custom Scripts (CSS/JS)](https://wowdevs.com/docs/sky-addons/extensions/custom-scripts-css-js/)**: Inject custom code directly into your Elementor pages without editing theme files.
+* **[Custom Scripts (CSS/JS)](https://skyaddons.com/docs/sky-addons/extensions/custom-scripts-css-js/)**: Inject custom code directly into your Elementor pages without editing theme files.
 * **[Display Conditions](https://skyaddons.com/elementor-display-conditions-extensions/)**: Show or hide content based on user behavior, device type, and other advanced conditions.
-* **[Duplicator Posts Pages](https://wowdevs.com/docs/sky-addons/extensions/duplicator/)**: Clone any post, page, or Elementor template with a single click while preserving all settings.
+* **[Duplicator Posts Pages](https://skyaddons.com/docs/sky-addons/extensions/duplicator/)**: Clone any post, page, or Elementor template with a single click while preserving all settings.
 * **[Equal Height](https://skyaddons.com/elementor-equal-height-extensions/)**: Create perfectly balanced layouts with automatically matched heights across all elements.
 * **[Gradient Text](https://skyaddons.com/elementor-gradient-text/)**: Transform ordinary text into eye-catching gradient typography that stands out on your website.
 * **[Parallax Effects](https://skyaddons.com/elementor-parallax-effects-extensions/)**: Add depth and dimension to your website with smooth parallax scrolling effects.
-* **[Secure SVG Support](https://wowdevs.com/docs/sky-addons/extensions/secure-svg-support/)**: Safely upload and use scalable vector graphics with built-in security features.
-* **[Smooth Scroll](https://wowdevs.com/docs/sky-addons/extensions/smooth-scroll/)**: Deliver a premium, butter-smooth scrolling experience that enhances visitor engagement.
+* **[Secure SVG Support](https://skyaddons.com/docs/sky-addons/extensions/secure-svg-support/)**: Safely upload and use scalable vector graphics with built-in security features.
+* **[Smooth Scroll](https://skyaddons.com/docs/sky-addons/extensions/smooth-scroll/)**: Deliver a premium, butter-smooth scrolling experience that enhances visitor engagement.
 
 === Theme Builder ===
 
-* **[404 Page](https://wowdevs.com/docs/sky-addons/theme-builder/404-page/)**: Create custom 404 error pages that match your brand and improve user experience.
-* **[Archive](https://wowdevs.com/docs/sky-addons/theme-builder/archive-page/)**: Design beautiful archive layouts for categories, tags, authors, and custom taxonomies.
-* **[Custom Hooks](https://wowdevs.com/docs/sky-addons/theme-builder/custom-hooks/)**: Insert content at specific locations throughout your site using WordPress action hooks.
-* **[Featured Image](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Customize how featured images appear with advanced styling and positioning options.
-* **[Footer](https://wowdevs.com/docs/sky-addons/theme-builder/footer-builder/)**: Build custom footers with complete design freedom and flexible layouts.
-* **[Header](https://wowdevs.com/docs/sky-addons/theme-builder/header-builder/)**: Create sticky, transparent, or standard headers with advanced navigation options.
-* **[Page Title](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Customize page title displays with background effects and typography controls.
-* **[Post Comments](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Style comment sections to match your site's design and improve engagement.
-* **[Post Content](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Control how post content appears with custom styling and layout options.
-* **[Post Excerpt](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Customize excerpt length, style, and display options for better readability.
-* **[Post Title](https://wowdevs.com/docs/sky-addons/theme-builder/)**: Design eye-catching post titles with custom typography and styling.
-* **[Single](https://wowdevs.com/docs/sky-addons/theme-builder/single-post/)**: Create beautiful templates for single posts with full customization options.
+* **[404 Page](https://skyaddons.com/docs/sky-addons/theme-builder/404-page/)**: Create custom 404 error pages that match your brand and improve user experience.
+* **[Archive](https://skyaddons.com/docs/sky-addons/theme-builder/archive-page/)**: Design beautiful archive layouts for categories, tags, authors, and custom taxonomies.
+* **[Custom Hooks](https://skyaddons.com/docs/sky-addons/theme-builder/custom-hooks/)**: Insert content at specific locations throughout your site using WordPress action hooks.
+* **[Featured Image](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Customize how featured images appear with advanced styling and positioning options.
+* **[Footer](https://skyaddons.com/docs/sky-addons/theme-builder/footer-builder/)**: Build custom footers with complete design freedom and flexible layouts.
+* **[Header](https://skyaddons.com/docs/sky-addons/theme-builder/header-builder/)**: Create sticky, transparent, or standard headers with advanced navigation options.
+* **[Page Title](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Customize page title displays with background effects and typography controls.
+* **[Post Comments](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Style comment sections to match your site's design and improve engagement.
+* **[Post Content](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Control how post content appears with custom styling and layout options.
+* **[Post Excerpt](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Customize excerpt length, style, and display options for better readability.
+* **[Post Title](https://skyaddons.com/docs/sky-addons/theme-builder/)**: Design eye-catching post titles with custom typography and styling.
+* **[Single](https://skyaddons.com/docs/sky-addons/theme-builder/single-post/)**: Create beautiful templates for single posts with full customization options.
 == Frequently Asked Questions ==
 
 = What is Sky Addons for Elementor? =
@@ -236,7 +212,7 @@ Sky Addons stands out by combining a vast collection of **Essential Widgets & Bl
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/sky-elementor-addons) 
 
 = What is the documentation of this plugin? =
-Full documentation is available here: [https://wowdevs.com/docs/sky-addons/](https://wowdevs.com/docs/sky-addons/)
+Full documentation is available here: [https://skyaddons.com/docs/sky-addons/](https://skyaddons.com/docs/sky-addons/)
 
 = How do I get support for this plugin? =
 You can ask any questions on the support forum of WordPress. We have a support team and they will help you to solve your issues as soon as possible. Or you can contact us here - https://wowdevs.com/support/
@@ -256,7 +232,7 @@ There are a few installation & set-up options for this plugin.
 **Step 1:** Go to the Plugins area of your admin > Click over Add New then search "Sky Addons"
 **Step 2:** Click Install Now and then activate.
 
-[**👉 How to Install Sky Addons For Elementor**](https://wowdevs.com/docs/sky-addons/installation/)	
+[**👉 How to Install Sky Addons For Elementor**](https://skyaddons.com/docs/sky-addons/installation/)	
 
 == Screenshots ==
 
@@ -282,6 +258,10 @@ There are a few installation & set-up options for this plugin.
 20. Image Compare Widget
 
 == Changelog ==
+
+= 3.1.2 [4th June 2025] =
+
+* Improved: System improved
 
 = 3.1.1 [16th May 2025] =
 

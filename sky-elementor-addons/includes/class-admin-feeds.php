@@ -26,7 +26,7 @@ class Admin_Feeds {
 	 */
 	public function register_rss_feeds() {
 		wp_add_dashboard_widget(
-			'bdkoder-dashboard-overview',
+			'wowdevs-dashboard-overview',
 			esc_html( $this->settings['feed_title'] ),
 			[ $this, 'display_rss_feeds_content' ],
 			null,
@@ -176,7 +176,7 @@ class Admin_Feeds {
 
 $settings = array(
 	'feed_title'       => 'Sky Addons for Elementor',
-	'transient_key'    => 'skyaddons_feeds',
+	'transient_key'    => 'wowdevs_feeds',
 	'feed_link'        => 'https://wowdevs.com/feed',
 	'remote_feed_link' => 'https://dashboard.wowdevs.com/wp-json/wowdevs/v1/products-feed/all?category=sky-addons',
 	'text_domain'      => 'sky-elementor-addons',
@@ -186,7 +186,7 @@ $settings = array(
 			'title' => 'Blog',
 		],
 		[
-			'url'   => 'https://wowdevs.com/knowledge-base/',
+			'url'   => 'https://skyaddons.com/docs/',
 			'title' => 'Docs',
 		],
 		[
