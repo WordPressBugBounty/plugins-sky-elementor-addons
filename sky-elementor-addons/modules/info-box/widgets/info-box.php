@@ -126,13 +126,13 @@ class Info_Box extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'media_position',
 			[
-				'label'        => esc_html__( 'Media Position', 'sky-elementor-addons' ),
-				'type'         => Controls_Manager::CHOOSE,
-				'label_block'  => false,
-				'options'      => [
+				'label'                => esc_html__( 'Media Position', 'sky-elementor-addons' ),
+				'type'                 => Controls_Manager::CHOOSE,
+				'label_block'          => false,
+				'options'              => [
 					'left' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
@@ -146,13 +146,22 @@ class Info_Box extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'toggle'       => false,
-				'default'      => 'top',
-				'prefix_class' => 'sa-info-box-media-',
+				'toggle'               => false,
+				'desktop_default'      => 'top',
+				'tablet_default'       => 'top',
+				'mobile_default'       => 'top',
+				'selectors'            => [
+					'{{WRAPPER}} .elementor-widget-container .sa-info-box' => '{{VALUE}};',
+				],
+				'selectors_dictionary' => [
+					'left'  => 'flex-direction: row; text-align: left;',
+					'top'   => 'flex-direction: column; text-align: left;',
+					'right' => 'flex-direction: row-reverse; text-align: right;',
+				],
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'media_v_align',
 			[
 				'label'                => esc_html__( 'Vertical Alignment', 'sky-elementor-addons' ),
@@ -171,19 +180,18 @@ class Info_Box extends Widget_Base {
 						'icon'  => 'eicon-v-align-bottom',
 					],
 				],
-				'default'              => 'top',
 				'toggle'               => false,
-				'condition'            => [
-					'media_position!' => 'top',
-				],
+				'desktop_default'      => 'top',
+				'tablet_default'       => 'top',
+				'mobile_default'       => 'top',
 				'style_transfer'       => true,
 				'selectors_dictionary' => [
+					'top'    => '    -webkit-align-self: center; -ms-flex-item-align: center; align-self: flex-start;',
 					'center' => '    -webkit-align-self: center; -ms-flex-item-align: center; align-self: center;',
 					'bottom' => '    -webkit-align-self: flex-end; -ms-flex-item-align: end; align-self: flex-end;',
 				],
 				'selectors'            => [
-					'{{WRAPPER}}.sa-info-box-media-left .sa-infobox-figure' => '{{VALUE}};',
-					'{{WRAPPER}}.sa-info-box-media-right .sa-infobox-figure' => '{{VALUE}};',
+					'{{WRAPPER}} .sa-infobox-figure' => '{{VALUE}};',
 				],
 			]
 		);
@@ -469,9 +477,14 @@ class Info_Box extends Widget_Base {
 						'min' => 0,
 						'max' => 100,
 					],
+					'default' => [
+						'size' => 24,
+						'unit' => 'px',
+					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}}' => '--sa-icon-spacing: {{SIZE}}{{UNIT}};',
+					// '{{WRAPPER}}' => '--sa-icon-spacing: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-info-box' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);

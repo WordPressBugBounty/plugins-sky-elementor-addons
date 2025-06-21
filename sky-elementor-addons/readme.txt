@@ -1,6 +1,6 @@
 === Sky Addons for Elementor - Powerful & Essential Addons with Theme Builder, Templates, Blocks & Widgets ===
 Plugin Name: Sky Addons for Elementor
-Version: 3.1.2
+Version: 3.1.3
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -258,6 +258,12 @@ There are a few installation & set-up options for this plugin.
 20. Image Compare Widget
 
 == Changelog ==
+
+= 3.1.3 [21th June 2025] =
+
+* Improved: Media Position in InfoBox widget
+* Improved: Logo Carousel widget
+* Improved: Social Icons in Team Member widget
 
 = 3.1.2 [4th June 2025] =
 

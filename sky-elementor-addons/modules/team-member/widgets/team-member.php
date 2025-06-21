@@ -1497,7 +1497,7 @@ class Team_Member extends Widget_Base {
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					// '{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);

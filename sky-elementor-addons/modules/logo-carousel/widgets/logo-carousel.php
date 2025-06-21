@@ -633,6 +633,67 @@ class Logo_Carousel extends Widget_Base {
 
 		$this->end_controls_section();
 
+		$this->start_controls_section(
+			'section_image_style',
+			[
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_width',
+			[
+				'label'      => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', '%' ],
+				'range'      => [
+					'px' => [
+						'min' => 50,
+						'max' => 500,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-figure' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_height',
+			[
+				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', '%' ],
+				'range'      => [
+					'px' => [
+						'min' => 50,
+						'max' => 500,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-figure' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'img_output',
+			[
+				'type'        => Controls_Manager::HIDDEN,
+				'default'     => '1',
+				'selectors'   => [
+					'{{WRAPPER}} .sa-img' => 'object-fit: contain; height: 100%; width: 100%;',
+				],
+				'render_type' => 'template',
+				'condition'   => [
+					'img_width!' => '',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
 		/**
 		 * Global Navigation Style Controls
 		 */
