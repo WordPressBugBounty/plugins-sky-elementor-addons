@@ -15,7 +15,8 @@ if ( ! function_exists( 'dci_dynamic_init' ) ) {
 		}
 
 		$menu_slug = isset( $params['menu']['slug'] ) ? $params['menu']['slug'] : false;
-		$current_page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+    // phpcs:ignore
+		$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : false;
 		$text_domain = isset( $params['text_domain'] ) && ! empty( $params['text_domain'] ) ? $params['text_domain'] : $params['slug'];
 
 		/**

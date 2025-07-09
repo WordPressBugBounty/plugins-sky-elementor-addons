@@ -420,10 +420,14 @@ class Sky_Addons_Plugin {
 	public function localize_config() {
 		$script_config = array(
 			'web_url'      => esc_url( home_url() ),
-			'rest_url'     => esc_url( get_rest_url() ),
+			'ajax_url'     => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'rest_url'     => esc_url( rest_url() ),
 			'version'      => SKY_ADDONS_VERSION,
+			'plugin_name'  => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
+			'plugin_slug'  => defined( 'SKY_ADDONS_SLUG' ) ? SKY_ADDONS_SLUG : '',
+			'admin_url'    => esc_url( admin_url() ),
 			'pro_version'  => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
-			'nonce'        => wp_create_nonce( 'wp_rest' ),
+			'nonce'        => wp_create_nonce( 'sky_addons_nonce' ),
 			'assets_url'   => SKY_ADDONS_ASSETS_URL,
 			'logo'         => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
 			'root_url'     => SKY_ADDONS_URL,

@@ -179,7 +179,7 @@ class Card extends Widget_Base {
 				'label'       => esc_html__( 'Description', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 10,
-				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.' ),
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your description here', 'sky-elementor-addons' ),
 				'dynamic'     => [ 'active' => true ],
 				'separator'   => 'before',
@@ -1524,6 +1524,7 @@ class Card extends Widget_Base {
 						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 						'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-4',
 						wp_kses_post( $settings['title'] ),
+            // phpcs:ignore
 						$this->get_render_attribute_string( 'link_title' )
 					);
 				}

@@ -105,7 +105,7 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'momentum_list',
 			[
-				'label'       => esc_html__( '', 'sky-elementor-addons' ),
+				'label'       => '',
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				// 'separator'   => 'before',

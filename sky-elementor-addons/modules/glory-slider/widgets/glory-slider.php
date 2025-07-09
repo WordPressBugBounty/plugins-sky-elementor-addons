@@ -1253,7 +1253,7 @@ class Glory_Slider extends Widget_Base {
 									}
 									?>
 									<a class="sa-player-credit sa-d-inline-block sa-text-decoration-none"
-										href="<? echo esc_url( $credit_url ); ?>" target="<? echo esc_attr( $target ); ?>" <?php echo wp_kses_post( $nofollow ); ?>>
+										href="<?php echo esc_url( $credit_url ); ?>" target="<?php echo esc_attr( $target ); ?>" <?php echo wp_kses_post( $nofollow ); ?>>
 										<?php echo wp_kses_post( $item['credit'] ); ?>
 									</a>
 								</div>

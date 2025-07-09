@@ -333,6 +333,7 @@ class Theme_Builder {
 			return true;
 		}
 
+    // phpcs:ignore
 		if ( isset( $_REQUEST['wowdevs-hooks'] ) ) {
 			return true;
 		}

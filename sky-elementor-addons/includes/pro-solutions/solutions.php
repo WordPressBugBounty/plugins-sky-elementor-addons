@@ -85,7 +85,16 @@ class Sky_Elementor_Addons_Pro_Updater {
 	}
 
 	private function delete_directory( $dir ) {
-		if ( ! is_dir( $dir ) ) {
+		global $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		if ( ! is_a( $wp_filesystem, 'WP_Filesystem_Base' ) ) {
+			WP_Filesystem();
+		}
+
+		if ( ! $wp_filesystem->is_dir( $dir ) ) {
 			return false;
 		}
 
@@ -93,10 +102,14 @@ class Sky_Elementor_Addons_Pro_Updater {
 
 		foreach ( $files as $file ) {
 			$path = $dir . DIRECTORY_SEPARATOR . $file;
-			is_dir( $path ) ? $this->delete_directory( $path ) : unlink( $path );
+			if ( $wp_filesystem->is_dir( $path ) ) {
+				$this->delete_directory( $path );
+			} else {
+				wp_delete_file( $path );
+			}
 		}
 
-		return rmdir( $dir );
+		return $wp_filesystem->rmdir( $dir );
 	}
 }
 

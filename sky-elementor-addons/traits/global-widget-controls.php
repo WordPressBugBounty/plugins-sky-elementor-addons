@@ -780,7 +780,7 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			'lightbox_content_animation',
 			[
-				'label'     => esc_html__( 'Entrance Animation', 'elementor' ),
+				'label'     => esc_html__( 'Entrance Animation', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::ANIMATION,
 				'condition' => [
 					'video_open!' => 'file',
@@ -791,7 +791,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'aspect_ratio',
 			[
-				'label'        => esc_html__( 'Aspect Ratio', 'elementor' ),
+				'label'        => esc_html__( 'Aspect Ratio', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::SELECT,
 				'options'      => [
 					'169' => '16:9',
@@ -812,7 +812,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'lazy_load',
 			[
-				'label' => esc_html__( 'Lazy Load', 'elementor' ),
+				'label' => esc_html__( 'Lazy Load', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
@@ -820,7 +820,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'video_autoplay',
 			[
-				'label' => esc_html__( 'Autoplay', 'elementor' ),
+				'label' => esc_html__( 'Autoplay', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
@@ -828,7 +828,7 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'mute',
 			[
-				'label' => esc_html__( 'Mute', 'elementor' ),
+				'label' => esc_html__( 'Mute', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::SWITCHER,
 			]
 		);

@@ -1550,7 +1550,7 @@ class Stellar_Slider extends Widget_Base {
 				'selector'       => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 				'fields_options' => [
 					'background' => [
-						'label'   => esc_html__( 'Background', 'elementor' ),
+						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
 					'color' => [
@@ -1619,7 +1619,7 @@ class Stellar_Slider extends Widget_Base {
 				'types'          => [ 'classic', 'gradient' ],
 				'fields_options' => [
 					'background' => [
-						'label'   => esc_html__( 'Background', 'elementor' ),
+						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
 					'color' => [

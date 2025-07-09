@@ -2,9 +2,6 @@
 
 namespace Sky_Addons\Modules\ReadingProgress\Skins;
 
-use Elementor\Widget_Base;
-use Elementor\Utils;
-use Elementor\Controls_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Skin_With_Cursor extends Elementor_Skin_Base {
-
 
 	public function get_id() {
 		return 'sky-skin-with-cursor';
@@ -27,7 +23,6 @@ class Skin_With_Cursor extends Elementor_Skin_Base {
 	}
 
 	public function render() {
-		$settings = $this->parent->get_settings_for_display();
 		?>
 		<div class="sa-reading-progress sa-skin-with-cursor"></div>
 		<div class='sa-progress-with-cursor-2'>

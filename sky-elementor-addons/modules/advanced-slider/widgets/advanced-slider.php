@@ -311,7 +311,7 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'link_on_note',
 			[
-				'label'           => esc_html__( '', 'sky-elementor-addons' ),
+				'label'           => '',
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__( 'Note: Links will work on Buttons normally but if you want extra more link options like as on Title or Full Item, you can use this option easily.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',

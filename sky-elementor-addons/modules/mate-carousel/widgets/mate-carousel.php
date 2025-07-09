@@ -1060,7 +1060,7 @@ class Mate_Carousel extends Widget_Base {
 		$excerpt = '';
 
 		if ( has_excerpt() ) {
-			$excerpt = the_excerpt();
+			$excerpt = get_the_excerpt();
 		} else {
 			$excerpt = sky_post_custom_excerpt( $length, $strip_shortcode );
 		}

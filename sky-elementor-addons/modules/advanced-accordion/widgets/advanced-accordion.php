@@ -185,15 +185,15 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_align',
 			[
-				'label'        => esc_html__( 'Icon Alignment', 'elementor' ),
+				'label'        => esc_html__( 'Icon Alignment', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options'      => [
 					'left' => [
-						'title' => esc_html__( 'Start', 'elementor' ),
+						'title' => esc_html__( 'Start', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
 					'right' => [
-						'title' => esc_html__( 'End', 'elementor' ),
+						'title' => esc_html__( 'End', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
@@ -207,7 +207,7 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'selected_icon',
 			[
-				'label'       => esc_html__( 'Icon', 'elementor' ),
+				'label'       => esc_html__( 'Icon', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::ICONS,
 				'default'     => [
 					'value'   => 'fas fa-plus',
@@ -234,7 +234,7 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'selected_active_icon',
 			[
-				'label'       => esc_html__( 'Active Icon', 'elementor' ),
+				'label'       => esc_html__( 'Active Icon', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::ICONS,
 				'default'     => [
 					'value'   => 'fas fa-minus',

@@ -689,7 +689,7 @@ class PDF_Viewer extends Widget_Base {
 		] );
 		?>
 		<div <?php $this->print_render_attribute_string( 'pdf-viewer' ); ?>>
-			<? if ( 'yes' == $settings['show_title'] || 'yes' == $settings['show_button'] ) : ?>
+			<?php if ( 'yes' == $settings['show_title'] || 'yes' == $settings['show_button'] ) : ?>
 				<div class="sa-content sa-d-flex sa-justify-content-between sa-my-2 sa-align-items-center">
 					<?php
 					if ( 'yes' == $settings['show_title'] && ! empty( $settings['title'] ) ) {
@@ -756,7 +756,7 @@ class PDF_Viewer extends Widget_Base {
 						<?php endif; ?>
 					</div>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 
 			<div id="<?php echo esc_attr( $id ); ?>"></div>
 		</div>

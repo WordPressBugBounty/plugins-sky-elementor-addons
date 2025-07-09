@@ -212,7 +212,7 @@ class Review extends Widget_Base {
 				'label'       => esc_html__( 'Review', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 10,
-				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus.' ),
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus.', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your review here', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'You can also put basic html tags on this input field.', 'sky-elementor-addons' ),
 				'dynamic'     => [ 'active' => true ],
@@ -225,14 +225,14 @@ class Review extends Widget_Base {
 		$this->start_controls_section(
 			'section_rating',
 			[
-				'label' => esc_html__( 'Rating', 'elementor' ),
+				'label' => esc_html__( 'Rating', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'rating_scale',
 			[
-				'label'   => esc_html__( 'Rating Scale', 'elementor' ),
+				'label'   => esc_html__( 'Rating Scale', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
 					'5'  => '0-5',
@@ -245,7 +245,7 @@ class Review extends Widget_Base {
 		$this->add_control(
 			'rating',
 			[
-				'label'   => esc_html__( 'Rating', 'elementor' ),
+				'label'   => esc_html__( 'Rating', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::NUMBER,
 				'min'     => 0,
 				'max'     => 10,
@@ -260,7 +260,7 @@ class Review extends Widget_Base {
 		$this->add_control(
 			'star_style',
 			[
-				'label'        => esc_html__( 'Icon', 'elementor' ),
+				'label'        => esc_html__( 'Icon', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::SELECT,
 				'options'      => [
 					'star_fontawesome' => 'Font Awesome',
@@ -276,15 +276,15 @@ class Review extends Widget_Base {
 		$this->add_control(
 			'unmarked_star_style',
 			[
-				'label'   => esc_html__( 'Unmarked Style', 'elementor' ),
+				'label'   => esc_html__( 'Unmarked Style', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::CHOOSE,
 				'options' => [
 					'solid' => [
-						'title' => esc_html__( 'Solid', 'elementor' ),
+						'title' => esc_html__( 'Solid', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-star',
 					],
 					'outline' => [
-						'title' => esc_html__( 'Outline', 'elementor' ),
+						'title' => esc_html__( 'Outline', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-star-o',
 					],
 				],
@@ -939,7 +939,7 @@ class Review extends Widget_Base {
 		$this->start_controls_section(
 			'section_rating_style',
 			[
-				'label' => esc_html__( 'Rating', 'elementor' ),
+				'label' => esc_html__( 'Rating', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -970,7 +970,7 @@ class Review extends Widget_Base {
 		$this->add_responsive_control(
 			'rating_size',
 			[
-				'label'     => esc_html__( 'Size', 'elementor' ),
+				'label'     => esc_html__( 'Size', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -987,7 +987,7 @@ class Review extends Widget_Base {
 		$this->add_responsive_control(
 			'rating_icon_space',
 			[
-				'label'     => esc_html__( 'Space Between', 'elementor' ),
+				'label'     => esc_html__( 'Space Between', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -1005,7 +1005,7 @@ class Review extends Widget_Base {
 		$this->add_control(
 			'stars_color',
 			[
-				'label'     => esc_html__( 'Color', 'elementor' ),
+				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .review-star-rating i:before' => 'color: {{VALUE}}',
@@ -1017,7 +1017,7 @@ class Review extends Widget_Base {
 		$this->add_control(
 			'stars_unmarked_color',
 			[
-				'label'     => esc_html__( 'Unmarked Color', 'elementor' ),
+				'label'     => esc_html__( 'Unmarked Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .review-star-rating i' => 'color: {{VALUE}}',

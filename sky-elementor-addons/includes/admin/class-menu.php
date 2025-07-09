@@ -37,7 +37,7 @@ class Menu {
 	public function admin_menu() {
 		$parent_slug = 'sky-addons';
 		$capability  = 'manage_options';
-		add_menu_page( esc_html__( 'Sky Addons', 'sky-addons' ), esc_html__( 'Sky Addons', 'sky-addons' ), $capability, $parent_slug, array( $this, 'plugin_layout' ), $this->get_b64_icon(), 59 );
+		add_menu_page( 'Sky Addons', 'Sky Addons', $capability, $parent_slug, array( $this, 'plugin_layout' ), $this->get_b64_icon(), 59 );
 
 		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'sky-elementor-addons' ), esc_html__( 'Dashboard', 'sky-elementor-addons' ), $capability, $parent_slug, [
 			$this,

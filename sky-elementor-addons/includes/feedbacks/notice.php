@@ -162,10 +162,10 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 		 * Ajax callback
 		 */
 		public function rc_sdk_insights() {
-			$sanitized_status = isset( $_POST['button_val'] ) ? sanitize_text_field( $_POST['button_val'] ) : '';
-			$nonce            = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
-			$allow_name       = isset( $_POST['allow_name'] ) ? sanitize_text_field( $_POST['allow_name'] ) : '';
-			$date_name        = isset( $_POST['date_name'] ) ? sanitize_text_field( $_POST['date_name'] ) : '';
+			$sanitized_status = isset( $_POST['button_val'] ) ? sanitize_text_field( wp_unslash( $_POST['button_val'] ) ) : '';
+			$nonce            = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$allow_name       = isset( $_POST['allow_name'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_name'] ) ) : '';
+			$date_name        = isset( $_POST['date_name'] ) ? sanitize_text_field( wp_unslash( $_POST['date_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'rc_sdk' ) ) {
 				wp_send_json( array(
@@ -233,19 +233,19 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 				<div class="rc-global-notice notice notice-success is-dismissible <?php echo esc_attr( substr( $this->rc_name, 0, -33 ) ); ?>">
 					<div class="rc-global-header">
 						<?php if ( ! empty( $plugin_icon ) ) : ?>
-						<div class="bdt-notice-rc-logo">
+						<div class="rc-logo">
 							<img src="<?php echo esc_url( $plugin_icon ); ?>" alt="icon">
 						</div>
 						<?php endif; ?>
 
-						<div class="bdt-notice-rc-content">
+						<div class="rc-content">
 							<h3>
 								<?php printf( wp_kses_post( $plugin_title ) ); ?>
 							</h3>
 							<?php printf( wp_kses_post( $plugin_msg ) ); ?>
 							<input type="hidden" name="rc_name" value="<?php echo esc_html( $this->rc_name ); ?>">
 							<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'rc_sdk' ) ); ?>">
-							<div class="bdt-notice-rc-buttons">
+							<div class="rc-buttons">
 								<button data-rc_name="<?php echo esc_html( $this->rc_name ); ?>"
 									data-date_name="<?php echo esc_html( $this->rc_date_name ); ?>"
 									data-allow_name="<?php echo esc_html( $this->rc_allow_name ); ?>"
@@ -283,8 +283,8 @@ if ( ! class_exists( 'RC_Reviews_Collector' ) ) {
 		 * @return void
 		 */
 		public function rc_sdk_dismiss_notice() {
-			$nonce   = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
-			$rc_name = isset( $_POST['rc_name'] ) ? sanitize_text_field( $_POST['rc_name'] ) : '';
+			$nonce   = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$rc_name = isset( $_POST['rc_name'] ) ? sanitize_text_field( wp_unslash( $_POST['rc_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'rc_sdk' ) ) {
 				wp_send_json( array(

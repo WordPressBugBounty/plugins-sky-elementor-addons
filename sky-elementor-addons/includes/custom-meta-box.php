@@ -36,21 +36,22 @@ class Custom_Meta_Box {
 	 * @param int $post_id  The post ID.
 	 */
 	public function save_meta_data( int $post_id ) {
-		if ( array_key_exists( 'sky_video_link_meta', $_POST ) ) {
+		if ( isset( $_POST['sky_video_link_meta'] ) ) {
 
-			if ( ! wp_verify_nonce( $_POST['sa-video-link-meta'], 'sky_video_link_nonce_action' ) ) {
+      // phpcs:ignore
+			if ( isset( $_POST['sa-video-link-meta'] ) && wp_verify_nonce( wp_unslash( $_POST['sa-video-link-meta'] ), 'sky_video_link_nonce_action' ) ) {
+				if ( ! current_user_can( 'edit_post', $post_id ) ) {
+					return false;
+				}
+
+				update_post_meta(
+					$post_id,
+					'sky_video_link_meta',
+					sanitize_text_field( wp_unslash( $_POST['sky_video_link_meta'] ) )
+				);
+			} else {
 				wp_die( 'Are you cheating?' );
 			}
-
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return false;
-			}
-
-			update_post_meta(
-				$post_id,
-				'sky_video_link_meta',
-				sanitize_text_field( $_POST['sky_video_link_meta'] )
-			);
 		}
 	}
 

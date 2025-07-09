@@ -387,6 +387,7 @@ if ( ! function_exists( 'sky_display_el_tem_by_id' ) ) {
 		] );
 
 		if ( ! empty( $posts ) && $posts[0]->ID === $template_id ) {
+      //phpcs:ignore
 			echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $template_id );
 		} else {
 			echo esc_html__( 'The post is not published or does not exist.', 'sky-elementor-addons' );

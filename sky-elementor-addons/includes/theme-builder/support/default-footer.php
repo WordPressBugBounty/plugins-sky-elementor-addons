@@ -3,6 +3,7 @@
 	<?php
 	$templates = \SkyAddons\ThemeBuilder\Theme_Builder::template_ids();
 	if ( isset( $templates['footer'] ) && ! empty( $templates['footer'] ) ) {
+    //phpcs:ignore
 		echo wowdevs_render_elementor_content( $templates['footer'] );
 	}
 	?>

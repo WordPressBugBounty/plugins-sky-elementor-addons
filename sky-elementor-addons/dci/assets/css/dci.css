@@ -123,7 +123,7 @@
 	background-color: #e7e7e9;
 }
 
-.dci-global-notice .bdt-dci-notice-button-wrap button {
+.dci-global-notice .dci-notice-button-wrap button {
 	padding: 10px 16px;
 	border-radius: 3px;
 	cursor: pointer;
@@ -142,28 +142,28 @@
 	vertical-align: middle;
 }
 
-.bdt-dci-notice-content h3 {
+.dci-notice-content h3 {
 	margin: 0 0 10px;
 	font-size: 20px;
 }
 
-.bdt-dci-notice-content p {
+.dci-notice-content p {
 	margin: 0;
 	color: #5f6169;
 	max-width: 750px;
 }
 
-.bdt-dci-notice-content p a {
+.dci-notice-content p a {
 	color: #2970ee;
 	font-weight: 500;
 	text-decoration: none;
 }
 
-.bdt-dci-notice-content p a:hover {
+.dci-notice-content p a:hover {
 	text-decoration: underline;
 }
 
-.bdt-dci-notice-button-wrap {
+.dci-notice-button-wrap {
 	margin-top: 14px;
 }
 
@@ -455,27 +455,27 @@ button.notice-dismiss {
  * Change the class - .dci-notice-data
  */
 
-.dci-global-notice.dci-notice-data.dci_sky_addons_for_elementor .dci-button-allow {
+.dci-global-notice.dci-notice-data .dci-button-allow {
 	--primaryColor: #8441a4;
 	--secondaryColor: #e0528d;
 	background: linear-gradient(313deg, var(--primaryColor), var(--secondaryColor) 100%);
 }
 
-.dci-global-notice.dci-notice-data.dci_sky_addons_for_elementor .dci-button-allow:hover {
+.dci-global-notice.dci-notice-data .dci-button-allow:hover {
 	--primaryColor: #e0528d;
 	--secondaryColor: #8441a4;
 }
 
-.dci-global-notice.dci-notice-data.dci_sky_addons_for_elementor {
+.dci-global-notice.dci-notice-data {
 	border-left-color: #8441a4;
 }
 
 
-.dci-global-notice.dci-notice-data.dci_sky_addons_for_elementor .dci-button-skip {
+.dci-global-notice.dci-notice-data .dci-button-skip {
 	background-color: #e0f5ff;
 }
 
-.dci-global-notice.dci-notice-data.dci_sky_addons_for_elementor .dci-button-skip:hover {
+.dci-global-notice.dci-notice-data .dci-button-skip:hover {
 	background-color: #d9f1fd;
 }
 

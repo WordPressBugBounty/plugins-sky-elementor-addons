@@ -2,9 +2,6 @@
 
 namespace Sky_Addons\Modules\ReadingProgress\Skins;
 
-use Elementor\Widget_Base;
-use Elementor\Utils;
-use Elementor\Controls_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -100,7 +100,7 @@ class Menu_Walker extends \Walker_Nav_Menu {
 			}
 		}
 
-		$icon = isset( $item->icon ) ? sprintf( '<span class="bdt-margin-small-right" bdt-icon="icon: %s"></span>', esc_attr( $item->icon ) ) : '';
+		$icon = isset( $item->icon ) ? sprintf( '<span class="sky-margin-small-right" sky-icon="icon: %s"></span>', esc_attr( $item->icon ) ) : '';
 
 		$item_output = sprintf(
 			'%s<a%s>%s%s%s</a>%s',

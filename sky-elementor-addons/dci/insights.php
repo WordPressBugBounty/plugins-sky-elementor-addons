@@ -146,11 +146,11 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * Insights Deactivate Feedback
 		 */
 		public function insights_deactivate_feedback() {
-			$api_endpoint = isset( $_POST['api_endpoint'] ) ? sanitize_text_field( $_POST['api_endpoint'] ) : '';
-			$public_key = isset( $_POST['public_key'] ) ? sanitize_text_field( $_POST['public_key'] ) : '';
-			$product_id = isset( $_POST['product_id'] ) ? sanitize_text_field( $_POST['product_id'] ) : '';
-			$feedback = isset( $_POST['feedback'] ) ? sanitize_text_field( $_POST['feedback'] ) : '';
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+			$api_endpoint = isset( $_POST['api_endpoint'] ) ? sanitize_text_field( wp_unslash( $_POST['api_endpoint'] ) ) : '';
+			$public_key = isset( $_POST['public_key'] ) ? sanitize_text_field( wp_unslash( $_POST['public_key'] ) ) : '';
+			$product_id = isset( $_POST['product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['product_id'] ) ) : '';
+			$feedback = isset( $_POST['feedback'] ) ? sanitize_text_field( wp_unslash( $_POST['feedback'] ) ) : '';
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
 				wp_send_json( array(
@@ -281,7 +281,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		}
 
 		/**
-		 * If date is expired immidiate action
+		 * If date is expired immidate action
 		 *
 		 * @return boolean
 		 */
@@ -313,7 +313,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				return false;
 			}
 
-			$sanitized_status = sanitize_text_field( $_GET['dci_allow_status'] );
+			$sanitized_status = isset( $_GET['dci_allow_status'] ) ? sanitize_text_field( wp_unslash( $_GET['dci_allow_status'] ) ) : '';
 
 			if ( $sanitized_status == 'skip' ) {
 				update_option( $this->dci_allow_name, 'skip' );
@@ -565,10 +565,10 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * Ajax callback
 		 */
 		public function dci_sdk_insights() {
-			$sanitized_status = isset( $_POST['button_val'] ) ? sanitize_text_field( $_POST['button_val'] ) : '';
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
-			$allow_name = isset( $_POST['allow_name'] ) ? sanitize_text_field( $_POST['allow_name'] ) : '';
-			$date_name = isset( $_POST['date_name'] ) ? sanitize_text_field( $_POST['date_name'] ) : '';
+			$sanitized_status = isset( $_POST['button_val'] ) ? sanitize_text_field( wp_unslash( $_POST['button_val'] ) ) : '';
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$allow_name = isset( $_POST['allow_name'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_name'] ) ) : '';
+			$date_name = isset( $_POST['date_name'] ) ? sanitize_text_field( wp_unslash( $_POST['date_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
 				wp_send_json( array(
@@ -639,35 +639,35 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 			?>
 			<div
 				class="dci-global-notice dci-notice-data notice notice-success is-dismissible <?php echo esc_attr( substr( $this->dci_name, 0, -33 ) ); ?>">
-				<div class="dci-global-header bdt-dci-notice-global-header">
+				<div class="dci-global-header dci-notice-global-header">
 					<?php if ( ! empty( $plugin_icon ) ) : ?>
 						<div class="dci-notice-logo">
 							<img src="<?php echo esc_url( $plugin_icon ); ?>" alt="dci icon">
 						</div>
 					<?php endif; ?>
-					<div class="bdt-dci-notice-content">
+					<div class="dci-notice-content">
 						<h3>
 							<?php echo wp_kses_post( $plugin_title ); ?>
 						</h3>
 						<?php echo wp_kses_post( $plugin_msg ); ?>
 						<p>
 							<a
-								href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'Learn More', 'data-collector-insights' ); ?></a>?
+								href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'Learn More', 'sky-elementor-addons' ); ?></a>?
 						</p>
 						<input type="hidden" name="dci_name" value="<?php echo esc_html( $this->dci_name ); ?>">
 						<input type="hidden" name="dci_date_name" value="<?php echo esc_html( $this->dci_insights_date_name ); ?>">
 						<input type="hidden" name="dci_allow_name" value="<?php echo esc_html( $this->dci_allow_name ); ?>">
 						<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'dci_sdk' ) ); ?>">
 
-						<div class="bdt-dci-notice-button-wrap">
+						<div class="dci-notice-button-wrap">
 							<button name="dci_allow_status" value="yes" class="dci-button-allow">
-								<?php esc_html_e( 'Yes, I\'d Love To Contribute', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'Yes, I\'d Love To Contribute', 'sky-elementor-addons' ); ?>
 							</button>
 							<button name="dci_allow_status" value="skip" class="dci-button-skip">
-								<?php esc_html_e( 'Skip For Now', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'Skip For Now', 'sky-elementor-addons' ); ?>
 							</button>
 							<button name="dci_allow_status" value="disallow" class="dci-button-disallow dci-button-danger">
-								<?php esc_html_e( 'No Thanks', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'No Thanks', 'sky-elementor-addons' ); ?>
 							</button>
 						</div>
 					</div>
@@ -702,8 +702,8 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				</div>
 				<?php echo wp_kses_post( $plugin_msg ); ?>
 				<p>
-					<?php esc_html_e( 'What we', 'data-collector-insights' ); ?> <a
-						href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'collect', 'data-collector-insights' ); ?></a>?
+					<?php esc_html_e( 'What we', 'sky-elementor-addons' ); ?> <a
+						href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'collect', 'sky-elementor-addons' ); ?></a>?
 				</p>
 				<input type="hidden" name="dci_name" value="<?php echo esc_html( $this->dci_name ); ?>">
 				<input type="hidden" name="dci_date_name" value="<?php echo esc_html( $this->dci_insights_date_name ); ?>">
@@ -711,13 +711,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'dci_sdk' ) ); ?>">
 				<p>
 					<button name="dci_allow_status" value="yes" class="button button-primary dci-button-allow">
-						<?php esc_html_e( 'Allow', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'Allow', 'sky-elementor-addons' ); ?>
 					</button>
 					<button name="dci_allow_status" value="skip" class="button dci-button-skip button-secondary">
-						<?php esc_html_e( 'I\'ll Skip For Now', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'I\'ll Skip For Now', 'sky-elementor-addons' ); ?>
 					</button>
 					<button name="dci_allow_status" value="disallow" class="button dci-button-disallow dci-button-danger">
-						<?php esc_html_e( 'Don\'t Allow', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'Don\'t Allow', 'sky-elementor-addons' ); ?>
 					</button>
 				</p>
 			</div>
@@ -730,8 +730,8 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return void
 		 */
 		public function dci_sdk_dismiss_notice() {
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
-			$dci_name = isset( $_POST['dci_name'] ) ? sanitize_text_field( $_POST['dci_name'] ) : '';
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$dci_name = isset( $_POST['dci_name'] ) ? sanitize_text_field( wp_unslash( $_POST['dci_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
 				wp_send_json( array(

@@ -1,8 +1,10 @@
 <?php
+/**
+ * Global Swiper Controls Trait
+ */
 
 namespace Sky_Addons\Traits;
 
-use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Icons_Manager;
 use Elementor\Group_Control_Typography;
@@ -925,7 +927,7 @@ trait Global_Swiper_Controls {
 		// $columns_tablet = isset($settings["columns_tablet"]) && is_float($settings["columns_tablet"]) ? $settings["columns_tablet"] : $columns_tablet;
 		// $columns = isset($settings["columns"]) && is_float($settings["columns"]) ? $settings["columns"] : $columns;
 
-		$pagination_type = $settings['pagination_type'] != 'none' ? $settings['pagination_type'] : false;
+		$pagination_type = ( 'none' !== $settings['pagination_type'] ) ? $settings['pagination_type'] : false;
 
 		$this->add_render_attribute(
 			[
@@ -933,52 +935,52 @@ trait Global_Swiper_Controls {
 					'data-settings' => [
 						wp_json_encode(array_filter([
 							'direction'             => $settings['direction'],
-							'autoplay'              => $settings['autoplay'] == 'yes' ? [
+							'autoplay'              => 'yes' === $settings['autoplay'] ? [
 								'delay' => $settings['autoplay_speed']['size'],
 							] : false,
-							'loop'                  => ( $settings['loop'] == 'yes' ) ? true : false,
+							'loop'                  => ( 'yes' === $settings['loop'] ) ? true : false,
 							'speed'                 => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 500,
-							'pauseOnHover'          => ( $settings['autoplay'] == 'yes' && $settings['pause_on_hover'] == 'yes' ) ? true : false,
+							'pauseOnHover'          => ( 'yes' === $settings['autoplay'] ) && ( 'yes' === $settings['pause_on_hover'] ) ? true : false,
 							'slidesPerView'         => $columns_mobile,
 							'slidesPerGroup'        => isset( $settings['slides_per_group_mobile'] ) ? (int) $settings['slides_per_group_mobile'] : 1,
-							'spaceBetween'          => ! empty( $settings['item_gap_mobile']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_mobile']['size'] : 10,
-							'centeredSlides'        => $settings['centered_slides'] == 'yes' ? true : false,
-							'grabCursor'            => $settings['grab_cursor'] == 'yes' ? true : false,
-							'freeMode'              => $settings['free_mode'] == 'yes' ? true : false,
+							'spaceBetween'          => ! empty( $settings['item_gap_mobile']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_mobile']['size'] : 10,
+							'centeredSlides'        => 'yes' === $settings['centered_slides'] ? true : false,
+							'grabCursor'            => 'yes' === $settings['grab_cursor'] ? true : false,
+							'freeMode'              => 'yes' === $settings['free_mode'] ? true : false,
 
 							// start effect
 							'effect'                => $settings['transition_effect'],
 							// 'fadeEffect'      => (isset($settings['cross_fade']) && $settings['cross_fade'] == 'yes') ? true : false,
 							'coverflowEffect'       => [
-								'depth'        => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 100,
-								'modifier'     => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
-								'rotate'       => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 50,
-								'stretch'      => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 0,
+								'depth'        => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_depth']['size'] ) && 0 === $settings['coverflow_depth']['size'] ) ) ? $settings['coverflow_depth']['size'] : 100,
+								'modifier'     => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_modifier']['size'] ) && 0 === $settings['coverflow_modifier']['size'] ) ) ? $settings['coverflow_modifier']['size'] : 1,
+								'rotate'       => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_rotate']['size'] ) || 0 === $settings['coverflow_rotate']['size'] ) ) ? $settings['coverflow_rotate']['size'] : 50,
+								'stretch'      => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_stretch']['size'] ) || 0 === $settings['coverflow_stretch']['size'] ) ) ? $settings['coverflow_stretch']['size'] : 0,
 
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
 							'flipEffect'            => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
 							'cubeEffect'            => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
 							// end effect
 
-							'observer'              => $settings['observer'] == 'yes' ? true : false,
-							'observeParents'        => $settings['observer'] == 'yes' ? true : false,
+							'observer'              => 'yes' === $settings['observer'] ? true : false,
+							'observeParents'        => 'yes' === $settings['observer'] ? true : false,
 							'watchSlidesVisibility' => true,
 							'watchSlidesProgress'   => true,
 
 							'breakpoints'           => [
 								(int) $viewport_md => [
 									'slidesPerView'  => $columns_tablet,
-									'spaceBetween'   => ! empty( $settings['item_gap_tablet']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_tablet']['size'] : 16,
+									'spaceBetween'   => ! empty( $settings['item_gap_tablet']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_tablet']['size'] : 16,
 									'slidesPerGroup' => isset( $settings['slides_per_group_tablet'] ) ? (int) $settings['slides_per_group_tablet'] : 1,
 								],
 								(int) $viewport_lg => [
 									'slidesPerView'  => $columns,
-									'spaceBetween'   => ! empty( $settings['item_gap']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap']['size'] : 16,
+									'spaceBetween'   => ! empty( $settings['item_gap']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap']['size'] : 16,
 									'slidesPerGroup' => isset( $settings['slides_per_group'] ) ? (int) $settings['slides_per_group'] : 1,
 								],
 							],
@@ -990,7 +992,7 @@ trait Global_Swiper_Controls {
 								'el'             => "#$id .swiper-pagination",
 								'clickable'      => true,
 								'type'           => $pagination_type,
-								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] == 'yes' ) ) ? true : false,
+								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( 'yes' === $settings['dynamic_bullets'] ) ) ? true : false,
 							],
 							'scrollbar'             => [
 								'el'   => "#$id .swiper-scrollbar",
@@ -1057,7 +1059,7 @@ trait Global_Swiper_Controls {
 		</div>
 
 		<?php
-		if ( isset( $settings['show_navigation'] ) && $settings['show_navigation'] == 'yes' ) :
+		if ( isset( $settings['show_navigation'] ) && 'yes' === $settings['show_navigation'] ) :
 			$this->render_navigation();
 		endif;
 

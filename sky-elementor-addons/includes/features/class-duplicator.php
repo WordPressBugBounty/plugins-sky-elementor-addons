@@ -37,7 +37,8 @@ class Duplicator {
 			wp_die( 'No post to duplicate has been supplied!' );
 		}
 
-		if ( ! isset( $_GET['duplicate_nonce'] ) || ! wp_verify_nonce( $_GET['duplicate_nonce'], basename( __FILE__ ) ) ) {
+    // phpcs:ignore
+		if ( ! isset( $_GET['duplicate_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['duplicate_nonce'] ), basename( __FILE__ ) ) ) {
 			return;
 		}
 
@@ -63,6 +64,7 @@ class Duplicator {
 		if ( isset( $post ) && null !== $post ) {
 			$args = [
 				'post_status'    => 'draft',
+				// translators: %1$s: Original post title.
 				'post_title'     => sprintf( __( '%1$s - [Duplicated]', 'sky-elementor-addons' ), $post->post_title ),
 				'post_type'      => $post->post_type,
 				'post_name'      => $post->post_name,
@@ -85,6 +87,7 @@ class Duplicator {
 				wp_set_object_terms( $new_post_id, $post_terms, $taxonomy, false );
 			}
 
+      // phpcs:ignore
 			$post_meta_infos = $wpdb->get_results( $wpdb->prepare(
 				"SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = %d",
 				$post_id
@@ -100,6 +103,7 @@ class Duplicator {
 				}
 
 				$sql_query .= implode( ', ', $sql_query_sel ) . ';';
+        // phpcs:ignore
 				$wpdb->query( $sql_query );
 
 				$source_type = get_post_meta( $post_id, '_elementor_template_type', true );

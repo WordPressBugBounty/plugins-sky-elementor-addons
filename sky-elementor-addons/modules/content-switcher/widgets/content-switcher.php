@@ -78,7 +78,7 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_note',
 			[
-				'label'           => esc_html__( '', 'sky-elementor-addons' ),
+				'label'           => '',
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__( 'Note: Only the first 2 items will be visible.', 'sky-elementor-addons' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
@@ -195,7 +195,7 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_list',
 			[
-				'label'       => esc_html__( '', 'sky-elementor-addons' ),
+				'label'       => '',
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'default'     => [

@@ -73,7 +73,7 @@ class Module extends Module_Base {
 				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'fields_options' => [
 					'background' => [
-						'label'   => esc_html__( 'Text Color', 'elementor' ),
+						'label'   => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 						'default' => 'gradient',
 					],
 				],

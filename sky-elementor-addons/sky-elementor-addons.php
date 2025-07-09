@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.1.3
+ * Version: 3.1.4
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -11,7 +11,7 @@
  * License: GPLv3 or later
  * License URI: https://opensource.org/licenses/GPL-3.0
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.29.2
+ * Elementor tested up to: 3.30.1
  *
  * @package Sky_Addons
  */
@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.1.3' );
+define( 'SKY_ADDONS_VERSION', '3.1.4' );
+define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
 define( 'SKY_ADDONS_PLUGIN_BASE', plugin_basename( SKY_ADDONS__FILE__ ) );
@@ -236,7 +237,7 @@ if ( ! function_exists( 'sky_addons_rc_plugin' ) ) {
 				'plugin_icon'  => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.svg',
 				'slug'         => 'sky-elementor-addons',
 				'menu'         => array(
-					'slug' => 'sky-elementor-addons',
+					'slug' => 'sky-addons',
 				),
 				'review_url'   => 'https://wordpress.org/support/plugin/sky-elementor-addons/reviews/#new-post',
 				'plugin_title' => 'Yay! Great that you\'re using Sky Addons',

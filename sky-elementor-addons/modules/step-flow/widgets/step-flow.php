@@ -93,7 +93,7 @@ class Step_Flow extends Widget_Base {
 				'label'       => esc_html__( 'Description', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 10,
-				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus luctus nec.' ),
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus luctus nec.', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your description here', 'sky-elementor-addons' ),
 				'dynamic'     => [ 'active' => true ],
 				'separator'   => 'before',
@@ -464,10 +464,11 @@ class Step_Flow extends Widget_Base {
 		$this->add_control(
 			'adv_border_radius_note',
 			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => [
+				'type'                        => Controls_Manager::RAW_HTML,
+				// translators: %1s: URL to the border radius generator.
+										'raw' => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
+				'content_classes'             => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition'                   => [
 					'show_adv_border_radius' => 'yes',
 				],
 			]

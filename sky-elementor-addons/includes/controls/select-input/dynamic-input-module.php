@@ -58,7 +58,7 @@ class Dynamic_Input_Module {
 	 * Get Data by Ajax Call
 	 */
 	public function get_select_input_data() {
-		$nonce = isset( $_POST['security'] ) ? sanitize_text_field( $_POST['security'] ) : '';
+		$nonce = isset( $_POST['security'] ) ? sanitize_text_field( wp_unslash( $_POST['security'] ) ) : '';
 
 		try {
 			/**
@@ -76,7 +76,7 @@ class Dynamic_Input_Module {
 				throw new Exception( 'Request Unauthorized!' );
 			}
 
-			$query = isset( $_POST['query'] ) ? sanitize_text_field( $_POST['query'] ) : '';
+			$query = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 
 			/**
 			 * Select query need
@@ -131,7 +131,8 @@ class Dynamic_Input_Module {
 	 * @return string
 	 */
 	protected function get_post_type() {
-		return isset( $_POST['post_type'] ) ? sanitize_text_field( $_POST['post_type'] ) : '';
+    // phpcs:ignore
+		return isset( $_POST['post_type'] ) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : '';
 	}
 
 	/**
@@ -149,7 +150,8 @@ class Dynamic_Input_Module {
 	 * @return string
 	 */
 	protected function get_search_query() {
-		return isset( $_POST['search_text'] ) ? sanitize_text_field( $_POST['search_text'] ) : '';
+    // phpcs:ignore
+		return isset( $_POST['search_text'] ) ? sanitize_text_field( wp_unslash( $_POST['search_text'] ) ) : '';
 	}
 
 	/**
@@ -158,7 +160,8 @@ class Dynamic_Input_Module {
 	 * @return array|mixed
 	 */
 	protected function get_seleced_ids() {
-		return isset( $_POST['ids'] ) ? sanitize_text_field( $_POST['ids'] ) : [];
+    // phpcs:ignore
+		return isset( $_POST['ids'] ) ? sanitize_text_field( wp_unslash( $_POST['ids'] ) ) : [];
 	}
 
 

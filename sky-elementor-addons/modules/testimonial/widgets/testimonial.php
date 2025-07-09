@@ -48,20 +48,20 @@ class Testimonial extends Widget_Base {
 		$this->start_controls_section(
 			'section_testimonial',
 			[
-				'label' => esc_html__( 'Testimonial', 'elementor' ),
+				'label' => esc_html__( 'Testimonial', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'testimonial_text',
 			[
-				'label'   => esc_html__( 'Testimonial', 'elementor' ),
+				'label'   => esc_html__( 'Testimonial', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::TEXTAREA,
 				'dynamic' => [
 					'active' => true,
 				],
 				'rows'    => '10',
-				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'elementor' ),
+				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -106,7 +106,7 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'testimonial_image',
 			[
-				'label'   => esc_html__( 'Choose Image', 'elementor' ),
+				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::MEDIA,
 				'dynamic' => [
 					'active' => true,
@@ -129,7 +129,7 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'testimonial_name',
 			[
-				'label'       => esc_html__( 'Name', 'elementor' ),
+				'label'       => esc_html__( 'Name', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 				'dynamic'     => [
@@ -142,7 +142,7 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'testimonial_job',
 			[
-				'label'       => esc_html__( 'Title', 'elementor' ),
+				'label'       => esc_html__( 'Title', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 				'dynamic'     => [
@@ -155,13 +155,13 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'link',
 			[
-				'label'       => esc_html__( 'Link', 'elementor' ),
+				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 				'dynamic'     => [
 					'active' => true,
 				],
-				'placeholder' => esc_html__( 'https://your-link.com', 'elementor' ),
+				'placeholder' => esc_html__( 'https://your-link.com', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -370,10 +370,11 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'adv_border_radius_note',
 			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => [
+				'type'                        => Controls_Manager::RAW_HTML,
+				// translators: %1s is a link to a border radius generator.
+										'raw' => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
+				'content_classes'             => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition'                   => [
 					'show_adv_border_radius' => 'yes',
 				],
 			]

@@ -223,7 +223,7 @@ class Info_Box extends Widget_Base {
 			[
 				'label'       => esc_html__( 'Description', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXTAREA,
-				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' ),
+				'default'     => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Type your description here', 'sky-elementor-addons' ),
 				'dynamic'     => [ 'active' => true ],
 				'separator'   => 'before',
@@ -709,10 +709,11 @@ class Info_Box extends Widget_Base {
 		$this->add_control(
 			'adv_border_radius_note',
 			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => [
+				'type'                        => Controls_Manager::RAW_HTML,
+				// translators: %1s is a link to a border radius generator.
+										'raw' => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
+				'content_classes'             => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition'                   => [
 					'show_adv_border_radius' => 'yes',
 				],
 			]
@@ -1364,6 +1365,7 @@ class Info_Box extends Widget_Base {
 						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 						wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
 						wp_kses_post( $settings['title'] ),
+            // phpcs:ignore
 						$this->get_render_attribute_string( 'link_title' )
 					);
 				}

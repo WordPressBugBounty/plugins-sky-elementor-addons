@@ -2,9 +2,6 @@
 
 namespace Sky_Addons\Modules\ReadingProgress\Skins;
 
-use Elementor\Widget_Base;
-use Elementor\Utils;
-use Elementor\Controls_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Skin_Scroll_Top extends Elementor_Skin_Base {
-
 
 	public function get_id() {
 		return 'sky-skin-scroll-top';
@@ -27,7 +23,6 @@ class Skin_Scroll_Top extends Elementor_Skin_Base {
 	}
 
 	public function render() {
-		$settings = $this->parent->get_settings_for_display();
 		?>
 		<div class="sa-reading-progress sa-skin-scroll-top">
 			<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">

@@ -19,6 +19,7 @@
 		<?php
 		$templates = \SkyAddons\ThemeBuilder\Theme_Builder::template_ids();
 		if ( isset( $templates['header'] ) && ! empty( $templates['header'] ) ) {
+      //phpcs:ignore
 			echo wowdevs_render_elementor_content( $templates['header'] );
 		}
 		?>

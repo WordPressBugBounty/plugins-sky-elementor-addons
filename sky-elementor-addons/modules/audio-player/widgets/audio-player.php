@@ -91,7 +91,7 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'hosted_url',
 			[
-				'label'      => esc_html__( 'Local Audio', 'elementor' ),
+				'label'      => esc_html__( 'Local Audio', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::MEDIA,
 				'dynamic'    => [
 					'active'     => true,

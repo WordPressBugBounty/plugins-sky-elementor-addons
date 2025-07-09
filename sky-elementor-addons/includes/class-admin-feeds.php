@@ -26,7 +26,7 @@ class Admin_Feeds {
 	 */
 	public function register_rss_feeds() {
 		wp_add_dashboard_widget(
-			'wowdevs-dashboard-overview',
+			'wowdevs-dashboard-feeds',
 			esc_html( $this->settings['feed_title'] ),
 			[ $this, 'display_rss_feeds_content' ],
 			null,
@@ -46,12 +46,12 @@ class Admin_Feeds {
 				?>
 				<div class="activity-block">
 					<a href="<?php echo esc_url( $feed->demo_link ); ?>" target="_blank">
-						<img src="<?php echo $feed->image; ?>" style="width:100%;min-height:240px;">
+						<img src="<?php echo esc_url( $feed->image ); ?>" style="width:100%;min-height:240px;">
 					</a>
 					<p>
 						<?php echo wp_kses_post( wp_trim_words( wp_strip_all_tags( $feed->content ), 50 ) ); ?>
 			<a href="<?php echo esc_url( $feed->demo_link ); ?>" target="_blank">
-				<?php esc_html_e( 'View Demo', $this->settings['text_domain'] ); ?>
+				<?php esc_html_e( 'View Demo', 'sky-elementor-addons' ); ?>
 			</a>
 					</p>
 				</div>
@@ -110,7 +110,7 @@ class Admin_Feeds {
 			$rss = fetch_feed( $this->settings['feed_link'] );
 
 			if ( is_wp_error( $rss ) ) {
-				return '<li>' . esc_html__( 'Items Not Found', $this->settings['text_domain'] ) . '.</li>';
+				return '<li>' . esc_html__( 'Items Not Found', 'sky-elementor-addons' ) . '.</li>';
 			}
 
 			$maxitems = $rss->get_item_quantity( 5 );
@@ -135,7 +135,7 @@ class Admin_Feeds {
 		<div class="rss-widget">
 			<ul>
 				<?php if ( empty( $rss_items ) ) : ?>
-					<li><?php esc_html_e( 'Items Not Found', $this->settings['text_domain'] ); ?>.</li>
+					<li><?php esc_html_e( 'Items Not Found', 'sky-elementor-addons' ); ?>.</li>
 				<?php else : ?>
 					<?php foreach ( $rss_items as $item ) : ?>
 						<li>
@@ -144,7 +144,7 @@ class Admin_Feeds {
 								<?php echo esc_html( $item['title'] ); ?>
 							</a>
 							<span class="rss-date" style="display: block; margin: 0;">
-								<?php echo esc_html( human_time_diff( $item['date'], current_time( 'timestamp' ) ) . ' ' . __( 'ago', $this->settings['text_domain'] ) ); ?>
+								<?php echo esc_html( human_time_diff( $item['date'], current_time( 'timestamp' ) ) . ' ' . __( 'ago', 'sky-elementor-addons' ) ); ?>
 							</span>
 							<div class="rss-summary">
 								<?php echo esc_html( wp_html_excerpt( $item['content'], 120 ) . ' [...]' ); ?>
@@ -175,7 +175,7 @@ class Admin_Feeds {
 }
 
 $settings = array(
-	'feed_title'       => 'Sky Addons for Elementor',
+	'feed_title'       => 'wowDevs News & Updates',
 	'transient_key'    => 'wowdevs_feeds',
 	'feed_link'        => 'https://wowdevs.com/feed',
 	'remote_feed_link' => 'https://dashboard.wowdevs.com/wp-json/wowdevs/v1/products-feed/all?category=sky-addons',

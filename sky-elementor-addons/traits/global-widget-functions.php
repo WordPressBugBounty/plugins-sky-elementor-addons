@@ -171,11 +171,7 @@ trait Global_Widget_Functions {
 		$excerpt = '';
 
 		if ( has_excerpt() ) {
-			// $excerpt = the_excerpt();
-			ob_start();
-			the_excerpt();
-			$_excerpt = ob_get_clean();
-			$excerpt = $_excerpt;
+			$excerpt = get_the_excerpt();
 		} else {
 			$excerpt = sky_post_custom_excerpt( $length, $strip_shortcode );
 		}
