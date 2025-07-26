@@ -1,6 +1,6 @@
 === Sky Addons – Elementor Addons with Widgets & Templates ===
 Plugin Name: Sky Addons – Elementor Addons with Widgets & Templates
-Version: 3.1.4
+Version: 3.2.0
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder
@@ -9,18 +9,18 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.1.4
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
 Sky Addons is a powerful and essential Elementor addon plugin with 105 widgets and 2,000+ ready Elementor templates and a complete Theme Builder.
 
 == Description ==
-**Sky Addons for Elementor** is a **powerful and essential addon plugin for Elementor**, packed with **105+ advanced widgets** and **2,000+ ready-to-use sections and templates** & complete **Theme Builder** that covers **free Header Footer, Single Post Template, 404 Page, Custom Hooks**, and **Archive Page Builder**. 
+**Sky Addons for Elementor** is a **powerful and essential addon plugin for Elementor**, packed with **112+ advanced widgets** and **2,000+ ready-to-use sections and templates** & complete **Theme Builder** that covers **free Header Footer, Single Post Template, 404 Page, Custom Hooks**, and **Archive Page Builder**. 
 Build stunning, mobile-ready websites in minutes**—no coding required**.
 
 **🔥🔥 🚀 Why Choose Sky Addons ?**
-✅105+ Advanced **Elementor Widgets**
+✅112+ Advanced **Elementor Widgets**
 ✅ Full **Theme Builder**: Header, Footer, Single Post, Archive, 404, Custom Hooks
 ✅ 2,000+ Ready-to-Use **Elementor Templates & Kits**
 ✅ Seamless Integration with All Themes & Plugins
@@ -179,7 +179,7 @@ https://youtu.be/uy4UfxryuZ0
 == Frequently Asked Questions ==
 
 = What is Sky Addons for Elementor? =
-Sky Addons is a collection of **Essential Addons for Elementor**, offering 105+ widgets, a full **Theme Builder**, and over 2,000 pre-designed **Elementor Templates** to help you build beautiful, responsive websites quickly and easily.
+Sky Addons is a collection of **Essential Addons for Elementor**, offering 112+ widgets, a full **Theme Builder**, and over 2,000 pre-designed **Elementor Templates** to help you build beautiful, responsive websites quickly and easily.
 
 = Is Sky Addons compatible with the free version of Elementor? =
 Yes! Sky Addons works seamlessly with the free version of Elementor and enhances it by adding powerful widgets, pre-made **Elementor Kits**, and theme-building features.
@@ -258,6 +258,16 @@ There are a few installation & set-up options for this plugin.
 20. Image Compare Widget
 
 == Changelog ==
+
+= 3.2.0 [26th July 2025] =
+
+* Added: Contact Form 7 widget added
+* Added: Fluent Form widget added
+* Added: Gravity Forms widget added
+* Added: Ninja Forms widget added
+* Added: weForms widget added
+* Added: WP Forms widget added
+* Improved: Security improved
 
 = 3.1.4 [9th July 2025] =
 

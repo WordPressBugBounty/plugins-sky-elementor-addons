@@ -44,7 +44,7 @@ class Image_Compare extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/image-compare/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/image-compare/';
 	}
 
 	protected function register_controls() {
@@ -939,23 +939,23 @@ class Image_Compare extends Widget_Base {
 							[
 								'id'                  => 'image-compare-' . $this->get_id(),
 								// Label Defaults
-								'showLabels'          => ( $settings['show_labels'] == 'yes' ? true : false ),
-								'labelBefore'         => isset( $settings['before_text'] ) ? ( ! empty( $settings['before_text'] ) ? $settings['before_text'] : 'Before' ) : false,
-								'labelAfter'          => isset( $settings['after_text'] ) ? ( ! empty( $settings['after_text'] ) ? $settings['after_text'] : 'After' ) : false,
-								'labelOptionsonHover' => $settings['label_options_on_hover'] == 'yes' ? true : false,
+								'showLabels'          => ( 'yes' === $settings['show_labels'] ) ? true : false,
+								'labelBefore'         => isset( $settings['before_text'] ) ? ( ! empty( $settings['before_text'] ) ? wp_kses_post( $settings['before_text'] ) : 'Before' ) : false,
+								'labelAfter'          => isset( $settings['after_text'] ) ? ( ! empty( $settings['after_text'] ) ? wp_kses_post( $settings['after_text'] ) : 'After' ) : false,
+								'labelOptionsonHover' => 'yes' === $settings['label_options_on_hover'] ? true : false,
 								// UI Theme Defaults
 								'controlColor'        => ! empty( $settings['control_color'] ) ? $settings['control_color'] : '#FFFFFF',
-								'controlShadow'       => $settings['control_shadow'] == 'yes' ? true : false,
-								'addCircle'           => $settings['add_circle'] == 'yes' ? true : false,
-								'addCircleBlur'       => ( isset( $settings['add_circle_blur'] ) && $settings['add_circle_blur'] == 'yes' ) ? true : false,
+								'controlShadow'       => 'yes' === $settings['control_shadow'] ? true : false,
+								'addCircle'           => 'yes' === $settings['add_circle'] ? true : false,
+								'addCircleBlur'       => ( isset( $settings['add_circle_blur'] ) && 'yes' === $settings['add_circle_blur'] ) ? true : false,
 								// Smoothing
-								'smoothing'           => ( $settings['smoothing'] == 'yes' ? true : false ),
-								'smoothingAmount'     => ( $settings['smoothing'] == 'yes' && ! empty( $settings['smoothing_amount']['size'] ) ) ? $settings['smoothing_amount']['size'] : 100,
+								'smoothing'           => ( 'yes' === $settings['smoothing'] ) ? true : false ,
+								'smoothingAmount'     => ( 'yes' === $settings['smoothing'] ) && ! empty( $settings['smoothing_amount']['size'] ) ? $settings['smoothing_amount']['size'] : 100,
 								// Other options
-								'hoverStart'          => $settings['hover_start'] == 'yes' ? true : false,
-								'verticalMode'        => $settings['vertical_mode'] == 'yes' ? true : false,
+								'hoverStart'          => 'yes' === $settings['hover_start'] ? true : false,
+								'verticalMode'        => 'yes' === $settings['vertical_mode'] ? true : false,
 								'startingPoint'       => ! empty( $settings['starting_point']['size'] ) ? $settings['starting_point']['size'] : 50,
-								'fluidMode'           => $settings['fluid_mode'] == 'yes' ? true : false,
+								'fluidMode'           => 'yes' === $settings['fluid_mode'] ? true : false,
 							]
 						),
 					],
@@ -966,7 +966,7 @@ class Image_Compare extends Widget_Base {
 		?>
 		<div <?php $this->print_render_attribute_string( 'image-compare' ); ?>>
 			<?php
-			if ( $settings['show_content'] == 'yes' ) {
+			if ( 'yes' === $settings['show_content'] ) {
 				$this->content();
 			}
 			echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image_before' ) );

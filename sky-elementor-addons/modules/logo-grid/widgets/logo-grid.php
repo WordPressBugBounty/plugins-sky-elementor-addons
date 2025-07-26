@@ -51,7 +51,7 @@ class Logo_Grid extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/logo-grid/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/logo-grid/';
 	}
 
 	protected function register_controls() {
@@ -861,7 +861,7 @@ class Logo_Grid extends Widget_Base {
 				}
 
 				// perfect alt
-				$alt_text = ! empty( $item['brand_name'] ) ? $item['brand_name'] : '';
+				$alt_text = ! empty( $item['brand_name'] ) ? esc_html( $item['brand_name'] ) : '';
 				$alt_text = ! empty( $item['brand_text'] ) ? $alt_text . ' ' . $item['brand_text'] : $alt_text;
 				$alt_text = empty( $item['brand_name'] ) && empty( $item['brand_text'] ) ? Control_Media::get_image_alt( $item['logo'] ) : $alt_text;
 

@@ -50,7 +50,7 @@ class Momentum_Slider extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/carousel-slider/momentum-slider/';
+		return 'https://skyaddons.com/docs/sky-addons/carousel-slider/momentum-slider/';
 	}
 
 	protected function register_controls() {
@@ -772,7 +772,7 @@ class Momentum_Slider extends Widget_Base {
 			$link_icon = '<i class="' . esc_attr( $settings['button_icon']['value'] ) . ' ' . $icon_position . '"></i>';
 		}
 
-		$button_text = ( $settings['button_icon_position'] == 'before' ) ? $link_icon . $settings['button_text'] : $settings['button_text'] . $link_icon;
+		$button_text = ( $settings['button_icon_position'] == 'before' ) ? $link_icon . wp_kses_post( $settings['button_text'] ) : wp_kses_post( $settings['button_text'] ) . $link_icon;
 
 		$this->add_render_attribute(
 			[

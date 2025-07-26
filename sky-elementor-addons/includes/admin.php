@@ -286,7 +286,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-advanced-accordion-widget/',
 				],
 				[
@@ -297,7 +297,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-advanced-counter-widget/',
 				],
 				[
@@ -308,7 +308,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-advanced-skill-bars-widget/',
 				],
 				[
@@ -319,7 +319,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-advanced-slider-widget/',
 				],
 				[
@@ -330,7 +330,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-animated-heading-widget/',
 				],
 				[
@@ -341,7 +341,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-audio-player-widget/',
 				],
 				[
@@ -352,7 +352,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-breadcrumbs-widget/',
 				],
 				[
@@ -363,7 +363,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => 'https://youtu.be/Ib9jDrC2caQ',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-card-widget/',
 				],
 				[
@@ -374,7 +374,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-changelog-widget/',
 				],
 				[
@@ -385,7 +385,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-content-switcher-widget/',
 				],
 				[
@@ -396,7 +396,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-dark-mode-widget/',
 				],
 				[
@@ -407,7 +407,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-data-table-widget/',
 				],
 				[
@@ -418,7 +418,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-dual-button-widget/',
 				],
 				[
@@ -429,7 +429,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-fellow-slider-widget/',
 				],
 				[
@@ -440,8 +440,19 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-flow-slider-widget/',
+				],
+				[
+					'name'         => 'form-builder',
+					'label'        => esc_html__( 'Form Builder', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'form-builder', $inactive_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'custom',
+					'feature_type' => 'pro',
+					'demo_url'     => self::modules_demo_server() . 'elementor-form-builder-widget/',
 				],
 				[
 					'name'         => 'hover-video',
@@ -451,7 +462,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-hover-video-widget/',
 				],
 				[
@@ -462,7 +473,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-generic-grid-widget/',
 				],
 				[
@@ -473,7 +484,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-generic-carousel-widget/',
 				],
 				[
@@ -484,7 +495,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-glory-slider-widget/',
 				],
 				[
@@ -495,7 +506,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-iframe-widget/',
 				],
 				[
@@ -506,7 +517,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-nav-menu-widget/',
 				],
 				[
@@ -517,7 +528,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-off-canvas-menu-widget/',
 				],
 				[
@@ -528,7 +539,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-image-compare-widget/',
 				],
 				[
@@ -539,7 +550,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-info-box-widget/',
 				],
 				[
@@ -550,7 +561,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-list-group-widget/',
 				],
 				[
@@ -561,7 +572,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-logo-carousel-widget/',
 				],
 				[
@@ -572,7 +583,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-logo-grid-widget/',
 				],
 				[
@@ -583,7 +594,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-luster-grid-widget/',
 				],
 				[
@@ -594,7 +605,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-luster-carousel-widget/',
 				],
 				[
@@ -605,7 +616,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-mate-list-widget/',
 				],
 				[
@@ -616,7 +627,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-mate-slider-widget/',
 				],
 				[
@@ -627,7 +638,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-mate-carousel-widget/',
 				],
 				[
@@ -638,7 +649,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-momentum-slider-widget/',
 				],
 				[
@@ -649,7 +660,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-naive-list-widget/',
 				],
 				[
@@ -660,7 +671,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-naive-carousel-widget/',
 				],
 				[
@@ -671,7 +682,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-number-widget/',
 				],
 				[
@@ -682,7 +693,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-pace-slider-widget/',
 				],
 				[
@@ -693,7 +704,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-panel-slider-widget/',
 				],
 				[
@@ -704,7 +715,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-pdf-viewer-widget/',
 				],
 				[
@@ -715,7 +726,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-post-list-widget/',
 				],
 				[
@@ -726,7 +737,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-portion-effect-widget/',
 				],
 				[
@@ -737,7 +748,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-pricing-table-widget/',
 				],
 				[
@@ -748,7 +759,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-qr-code-widget/',
 				],
 				[
@@ -759,7 +770,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-reading-progress-widget/',
 				],
 				[
@@ -770,7 +781,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-review-widget/',
 				],
 				[
@@ -781,7 +792,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-review-carousel-widget/',
 				],
 				[
@@ -792,7 +803,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-remote-arrows-widget/',
 				],
 				[
@@ -803,7 +814,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-remote-pagination-widget/',
 				],
 				[
@@ -814,7 +825,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-remote-thumbs-widget/',
 				],
 				[
@@ -825,7 +836,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-sapling-grid-widget/',
 				],
 				[
@@ -836,7 +847,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-sapling-carousel-widget/',
 				],
 				[
@@ -847,7 +858,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-slinky-menu-widget/',
 				],
 				[
@@ -858,7 +869,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-social-icons-widget/',
 				],
 				[
@@ -869,7 +880,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-stellar-slider-widget/',
 				],
 				[
@@ -880,7 +891,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-step-flow-widget/',
 				],
 				[
@@ -891,7 +902,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-table-of-contents-widget/',
 				],
 				[
@@ -902,7 +913,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-team-member-widget/',
 				],
 				[
@@ -913,7 +924,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-testimonial-widget/',
 				],
 				[
@@ -924,7 +935,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-testimonial-carousel-widget/',
 				],
 				[
@@ -935,7 +946,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-tidy-list-widget/',
 				],
 				[
@@ -946,7 +957,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-ultra-grid-widget/',
 				],
 				[
@@ -957,7 +968,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'post',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-ultra-carousel-widget/',
 				],
 				[
@@ -968,7 +979,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-tags-cloud-widget/',
 				],
 				[
@@ -979,7 +990,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-video-gallery-widget/',
 				],
 				[
@@ -990,7 +1001,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-bar-chart-widget/',
 				],
 				[
@@ -1001,7 +1012,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-line-chart-widget/',
 				],
 				[
@@ -1012,7 +1023,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-polar-chart-widget/',
 				],
 				[
@@ -1023,7 +1034,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-pie-and-doughnut-chart-widget/',
 				],
 				[
@@ -1034,7 +1045,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-radar-chart-widget/',
 				],
 			],
@@ -1047,7 +1058,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-woocommerce-category/',
 				],
 				[
@@ -1058,7 +1069,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-woocommerce-category-carousel/',
 				],
 				[
@@ -1069,7 +1080,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-woocommerce-products/',
 				],
 				[
@@ -1080,8 +1091,74 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-woocommerce-products-carousel/',
+				],
+				[
+					'name'         => 'cf7',
+					'label'        => esc_html__( 'Contact Form 7', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'cf7', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
+				],
+				[
+					'name'         => 'fluent-form',
+					'label'        => esc_html__( 'Fluent Form', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'fluent-form', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
+				],
+				[
+					'name'         => 'gravity-forms',
+					'label'        => esc_html__( 'Gravity Forms', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'gravity-forms', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
+				],
+				[
+					'name'         => 'ninja-forms',
+					'label'        => esc_html__( 'Ninja Forms', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'ninja-forms', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
+				],
+				[
+					'name'         => 'we-forms',
+					'label'        => esc_html__( 'weForms', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'we-forms', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
+				],
+				[
+					'name'         => 'wp-forms',
+					'label'        => esc_html__( 'WP Forms', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'wp-forms', $inactive_3rd_party_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'new',
+					'feature_type' => 'free',
+					'demo_url'     => '#',
 				],
 			],
 			'sky_addons_extensions' => [
@@ -1093,7 +1170,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-advanced-tooltip-extensions/',
 				],
 				[
@@ -1104,7 +1181,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-animated-gradient-background-extensions/',
 				],
 				[
@@ -1115,7 +1192,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-backdrop-filter-extensions/',
 				],
 				[
@@ -1126,7 +1203,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-confetti-effects-extensions/',
 				],
 				[
@@ -1137,7 +1214,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-custom-clip-path-extensions/',
 				],
 				[
@@ -1148,7 +1225,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-custom-scripts-extensions/',
 				],
 				[
@@ -1159,7 +1236,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-duplicator-extensions/',
 				],
 				[
@@ -1170,7 +1247,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-equal-height-extensions/',
 				],
 				[
@@ -1181,7 +1258,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-floating-effects-extensions/',
 				],
 				[
@@ -1192,7 +1269,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-gradient-text-extensions/',
 				],
 				[
@@ -1203,7 +1280,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-particle-effects-extensions/',
 				],
 				[
@@ -1214,7 +1291,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-reveal-effects-extensions/',
 				],
 				[
@@ -1225,7 +1302,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-ripples-effect-extensions/',
 				],
 				[
@@ -1236,7 +1313,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-simple-parallax-extensions/',
 				],
 				[
@@ -1247,7 +1324,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-svg-support-extensions/',
 				],
 				[
@@ -1258,7 +1335,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-smooth-scroll-extensions/',
 				],
 				[
@@ -1269,7 +1346,7 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom new',
-					'feature_type'  => 'pro',
+					'feature_type' => 'pro',
 					'demo_url'     => self::modules_demo_server() . 'elementor-display-conditions-extensions/',
 				],
 				[
@@ -1280,13 +1357,13 @@ class Sky_Addons_Admin {
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
-					'feature_type'  => 'free',
+					'feature_type' => 'free',
 					'demo_url'     => self::modules_demo_server() . 'elementor-wrapper-link-extensions/',
 				],
 			],
 			'sky_addons_api' => [
 				'form_builder_group' => [
-					'input_box'   => [
+					'input_box'    => [
 						[
 							'name'        => 'form_builder_email_to',
 							'label'       => esc_html__( 'Form Builder Emails Receiver', 'sky-elementor-addons' ),
@@ -1299,7 +1376,7 @@ class Sky_Addons_Admin {
 					'feature_type' => 'pro',
 				],
 				'sky_addons_api_google_map_group' => [
-					'input_box'   => [
+					'input_box'    => [
 						[
 							'name'        => 'google_map_key',
 							'label'       => esc_html__( 'Google Map', 'sky-elementor-addons' ),
@@ -1312,7 +1389,7 @@ class Sky_Addons_Admin {
 					'feature_type' => 'pro',
 				],
 				'sky_addons_api_mailchimp_group' => [
-					'input_box'   => [
+					'input_box'    => [
 						[
 							'name'        => 'mailchimp_api_key',
 							'label'       => esc_html__( 'Mailchimp API Key', 'sky-elementor-addons' ),
@@ -1333,7 +1410,7 @@ class Sky_Addons_Admin {
 					'feature_type' => 'pro',
 				],
 				'sky_addons_api_instagram_group' => [
-					'input_box'   => [
+					'input_box'    => [
 						[
 
 							'name'        => 'instagram_app_id',

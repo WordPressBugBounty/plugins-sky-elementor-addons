@@ -57,7 +57,7 @@ class Panel_Slider extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/carousel-slider/panel-slider/';
+		return 'https://skyaddons.com/docs/sky-addons/carousel-slider/panel-slider/';
 	}
 
 	protected function register_controls() {
@@ -452,9 +452,8 @@ class Panel_Slider extends Widget_Base {
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [
 					'px' => [
-						'min'  => 100,
-						'max'  => 500,
-						'step' => 5,
+						'min' => 100,
+						'max' => 1000,
 					],
 				],
 				'selectors'  => [

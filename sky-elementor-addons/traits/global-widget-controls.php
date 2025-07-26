@@ -123,6 +123,18 @@ trait Global_Widget_Controls {
 				'selector' => '{{WRAPPER}} .sa-post-text',
 			]
 		);
+
+		$this->add_responsive_control(
+			'text_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
 	}
 
 	protected function register_post_category_controls_style() {

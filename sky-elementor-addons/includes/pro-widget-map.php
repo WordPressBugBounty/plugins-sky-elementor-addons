@@ -20,7 +20,7 @@ class Pro_Widget_Map {
 		$arr = [];
 
 		foreach ( $core_widgets as $key => $widget ) {
-			if ( 'pro' === $widget['widget_type'] ) {
+			if ( 'pro' === $widget['feature_type'] ) {
 				$ar = [
 					'categories'    => [ 'sky-elementor-addons-pro' ],
 					'name'          => $widget['name'],

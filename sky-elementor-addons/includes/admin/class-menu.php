@@ -54,15 +54,20 @@ class Menu {
 			'plugin_layout',
 		] );
 
-		add_submenu_page( $parent_slug, esc_html__( 'Theme Builder', 'sky-elementor-addons' ), esc_html__( 'Theme Builder', 'sky-elementor-addons' ), $capability, $parent_slug . '#theme_builder', [
+		add_submenu_page( $parent_slug, esc_html__( '3rd Party', 'sky-elementor-addons' ), esc_html__( '3rd Party', 'sky-elementor-addons' ), $capability, $parent_slug . '#thirdparty', [
 			$this,
 			'plugin_layout',
 		] );
 
 		// add_submenu_page( $parent_slug, esc_html__( 'API Data', 'sky-elementor-addons' ), esc_html__( 'API Data', 'sky-elementor-addons' ), $capability, $parent_slug . '#api', [
 		// $this,
-		// 'admin_settings',
+		// 'plugin_layout',
 		// ] );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Theme Builder', 'sky-elementor-addons' ), esc_html__( 'Theme Builder', 'sky-elementor-addons' ), $capability, $parent_slug . '#theme_builder', [
+			$this,
+			'plugin_layout',
+		] );
 
 		if ( ! _is_sky_addons_pro_activated() ) {
 			add_submenu_page( $parent_slug, esc_html__( 'Get PRO', 'sky-elementor-addons' ), esc_html__( 'Get PRO', 'sky-elementor-addons' ), $capability, $parent_slug . '#license', [

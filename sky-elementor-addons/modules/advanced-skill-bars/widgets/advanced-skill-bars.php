@@ -38,7 +38,7 @@ class Advanced_Skill_Bars extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/advanced-skills-bar/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/advanced-skills-bar/';
 	}
 
 	protected function register_controls() {

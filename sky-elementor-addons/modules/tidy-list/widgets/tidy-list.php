@@ -40,7 +40,7 @@ class Tidy_List extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/tidy-list/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/tidy-list/';
 	}
 
 	protected function register_controls() {

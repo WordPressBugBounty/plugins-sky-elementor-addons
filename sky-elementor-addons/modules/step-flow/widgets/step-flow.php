@@ -39,7 +39,7 @@ class Step_Flow extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/step-flow/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/step-flow/';
 	}
 
 	protected function register_controls() {

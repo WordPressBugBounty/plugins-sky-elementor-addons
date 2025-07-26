@@ -402,9 +402,8 @@ class Ultra_Carousel extends Widget_Base {
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [
 					'px' => [
-						'min'  => 100,
-						'max'  => 500,
-						'step' => 5,
+						'min' => 100,
+						'max' => 1000,
 					],
 				],
 				'selectors'  => [

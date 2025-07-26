@@ -45,7 +45,7 @@ class PDF_Viewer extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/pdf-viewer/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/pdf-viewer/';
 	}
 
 	protected function register_controls() {

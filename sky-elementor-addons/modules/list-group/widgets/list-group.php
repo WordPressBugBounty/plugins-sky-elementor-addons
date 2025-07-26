@@ -46,7 +46,7 @@ class List_Group extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/list-group/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/list-group/';
 	}
 
 	protected function register_controls() {

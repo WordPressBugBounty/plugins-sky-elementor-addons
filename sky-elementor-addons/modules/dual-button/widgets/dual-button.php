@@ -39,7 +39,7 @@ class Dual_Button extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/dual-button/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/dual-button/';
 	}
 
 	protected function register_controls() {

@@ -114,6 +114,16 @@ final class Managers {
 		$modules[] = 'post-comments';
 
 		/**
+		 * 3rd Party Modules
+		 */
+		$modules[] = 'cf7';
+		$modules[] = 'fluent-form';
+		$modules[] = 'gravity-forms';
+		$modules[] = 'ninja-forms';
+		$modules[] = 'we-forms';
+		$modules[] = 'wp-forms';
+
+		/**
 	 * All Extensions
 	 */
 

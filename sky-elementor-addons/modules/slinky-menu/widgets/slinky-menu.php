@@ -50,7 +50,7 @@ class Slinky_Menu extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/slinky-vertical-menu/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/slinky-vertical-menu/';
 	}
 
 	protected function register_controls() {

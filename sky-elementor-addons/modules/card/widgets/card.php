@@ -42,7 +42,7 @@ class Card extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://youtu.be/Ib9jDrC2caQ';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/card/';
 	}
 
 	protected function register_controls() {

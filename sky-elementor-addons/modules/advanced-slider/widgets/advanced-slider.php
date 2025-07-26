@@ -53,7 +53,7 @@ class Advanced_Slider extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/advanced-slider/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/advanced-slider/';
 	}
 
 	protected function register_controls() {

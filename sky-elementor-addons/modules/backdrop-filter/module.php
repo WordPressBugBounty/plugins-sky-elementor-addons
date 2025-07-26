@@ -288,8 +288,7 @@ class Module extends Module_Base {
 			$element->add_control(
 				'sa_bf_selector',
 				[
-					'label'       => esc_html__( 'Creative Selector', 'sky-elementor-addons' ) . sky_addons_control_indicator_pro(),
-					// 'description' => esc_html__('Default option is free and the Pro preview will work on Editor only.', 'sky-elementor-addons'),
+					'label'       => esc_html__( 'Creative Selector', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'default'     => 'default',
 					'options'     => [

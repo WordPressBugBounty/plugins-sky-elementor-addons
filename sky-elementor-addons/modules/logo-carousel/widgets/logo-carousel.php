@@ -58,7 +58,7 @@ class Logo_Carousel extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/logo-carousel/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/logo-carousel/';
 	}
 
 	protected function register_controls() {
@@ -294,9 +294,8 @@ class Logo_Carousel extends Widget_Base {
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [
 					'px' => [
-						'min'  => 100,
-						'max'  => 500,
-						'step' => 5,
+						'min' => 100,
+						'max' => 1000,
 					],
 				],
 				'selectors'  => [

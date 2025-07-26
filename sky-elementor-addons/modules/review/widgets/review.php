@@ -45,7 +45,7 @@ class Review extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/review/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/review/';
 	}
 
 	protected function register_controls() {

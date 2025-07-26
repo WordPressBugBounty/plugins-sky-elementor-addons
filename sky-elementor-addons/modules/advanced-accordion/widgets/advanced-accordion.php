@@ -52,7 +52,7 @@ class Advanced_Accordion extends Widget_Base {
 	}
 
 	public function get_custom_help_url() {
-		return 'https://wowdevs.com/docs/sky-addons/widgets/advanced-accordion/';
+		return 'https://skyaddons.com/docs/sky-addons/widgets/advanced-accordion/';
 	}
 
 	protected function register_controls() {
