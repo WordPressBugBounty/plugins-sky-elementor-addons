@@ -485,7 +485,7 @@ trait Group_Control {
 		if ( $this->getGroupControlQueryPostType() === 'product' ) {
 
 			$product_visibility_term_ids = wc_get_product_visibility_term_ids();
-			if ( 'yes' == $settings['product_hide_free'] ) {
+			if ( 'yes' === $settings['product_hide_free'] ) {
 				$args['meta_query'][] = [
 					'key'     => '_price',
 					'value'   => 0,
@@ -494,7 +494,7 @@ trait Group_Control {
 				];
 			}
 
-			if ( 'yes' == $settings['product_hide_out_stock'] ) {
+			if ( 'yes' === $settings['product_hide_out_stock'] ) {
 				$args['tax_query'][] = [
 					[
 						'taxonomy' => 'product_visibility',

@@ -251,7 +251,7 @@ class Image_Compare extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 

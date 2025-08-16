@@ -519,7 +519,7 @@ class Glory_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -1094,11 +1094,11 @@ class Glory_Slider extends Widget_Base {
 		$video_properties = Embed::get_video_properties( $video_url );
 		$video_id = isset( $video_properties['video_id'] ) ? $video_properties['video_id'] : false;
 
-		if ( $video_type == 'youtube' ) {
+		if ( $video_type === 'youtube' ) {
 			$thumb_url = '//img.youtube.com/vi/' . $video_id . '/0.jpg';
-		} elseif ( $video_type == 'dailymotion' ) {
+		} elseif ( $video_type === 'dailymotion' ) {
 			$thumb_url = '//www.dailymotion.com/thumbnail/video/' . $video_id;
-		} elseif ( $video_type == 'vimeo' ) {
+		} elseif ( $video_type === 'vimeo' ) {
 			$thumb_url = '//vumbnail.com/' . $video_id . '.jpg';
 		} else {
 			$thumb_url = Utils::get_placeholder_image_src();
@@ -1144,12 +1144,12 @@ class Glory_Slider extends Widget_Base {
 							'observer'        => true,
 							'observeParents'  => true,
 							'coverflowEffect' => [
-								'depth'        => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
-								'modifier'     => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
-								'rotate'       => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
-								'stretch'      => ( $settings['coverflow_toggle'] == 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
+								'depth'        => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
+								'modifier'     => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
+								'rotate'       => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
+								'stretch'      => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
 
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
 							],
 							'breakpoints'     => [
 								(int) $viewport_md => [
@@ -1173,7 +1173,7 @@ class Glory_Slider extends Widget_Base {
 							'watchSlidesVisibility' => true,
 							'watchSlidesProgress'   => true,
 							'slideToClickedSlide'   => true,
-							'mousewheel'            => ( $settings['playlist_mouse_wheel'] == 'yes' ) ? true : false,
+							'mousewheel'            => ( $settings['playlist_mouse_wheel'] === 'yes' ) ? true : false,
 							'breakpoints'           => [
 								(int) $viewport_md => [
 									'spaceBetween' => $item_gap_tablet,
@@ -1197,17 +1197,17 @@ class Glory_Slider extends Widget_Base {
 
 						$poster = $item['poster']['url'];
 
-						if ( $item['video_type'] == 'youtube' ) {
+						if ( $item['video_type'] === 'youtube' ) {
 							$video_url = $this->re_arrange_video_url( $item['youtube_url'] );
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'vimeo' ) {
+						} elseif ( $item['video_type'] === 'vimeo' ) {
 							$video_url = $this->re_arrange_video_url( $item['vimeo_url'] );
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'dailymotion' ) {
+						} elseif ( $item['video_type'] === 'dailymotion' ) {
 							$video_url = $this->re_arrange_video_url( $item['dailymotion_url'] );
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'hosted' ) {
-							if ( $item['external_url_set'] == 'yes' ) {
+						} elseif ( $item['video_type'] === 'hosted' ) {
+							if ( $item['external_url_set'] === 'yes' ) {
 								$video_url = $item['external_url']['url'];
 							} else {
 								$video_url = $item['hosted_url']['url'];
@@ -1234,7 +1234,7 @@ class Glory_Slider extends Widget_Base {
 
 								<div class="sa-player-content-wrapper">
 									<?php
-									if ( $settings['show_title'] == 'yes' ) :
+									if ( $settings['show_title'] === 'yes' ) :
 										printf( '<%s class="sa-player-title sa-fw-bold sa-m-0">%s</%s>',
 											esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 											wp_kses_post( $item['title'] ),
@@ -1277,13 +1277,13 @@ class Glory_Slider extends Widget_Base {
 					foreach ( $settings['video_list'] as $index => $item ) :
 						$poster = $item['poster']['url'];
 
-						if ( $item['video_type'] == 'youtube' ) {
+						if ( $item['video_type'] === 'youtube' ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'vimeo' ) {
+						} elseif ( $item['video_type'] === 'vimeo' ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'dailymotion' ) {
+						} elseif ( $item['video_type'] === 'dailymotion' ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
-						} elseif ( $item['video_type'] == 'hosted' ) {
+						} elseif ( $item['video_type'] === 'hosted' ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'hosted', '' ) : $poster;
 						} else {
 						}

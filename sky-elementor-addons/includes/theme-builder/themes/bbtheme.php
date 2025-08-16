@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyAddons\ThemeBuilder\Themes_Hooks;
+namespace Sky_Addons\ThemeBuilder\Themes_Hooks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,12 +24,12 @@ class Bbtheme {
 
 		if ( null !== $this->header ) {
 			add_filter( 'fl_header_enabled', '__return_false' );
-			add_action( 'fl_before_header', array( $this, 'add_plugin_header_markup' ) );
+			add_action( 'fl_before_header', [ $this, 'add_plugin_header_markup' ] );
 		}
 
 		if ( null !== $this->footer ) {
 			add_filter( 'fl_footer_enabled', '__return_false' );
-			add_action( 'fl_after_content', array( $this, 'add_plugin_footer_markup' ) );
+			add_action( 'fl_after_content', [ $this, 'add_plugin_footer_markup' ] );
 		}
 	}
 

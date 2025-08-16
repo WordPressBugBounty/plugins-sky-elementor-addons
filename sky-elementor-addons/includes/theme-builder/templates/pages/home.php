@@ -22,7 +22,7 @@ get_header();
 do_action( 'wowdevs_themes_builder_template_before_main_content' );
 
 if ( class_exists( 'Elementor\Plugin' ) ) {
-	$templates = \SkyAddons\ThemeBuilder\Theme_Builder::template_ids();
+	$templates = \Sky_Addons\ThemeBuilder\Theme_Builder::template_ids();
 	if ( isset( $templates['home'] ) && ! empty( $templates['home'] ) ) {
     //phpcs:ignore
 		echo wowdevs_render_elementor_content( $templates['home'] );

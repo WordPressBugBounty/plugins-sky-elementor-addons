@@ -318,7 +318,7 @@ class Tidy_List extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -833,7 +833,7 @@ class Tidy_List extends Widget_Base {
 									<div class="sa-me-3 sa-media-wrapper sa-align-items-center sa-d-flex">
 									<?php endif; ?>
 
-									<?php if ( $item['media_type'] == 'icon' && ! empty( $item['list_icon']['value'] ) ) : ?>
+									<?php if ( $item['media_type'] === 'icon' && ! empty( $item['list_icon']['value'] ) ) : ?>
 
 										<div class="sa-icon-wrap sa-text-center sa-align-items-center sa-d-flex">
 											<?php
@@ -843,7 +843,7 @@ class Tidy_List extends Widget_Base {
 											?>
 										</div>
 
-									<?php elseif ( $item['media_type'] == 'image' && ! empty( $item['list_image']['url'] ) ) : ?>
+									<?php elseif ( $item['media_type'] === 'image' && ! empty( $item['list_image']['url'] ) ) : ?>
 										<div class="sa-img-wrap sa-d-inline-block sa-align-items-center sa-d-flex">
 											<?php
 											if ( $item['list_image']['id'] ) {
@@ -861,7 +861,7 @@ class Tidy_List extends Widget_Base {
 											?>
 										</div>
 
-									<?php elseif ( $item['media_type'] == 'number' && ! empty( $item['list_number'] ) ) : ?>
+									<?php elseif ( $item['media_type'] === 'number' && ! empty( $item['list_number'] ) ) : ?>
 
 										<span class="sa-number sa-align-items-center sa-d-flex">
 											<?php
@@ -883,7 +883,7 @@ class Tidy_List extends Widget_Base {
 										printf( '<%s class="sa--title sa--text-title sa-title sa-mt-0 sa-mb-0"> %s </%s>', esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ), wp_kses_post( $item['list_title'] ), esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ) );
 									endif;
 
-									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] == 'yes' ) ) : ?>
+									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) : ?>
 										<div class="sa--text sa--text-info sa-text">
 											<?php echo wp_kses_post( $item['list_text'] ); ?>
 										</div>

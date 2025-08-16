@@ -115,7 +115,7 @@ class Module extends Module_Base {
 	}
 
 	private function get_wrapped_selectors() {
-		$selectors = array(
+		$selectors = [
 			'{{WRAPPER}}:not(.sky-gr-selectors-yes) h1',
 			'{{WRAPPER}}:not(.sky-gr-selectors-yes) h2',
 			'{{WRAPPER}}:not(.sky-gr-selectors-yes) h3',
@@ -127,7 +127,7 @@ class Module extends Module_Base {
 			'{{WRAPPER}}:not(.sky-gr-selectors-yes) a',
 			'{{WRAPPER}}:not(.sky-gr-selectors-yes) div',
 			'{{WRAPPER}}.sky-gr-selectors-yes .sky-gr-text',
-		);
+		];
 		return implode( ', ', array_map( 'trim', $selectors ) );
 	}
 

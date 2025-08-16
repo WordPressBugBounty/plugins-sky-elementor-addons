@@ -132,7 +132,7 @@ class Content_Switcher extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_elementor_template_settings(),
+				'options'     => sky_addons_elementor_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'elementor' ],
 			]
@@ -144,7 +144,7 @@ class Content_Switcher extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_anywhere_template_settings(),
+				'options'     => sky_addons_anywhere_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'anywhere' ],
 			]
@@ -802,15 +802,15 @@ class Content_Switcher extends Widget_Base {
 		$primary = ( isset( $settings['switcher_list'][0] ) ? $settings['switcher_list'][0] : false );
 		$secondary = ( isset( $settings['switcher_list'][1] ) ? $settings['switcher_list'][1] : false );
 
-		$switcher_a_activated = $primary['item_active'] == 'yes' ? ' sa-active' : '';
-		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] == 'yes' ? ' sa-active' : '';
-		$switcher_b_checked = isset( $secondary['item_active'] ) && $secondary['item_active'] == 'yes' ? 'checked' : '';
+		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_b_checked = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
 
 		?>
 		<div <?php $this->print_render_attribute_string( 'content-switcher' ); ?>>
 			<div class="sa-switcher-container sa-d-flex sa-align-content-center sa-justify-content-center sa-mb-4">
 				<div class="sa-switcher-wrap sa-d-inline-flex sa-align-items-center">
-					<?php if ( $settings['switcher_type'] != 'button' ) : ?>
+					<?php if ( $settings['switcher_type'] !== 'button' ) : ?>
 						<div
 							class="sa-switch-item sa-d-flex sa-align-items-center sa-me-5 sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>	sa-icon-position-<?php echo esc_html( $primary['icon_position'] ); ?>">
 
@@ -874,7 +874,7 @@ class Content_Switcher extends Widget_Base {
 							<div class="sa-selector"></div>
 							<?php
 							foreach ( $settings['switcher_list'] as $index => $item ) :
-								$active_item = $item['item_active'] == 'yes' ? ' sa-active' : '';
+								$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
 								$_item_id = $this->get_id() . '-' . $item['_id'];
 
 								$this->add_render_attribute( 'switcher-item' . $index, [
@@ -919,15 +919,15 @@ class Content_Switcher extends Widget_Base {
 			</div>
 			<div class="sa-content-container">
 				<div class="sa-content-wrapper">
-					<?php if ( $settings['switcher_type'] != 'button' ) : ?>
+					<?php if ( $settings['switcher_type'] !== 'button' ) : ?>
 						<div class="sa-switch-content-item sa-text-center sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>">
 							<?php
-							if ( $primary['content_source'] == 'custom' && ! empty( $primary['content_source'] ) ) :
+							if ( $primary['content_source'] === 'custom' && ! empty( $primary['content_source'] ) ) :
 								echo wp_kses_post( $this->parse_text_editor( $primary['custom_text'] ) );
-							elseif ( $primary['content_source'] == 'elementor' && ! empty( $primary['template_id'] ) ) :
-								sky_display_el_tem_by_id( $primary['template_id'] );
-							elseif ( $primary['content_source'] == 'anywhere' && ! empty( $primary['anywhere_id'] ) ) :
-								sky_display_el_tem_by_id( $primary['anywhere_id'] );
+							elseif ( $primary['content_source'] === 'elementor' && ! empty( $primary['template_id'] ) ) :
+								sky_addons_display_el_tem_by_id( $primary['template_id'] );
+							elseif ( $primary['content_source'] === 'anywhere' && ! empty( $primary['anywhere_id'] ) ) :
+								sky_addons_display_el_tem_by_id( $primary['anywhere_id'] );
 							else :
 								echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 							endif;
@@ -936,12 +936,12 @@ class Content_Switcher extends Widget_Base {
 						<div class="sa-switch-content-item sa-text-center sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?>">
 							<?php
 							if ( $secondary !== false ) :
-								if ( $secondary['content_source'] == 'custom' && ! empty( $secondary['content_source'] ) ) :
+								if ( $secondary['content_source'] === 'custom' && ! empty( $secondary['content_source'] ) ) :
 									echo wp_kses_post( $this->parse_text_editor( $secondary['custom_text'] ) );
-								elseif ( $secondary['content_source'] == 'elementor' && ! empty( $secondary['template_id'] ) ) :
-									sky_display_el_tem_by_id( $secondary['template_id'] );
-								elseif ( $secondary['content_source'] == 'anywhere' && ! empty( $secondary['anywhere_id'] ) ) :
-									sky_display_el_tem_by_id( $secondary['anywhere_id'] );
+								elseif ( $secondary['content_source'] === 'elementor' && ! empty( $secondary['template_id'] ) ) :
+									sky_addons_display_el_tem_by_id( $secondary['template_id'] );
+								elseif ( $secondary['content_source'] === 'anywhere' && ! empty( $secondary['anywhere_id'] ) ) :
+									sky_addons_display_el_tem_by_id( $secondary['anywhere_id'] );
 								else :
 									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 								endif;
@@ -951,7 +951,7 @@ class Content_Switcher extends Widget_Base {
 					<?php else : ?>
 						<?php
 						foreach ( $settings['switcher_list'] as $index => $item ) :
-							$active_item = $item['item_active'] == 'yes' ? ' sa-active' : '';
+							$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
 							$_item_id = $this->get_id() . '-' . $item['_id'];
 
 							$this->add_render_attribute( 'content-item' . $index, [
@@ -967,12 +967,12 @@ class Content_Switcher extends Widget_Base {
 							?>
 							<div <?php $this->print_render_attribute_string( 'content-item' . $index ); ?>>
 								<?php
-								if ( $item['content_source'] == 'custom' && ! empty( $item['content_source'] ) ) :
+								if ( $item['content_source'] === 'custom' && ! empty( $item['content_source'] ) ) :
 									echo wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
-								elseif ( $item['content_source'] == 'elementor' && ! empty( $item['template_id'] ) ) :
-									sky_display_el_tem_by_id( $item['template_id'] );
-								elseif ( $item['content_source'] == 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
-									sky_display_el_tem_by_id( $item['anywhere_id'] );
+								elseif ( $item['content_source'] === 'elementor' && ! empty( $item['template_id'] ) ) :
+									sky_addons_display_el_tem_by_id( $item['template_id'] );
+								elseif ( $item['content_source'] === 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
+									sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
 								else :
 									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 								endif;

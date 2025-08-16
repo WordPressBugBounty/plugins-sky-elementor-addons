@@ -106,7 +106,7 @@ class Library_Api extends Source_Base {
 		$elementor_update_timestamp = get_option( '_transient_timeout_elementor_remote_info_api_data_' . ELEMENTOR_VERSION );
 		$update_timestamp = get_transient( self::LIBRARY_TIMESTAMP_CACHE_KEY );
 
-		if ( $force_update || false === $data || ! $update_timestamp || $update_timestamp != $elementor_update_timestamp ) {
+		if ( $force_update || false === $data || ! $update_timestamp || $update_timestamp !== $elementor_update_timestamp ) {
 			$timeout = ( $force_update ) ? 25 : 8;
 
 			$apiUrl = self::API_INFO_URL . '?' . http_build_query([

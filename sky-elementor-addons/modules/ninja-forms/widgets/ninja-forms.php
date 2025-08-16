@@ -45,12 +45,12 @@ class NinjaForms extends Widget_Base {
 		$this->start_controls_section(
 			'_section_ninjaforms',
 			[
-				'label' => sky_is_ninjaforms_activated() ? __( 'Ninja Forms Settings', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
+				'label' => sky_addons_is_ninjaforms_activated() ? __( 'Ninja Forms Settings', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		if ( ! sky_is_ninjaforms_activated() ) {
+		if ( ! sky_addons_is_ninjaforms_activated() ) {
 
 			$this->add_control(
 				'_ninjaforms_missing_notice',
@@ -59,7 +59,7 @@ class NinjaForms extends Widget_Base {
 					'raw'             => sprintf(
 						__( 'Hello %2$s! It looks like %1$s is not installed or activated on your site. Please install and activate it to use this widget. Click the link below to install/activate %1$s, then refresh this page.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=Ninja+Forms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener"><strong>Ninja Forms</strong></a>',
-						sky_get_current_user_display_name()
+						sky_addons_get_current_user_display_name()
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -81,7 +81,7 @@ class NinjaForms extends Widget_Base {
 					'label'       => __( 'Select Ninja Form', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( 'Choose a form...', 'sky-elementor-addons' ) ] + \sky_get_ninjaform(),
+					'options'     => [ '' => __( 'Choose a form...', 'sky-elementor-addons' ) ] + \sky_addons_get_ninjaform(),
 					'description' => __( 'Select the Ninja Form you want to display.', 'sky-elementor-addons' ),
 				]
 			);
@@ -564,8 +564,8 @@ class NinjaForms extends Widget_Base {
 	}
 
 	protected function render() {
-		if ( ! sky_is_ninjaforms_activated() ) {
-			sky_show_plugin_missing_alert( __( 'Ninja Forms', 'sky-elementor-addons' ) );
+		if ( ! sky_addons_is_ninjaforms_activated() ) {
+			sky_addons_show_plugin_missing_alert( __( 'Ninja Forms', 'sky-elementor-addons' ) );
 			return;
 		}
 
@@ -578,7 +578,7 @@ class NinjaForms extends Widget_Base {
 			return;
 		}
 
-		echo sky_do_shortcode( 'ninja_form', [
+		echo sky_addons_do_shortcode( 'ninja_form', [
 			'id' => $settings['form_id'],
 		] );
 	}

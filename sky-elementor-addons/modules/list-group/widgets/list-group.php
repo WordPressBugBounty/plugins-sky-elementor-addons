@@ -310,7 +310,7 @@ class List_Group extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -963,7 +963,7 @@ class List_Group extends Widget_Base {
 									<div class="sa-me-3 sa-media-wrapper">
 									<?php endif; ?>
 
-									<?php if ( $item['media_type'] == 'icon' && ! empty( $item['list_icon']['value'] ) ) : ?>
+									<?php if ( $item['media_type'] === 'icon' && ! empty( $item['list_icon']['value'] ) ) : ?>
 
 										<div class="sa-icon-wrap sa-text-center sa-d-flex sa-align-items-center">
 											<?php
@@ -973,7 +973,7 @@ class List_Group extends Widget_Base {
 											?>
 										</div>
 
-									<?php elseif ( $item['media_type'] == 'image' && ! empty( $item['list_image']['url'] ) ) : ?>
+									<?php elseif ( $item['media_type'] === 'image' && ! empty( $item['list_image']['url'] ) ) : ?>
 										<div class="sa-img-wrap sa-d-inline-block">
 											<?php
 											if ( $item['list_image']['id'] ) {
@@ -991,7 +991,7 @@ class List_Group extends Widget_Base {
 											?>
 										</div>
 
-									<?php elseif ( $item['media_type'] == 'number' && ! empty( $item['list_number'] ) ) : ?>
+									<?php elseif ( $item['media_type'] === 'number' && ! empty( $item['list_number'] ) ) : ?>
 
 										<span class="sa-number">
 											<?php
@@ -1018,7 +1018,7 @@ class List_Group extends Widget_Base {
 										);
 									endif;
 
-									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] == 'yes' ) ) : ?>
+									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) : ?>
 										<div class="sa--text sa--text-info sa-text">
 											<?php echo wp_kses_post( $item['list_text'] ); ?>
 										</div>
@@ -1028,7 +1028,7 @@ class List_Group extends Widget_Base {
 
 								<!-- start direction icon -->
 								<?php
-								if ( $settings['show_direction'] == 'yes' ) :
+								if ( $settings['show_direction'] === 'yes' ) :
 									if ( ! empty( $item['list_direction']['value'] ) ) {
 										?>
 										<div class="sa-ms-3 sa-direction-wrapper">

@@ -49,13 +49,13 @@ class GravityForms extends Widget_Base {
 		$this->start_controls_section(
 			'section_gravityforms',
 			[
-				'label' => sky_is_gravityforms_activated() ? __( 'Gravity Forms', 'sky-elementor-addons' ) : __( 'Missing Notice',
+				'label' => sky_addons_is_gravityforms_activated() ? __( 'Gravity Forms', 'sky-elementor-addons' ) : __( 'Missing Notice',
 				'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		if ( ! sky_is_gravityforms_activated() ) {
+		if ( ! sky_addons_is_gravityforms_activated() ) {
 
 			$this->add_control(
 				'gravityforms_missing_notice',
@@ -63,7 +63,7 @@ class GravityForms extends Widget_Base {
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
 						__( 'Hello %1$s, looks like Gravity Forms is missing in your site. Please install/activate Gravity Forms. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
-						sky_get_current_user_display_name()
+						sky_addons_get_current_user_display_name()
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -77,7 +77,7 @@ class GravityForms extends Widget_Base {
 					'label'       => esc_html__( 'Form Selection', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( '', 'sky-elementor-addons' ) ] + \sky_get_gravity_forms(),
+					'options'     => [ '' => __( '', 'sky-elementor-addons' ) ] + \sky_addons_get_gravity_forms(),
 				]
 			);
 
@@ -970,8 +970,8 @@ class GravityForms extends Widget_Base {
 	}
 
 	protected function render() {
-		if ( ! sky_is_gravityforms_activated() ) {
-			sky_show_plugin_missing_alert( __( 'Gravity Forms', 'sky-elementor-addons' ) );
+		if ( ! sky_addons_is_gravityforms_activated() ) {
+			sky_addons_show_plugin_missing_alert( __( 'Gravity Forms', 'sky-elementor-addons' ) );
 			return;
 		}
 

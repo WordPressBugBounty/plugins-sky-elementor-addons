@@ -310,7 +310,7 @@ class Advanced_Skill_Bars extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'separator' => 'before',
 			]
 		);
@@ -807,16 +807,16 @@ class Advanced_Skill_Bars extends Widget_Base {
 				], true );
 				?>
 
-				<?php if ( $skill_style == 'default' ) : ?>
+				<?php if ( $skill_style === 'default' ) : ?>
 					<div <?php $this->print_render_attribute_string( 'sa-skill-item' ); ?>>
 
-						<?php if ( $name_position == 'top' || $skill_val_position == 'top' ) : ?>
+						<?php if ( $name_position === 'top' || $skill_val_position === 'top' ) : ?>
 							<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between  sa-w-100">
 								<?php
-								if ( $name_position == 'top' ) {
+								if ( $name_position === 'top' ) {
 									$this->render_skill_name( $skill_name );
 								}
-								if ( $skill_val_position == 'top' ) {
+								if ( $skill_val_position === 'top' ) {
 									$this->render_skill_value( $skill_value, 'sa-position-null' );
 								}
 								?>
@@ -828,23 +828,23 @@ class Advanced_Skill_Bars extends Widget_Base {
 								data-width="<?php echo esc_attr( $skill_value ); ?>%"
 								data-max-value="<?php echo esc_attr( $skill_max_value ); ?>">
 								<?php
-								if ( $name_position != 'inner' && $skill_val_position == 'inner' ) : ?>
+								if ( $name_position !== 'inner' && $skill_val_position === 'inner' ) : ?>
 									<div class="sa-skill-content-wrapper sa-w-100 sa-text-end">
 										<?php
 										$this->render_skill_value( $skill_value, 'sa-position-null' );
 										?>
 									</div>
-								<?php elseif ( $name_position == 'inner' && $skill_val_position != 'inner' ) : ?>
+								<?php elseif ( $name_position === 'inner' && $skill_val_position !== 'inner' ) : ?>
 									<div class="sa-skill-content-wrapper">
 										<?php
 										$this->render_skill_name( $skill_name );
-										if ( $skill_val_position == 'with-top' ) :
+										if ( $skill_val_position === 'with-top' ) :
 											$this->render_skill_value( $skill_value, 'sa-value-top' );
 											$this->render_skill_value( $skill_value, 'sa-value-top' );
 										endif;
 										?>
 									</div>
-								<?php elseif ( $name_position == 'inner' && $skill_val_position == 'inner' ) : ?>
+								<?php elseif ( $name_position === 'inner' && $skill_val_position === 'inner' ) : ?>
 									<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-align-items-center sa-w-100">
 										<?php
 										$this->render_skill_name( $skill_name );
@@ -853,21 +853,21 @@ class Advanced_Skill_Bars extends Widget_Base {
 									</div>
 
 
-								<?php elseif ( $skill_val_position == 'with-top' ) :
+								<?php elseif ( $skill_val_position === 'with-top' ) :
 									$this->render_skill_value( $skill_value, 'sa-value-top' );
 								endif;
 								?>
 							</div>
 						</div>
 						<?php
-						if ( $name_position == 'bottom' || $skill_val_position == 'bottom' ) : ?>
+						if ( $name_position === 'bottom' || $skill_val_position === 'bottom' ) : ?>
 							<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between  sa-w-100">
 								<?php
-								if ( $name_position == 'bottom' ) {
+								if ( $name_position === 'bottom' ) {
 									$this->render_skill_name( $skill_name );
 								}
 
-								if ( $skill_val_position == 'bottom' ) {
+								if ( $skill_val_position === 'bottom' ) {
 									$this->render_skill_value( $skill_value, 'sa-position-null' );
 								}
 								?>
@@ -876,8 +876,8 @@ class Advanced_Skill_Bars extends Widget_Base {
 					</div>
 
 					<?php
-				elseif ( $skill_style == 'vision' ) :
-					$display_layout = $settings['skill_layout'] == 'vision' ? 'flex' : 'block';
+				elseif ( $skill_style === 'vision' ) :
+					$display_layout = $settings['skill_layout'] === 'vision' ? 'flex' : 'block';
 
 					$this->add_render_attribute( 'sa-skill-item-vision', 'class', [
 						'sa-style--vision sa-skill-item sa-align-items-center',

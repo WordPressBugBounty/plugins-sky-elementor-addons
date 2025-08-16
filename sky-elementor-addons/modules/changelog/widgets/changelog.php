@@ -372,7 +372,7 @@ class Changelog extends Widget_Base {
 
 			$response_data = $this->parse_data( $response_data );
 
-			if ( 'yes' == $settings['cache_data'] ) {
+			if ( 'yes' === $settings['cache_data'] ) {
 				$cache_time = ! empty( $settings['cache_time'] ) ? $settings['cache_time'] : 3;
 				set_transient( $transient_key, $response_data, apply_filters( 'sky-addons/changelog/cached-time', DAY_IN_SECONDS * $cache_time ) );
 			}

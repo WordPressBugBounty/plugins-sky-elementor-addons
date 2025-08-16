@@ -214,7 +214,7 @@ class Info_Box extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -1333,13 +1333,13 @@ class Info_Box extends Widget_Base {
 		?>
 
 		<div class="sa-info-box">
-			<?php if ( ! empty( $settings['image']['url'] ) && $settings['media_type'] == 'image' ) : ?>
+			<?php if ( ! empty( $settings['image']['url'] ) && $settings['media_type'] === 'image' ) : ?>
 				<figure class="sa-infobox-figure sa-media-image">
 					<?php echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) ); ?>
 				</figure>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] == 'icon' ) : ?>
+			<?php if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] === 'icon' ) : ?>
 				<figure class="sa-infobox-figure sa-icon-wrap sa-text-center">
 					<?php
 					Icons_Manager::render_icon( $settings['icon'], [
@@ -1372,7 +1372,7 @@ class Info_Box extends Widget_Base {
 
 				if ( ! empty( $settings['desc'] ) ) {
 					$this->add_render_attribute( 'desc', 'class', 'sa-desc sa--text sa--text-info sa-fs-6' );
-					if ( $settings['show_button'] == 'yes' ) {
+					if ( $settings['show_button'] === 'yes' ) {
 						$this->add_render_attribute( 'desc', 'class', 'sa-mb-4 sa-button-exists' );
 					}
 
@@ -1387,10 +1387,10 @@ class Info_Box extends Widget_Base {
 				?>
 
 				<?php
-				if ( $settings['show_button'] == 'yes' ) :
+				if ( $settings['show_button'] === 'yes' ) :
 
 					$this->add_render_attribute( 'btn-link', 'class', 'sa-button sa-d-inline-flex sa-text-decoration-none sa-align-items-center' );
-					$this->add_render_attribute( 'btn-link', 'class', ( $settings['button_full_width'] == 'yes' ) ? ' sa-d-flex' : '' );
+					$this->add_render_attribute( 'btn-link', 'class', ( $settings['button_full_width'] === 'yes' ) ? ' sa-d-flex' : '' );
 
 					if ( ! empty( $settings['link']['url'] ) ) {
 						$this->add_render_attribute( 'btn-link', 'href', esc_url( $settings['link']['url'] ) );
@@ -1416,7 +1416,7 @@ class Info_Box extends Widget_Base {
 					?>
 					<a <?php $this->print_render_attribute_string( 'btn-link' ); ?>>
 						<?php
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',
@@ -1435,7 +1435,7 @@ class Info_Box extends Widget_Base {
 							);
 
 						endif;
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',

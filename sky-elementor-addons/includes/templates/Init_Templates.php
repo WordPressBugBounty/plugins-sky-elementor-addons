@@ -35,7 +35,7 @@ class Init_Templates {
 				/**
 				 * Verify by DB Activate Pro
 				 */
-				$pro = function_exists( 'sky_addons_init_pro' ) && true == sky_addons_init_pro() ? true : false;
+				$pro = function_exists( 'sky_addons_init_pro' ) && true === sky_addons_init_pro() ? true : false;
 
 				$localize_data = [
 					'pluginName'     => 'Sky Addons',

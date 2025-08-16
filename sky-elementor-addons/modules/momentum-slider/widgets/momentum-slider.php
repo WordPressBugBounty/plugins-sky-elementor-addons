@@ -133,7 +133,7 @@ class Momentum_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'separator' => 'before',
 			]
 		);
@@ -765,14 +765,14 @@ class Momentum_Slider extends Widget_Base {
 			$slider_attr[ $index ] = $this->get_render_attribute_string( 'link' . $index );
 		}
 
-		$icon_position = $settings['button_icon_position'] == 'before' ? 'sa-icon-before' : 'sa-icon-after';
+		$icon_position = $settings['button_icon_position'] === 'before' ? 'sa-icon-before' : 'sa-icon-after';
 
 		$link_icon = null;
 		if ( ! empty( $settings['button_icon']['value'] ) ) {
 			$link_icon = '<i class="' . esc_attr( $settings['button_icon']['value'] ) . ' ' . $icon_position . '"></i>';
 		}
 
-		$button_text = ( $settings['button_icon_position'] == 'before' ) ? $link_icon . wp_kses_post( $settings['button_text'] ) : wp_kses_post( $settings['button_text'] ) . $link_icon;
+		$button_text = ( $settings['button_icon_position'] === 'before' ) ? $link_icon . wp_kses_post( $settings['button_text'] ) : wp_kses_post( $settings['button_text'] ) . $link_icon;
 
 		$this->add_render_attribute(
 			[

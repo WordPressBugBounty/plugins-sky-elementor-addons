@@ -25,7 +25,7 @@ class Menu_Walker extends \Walker_Nav_Menu {
 	 * @param int    $depth  Depth of menu item. Used for padding.
 	 * @param array  $args   An array of arguments.
 	 */
-	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+	public function start_lvl( &$output, $depth = 0, $args = [] ) {
 		$output .= '<ul>';
 	}
 
@@ -36,7 +36,7 @@ class Menu_Walker extends \Walker_Nav_Menu {
 	 * @param int    $depth  Depth of menu item. Used for padding.
 	 * @param array  $args   An array of arguments.
 	 */
-	public function end_lvl( &$output, $depth = 0, $args = array() ) {
+	public function end_lvl( &$output, $depth = 0, $args = [] ) {
 		$output .= '</ul>';
 	}
 
@@ -49,10 +49,10 @@ class Menu_Walker extends \Walker_Nav_Menu {
 	 * @param array  $args   An array of arguments.
 	 * @param int    $id     Current item ID.
 	 */
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-		$data    = array();
+	public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
+		$data    = [];
 		$class   = '';
-		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		$classes = empty( $item->classes ) ? [] : (array) $item->classes;
 
 		// Filter and sanitize classes
 		$classes = array_map( 'sanitize_html_class', $classes );
@@ -89,12 +89,12 @@ class Menu_Walker extends \Walker_Nav_Menu {
 		$output .= sprintf( '<li%s%s%s>', $id_attr, $attributes, $class_attr );
 
 		$link_attributes = '';
-		foreach ( array(
+		foreach ( [
 			'attr_title' => 'title',
 			'target'     => 'target',
 			'xfn'        => 'rel',
 			'url'        => 'href',
-		) as $var => $attr ) {
+		] as $var => $attr ) {
 			if ( ! empty( $item->$var ) ) {
 				$link_attributes .= sprintf( ' %s="%s"', esc_attr( $attr ), esc_url( $item->$var ) );
 			}
@@ -124,7 +124,7 @@ class Menu_Walker extends \Walker_Nav_Menu {
 	 * @param int    $depth  Depth of page. Not Used.
 	 * @param array  $args   An array of arguments.
 	 */
-	public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+	public function end_el( &$output, $item, $depth = 0, $args = [] ) {
 		$output .= '</li>';
 	}
 

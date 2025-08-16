@@ -48,7 +48,7 @@ class Dashboard {
 	public function __construct() {
 		$this->namespace = 'skyaddons/v1';
 		$this->rest_base = 'dashboard';
-		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
 	}
 
 	/**
@@ -61,12 +61,12 @@ class Dashboard {
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base,
-			array(
+			[
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'handle_dashboard' ),
+				'callback'            => [ $this, 'handle_dashboard' ],
 				// 'permission_callback' => array( $this, 'get_permissions_check' ),
 				'permission_callback' => '__return_true',
-			)
+			]
 		);
 
 		// register_rest_route(
@@ -130,10 +130,10 @@ class Dashboard {
 		}
 
 		return new WP_REST_Response(
-			array(
+			[
 				'message' => 'Welcome to the Dashboard!',
 				'data'    => $data,
-			),
+			],
 			200
 		);
 	}
@@ -143,7 +143,7 @@ class Dashboard {
 	 * ChartJS BG Colors
 	 */
 	public function chartjs_bg_colors( $id ) {
-		$bg = array(
+		$bg = [
 			'rgba(255, 99, 132, 0.4)',
 			'rgba(54, 162, 235, 0.4)',
 			'rgba(255, 206, 86, 0.4)',
@@ -173,7 +173,7 @@ class Dashboard {
 			'rgba(75, 192, 192, 0.4)',
 			'rgba(153, 102, 255, 0.4)',
 			'rgba(255, 159, 64, 0.4)',
-		);
+		];
 
 		$bg = array_unique( $bg );
 

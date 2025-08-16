@@ -254,7 +254,7 @@ class Mate_List extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -1066,7 +1066,7 @@ class Mate_List extends Widget_Base {
 		if ( has_excerpt() ) {
 			$excerpt = get_the_excerpt();
 		} else {
-			$excerpt = sky_post_custom_excerpt( $length, $strip_shortcode );
+			$excerpt = sky_addons_post_custom_excerpt( $length, $strip_shortcode );
 		}
 
 		printf(
@@ -1142,9 +1142,9 @@ class Mate_List extends Widget_Base {
 
 		<?php
 
-		if ( 'yes' == $settings['show_pagination'] ) {
-			if ( function_exists( 'sky_post_pagination' ) ) {
-				sky_post_pagination( $wp_query, $this->get_id() );
+		if ( 'yes' === $settings['show_pagination'] ) {
+			if ( function_exists( 'sky_addons_post_pagination' ) ) {
+				sky_addons_post_pagination( $wp_query, $this->get_id() );
 			}
 		}
 

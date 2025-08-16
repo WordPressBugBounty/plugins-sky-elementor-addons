@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyAddons\ThemeBuilder\Themes_Hooks;
+namespace Sky_Addons\ThemeBuilder\Themes_Hooks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,18 +14,18 @@ class Default_Support {
 		$this->footer = $template_ids['footer'];
 
 		if ( null !== $this->header ) {
-			add_action( 'get_header', array( $this, 'get_header' ) );
+			add_action( 'get_header', [ $this, 'get_header' ] );
 		}
 
 		if ( null !== $this->footer ) {
-			add_action( 'get_footer', array( $this, 'get_footer' ) );
+			add_action( 'get_footer', [ $this, 'get_footer' ] );
 		}
 	}
 
 	public function get_header( $name ) {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/support/default-header.php';
 
-		$templates = array();
+		$templates = [];
 		$name      = (string) $name;
 		if ( '' !== $name ) {
 			$templates[] = "header-{$name}.php";
@@ -43,7 +43,7 @@ class Default_Support {
 
 	public function get_footer( $name ) {
 		require SKY_ADDONS_INC_PATH . 'theme-builder/support/default-footer.php';
-		$templates = array();
+		$templates = [];
 		$name      = (string) $name;
 		if ( '' !== $name ) {
 			$templates[] = "footer-{$name}.php";

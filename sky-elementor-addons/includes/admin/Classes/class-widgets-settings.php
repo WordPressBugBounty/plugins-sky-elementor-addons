@@ -32,8 +32,8 @@ class Widgets_Settings {
 	 * Construct
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_sky_addons_get_settings', array( $this, 'get_settings' ) );
-		add_action( 'wp_ajax_sky_addons_set_settings', array( $this, 'set_settings' ) );
+		add_action( 'wp_ajax_sky_addons_get_settings', [ $this, 'get_settings' ] );
+		add_action( 'wp_ajax_sky_addons_set_settings', [ $this, 'set_settings' ] );
 	}
 
 	/**
@@ -52,13 +52,13 @@ class Widgets_Settings {
 	 */
 	public function get_settings() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Unauthorized access.', 'sky-elementor-addons' ) ), 403 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized access.', 'sky-elementor-addons' ) ], 403 );
 		}
     // phpcs:ignore
 		$action_type = isset( $_POST['action_type'] ) ? sanitize_text_field( wp_unslash( $_POST['action_type'] ) ) : false;
 
 		if ( ! $action_type ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Oops, Settings is not found.', 'sky-elementor-addons' ) ), 404 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Oops, Settings is not found.', 'sky-elementor-addons' ) ], 404 );
 			wp_die();
 		}
 
@@ -76,7 +76,7 @@ class Widgets_Settings {
 				return wp_send_json_success( $_3rd_party );
 
 			default:
-				wp_send_json_error( array( 'message' => esc_html__( 'Oops, Action is not found.', 'sky-elementor-addons' ) ), 404 );
+				wp_send_json_error( [ 'message' => esc_html__( 'Oops, Action is not found.', 'sky-elementor-addons' ) ], 404 );
 		}
 	}
 
@@ -88,13 +88,13 @@ class Widgets_Settings {
 	public function set_settings() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Unauthorized access.', 'sky-elementor-addons' ) ), 403 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized access.', 'sky-elementor-addons' ) ], 403 );
 		}
 
     // phpcs:ignore
 		$action_type = isset( $_POST['action_type'] ) ? sanitize_text_field( wp_unslash( $_POST['action_type'] ) ) : false;
 		if ( ! $action_type ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Oops, Settings is not found.', 'sky-elementor-addons' ) ), 404 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Oops, Settings is not found.', 'sky-elementor-addons' ) ], 404 );
 		}
 
 		// $nonce = $request->get_header( 'X-WP-Nonce' );
@@ -122,7 +122,7 @@ class Widgets_Settings {
 				break;
 
 			default:
-				wp_send_json_error( array( 'message' => esc_html__( 'Oops, Action is not found.', 'sky-elementor-addons' ) ), 404 );
+				wp_send_json_error( [ 'message' => esc_html__( 'Oops, Action is not found.', 'sky-elementor-addons' ) ], 404 );
 		}
 	}
 

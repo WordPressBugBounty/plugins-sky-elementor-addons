@@ -1,7 +1,7 @@
 <?php $logo = trailingslashit( plugin_dir_url( SKY_ADDONS__FILE__ ) ) . '/includes/templates/assets/templates-library-logo.svg'; ?>
 <script type="text/template" id="sa-skyTemplatesLibrary_header-logo">
 	<span class="skyTemplatesLibrary_logo-wrap">
-		<img src="<?php echo esc_url( $logo ); ?>" alt="SkyAddons Logo" style="height: 30px;">
+		<img src="<?php echo esc_url( $logo ); ?>" alt="Sky_Addons Logo" style="height: 30px;">
 	</span>
 		<span class="skyTemplatesLibrary_logo-title" style="margin-left: 18px;">{{{ title }}}</span>
 </script>

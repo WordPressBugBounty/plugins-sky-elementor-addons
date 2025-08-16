@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sky Addons for Elementor 3.2.0\n"
+"Project-Id-Version: Sky Addons for Elementor 3.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sky-elementor-addons\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-26T06:40:48+00:00\n"
+"POT-Creation-Date: 2025-08-16T13:57:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: sky-elementor-addons\n"
@@ -279,7 +279,7 @@ msgstr ""
 #: modules/card/module.info.php:8
 #: modules/card/widgets/card.php:29
 #: modules/card/widgets/card.php:53
-#: modules/card/widgets/card.php:381
+#: modules/card/widgets/card.php:382
 msgid "Card"
 msgstr ""
 
@@ -394,8 +394,8 @@ msgstr ""
 
 #: includes/admin.php:591
 #: modules/luster-grid/module.info.php:8
-#: modules/luster-grid/widgets/luster-grid.php:35
-#: modules/luster-grid/widgets/luster-grid.php:317
+#: modules/luster-grid/widgets/luster-grid.php:34
+#: modules/luster-grid/widgets/luster-grid.php:316
 msgid "Luster Grid"
 msgstr ""
 
@@ -1012,8 +1012,8 @@ msgid "Featured"
 msgstr ""
 
 #: includes/controls/group-query/group-control.php:250
-#: modules/card/widgets/card.php:491
-#: modules/card/widgets/card.php:761
+#: modules/card/widgets/card.php:492
+#: modules/card/widgets/card.php:762
 #: modules/info-box/widgets/info-box.php:543
 #: modules/logo-carousel/widgets/logo-carousel.php:369
 #: modules/logo-grid/widgets/logo-grid.php:265
@@ -1081,7 +1081,7 @@ msgstr ""
 
 #: includes/controls/group-query/group-control.php:281
 #: modules/advanced-slider/widgets/advanced-slider.php:616
-#: modules/card/widgets/card.php:337
+#: modules/card/widgets/card.php:338
 #: modules/content-switcher/widgets/content-switcher.php:169
 #: modules/dual-button/widgets/dual-button.php:275
 #: modules/dual-button/widgets/dual-button.php:399
@@ -1104,7 +1104,7 @@ msgstr ""
 
 #: includes/controls/group-query/group-control.php:294
 #: modules/advanced-slider/widgets/advanced-slider.php:620
-#: modules/card/widgets/card.php:341
+#: modules/card/widgets/card.php:342
 #: modules/content-switcher/widgets/content-switcher.php:173
 #: modules/dual-button/widgets/dual-button.php:284
 #: modules/dual-button/widgets/dual-button.php:403
@@ -1139,7 +1139,7 @@ msgstr ""
 #: modules/animated-heading/widgets/animated-heading.php:78
 #: modules/animated-heading/widgets/animated-heading.php:313
 #: modules/card/widgets/card.php:119
-#: modules/card/widgets/card.php:1049
+#: modules/card/widgets/card.php:1050
 #: modules/content-switcher/widgets/content-switcher.php:96
 #: modules/fellow-slider/widgets/fellow-slider.php:732
 #: modules/fellow-slider/widgets/fellow-slider.php:747
@@ -1157,7 +1157,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:820
 #: modules/logo-grid/widgets/logo-grid.php:757
 #: modules/luster-carousel/widgets/luster-carousel.php:495
-#: modules/luster-grid/widgets/luster-grid.php:446
+#: modules/luster-grid/widgets/luster-grid.php:445
 #: modules/mate-carousel/widgets/mate-carousel.php:596
 #: modules/mate-list/widgets/mate-list.php:605
 #: modules/mate-slider/widgets/mate-slider.php:605
@@ -1329,7 +1329,7 @@ msgstr ""
 msgid "The post is not published or does not exist."
 msgstr ""
 
-#: includes/functions.php:691
+#: includes/functions.php:695
 msgid " is missing! Please install and activate "
 msgstr ""
 
@@ -1492,7 +1492,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:69
 #: modules/logo-grid/widgets/logo-grid.php:62
 #: modules/luster-carousel/widgets/luster-carousel.php:72
-#: modules/luster-grid/widgets/luster-grid.php:64
+#: modules/luster-grid/widgets/luster-grid.php:63
 #: modules/mate-carousel/widgets/mate-carousel.php:75
 #: modules/mate-list/widgets/mate-list.php:66
 #: modules/mate-slider/widgets/mate-slider.php:69
@@ -1595,7 +1595,7 @@ msgstr ""
 #: modules/info-box/widgets/info-box.php:214
 #: modules/list-group/widgets/list-group.php:310
 #: modules/luster-carousel/widgets/luster-carousel.php:180
-#: modules/luster-grid/widgets/luster-grid.php:188
+#: modules/luster-grid/widgets/luster-grid.php:187
 #: modules/mate-carousel/widgets/mate-carousel.php:213
 #: modules/mate-list/widgets/mate-list.php:254
 #: modules/mate-slider/widgets/mate-slider.php:233
@@ -1634,7 +1634,7 @@ msgstr ""
 #: modules/advanced-accordion/widgets/advanced-accordion.php:210
 #: modules/advanced-accordion/widgets/advanced-accordion.php:899
 #: modules/advanced-slider/widgets/advanced-slider.php:603
-#: modules/card/widgets/card.php:324
+#: modules/card/widgets/card.php:325
 #: modules/content-switcher/widgets/content-switcher.php:156
 #: modules/dual-button/widgets/dual-button.php:150
 #: modules/dual-button/widgets/dual-button.php:262
@@ -1718,9 +1718,9 @@ msgstr ""
 #: modules/luster-carousel/widgets/luster-carousel.php:506
 #: modules/luster-carousel/widgets/luster-carousel.php:594
 #: modules/luster-carousel/widgets/luster-carousel.php:659
-#: modules/luster-grid/widgets/luster-grid.php:457
-#: modules/luster-grid/widgets/luster-grid.php:594
-#: modules/luster-grid/widgets/luster-grid.php:659
+#: modules/luster-grid/widgets/luster-grid.php:456
+#: modules/luster-grid/widgets/luster-grid.php:593
+#: modules/luster-grid/widgets/luster-grid.php:658
 #: modules/mate-carousel/widgets/mate-carousel.php:607
 #: modules/mate-carousel/widgets/mate-carousel.php:659
 #: modules/mate-carousel/widgets/mate-carousel.php:724
@@ -1788,9 +1788,9 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1856
 #: modules/advanced-slider/widgets/advanced-slider.php:2375
 #: modules/advanced-slider/widgets/advanced-slider.php:2479
-#: modules/card/widgets/card.php:610
-#: modules/card/widgets/card.php:910
-#: modules/card/widgets/card.php:1278
+#: modules/card/widgets/card.php:611
+#: modules/card/widgets/card.php:911
+#: modules/card/widgets/card.php:1279
 #: modules/content-switcher/widgets/content-switcher.php:312
 #: modules/content-switcher/widgets/content-switcher.php:549
 #: modules/content-switcher/widgets/content-switcher.php:758
@@ -1822,8 +1822,8 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:726
 #: modules/luster-carousel/widgets/luster-carousel.php:387
 #: modules/luster-carousel/widgets/luster-carousel.php:455
-#: modules/luster-grid/widgets/luster-grid.php:338
-#: modules/luster-grid/widgets/luster-grid.php:406
+#: modules/luster-grid/widgets/luster-grid.php:337
+#: modules/luster-grid/widgets/luster-grid.php:405
 #: modules/mate-carousel/widgets/mate-carousel.php:403
 #: modules/mate-carousel/widgets/mate-carousel.php:566
 #: modules/mate-carousel/widgets/mate-carousel.php:851
@@ -1897,10 +1897,10 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:2506
 #: modules/audio-player/widgets/audio-player.php:192
 #: modules/audio-player/widgets/audio-player.php:288
-#: modules/card/widgets/card.php:618
-#: modules/card/widgets/card.php:918
-#: modules/card/widgets/card.php:1286
-#: modules/card/widgets/card.php:1390
+#: modules/card/widgets/card.php:619
+#: modules/card/widgets/card.php:919
+#: modules/card/widgets/card.php:1287
+#: modules/card/widgets/card.php:1391
 #: modules/cf7/widgets/cf7.php:197
 #: modules/cf7/widgets/cf7.php:441
 #: modules/content-switcher/widgets/content-switcher.php:323
@@ -1941,8 +1941,8 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:734
 #: modules/luster-carousel/widgets/luster-carousel.php:395
 #: modules/luster-carousel/widgets/luster-carousel.php:463
-#: modules/luster-grid/widgets/luster-grid.php:346
-#: modules/luster-grid/widgets/luster-grid.php:414
+#: modules/luster-grid/widgets/luster-grid.php:345
+#: modules/luster-grid/widgets/luster-grid.php:413
 #: modules/mate-carousel/widgets/mate-carousel.php:411
 #: modules/mate-carousel/widgets/mate-carousel.php:574
 #: modules/mate-carousel/widgets/mate-carousel.php:859
@@ -2041,9 +2041,9 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1947
 #: modules/advanced-slider/widgets/advanced-slider.php:2344
 #: modules/advanced-slider/widgets/advanced-slider.php:2448
-#: modules/card/widgets/card.php:900
-#: modules/card/widgets/card.php:1319
-#: modules/card/widgets/card.php:1367
+#: modules/card/widgets/card.php:901
+#: modules/card/widgets/card.php:1320
+#: modules/card/widgets/card.php:1368
 #: modules/cf7/widgets/cf7.php:279
 #: modules/cf7/widgets/cf7.php:317
 #: modules/cf7/widgets/cf7.php:491
@@ -2110,7 +2110,7 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:571
 #: modules/logo-grid/widgets/logo-grid.php:704
 #: modules/luster-carousel/widgets/luster-carousel.php:549
-#: modules/luster-grid/widgets/luster-grid.php:549
+#: modules/luster-grid/widgets/luster-grid.php:548
 #: modules/mate-carousel/widgets/mate-carousel.php:435
 #: modules/mate-carousel/widgets/mate-carousel.php:463
 #: modules/mate-list/widgets/mate-list.php:445
@@ -2220,10 +2220,10 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1559
 #: modules/advanced-slider/widgets/advanced-slider.php:1905
 #: modules/advanced-slider/widgets/advanced-slider.php:1980
-#: modules/card/widgets/card.php:631
-#: modules/card/widgets/card.php:931
-#: modules/card/widgets/card.php:1338
-#: modules/card/widgets/card.php:1412
+#: modules/card/widgets/card.php:632
+#: modules/card/widgets/card.php:932
+#: modules/card/widgets/card.php:1339
+#: modules/card/widgets/card.php:1413
 #: modules/content-switcher/widgets/content-switcher.php:392
 #: modules/content-switcher/widgets/content-switcher.php:489
 #: modules/content-switcher/widgets/content-switcher.php:779
@@ -2262,8 +2262,8 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:747
 #: modules/luster-carousel/widgets/luster-carousel.php:416
 #: modules/luster-carousel/widgets/luster-carousel.php:477
-#: modules/luster-grid/widgets/luster-grid.php:367
-#: modules/luster-grid/widgets/luster-grid.php:428
+#: modules/luster-grid/widgets/luster-grid.php:366
+#: modules/luster-grid/widgets/luster-grid.php:427
 #: modules/mate-carousel/widgets/mate-carousel.php:445
 #: modules/mate-carousel/widgets/mate-carousel.php:473
 #: modules/mate-carousel/widgets/mate-carousel.php:872
@@ -2339,11 +2339,11 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1050
 #: modules/advanced-slider/widgets/advanced-slider.php:1495
 #: modules/advanced-slider/widgets/advanced-slider.php:1927
-#: modules/card/widgets/card.php:686
-#: modules/card/widgets/card.php:1016
-#: modules/card/widgets/card.php:1123
-#: modules/card/widgets/card.php:1221
-#: modules/card/widgets/card.php:1348
+#: modules/card/widgets/card.php:687
+#: modules/card/widgets/card.php:1017
+#: modules/card/widgets/card.php:1124
+#: modules/card/widgets/card.php:1222
+#: modules/card/widgets/card.php:1349
 #: modules/cf7/widgets/cf7.php:502
 #: modules/custom-clip-path/module.php:84
 #: modules/dual-button/widgets/dual-button.php:586
@@ -2422,7 +2422,7 @@ msgstr ""
 #: modules/advanced-accordion/widgets/advanced-accordion.php:1087
 #: modules/advanced-slider/widgets/advanced-slider.php:1523
 #: modules/advanced-slider/widgets/advanced-slider.php:1956
-#: modules/card/widgets/card.php:1376
+#: modules/card/widgets/card.php:1377
 #: modules/cf7/widgets/cf7.php:530
 #: modules/content-switcher/widgets/content-switcher.php:447
 #: modules/dual-button/widgets/dual-button.php:623
@@ -2501,11 +2501,11 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1416
 #: modules/advanced-slider/widgets/advanced-slider.php:2334
 #: modules/advanced-slider/widgets/advanced-slider.php:2438
-#: modules/card/widgets/card.php:880
-#: modules/card/widgets/card.php:977
-#: modules/card/widgets/card.php:1084
-#: modules/card/widgets/card.php:1191
-#: modules/card/widgets/card.php:1269
+#: modules/card/widgets/card.php:881
+#: modules/card/widgets/card.php:978
+#: modules/card/widgets/card.php:1085
+#: modules/card/widgets/card.php:1192
+#: modules/card/widgets/card.php:1270
 #: modules/cf7/widgets/cf7.php:218
 #: modules/cf7/widgets/cf7.php:366
 #: modules/changelog/widgets/changelog.php:108
@@ -2607,12 +2607,12 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1550
 #: modules/advanced-slider/widgets/advanced-slider.php:1896
 #: modules/advanced-slider/widgets/advanced-slider.php:1971
-#: modules/card/widgets/card.php:1006
-#: modules/card/widgets/card.php:1035
-#: modules/card/widgets/card.php:1113
-#: modules/card/widgets/card.php:1142
-#: modules/card/widgets/card.php:1329
-#: modules/card/widgets/card.php:1403
+#: modules/card/widgets/card.php:1007
+#: modules/card/widgets/card.php:1036
+#: modules/card/widgets/card.php:1114
+#: modules/card/widgets/card.php:1143
+#: modules/card/widgets/card.php:1330
+#: modules/card/widgets/card.php:1404
 #: modules/content-switcher/widgets/content-switcher.php:383
 #: modules/content-switcher/widgets/content-switcher.php:480
 #: modules/dual-button/widgets/dual-button.php:567
@@ -2638,7 +2638,7 @@ msgstr ""
 #: modules/info-box/widgets/info-box.php:1195
 #: modules/info-box/widgets/info-box.php:1269
 #: modules/list-group/widgets/list-group.php:709
-#: modules/luster-grid/widgets/luster-grid.php:520
+#: modules/luster-grid/widgets/luster-grid.php:519
 #: modules/mate-carousel/widgets/mate-carousel.php:811
 #: modules/mate-carousel/widgets/mate-carousel.php:918
 #: modules/mate-list/widgets/mate-list.php:820
@@ -2709,9 +2709,9 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1403
 #: modules/advanced-slider/widgets/advanced-slider.php:1843
 #: modules/audio-player/widgets/audio-player.php:276
-#: modules/card/widgets/card.php:597
-#: modules/card/widgets/card.php:867
-#: modules/card/widgets/card.php:1256
+#: modules/card/widgets/card.php:598
+#: modules/card/widgets/card.php:868
+#: modules/card/widgets/card.php:1257
 #: modules/cf7/widgets/cf7.php:185
 #: modules/cf7/widgets/cf7.php:410
 #: modules/content-switcher/widgets/content-switcher.php:296
@@ -2750,7 +2750,7 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:422
 #: modules/logo-grid/widgets/logo-grid.php:713
 #: modules/luster-carousel/widgets/luster-carousel.php:374
-#: modules/luster-grid/widgets/luster-grid.php:325
+#: modules/luster-grid/widgets/luster-grid.php:324
 #: modules/mate-carousel/widgets/mate-carousel.php:390
 #: modules/mate-carousel/widgets/mate-carousel.php:553
 #: modules/mate-list/widgets/mate-list.php:392
@@ -2819,11 +2819,11 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1866
 #: modules/advanced-slider/widgets/advanced-slider.php:2311
 #: modules/animated-heading/widgets/animated-heading.php:359
-#: modules/card/widgets/card.php:651
-#: modules/card/widgets/card.php:987
-#: modules/card/widgets/card.php:1094
-#: modules/card/widgets/card.php:1201
-#: modules/card/widgets/card.php:1300
+#: modules/card/widgets/card.php:652
+#: modules/card/widgets/card.php:988
+#: modules/card/widgets/card.php:1095
+#: modules/card/widgets/card.php:1202
+#: modules/card/widgets/card.php:1301
 #: modules/cf7/widgets/cf7.php:255
 #: modules/cf7/widgets/cf7.php:471
 #: modules/content-switcher/widgets/content-switcher.php:340
@@ -2915,7 +2915,7 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1873
 #: modules/advanced-slider/widgets/advanced-slider.php:1934
 #: modules/audio-player/widgets/audio-player.php:265
-#: modules/card/widgets/card.php:1437
+#: modules/card/widgets/card.php:1438
 #: modules/changelog/widgets/changelog.php:96
 #: modules/changelog/widgets/changelog.php:174
 #: modules/changelog/widgets/changelog.php:324
@@ -3015,7 +3015,7 @@ msgstr ""
 #: modules/advanced-accordion/widgets/advanced-accordion.php:1134
 #: modules/advanced-slider/widgets/advanced-slider.php:907
 #: modules/animated-heading/widgets/animated-heading.php:137
-#: modules/card/widgets/card.php:295
+#: modules/card/widgets/card.php:296
 #: modules/content-switcher/widgets/content-switcher.php:674
 #: modules/dual-button/widgets/dual-button.php:58
 #: modules/dual-button/widgets/dual-button.php:235
@@ -3029,7 +3029,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:736
 #: modules/logo-grid/widgets/logo-grid.php:673
 #: modules/luster-carousel/widgets/luster-carousel.php:109
-#: modules/luster-grid/widgets/luster-grid.php:117
+#: modules/luster-grid/widgets/luster-grid.php:116
 #: modules/mate-carousel/widgets/mate-carousel.php:136
 #: modules/mate-list/widgets/mate-list.php:176
 #: modules/mate-slider/widgets/mate-slider.php:161
@@ -3059,8 +3059,8 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:911
 #: modules/animated-heading/widgets/animated-heading.php:141
 #: modules/card/widgets/card.php:87
-#: modules/card/widgets/card.php:299
-#: modules/card/widgets/card.php:393
+#: modules/card/widgets/card.php:300
+#: modules/card/widgets/card.php:394
 #: modules/content-switcher/widgets/content-switcher.php:233
 #: modules/content-switcher/widgets/content-switcher.php:678
 #: modules/dual-button/widgets/dual-button.php:62
@@ -3082,7 +3082,7 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:158
 #: modules/logo-grid/widgets/logo-grid.php:678
 #: modules/luster-carousel/widgets/luster-carousel.php:113
-#: modules/luster-grid/widgets/luster-grid.php:121
+#: modules/luster-grid/widgets/luster-grid.php:120
 #: modules/mate-carousel/widgets/mate-carousel.php:140
 #: modules/mate-list/widgets/mate-list.php:180
 #: modules/mate-slider/widgets/mate-slider.php:165
@@ -3123,8 +3123,8 @@ msgstr ""
 #: modules/advanced-skill-bars/widgets/advanced-skill-bars.php:411
 #: modules/advanced-slider/widgets/advanced-slider.php:915
 #: modules/animated-heading/widgets/animated-heading.php:145
-#: modules/card/widgets/card.php:303
-#: modules/card/widgets/card.php:397
+#: modules/card/widgets/card.php:304
+#: modules/card/widgets/card.php:398
 #: modules/content-switcher/widgets/content-switcher.php:237
 #: modules/content-switcher/widgets/content-switcher.php:682
 #: modules/dual-button/widgets/dual-button.php:66
@@ -3144,7 +3144,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:745
 #: modules/logo-grid/widgets/logo-grid.php:682
 #: modules/luster-carousel/widgets/luster-carousel.php:117
-#: modules/luster-grid/widgets/luster-grid.php:125
+#: modules/luster-grid/widgets/luster-grid.php:124
 #: modules/mate-carousel/widgets/mate-carousel.php:144
 #: modules/mate-list/widgets/mate-list.php:184
 #: modules/mate-slider/widgets/mate-slider.php:169
@@ -3180,8 +3180,8 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:919
 #: modules/animated-heading/widgets/animated-heading.php:149
 #: modules/card/widgets/card.php:95
-#: modules/card/widgets/card.php:307
-#: modules/card/widgets/card.php:401
+#: modules/card/widgets/card.php:308
+#: modules/card/widgets/card.php:402
 #: modules/content-switcher/widgets/content-switcher.php:241
 #: modules/content-switcher/widgets/content-switcher.php:686
 #: modules/dual-button/widgets/dual-button.php:70
@@ -3203,7 +3203,7 @@ msgstr ""
 #: modules/logo-grid/widgets/logo-grid.php:156
 #: modules/logo-grid/widgets/logo-grid.php:686
 #: modules/luster-carousel/widgets/luster-carousel.php:121
-#: modules/luster-grid/widgets/luster-grid.php:129
+#: modules/luster-grid/widgets/luster-grid.php:128
 #: modules/mate-carousel/widgets/mate-carousel.php:148
 #: modules/mate-list/widgets/mate-list.php:188
 #: modules/mate-slider/widgets/mate-slider.php:173
@@ -3242,7 +3242,7 @@ msgstr ""
 #: modules/advanced-accordion/widgets/advanced-accordion.php:1150
 #: modules/advanced-slider/widgets/advanced-slider.php:923
 #: modules/animated-heading/widgets/animated-heading.php:153
-#: modules/card/widgets/card.php:405
+#: modules/card/widgets/card.php:406
 #: modules/content-switcher/widgets/content-switcher.php:690
 #: modules/fellow-slider/widgets/fellow-slider.php:131
 #: modules/generic-carousel/widgets/generic-carousel.php:128
@@ -3253,7 +3253,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:753
 #: modules/logo-grid/widgets/logo-grid.php:690
 #: modules/luster-carousel/widgets/luster-carousel.php:125
-#: modules/luster-grid/widgets/luster-grid.php:133
+#: modules/luster-grid/widgets/luster-grid.php:132
 #: modules/mate-carousel/widgets/mate-carousel.php:152
 #: modules/mate-list/widgets/mate-list.php:192
 #: modules/mate-slider/widgets/mate-slider.php:177
@@ -3465,7 +3465,7 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:197
 #: modules/logo-grid/widgets/logo-grid.php:209
 #: modules/luster-carousel/widgets/luster-carousel.php:163
-#: modules/luster-grid/widgets/luster-grid.php:171
+#: modules/luster-grid/widgets/luster-grid.php:170
 #: modules/mate-carousel/widgets/mate-carousel.php:196
 #: modules/mate-list/widgets/mate-list.php:237
 #: modules/mate-slider/widgets/mate-slider.php:216
@@ -3510,7 +3510,7 @@ msgid "Content Alignment"
 msgstr ""
 
 #: modules/advanced-skill-bars/widgets/advanced-skill-bars.php:438
-#: modules/card/widgets/card.php:473
+#: modules/card/widgets/card.php:474
 #: modules/generic-carousel/widgets/generic-carousel.php:512
 #: modules/generic-grid/widgets/generic-grid.php:502
 #: modules/image-compare/widgets/image-compare.php:484
@@ -3550,8 +3550,8 @@ msgstr ""
 #: modules/list-group/widgets/list-group.php:330
 #: modules/luster-carousel/widgets/luster-carousel.php:612
 #: modules/luster-carousel/widgets/luster-carousel.php:677
-#: modules/luster-grid/widgets/luster-grid.php:612
-#: modules/luster-grid/widgets/luster-grid.php:677
+#: modules/luster-grid/widgets/luster-grid.php:611
+#: modules/luster-grid/widgets/luster-grid.php:676
 #: modules/mate-carousel/widgets/mate-carousel.php:677
 #: modules/mate-carousel/widgets/mate-carousel.php:742
 #: modules/mate-list/widgets/mate-list.php:686
@@ -3587,7 +3587,7 @@ msgid "Skill Bars Content"
 msgstr ""
 
 #: modules/advanced-skill-bars/widgets/advanced-skill-bars.php:599
-#: modules/card/widgets/card.php:451
+#: modules/card/widgets/card.php:452
 #: modules/dual-button/widgets/dual-button.php:85
 #: modules/fellow-slider/widgets/fellow-slider.php:666
 #: modules/image-compare/widgets/image-compare.php:635
@@ -3623,8 +3623,8 @@ msgstr ""
 
 #: modules/advanced-skill-bars/widgets/advanced-skill-bars.php:708
 #: modules/advanced-slider/widgets/advanced-slider.php:458
-#: modules/card/widgets/card.php:563
-#: modules/card/widgets/card.php:833
+#: modules/card/widgets/card.php:564
+#: modules/card/widgets/card.php:834
 #: modules/floating-effects/module.php:180
 #: modules/glory-slider/widgets/glory-slider.php:454
 #: modules/info-box/widgets/info-box.php:618
@@ -3648,7 +3648,7 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1201
 #: modules/card/widgets/card.php:151
 #: modules/card/widgets/card.php:154
-#: modules/card/widgets/card.php:941
+#: modules/card/widgets/card.php:942
 msgid "Sub Title"
 msgstr ""
 
@@ -3672,7 +3672,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:849
 #: modules/logo-grid/widgets/logo-grid.php:786
 #: modules/luster-carousel/widgets/luster-carousel.php:567
-#: modules/luster-grid/widgets/luster-grid.php:567
+#: modules/luster-grid/widgets/luster-grid.php:566
 #: modules/mate-carousel/widgets/mate-carousel.php:632
 #: modules/mate-list/widgets/mate-list.php:641
 #: modules/mate-slider/widgets/mate-slider.php:641
@@ -3694,7 +3694,7 @@ msgid "Text"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:123
-#: modules/card/widgets/card.php:443
+#: modules/card/widgets/card.php:444
 #: modules/fellow-slider/widgets/fellow-slider.php:597
 #: modules/fellow-slider/widgets/fellow-slider.php:1054
 #: modules/generic-carousel/widgets/generic-carousel.php:501
@@ -3703,7 +3703,7 @@ msgstr ""
 #: modules/list-group/widgets/list-group.php:76
 #: modules/logo-carousel/widgets/logo-carousel.php:638
 #: modules/luster-carousel/widgets/luster-carousel.php:426
-#: modules/luster-grid/widgets/luster-grid.php:377
+#: modules/luster-grid/widgets/luster-grid.php:376
 #: modules/mate-carousel/widgets/mate-carousel.php:501
 #: modules/mate-carousel/widgets/mate-carousel.php:819
 #: modules/mate-list/widgets/mate-list.php:511
@@ -3728,7 +3728,7 @@ msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:133
 #: modules/animated-heading/widgets/animated-heading.php:102
-#: modules/card/widgets/card.php:238
+#: modules/card/widgets/card.php:239
 #: modules/dual-button/widgets/dual-button.php:220
 #: modules/dual-button/widgets/dual-button.php:344
 #: modules/glory-slider/widgets/glory-slider.php:126
@@ -3753,7 +3753,7 @@ msgid "Link"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:135
-#: modules/card/widgets/card.php:240
+#: modules/card/widgets/card.php:241
 #: modules/dual-button/widgets/dual-button.php:222
 #: modules/dual-button/widgets/dual-button.php:346
 #: modules/glory-slider/widgets/glory-slider.php:286
@@ -3806,7 +3806,7 @@ msgid "Content Position"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:247
-#: modules/card/widgets/card.php:219
+#: modules/card/widgets/card.php:220
 #: modules/generic-carousel/widgets/generic-carousel.php:726
 #: modules/generic-grid/widgets/generic-grid.php:716
 #: modules/glory-slider/widgets/glory-slider.php:536
@@ -3815,14 +3815,14 @@ msgid "Top Left"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:248
-#: modules/card/widgets/card.php:220
+#: modules/card/widgets/card.php:221
 #: modules/glory-slider/widgets/glory-slider.php:537
 #: modules/step-flow/widgets/step-flow.php:153
 msgid "Top Center"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:249
-#: modules/card/widgets/card.php:221
+#: modules/card/widgets/card.php:222
 #: modules/generic-carousel/widgets/generic-carousel.php:730
 #: modules/generic-grid/widgets/generic-grid.php:720
 #: modules/glory-slider/widgets/glory-slider.php:538
@@ -3831,36 +3831,36 @@ msgid "Top Right"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:250
-#: modules/card/widgets/card.php:222
+#: modules/card/widgets/card.php:223
 msgid "Middle Left"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:251
-#: modules/card/widgets/card.php:223
+#: modules/card/widgets/card.php:224
 msgid "Middle Center"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:252
-#: modules/card/widgets/card.php:224
+#: modules/card/widgets/card.php:225
 msgid "Middle Right"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:253
-#: modules/card/widgets/card.php:225
+#: modules/card/widgets/card.php:226
 #: modules/glory-slider/widgets/glory-slider.php:539
 #: modules/step-flow/widgets/step-flow.php:151
 msgid "Bottom Left"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:254
-#: modules/card/widgets/card.php:226
+#: modules/card/widgets/card.php:227
 #: modules/glory-slider/widgets/glory-slider.php:540
 #: modules/step-flow/widgets/step-flow.php:154
 msgid "Bottom Center"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:255
-#: modules/card/widgets/card.php:227
+#: modules/card/widgets/card.php:228
 #: modules/glory-slider/widgets/glory-slider.php:541
 #: modules/step-flow/widgets/step-flow.php:152
 msgid "Bottom Right"
@@ -3913,7 +3913,7 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:205
 #: modules/glory-slider/widgets/glory-slider.php:509
 #: modules/luster-carousel/widgets/luster-carousel.php:171
-#: modules/luster-grid/widgets/luster-grid.php:179
+#: modules/luster-grid/widgets/luster-grid.php:178
 #: modules/mate-carousel/widgets/mate-carousel.php:204
 #: modules/mate-list/widgets/mate-list.php:245
 #: modules/mate-slider/widgets/mate-slider.php:224
@@ -3946,7 +3946,7 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:245
 #: modules/list-group/widgets/list-group.php:266
 #: modules/luster-carousel/widgets/luster-carousel.php:220
-#: modules/luster-grid/widgets/luster-grid.php:228
+#: modules/luster-grid/widgets/luster-grid.php:227
 #: modules/mate-carousel/widgets/mate-carousel.php:253
 #: modules/mate-list/widgets/mate-list.php:294
 #: modules/mate-slider/widgets/mate-slider.php:274
@@ -3978,7 +3978,7 @@ msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:398
 #: modules/generic-grid/widgets/generic-grid.php:306
-#: modules/luster-grid/widgets/luster-grid.php:288
+#: modules/luster-grid/widgets/luster-grid.php:287
 #: modules/mate-list/widgets/mate-list.php:355
 #: modules/naive-list/widgets/naive-list.php:341
 #: modules/post-list/widgets/post-list.php:328
@@ -4111,8 +4111,8 @@ msgid "Hash Navigation"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:582
-#: modules/card/widgets/card.php:265
-#: modules/card/widgets/card.php:1245
+#: modules/card/widgets/card.php:266
+#: modules/card/widgets/card.php:1246
 #: modules/content-switcher/widgets/content-switcher.php:73
 #: modules/info-box/widgets/info-box.php:262
 #: modules/info-box/widgets/info-box.php:1111
@@ -4124,7 +4124,7 @@ msgid "Button"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:593
-#: modules/card/widgets/card.php:276
+#: modules/card/widgets/card.php:277
 #: modules/dual-button/widgets/dual-button.php:210
 #: modules/dual-button/widgets/dual-button.php:334
 #: modules/info-box/widgets/info-box.php:273
@@ -4139,14 +4139,14 @@ msgid "Button Text"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:595
-#: modules/card/widgets/card.php:278
+#: modules/card/widgets/card.php:279
 #: modules/info-box/widgets/info-box.php:275
 #: modules/team-member/widgets/team-member.php:552
 msgid "Click here"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:611
-#: modules/card/widgets/card.php:332
+#: modules/card/widgets/card.php:333
 #: modules/content-switcher/widgets/content-switcher.php:164
 #: modules/dual-button/widgets/dual-button.php:270
 #: modules/dual-button/widgets/dual-button.php:394
@@ -4163,7 +4163,7 @@ msgid "Icon Position"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:636
-#: modules/card/widgets/card.php:357
+#: modules/card/widgets/card.php:358
 #: modules/content-switcher/widgets/content-switcher.php:278
 #: modules/dual-button/widgets/dual-button.php:300
 #: modules/dual-button/widgets/dual-button.php:419
@@ -4322,7 +4322,7 @@ msgid "Image Opacity"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:1083
-#: modules/card/widgets/card.php:736
+#: modules/card/widgets/card.php:737
 #: modules/info-box/widgets/info-box.php:898
 #: modules/logo-carousel/widgets/logo-carousel.php:624
 #: modules/logo-grid/widgets/logo-grid.php:632
@@ -4338,9 +4338,9 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:1316
 #: modules/advanced-slider/widgets/advanced-slider.php:1790
 #: modules/advanced-slider/widgets/advanced-slider.php:2228
-#: modules/card/widgets/card.php:953
-#: modules/card/widgets/card.php:1060
-#: modules/card/widgets/card.php:1167
+#: modules/card/widgets/card.php:954
+#: modules/card/widgets/card.php:1061
+#: modules/card/widgets/card.php:1168
 #: modules/info-box/widgets/info-box.php:926
 #: modules/info-box/widgets/info-box.php:1033
 #: modules/list-group/widgets/list-group.php:655
@@ -4369,15 +4369,15 @@ msgstr ""
 #: modules/animated-heading/widgets/animated-heading.php:321
 #: modules/animated-heading/widgets/animated-heading.php:396
 #: modules/animated-heading/widgets/animated-heading.php:444
-#: modules/card/widgets/card.php:888
-#: modules/card/widgets/card.php:994
-#: modules/card/widgets/card.php:1023
-#: modules/card/widgets/card.php:1101
-#: modules/card/widgets/card.php:1130
-#: modules/card/widgets/card.php:1208
-#: modules/card/widgets/card.php:1228
-#: modules/card/widgets/card.php:1307
-#: modules/card/widgets/card.php:1355
+#: modules/card/widgets/card.php:889
+#: modules/card/widgets/card.php:995
+#: modules/card/widgets/card.php:1024
+#: modules/card/widgets/card.php:1102
+#: modules/card/widgets/card.php:1131
+#: modules/card/widgets/card.php:1209
+#: modules/card/widgets/card.php:1229
+#: modules/card/widgets/card.php:1308
+#: modules/card/widgets/card.php:1356
 #: modules/cf7/widgets/cf7.php:229
 #: modules/cf7/widgets/cf7.php:377
 #: modules/cf7/widgets/cf7.php:478
@@ -4411,7 +4411,7 @@ msgstr ""
 #: modules/info-box/widgets/info-box.php:1152
 #: modules/info-box/widgets/info-box.php:1221
 #: modules/list-group/widgets/list-group.php:194
-#: modules/luster-grid/widgets/luster-grid.php:478
+#: modules/luster-grid/widgets/luster-grid.php:477
 #: modules/momentum-slider/widgets/momentum-slider.php:345
 #: modules/momentum-slider/widgets/momentum-slider.php:448
 #: modules/momentum-slider/widgets/momentum-slider.php:517
@@ -4486,7 +4486,7 @@ msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:1567
 #: modules/animated-heading/widgets/animated-heading.php:283
-#: modules/card/widgets/card.php:1420
+#: modules/card/widgets/card.php:1421
 #: modules/info-box/widgets/info-box.php:1286
 #: modules/logo-carousel/widgets/logo-carousel.php:354
 #: modules/logo-grid/widgets/logo-grid.php:250
@@ -4584,8 +4584,8 @@ msgstr ""
 
 #: modules/animated-gradient-bg/module.php:171
 #: modules/backdrop-filter/module.php:205
-#: modules/card/widgets/card.php:658
-#: modules/card/widgets/card.php:693
+#: modules/card/widgets/card.php:659
+#: modules/card/widgets/card.php:694
 #: modules/info-box/widgets/info-box.php:771
 #: modules/info-box/widgets/info-box.php:851
 #: modules/logo-carousel/widgets/logo-carousel.php:527
@@ -4818,7 +4818,7 @@ msgid "Type your sub title here"
 msgstr ""
 
 #: modules/card/widgets/card.php:179
-#: modules/card/widgets/card.php:1156
+#: modules/card/widgets/card.php:1157
 #: modules/fluent-form/widgets/fluent-form.php:688
 #: modules/gravity-forms/widgets/gravity-forms.php:740
 #: modules/info-box/widgets/info-box.php:224
@@ -4846,33 +4846,33 @@ msgid "Badge Text"
 msgstr ""
 
 #: modules/card/widgets/card.php:204
-#: modules/card/widgets/card.php:750
+#: modules/card/widgets/card.php:751
 #: modules/step-flow/widgets/step-flow.php:719
 msgid "Badge"
 msgstr ""
 
-#: modules/card/widgets/card.php:215
+#: modules/card/widgets/card.php:216
 #: modules/step-flow/widgets/step-flow.php:145
 msgid "Badge Position"
 msgstr ""
 
-#: modules/card/widgets/card.php:253
+#: modules/card/widgets/card.php:254
 #: modules/info-box/widgets/info-box.php:250
 #: modules/team-member/widgets/team-member.php:298
 msgid "Show Button"
 msgstr ""
 
-#: modules/card/widgets/card.php:286
+#: modules/card/widgets/card.php:287
 #: modules/info-box/widgets/info-box.php:283
 #: modules/team-member/widgets/team-member.php:575
 msgid "Full Width"
 msgstr ""
 
-#: modules/card/widgets/card.php:389
+#: modules/card/widgets/card.php:390
 msgid "Card Alignment"
 msgstr ""
 
-#: modules/card/widgets/card.php:418
+#: modules/card/widgets/card.php:419
 #: modules/generic-carousel/widgets/generic-carousel.php:364
 #: modules/generic-grid/widgets/generic-grid.php:354
 #: modules/glory-slider/widgets/glory-slider.php:696
@@ -4883,12 +4883,12 @@ msgstr ""
 msgid "Content Padding"
 msgstr ""
 
-#: modules/card/widgets/card.php:430
+#: modules/card/widgets/card.php:431
 msgid "Overflow Hidden?"
 msgstr ""
 
-#: modules/card/widgets/card.php:501
-#: modules/card/widgets/card.php:771
+#: modules/card/widgets/card.php:502
+#: modules/card/widgets/card.php:772
 #: modules/info-box/widgets/info-box.php:556
 #: modules/reading-progress/widgets/reading-progress.php:200
 #: modules/review/widgets/review.php:399
@@ -4898,8 +4898,8 @@ msgstr ""
 msgid "Horizontal Offset"
 msgstr ""
 
-#: modules/card/widgets/card.php:532
-#: modules/card/widgets/card.php:802
+#: modules/card/widgets/card.php:533
+#: modules/card/widgets/card.php:803
 #: modules/info-box/widgets/info-box.php:587
 #: modules/reading-progress/widgets/reading-progress.php:230
 #: modules/review/widgets/review.php:430
@@ -4909,15 +4909,15 @@ msgstr ""
 msgid "Vertical Offset"
 msgstr ""
 
-#: modules/card/widgets/card.php:639
+#: modules/card/widgets/card.php:640
 msgid "Object-Fit Contain?"
 msgstr ""
 
-#: modules/card/widgets/card.php:640
+#: modules/card/widgets/card.php:641
 msgid "Default Cover"
 msgstr ""
 
-#: modules/card/widgets/card.php:719
+#: modules/card/widgets/card.php:720
 #: modules/custom-clip-path/module.php:121
 #: modules/info-box/widgets/info-box.php:881
 #: modules/logo-carousel/widgets/logo-carousel.php:607
@@ -4928,11 +4928,11 @@ msgstr ""
 msgid "Transition Duration (s)"
 msgstr ""
 
-#: modules/card/widgets/card.php:1428
+#: modules/card/widgets/card.php:1429
 msgid "Color Change on Card Hover?"
 msgstr ""
 
-#: modules/card/widgets/card.php:1430
+#: modules/card/widgets/card.php:1431
 msgid "If you enable this setting, you will able to change the Button color on hover Card. It's only for extend design. "
 msgstr ""
 
@@ -5332,7 +5332,7 @@ msgstr ""
 
 #: modules/fellow-slider/widgets/fellow-slider.php:84
 #: modules/generic-grid/widgets/generic-grid.php:114
-#: modules/luster-grid/widgets/luster-grid.php:90
+#: modules/luster-grid/widgets/luster-grid.php:89
 #: modules/mate-list/widgets/mate-list.php:137
 #: modules/mate-slider/widgets/mate-slider.php:99
 #: modules/naive-list/widgets/naive-list.php:129
@@ -5346,7 +5346,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:149
 #: modules/generic-grid/widgets/generic-grid.php:178
 #: modules/luster-carousel/widgets/luster-carousel.php:144
-#: modules/luster-grid/widgets/luster-grid.php:152
+#: modules/luster-grid/widgets/luster-grid.php:151
 #: modules/mate-carousel/widgets/mate-carousel.php:177
 #: modules/mate-list/widgets/mate-list.php:218
 #: modules/mate-slider/widgets/mate-slider.php:197
@@ -5365,7 +5365,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:198
 #: modules/generic-grid/widgets/generic-grid.php:227
 #: modules/luster-carousel/widgets/luster-carousel.php:193
-#: modules/luster-grid/widgets/luster-grid.php:201
+#: modules/luster-grid/widgets/luster-grid.php:200
 #: modules/mate-carousel/widgets/mate-carousel.php:226
 #: modules/mate-list/widgets/mate-list.php:267
 #: modules/mate-slider/widgets/mate-slider.php:247
@@ -5383,7 +5383,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:207
 #: modules/generic-grid/widgets/generic-grid.php:236
 #: modules/luster-carousel/widgets/luster-carousel.php:202
-#: modules/luster-grid/widgets/luster-grid.php:210
+#: modules/luster-grid/widgets/luster-grid.php:209
 #: modules/mate-carousel/widgets/mate-carousel.php:235
 #: modules/mate-list/widgets/mate-list.php:276
 #: modules/mate-slider/widgets/mate-slider.php:256
@@ -5400,7 +5400,7 @@ msgstr ""
 
 #: modules/fellow-slider/widgets/fellow-slider.php:214
 #: modules/luster-carousel/widgets/luster-carousel.php:211
-#: modules/luster-grid/widgets/luster-grid.php:219
+#: modules/luster-grid/widgets/luster-grid.php:218
 #: modules/mate-carousel/widgets/mate-carousel.php:244
 #: modules/mate-list/widgets/mate-list.php:285
 #: modules/mate-slider/widgets/mate-slider.php:265
@@ -5419,7 +5419,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:226
 #: modules/generic-grid/widgets/generic-grid.php:255
 #: modules/luster-carousel/widgets/luster-carousel.php:229
-#: modules/luster-grid/widgets/luster-grid.php:237
+#: modules/luster-grid/widgets/luster-grid.php:236
 #: modules/mate-carousel/widgets/mate-carousel.php:263
 #: modules/mate-list/widgets/mate-list.php:304
 #: modules/mate-slider/widgets/mate-slider.php:284
@@ -5438,7 +5438,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:227
 #: modules/generic-grid/widgets/generic-grid.php:256
 #: modules/luster-carousel/widgets/luster-carousel.php:230
-#: modules/luster-grid/widgets/luster-grid.php:238
+#: modules/luster-grid/widgets/luster-grid.php:237
 #: modules/mate-carousel/widgets/mate-carousel.php:264
 #: modules/mate-list/widgets/mate-list.php:305
 #: modules/mate-slider/widgets/mate-slider.php:285
@@ -5457,7 +5457,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:239
 #: modules/generic-grid/widgets/generic-grid.php:268
 #: modules/luster-carousel/widgets/luster-carousel.php:242
-#: modules/luster-grid/widgets/luster-grid.php:250
+#: modules/luster-grid/widgets/luster-grid.php:249
 #: modules/mate-carousel/widgets/mate-carousel.php:276
 #: modules/mate-list/widgets/mate-list.php:317
 #: modules/mate-slider/widgets/mate-slider.php:297
@@ -5476,7 +5476,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:255
 #: modules/generic-grid/widgets/generic-grid.php:284
 #: modules/luster-carousel/widgets/luster-carousel.php:258
-#: modules/luster-grid/widgets/luster-grid.php:266
+#: modules/luster-grid/widgets/luster-grid.php:265
 #: modules/mate-carousel/widgets/mate-carousel.php:292
 #: modules/mate-list/widgets/mate-list.php:333
 #: modules/mate-slider/widgets/mate-slider.php:313
@@ -5495,7 +5495,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:267
 #: modules/generic-grid/widgets/generic-grid.php:296
 #: modules/luster-carousel/widgets/luster-carousel.php:270
-#: modules/luster-grid/widgets/luster-grid.php:278
+#: modules/luster-grid/widgets/luster-grid.php:277
 #: modules/mate-carousel/widgets/mate-carousel.php:304
 #: modules/mate-list/widgets/mate-list.php:345
 #: modules/mate-slider/widgets/mate-slider.php:325
@@ -5549,7 +5549,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:279
 #: modules/generic-grid/widgets/generic-grid.php:317
 #: modules/luster-carousel/widgets/luster-carousel.php:282
-#: modules/luster-grid/widgets/luster-grid.php:299
+#: modules/luster-grid/widgets/luster-grid.php:298
 #: modules/mate-carousel/widgets/mate-carousel.php:316
 #: modules/mate-list/widgets/mate-list.php:366
 #: modules/mate-slider/widgets/mate-slider.php:587
@@ -5574,7 +5574,7 @@ msgstr ""
 
 #: modules/fellow-slider/widgets/fellow-slider.php:783
 #: modules/fellow-slider/widgets/fellow-slider.php:850
-#: modules/luster-grid/widgets/luster-grid.php:489
+#: modules/luster-grid/widgets/luster-grid.php:488
 #: modules/stellar-slider/widgets/stellar-slider.php:846
 #: traits/global-widget-controls.php:70
 msgid "Text Color Hover"
@@ -5591,7 +5591,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:646
 #: modules/generic-grid/widgets/generic-grid.php:636
 #: modules/luster-carousel/widgets/luster-carousel.php:583
-#: modules/luster-grid/widgets/luster-grid.php:583
+#: modules/luster-grid/widgets/luster-grid.php:582
 #: modules/mate-carousel/widgets/mate-carousel.php:648
 #: modules/mate-list/widgets/mate-list.php:657
 #: modules/mate-slider/widgets/mate-slider.php:657
@@ -5610,7 +5610,7 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:701
 #: modules/generic-grid/widgets/generic-grid.php:691
 #: modules/luster-carousel/widgets/luster-carousel.php:638
-#: modules/luster-grid/widgets/luster-grid.php:638
+#: modules/luster-grid/widgets/luster-grid.php:637
 #: modules/mate-carousel/widgets/mate-carousel.php:703
 #: modules/mate-list/widgets/mate-list.php:712
 #: modules/mate-slider/widgets/mate-slider.php:712
@@ -5646,7 +5646,7 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:867
 #: modules/glory-slider/widgets/glory-slider.php:846
 #: modules/luster-carousel/widgets/luster-carousel.php:703
-#: modules/luster-grid/widgets/luster-grid.php:709
+#: modules/luster-grid/widgets/luster-grid.php:708
 #: modules/mate-carousel/widgets/mate-carousel.php:928
 #: modules/mate-list/widgets/mate-list.php:942
 #: modules/mate-slider/widgets/mate-slider.php:1135
@@ -6099,7 +6099,7 @@ msgid "Month"
 msgstr ""
 
 #: modules/generic-grid/widgets/generic-grid.php:96
-#: modules/luster-grid/widgets/luster-grid.php:72
+#: modules/luster-grid/widgets/luster-grid.php:71
 #: modules/mate-list/widgets/mate-list.php:119
 #: modules/naive-list/widgets/naive-list.php:111
 #: modules/sapling-grid/widgets/sapling-grid.php:95
@@ -6990,22 +6990,22 @@ msgid "Border Size"
 msgstr ""
 
 #: modules/luster-carousel/widgets/luster-carousel.php:438
-#: modules/luster-grid/widgets/luster-grid.php:389
+#: modules/luster-grid/widgets/luster-grid.php:388
 #: modules/ultra-carousel/widgets/ultra-carousel.php:526
 #: modules/ultra-grid/widgets/ultra-grid.php:495
 msgid "Image Overlay"
 msgstr ""
 
 #: modules/luster-carousel/widgets/luster-carousel.php:530
-#: modules/luster-grid/widgets/luster-grid.php:530
+#: modules/luster-grid/widgets/luster-grid.php:529
 msgid "Bar Size"
 msgstr ""
 
-#: modules/luster-grid/widgets/luster-grid.php:501
+#: modules/luster-grid/widgets/luster-grid.php:500
 msgid "Primary Typography"
 msgstr ""
 
-#: modules/luster-grid/widgets/luster-grid.php:510
+#: modules/luster-grid/widgets/luster-grid.php:509
 msgid "Secondary Typography"
 msgstr ""
 

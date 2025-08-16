@@ -207,7 +207,7 @@ class PDF_Viewer extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -664,7 +664,7 @@ class PDF_Viewer extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$id = 'sa-pdf-viewer' . $this->get_id();
-		$pdf_url = ( $settings['source_type'] == 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) ) ? $settings['hosted_url']['url'] : ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) ) ? $settings['remote_url']['url'] : false );
+		$pdf_url = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) ) ? $settings['hosted_url']['url'] : ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) ) ? $settings['remote_url']['url'] : false );
 
 		if ( $pdf_url === false ) {
 			$this->empty_alert();
@@ -689,10 +689,10 @@ class PDF_Viewer extends Widget_Base {
 		] );
 		?>
 		<div <?php $this->print_render_attribute_string( 'pdf-viewer' ); ?>>
-			<?php if ( 'yes' == $settings['show_title'] || 'yes' == $settings['show_button'] ) : ?>
+			<?php if ( 'yes' === $settings['show_title'] || 'yes' === $settings['show_button'] ) : ?>
 				<div class="sa-content sa-d-flex sa-justify-content-between sa-my-2 sa-align-items-center">
 					<?php
-					if ( 'yes' == $settings['show_title'] && ! empty( $settings['title'] ) ) {
+					if ( 'yes' === $settings['show_title'] && ! empty( $settings['title'] ) ) {
 						$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-5' );
 						$this->add_inline_editing_attributes( 'title', 'none' );
 
@@ -706,7 +706,7 @@ class PDF_Viewer extends Widget_Base {
 					?>
 					<div>
 						<?php
-						if ( $settings['show_button'] == 'yes' ) :
+						if ( $settings['show_button'] === 'yes' ) :
 
 							$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-button-primary sa-d-inline-flex sa-align-items-center sa-text-decoration-none sa-p-3 sa-rounded' );
 
@@ -723,7 +723,7 @@ class PDF_Viewer extends Widget_Base {
 							?>
 							<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 								<?php
-								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 									echo '<span class="sa-icon-wrap sa-button-icon">';
 									Icons_Manager::render_icon( $settings['button_icon'], [
 										'aria-hidden' => 'true',
@@ -743,7 +743,7 @@ class PDF_Viewer extends Widget_Base {
 									);
 
 								endif;
-								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 									echo '<span class="sa-icon-wrap sa-button-icon">';
 									Icons_Manager::render_icon( $settings['button_icon'], [
 										'aria-hidden' => 'true',

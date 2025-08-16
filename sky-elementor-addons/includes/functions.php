@@ -45,13 +45,13 @@ function sky_addons_dashboard_link( $suffix = '' ) {
 	return add_query_arg( [ 'page' => 'sky-elementor-addons' . $suffix ], admin_url( 'admin.php' ) );
 }
 
-function sa_elementor() {
+function sky_addons_elementor() {
 	return \Elementor\Plugin::instance();
 }
 
 
-if ( ! function_exists( 'sky_title_tags' ) ) {
-	function sky_title_tags() {
+if ( ! function_exists( 'sky_addons_title_tags' ) ) {
+	function sky_addons_title_tags() {
 
 		$title_tags = [
 			'h1'   => 'H1',
@@ -73,8 +73,8 @@ if ( ! function_exists( 'sky_title_tags' ) ) {
  * Check you are in Editor
  */
 
-if ( ! function_exists( 'sky_editor_mode' ) ) {
-	function sky_editor_mode() {
+if ( ! function_exists( 'sky_addons_editor_mode' ) ) {
+	function sky_addons_editor_mode() {
 		if ( Sky_Addons_Plugin::elementor()->preview->is_preview_mode() || Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
 			return true;
 		}
@@ -88,8 +88,8 @@ if ( ! function_exists( 'sky_editor_mode' ) ) {
  * @since 1.0.0
  * @return void
  */
-if ( ! function_exists( 'sky_template_modify_link' ) ) {
-	function sky_template_modify_link( $template_id ) {
+if ( ! function_exists( 'sky_addons_template_modify_link' ) ) {
+	function sky_addons_template_modify_link( $template_id ) {
 		if ( Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
 
 			$final_url = add_query_arg( [ 'elementor' => '' ], get_permalink( $template_id ) );
@@ -104,8 +104,8 @@ if ( ! function_exists( 'sky_template_modify_link' ) ) {
 /**
  * @return array of elementor template
  */
-if ( ! function_exists( 'sky_elementor_template_settings' ) ) {
-	function sky_elementor_template_settings() {
+if ( ! function_exists( 'sky_addons_elementor_template_settings' ) ) {
+	function sky_addons_elementor_template_settings() {
 
 		$templates = Sky_Addons_Plugin::elementor()->templates_manager->get_source( 'local' )->get_items();
 		$types = [];
@@ -128,15 +128,15 @@ if ( ! function_exists( 'sky_elementor_template_settings' ) ) {
 /**
  * @return array of anywhere templates
  */
-if ( ! function_exists( 'sky_anywhere_template_settings' ) ) {
-	function sky_anywhere_template_settings() {
+if ( ! function_exists( 'sky_addons_anywhere_template_settings' ) ) {
+	function sky_addons_anywhere_template_settings() {
 
 		if ( post_type_exists( 'ae_global_templates' ) ) {
-			$anywhere = get_posts( array(
+			$anywhere = get_posts( [
 				'fields'         => 'ids', // Only get post IDs
 				'posts_per_page' => -1,
 				'post_type'      => 'ae_global_templates',
-			) );
+			] );
 
 			$anywhere_settings = [ '0' => esc_html__( 'Select Template', 'sky-elementor-addons' ) ];
 
@@ -150,8 +150,8 @@ if ( ! function_exists( 'sky_anywhere_template_settings' ) ) {
 		return $anywhere_settings;
 	}
 }
-if ( ! function_exists( 'sky_get_post_category' ) ) {
-	function sky_get_post_category( $post_type ) {
+if ( ! function_exists( 'sky_addons_get_post_category' ) ) {
+	function sky_addons_get_post_category( $post_type ) {
 		switch ( $post_type ) {
 			case 'campaign':
 				$taxonomy = 'campaign_category';
@@ -189,10 +189,10 @@ if ( ! function_exists( 'sky_get_post_category' ) ) {
 	}
 }
 
-if ( ! function_exists( 'sky_post_time_ago_kit' ) ) {
-	function sky_post_time_ago_kit( $from, $to = '' ) {
+if ( ! function_exists( 'sky_addons_post_time_ago_kit' ) ) {
+	function sky_addons_post_time_ago_kit( $from, $to = '' ) {
 		$diff = human_time_diff( $from, $to );
-		$replace = array(
+		$replace = [
 			' hour'    => 'h',
 			' hours'   => 'h',
 			' day'     => 'd',
@@ -201,18 +201,18 @@ if ( ! function_exists( 'sky_post_time_ago_kit' ) ) {
 			' minutes' => 'm',
 			' second'  => 's',
 			' seconds' => 's',
-		);
+		];
 
 		return strtr( $diff, $replace );
 	}
 }
 
-if ( ! function_exists( 'sky_post_time_ago' ) ) {
-	function sky_post_time_ago( $format = '' ) {
+if ( ! function_exists( 'sky_addons_post_time_ago' ) ) {
+	function sky_addons_post_time_ago( $format = '' ) {
 		$display_ago = esc_html__( 'ago', 'sky-elementor-addons' );
 
 		if ( 'short' === $format ) {
-			$output = sky_post_time_ago_kit( strtotime( get_the_date() ), current_time( 'timestamp' ) );
+			$output = sky_addons_post_time_ago_kit( strtotime( get_the_date() ), current_time( 'timestamp' ) );
 		} else {
 			$output = human_time_diff( strtotime( get_the_date() ), current_time( 'timestamp' ) );
 		}
@@ -222,8 +222,8 @@ if ( ! function_exists( 'sky_post_time_ago' ) ) {
 		return $output;
 	}
 }
-if ( ! function_exists( 'sky_post_custom_excerpt' ) ) {
-	function sky_post_custom_excerpt( $limit = 25, $strip_shortcode = false, $trail = '' ) {
+if ( ! function_exists( 'sky_addons_post_custom_excerpt' ) ) {
+	function sky_addons_post_custom_excerpt( $limit = 25, $strip_shortcode = false, $trail = '' ) {
 
 		$output = get_the_content();
 
@@ -239,8 +239,8 @@ if ( ! function_exists( 'sky_post_custom_excerpt' ) ) {
 	}
 }
 
-if ( ! function_exists( 'sky_post_user_role' ) ) {
-	function sky_post_user_role( $id ) {
+if ( ! function_exists( 'sky_addons_post_user_role' ) ) {
+	function sky_addons_post_user_role( $id ) {
 
 		$user = new WP_User( $id );
 
@@ -248,8 +248,8 @@ if ( ! function_exists( 'sky_post_user_role' ) ) {
 	}
 }
 
-if ( ! function_exists( 'sky_post_pagination' ) ) {
-	function sky_post_pagination( $wp_query, $widget_id = '' ) {
+if ( ! function_exists( 'sky_addons_post_pagination' ) ) {
+	function sky_addons_post_pagination( $wp_query, $widget_id = '' ) {
 
 		/**
 		 * Check if Page only 1
@@ -304,7 +304,7 @@ if ( ! function_exists( 'sky_post_pagination' ) ) {
 		}
 
 		if ( ! in_array( 1, $links ) ) {
-			$class = ( 1 == $paged ) ? 'current' : 'sa';
+			$class = ( 1 === $paged ) ? 'current' : 'sa';
 
 			printf(
 				'<li class="%s"><a class="sa-post-page-link sa-d-block" href="%s">%s</a></li>' . "\n",
@@ -320,7 +320,7 @@ if ( ! function_exists( 'sky_post_pagination' ) ) {
 
 		sort( $links );
 		foreach ( (array) $links as $link ) {
-			$class = ( $paged == $link ) ? 'sa-post-page-active' : 'sa';
+			$class = ( $paged === $link ) ? 'sa-post-page-active' : 'sa';
 			printf(
 				'<li class="%s"><a class="sa-post-page-link sa-d-block" href="%s">%s</a></li>' . "\n",
 				esc_attr( $class ),
@@ -334,7 +334,7 @@ if ( ! function_exists( 'sky_post_pagination' ) ) {
 				printf( '<li class="sa-post-page-dot-dot"><span>...</span></li>' . "\n" );
 			}
 
-			$class = ( $paged == $max ) ? 'sa-post-page-active' : 'sa';
+			$class = ( $paged === $max ) ? 'sa-post-page-active' : 'sa';
 			printf(
 				'<li class="%s"><a class="sa-post-page-link sa-d-block" href="%s">%s</a></li>' . "\n",
 				esc_attr( $class ),
@@ -362,8 +362,8 @@ if ( ! function_exists( 'sky_post_pagination' ) ) {
 /**
  * @return array
  */
-if ( ! function_exists( 'sa_wp_get_menu' ) ) {
-	function sa_wp_get_menu() {
+if ( ! function_exists( 'sky_addons_wp_get_menu' ) ) {
+	function sky_addons_wp_get_menu() {
 		$menus = wp_get_nav_menus();
 		$items = [ 0 => esc_html__( 'Select Menu', 'sky-elementor-addons' ) ];
 		foreach ( $menus as $menu ) {
@@ -378,8 +378,8 @@ if ( ! function_exists( 'sa_wp_get_menu' ) ) {
  *
  * @param int $template_id The ID of the Elementor template.
  */
-if ( ! function_exists( 'sky_display_el_tem_by_id' ) ) {
-	function sky_display_el_tem_by_id( int $template_id ) {
+if ( ! function_exists( 'sky_addons_display_el_tem_by_id' ) ) {
+	function sky_addons_display_el_tem_by_id( int $template_id ) {
 		$posts = get_posts( [
 			'post_type'   => 'elementor_library',
 			'post_status' => 'publish',
@@ -426,8 +426,8 @@ if ( ! function_exists( 'wowdevs_render_elementor_content' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_cf7_activated' ) ) {
-	function sky_is_cf7_activated() {
+if ( ! function_exists( 'sky_addons_is_cf7_activated' ) ) {
+	function sky_addons_is_cf7_activated() {
 		return class_exists( '\WPCF7' );
 	}
 }
@@ -437,8 +437,8 @@ if ( ! function_exists( 'sky_is_cf7_activated' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_ninjaforms_activated' ) ) {
-	function sky_is_ninjaforms_activated() {
+if ( ! function_exists( 'sky_addons_is_ninjaforms_activated' ) ) {
+	function sky_addons_is_ninjaforms_activated() {
 		return class_exists( '\Ninja_Forms' );
 	}
 }
@@ -448,8 +448,8 @@ if ( ! function_exists( 'sky_is_ninjaforms_activated' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_weforms_activated' ) ) {
-	function sky_is_weforms_activated() {
+if ( ! function_exists( 'sky_addons_is_weforms_activated' ) ) {
+	function sky_addons_is_weforms_activated() {
 		return class_exists( '\WeForms' );
 	}
 }
@@ -459,8 +459,8 @@ if ( ! function_exists( 'sky_is_weforms_activated' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_wpforms_activated' ) ) {
-	function sky_is_wpforms_activated() {
+if ( ! function_exists( 'sky_addons_is_wpforms_activated' ) ) {
+	function sky_addons_is_wpforms_activated() {
 		return class_exists( '\WPForms\WPForms' );
 	}
 }
@@ -470,8 +470,8 @@ if ( ! function_exists( 'sky_is_wpforms_activated' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_gravityforms_activated' ) ) {
-	function sky_is_gravityforms_activated() {
+if ( ! function_exists( 'sky_addons_is_gravityforms_activated' ) ) {
+	function sky_addons_is_gravityforms_activated() {
 		return class_exists( '\GFForms' );
 	}
 }
@@ -481,8 +481,8 @@ if ( ! function_exists( 'sky_is_gravityforms_activated' ) ) {
  *
  * @return bool
  */
-if ( ! function_exists( 'sky_is_fluent_form_activated' ) ) {
-	function sky_is_fluent_form_activated() {
+if ( ! function_exists( 'sky_addons_is_fluent_form_activated' ) ) {
+	function sky_addons_is_fluent_form_activated() {
 		return defined( 'FLUENTFORM' );
 	}
 }
@@ -493,11 +493,11 @@ if ( ! function_exists( 'sky_is_fluent_form_activated' ) ) {
  *
  * @return array
  */
-if ( ! function_exists( 'sky_get_cf7_forms' ) ) {
-	function sky_get_cf7_forms() {
+if ( ! function_exists( 'sky_addons_get_cf7_forms' ) ) {
+	function sky_addons_get_cf7_forms() {
 		$forms = [];
 
-		if ( sky_is_cf7_activated() ) {
+		if ( sky_addons_is_cf7_activated() ) {
 			$_forms = get_posts( [
 				'post_type'      => 'wpcf7_contact_form',
 				'post_status'    => 'publish',
@@ -520,11 +520,11 @@ if ( ! function_exists( 'sky_get_cf7_forms' ) ) {
  *
  * @return array
  */
-if ( ! function_exists( 'sky_get_ninjaform' ) ) {
-	function sky_get_ninjaform() {
+if ( ! function_exists( 'sky_addons_get_ninjaform' ) ) {
+	function sky_addons_get_ninjaform() {
 		$forms = [];
 
-		if ( sky_is_ninjaforms_activated() ) {
+		if ( sky_addons_is_ninjaforms_activated() ) {
 			$_forms = \Ninja_Forms()->form()->get_forms();
 
 			if ( ! empty( $_forms ) && ! is_wp_error( $_forms ) ) {
@@ -543,11 +543,11 @@ if ( ! function_exists( 'sky_get_ninjaform' ) ) {
  *
  * @return array
  */
-if ( ! function_exists( 'sky_get_we_forms' ) ) {
-	function sky_get_we_forms() {
+if ( ! function_exists( 'sky_addons_get_we_forms' ) ) {
+	function sky_addons_get_we_forms() {
 		$forms = [];
 
-		if ( sky_is_weforms_activated() ) {
+		if ( sky_addons_is_weforms_activated() ) {
 			$_forms = get_posts( [
 				'post_type'      => 'wpuf_contact_form',
 				'post_status'    => 'publish',
@@ -570,11 +570,11 @@ if ( ! function_exists( 'sky_get_we_forms' ) ) {
  *
  * @return array
  */
-if ( ! function_exists( 'sky_get_wpforms' ) ) {
-	function sky_get_wpforms() {
+if ( ! function_exists( 'sky_addons_get_wpforms' ) ) {
+	function sky_addons_get_wpforms() {
 		$forms = [];
 
-		if ( sky_is_wpforms_activated() ) {
+		if ( sky_addons_is_wpforms_activated() ) {
 			$_forms = get_posts( [
 				'post_type'      => 'wpforms',
 				'post_status'    => 'publish',
@@ -598,20 +598,22 @@ if ( ! function_exists( 'sky_get_wpforms' ) ) {
  *
  * @return array
  */
-function sky_get_gravity_forms() {
-	$forms = [];
+if ( ! function_exists( 'sky_addons_get_gravity_forms' ) ) {
+	function sky_addons_get_gravity_forms() {
+		$forms = [];
 
-	if ( sky_is_gravityforms_activated() ) {
-		$gravity_forms = \RGFormsModel::get_forms( null, 'title' );
+		if ( sky_addons_is_gravityforms_activated() ) {
+			$gravity_forms = \RGFormsModel::get_forms( null, 'title' );
 
-		if ( ! empty( $gravity_forms ) && ! is_wp_error( $gravity_forms ) ) {
-			foreach ( $gravity_forms as $gravity_form ) {
-				$forms[ $gravity_form->id ] = $gravity_form->title;
+			if ( ! empty( $gravity_forms ) && ! is_wp_error( $gravity_forms ) ) {
+				foreach ( $gravity_forms as $gravity_form ) {
+					$forms[ $gravity_form->id ] = $gravity_form->title;
+				}
 			}
 		}
-	}
 
-	return $forms;
+		return $forms;
+	}
 }
 
 /*
@@ -619,32 +621,34 @@ function sky_get_gravity_forms() {
  *
  * @return array
  */
-function sky_get_fluent_forms() {
-	$forms = [];
+if ( ! function_exists( 'sky_addons_fluent_forms' ) ) {
+	function sky_addons_fluent_forms() {
+		$forms = [];
 
-	if ( sky_is_fluent_form_activated() ) {
-		global $wpdb;
+		if ( sky_addons_is_fluent_form_activated() ) {
+			global $wpdb;
 
-		$table = $wpdb->prefix . 'fluentform_forms';
-		$query = "SELECT * FROM {$table}";
-		$fluent_forms = $wpdb->get_results( $query );
+			$table = $wpdb->prefix . 'fluentform_forms';
+			$query = "SELECT * FROM {$table}";
+			$fluent_forms = $wpdb->get_results( $query );
 
-		if ( $fluent_forms ) {
-			foreach ( $fluent_forms as $form ) {
-				$forms[ $form->id ] = $form->title;
+			if ( $fluent_forms ) {
+				foreach ( $fluent_forms as $form ) {
+					$forms[ $form->id ] = $form->title;
+				}
 			}
 		}
-	}
 
-	return $forms;
+		return $forms;
+	}
 }
 
 
 /**
  * @return mixed
  */
-if ( ! function_exists( 'sky_get_current_user_display_name' ) ) {
-	function sky_get_current_user_display_name() {
+if ( ! function_exists( 'sky_addons_get_current_user_display_name' ) ) {
+	function sky_addons_get_current_user_display_name() {
 		$user = wp_get_current_user();
 		$name = 'user';
 		if ( $user->exists() && $user->display_name ) {
@@ -666,8 +670,8 @@ if ( ! function_exists( 'sky_get_current_user_display_name' ) ) {
  * @return string|bool False on failure, the result of the shortcode on success.
  */
 
-if ( ! function_exists( 'sky_do_shortcode' ) ) {
-	function sky_do_shortcode( $tag, array $atts = [], $content = null ) {
+if ( ! function_exists( 'sky_addons_do_shortcode' ) ) {
+	function sky_addons_do_shortcode( $tag, array $atts = [], $content = null ) {
 		global $shortcode_tags;
 		if ( ! isset( $shortcode_tags[ $tag ] ) ) {
 			return false;
@@ -682,8 +686,8 @@ if ( ! function_exists( 'sky_do_shortcode' ) ) {
  * @param string $plugin
  * @return void
  */
-if ( ! function_exists( 'sky_show_plugin_missing_alert' ) ) {
-	function sky_show_plugin_missing_alert( $plugin ) {
+if ( ! function_exists( 'sky_addons_show_plugin_missing_alert' ) ) {
+	function sky_addons_show_plugin_missing_alert( $plugin ) {
 		if ( current_user_can( 'activate_plugins' ) && $plugin ) {
 			printf(
 				'<div %s>%s</div>',
@@ -695,12 +699,30 @@ if ( ! function_exists( 'sky_show_plugin_missing_alert' ) ) {
 }
 
 /**
+ * Get alert notice
+ *
+ * @param string $content
+ * @return void
+ */
+
+if ( ! function_exists( 'sky_addons_alert_notice' ) ) {
+	function sky_addons_alert_notice( $content ) {
+      // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			printf(
+				'<div %s>%s</div>',
+				'style="margin: 1rem;padding: 1rem 1.25rem;border-left: 5px solid #f5c848;color: #856404;background-color: #fff3cd;"',
+				esc_html( $content )
+			);
+	}
+}
+
+/**
  * Sanitize html class string
  *
  * @param $class
  * @return string
  */
-function sky_sanitize_html_class_param( $class ) {
+function sky_addons_sanitize_html_class_param( $class ) {
 	$classes   = ! empty( $class ) ? explode( ' ', $class ) : [];
 	$sanitized = [];
 	if ( ! empty( $classes ) ) {

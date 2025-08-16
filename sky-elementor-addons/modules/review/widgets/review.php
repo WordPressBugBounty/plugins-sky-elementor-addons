@@ -164,7 +164,7 @@ class Review extends Widget_Base {
 				'label'   => esc_html__( 'Name HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -199,7 +199,7 @@ class Review extends Widget_Base {
 				'label'     => esc_html__( 'Designation HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h6',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_designation' => 'yes',
 				],
@@ -1152,7 +1152,7 @@ class Review extends Widget_Base {
 
 			<div class="sa-review-body">
 				<?php
-				if ( $settings['review_position'] == 'before' ) :
+				if ( $settings['review_position'] === 'before' ) :
 					if ( ! empty( $settings['review'] ) ) : ?>
 						<div class="sa-review-desc sa-mt-4">
 							<?php echo wp_kses_post( $settings['review'] ); ?>
@@ -1173,7 +1173,7 @@ class Review extends Widget_Base {
 						);
 					}
 
-					if ( $settings['show_designation'] == 'yes' && ! empty( $settings['designation'] ) ) {
+					if ( $settings['show_designation'] === 'yes' && ! empty( $settings['designation'] ) ) {
 						printf(
 							'<%1$s class="%2$s">%3$s</%1$s>',
 							esc_attr( Utils::validate_html_tag( $settings['designation_tag'] ) ),
@@ -1189,7 +1189,7 @@ class Review extends Widget_Base {
 
 				<?php
 
-				if ( $settings['review_position'] == 'after' ) :
+				if ( $settings['review_position'] === 'after' ) :
 					if ( ! empty( $settings['review'] ) ) :
 						?>
 						<div class="sa-review-desc sa-mt-4">

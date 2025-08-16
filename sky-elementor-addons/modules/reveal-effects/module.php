@@ -61,7 +61,7 @@ class Module extends Module_Base {
 				]
 			);
 
-			$sa_reveal_fx_selector = ( sky_addons_init_pro() == true || sky_editor_mode() == true ) ? true : false;
+			$sa_reveal_fx_selector = ( sky_addons_init_pro() === true || sky_addons_editor_mode() === true ) ? true : false;
 
 			$widget->add_control(
 				'sa_reveal_fx_selector',
@@ -166,7 +166,7 @@ class Module extends Module_Base {
 				]
 			);
 
-			$sa_reveal_fx_easing_value = ( sky_addons_init_pro() == true || sky_editor_mode() == true ) ? true : false;
+			$sa_reveal_fx_easing_value = ( sky_addons_init_pro() === true || sky_addons_editor_mode() === true ) ? true : false;
 
 			$widget->add_control(
 				'sa_reveal_fx_easing',
@@ -269,7 +269,7 @@ class Module extends Module_Base {
 
 	public function widget_reveal_fx_before_render( $widget ) {
 			$settings = $widget->get_settings_for_display();
-		if ( $settings['sa_reveal_fx_enable'] == 'yes' ) {
+		if ( $settings['sa_reveal_fx_enable'] === 'yes' ) {
 				wp_enqueue_script( 'anime' );
 				wp_enqueue_script( 'revealFx' );
 		}

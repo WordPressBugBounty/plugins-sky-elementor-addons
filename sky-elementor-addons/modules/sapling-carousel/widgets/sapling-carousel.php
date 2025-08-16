@@ -207,7 +207,7 @@ class Sapling_Carousel extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -913,7 +913,7 @@ class Sapling_Carousel extends Widget_Base {
 		}
 		?>
 		<div class="sa-post-date-wrapper sa-d-flex sa-align-items-center">
-			<?php if ( 'yes' == $settings['show_author'] ) : ?>
+			<?php if ( 'yes' === $settings['show_author'] ) : ?>
 				<div class="sa-icon-wrap sa-me-1">
 					<i class="eicon-calendar"></i>
 				</div>
@@ -941,7 +941,7 @@ class Sapling_Carousel extends Widget_Base {
 					] );
 
 					$title_class = 'sa-mb-4';
-					if ( 'yes' == $settings['title_truncate'] ) {
+					if ( 'yes' === $settings['title_truncate'] ) {
 						$title_class = 'sa-text-truncate sa-w-100 sa-mb-4';
 					}
 

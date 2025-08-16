@@ -59,7 +59,7 @@ class Post_Featured_Image extends \Elementor\Widget_Image {
 		$post_id = get_the_ID();
 		$settings['caption_source'] = 'attachment';
 
-		if ( sky_editor_mode() ) {
+		if ( sky_addons_editor_mode() ) {
 			// elementor default placeholder
 			$featured_image_url = Utils::get_placeholder_image_src();
 			$featured_image_id = '';

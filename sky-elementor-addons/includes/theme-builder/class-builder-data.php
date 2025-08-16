@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyAddons\ThemeBuilder;
+namespace Sky_Addons\ThemeBuilder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -8,7 +8,7 @@ class Builder_Data {
 	private static $instance = null;
 
 	private function __construct() {
-		add_action( 'init', array( $this, 'registered_post_type' ) );
+		add_action( 'init', [ $this, 'registered_post_type' ] );
 	}
 
 	public static function instance() {
@@ -65,29 +65,29 @@ class Builder_Data {
 
 		register_post_type( 'wowdevs-hooks', $args );
 
-		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_type', array(
+		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_type', [
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'string',
-		));
+		]);
 
-		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_status', array(
+		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_status', [
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'string',
-		));
+		]);
 
-		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_hook', array(
+		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_hook', [
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'string',
-		));
+		]);
 
-		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_hook_priority', array(
+		register_post_meta('wowdevs-hooks', 'wowdevs_theme_builder_hook_priority', [
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'number',
-		));
+		]);
 
 		$meta_fields = [
 			'wowdevs_theme_builder',
@@ -101,23 +101,23 @@ class Builder_Data {
 		];
 
 		foreach ( $meta_fields as $meta_field ) {
-			register_post_meta('wowdevs-hooks', $meta_field, array(
-				'show_in_rest' => array(
-					'schema' => array(
+			register_post_meta('wowdevs-hooks', $meta_field, [
+				'show_in_rest' => [
+					'schema' => [
 						'type'  => 'array',
-						'items' => array(
+						'items' => [
 							'type'       => 'object',
-							'properties' => array(
-								'value' => array(
+							'properties' => [
+								'value' => [
 									'type' => 'string',
-								),
-							),
-						),
-					),
-				),
+								],
+							],
+						],
+					],
+				],
 				'single'       => true,
 				'type'         => 'object',
-			));
+			]);
 		}
 	}
 }

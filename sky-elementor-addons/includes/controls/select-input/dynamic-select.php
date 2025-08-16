@@ -61,7 +61,7 @@ class Dynamic_Select extends Base_Data_Control {
 			/**
 			 * The query arguments can be passed array,
 			 */
-			'query_args'     => array(),
+			'query_args'     => [],
 
 		];
 	}

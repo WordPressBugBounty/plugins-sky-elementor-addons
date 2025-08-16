@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyAddons\ThemeBuilder;
+namespace Sky_Addons\ThemeBuilder;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,8 +27,8 @@ class Theme_Builder {
 
 	public function __construct() {
 		$this->includes();
-		add_action( 'wp', array( $this, 'apply_conditions' ) );
-		add_action( 'wp', array( $this, 'hooks' ) );
+		add_action( 'wp', [ $this, 'apply_conditions' ] );
+		add_action( 'wp', [ $this, 'hooks' ] );
 		add_filter( 'template_include', [ $this, 'set_builder_template' ], 9999 );
 	}
 
@@ -473,7 +473,7 @@ class Theme_Builder {
 				if ( 'custom_hooks' === $type ) {
 					$hook_name = $meta['wowdevs_theme_builder_hook'][0];
 					$hook_priority = $meta['wowdevs_theme_builder_hook_priority'][0];
-					new \SkyAddons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
+					new \Sky_Addons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
 				}
 			}
 		}

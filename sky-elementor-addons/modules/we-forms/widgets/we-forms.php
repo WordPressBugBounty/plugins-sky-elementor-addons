@@ -49,12 +49,12 @@ class WeForms extends Widget_Base {
 		$this->start_controls_section(
 			'section_weforms',
 			[
-				'label' => sky_is_weforms_activated() ? __( 'weForms Configuration', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
+				'label' => sky_addons_is_weforms_activated() ? __( 'weForms Configuration', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		if ( ! sky_is_weforms_activated() ) {
+		if ( ! sky_addons_is_weforms_activated() ) {
 
 			$this->add_control(
 				'_weforms_missing_notice',
@@ -63,7 +63,7 @@ class WeForms extends Widget_Base {
 					'raw'             => sprintf(
 						__( 'Hello %2$s, looks like %1$s is missing in your site. Please click on the link below and install/activate %1$s. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=weForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">weForms</a>',
-						sky_get_current_user_display_name()
+						sky_addons_get_current_user_display_name()
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -85,7 +85,7 @@ class WeForms extends Widget_Base {
 					'label'       => __( 'Select Form', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( '— Select a Form —', 'sky-elementor-addons' ) ] + \sky_get_we_forms(),
+					'options'     => [ '' => __( '— Select a Form —', 'sky-elementor-addons' ) ] + \sky_addons_get_we_forms(),
 					'description' => __( 'Choose the weForms form you want to display on this page.', 'sky-elementor-addons' ),
 				]
 			);
@@ -726,15 +726,15 @@ class WeForms extends Widget_Base {
 	}
 
 	protected function render() {
-		if ( ! sky_is_weforms_activated() ) {
-			sky_show_plugin_missing_alert( __( 'weForms', 'sky-elementor-addons' ) );
+		if ( ! sky_addons_is_weforms_activated() ) {
+			sky_addons_show_plugin_missing_alert( __( 'weForms', 'sky-elementor-addons' ) );
 			return;
 		}
 
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['form_id'] ) ) {
-			echo sky_do_shortcode( 'weforms', [
+			echo sky_addons_do_shortcode( 'weforms', [
 				'id' => $settings['form_id'],
 			] );
 		} elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {

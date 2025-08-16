@@ -184,7 +184,7 @@ class Panel_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'separator' => 'before',
 			]
 		);
@@ -985,7 +985,7 @@ class Panel_Slider extends Widget_Base {
 		?>
 		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1002,7 +1002,7 @@ class Panel_Slider extends Widget_Base {
 				esc_html( $settings['button_text'] )
 			);
 
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1112,7 +1112,7 @@ class Panel_Slider extends Widget_Base {
 								$settings['thumbnail_size'],
 								false,
 								[
-									'class' => ( 'yes' == $settings['img_cover'] ) ? 'sa-cover' : 'sa-',
+									'class' => ( 'yes' === $settings['img_cover'] ) ? 'sa-cover' : 'sa-',
 									'alt'   => ! empty( $item['title'] ) ? esc_html( $item['title'] ) : Control_Media::get_image_alt( $item['image'] ),
 								]
 							) );
@@ -1154,7 +1154,7 @@ class Panel_Slider extends Widget_Base {
 		 */
 		$this->render_header_attributes( 'panel-slider' );
 
-		$show_content = ( sky_addons_init_pro() == true ) ? $settings['show_content'] : 'hover';
+		$show_content = ( sky_addons_init_pro() === true ) ? $settings['show_content'] : 'hover';
 
 		$this->add_render_attribute(
 			[

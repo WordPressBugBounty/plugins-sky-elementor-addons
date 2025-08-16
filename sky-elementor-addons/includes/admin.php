@@ -195,7 +195,7 @@ class Sky_Addons_Admin {
 	 */
 	public static function get_used_widgets() {
 
-		$used_widgets = array();
+		$used_widgets = [];
 
 		if ( class_exists( 'Elementor\Modules\Usage\Module' ) ) {
 

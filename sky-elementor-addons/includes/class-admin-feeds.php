@@ -75,12 +75,12 @@ class Admin_Feeds {
 		}
 
 		$response = wp_remote_get( $this->settings['remote_feed_link'],
-			array(
+			[
 				'timeout' => 30,
-				'headers' => array(
+				'headers' => [
 					'Accept' => 'application/json',
-				),
-			)
+				],
+			]
 		);
 
 		if ( is_wp_error( $response ) ) {
@@ -174,7 +174,7 @@ class Admin_Feeds {
 	}
 }
 
-$settings = array(
+$settings = [
 	'feed_title'       => 'wowDevs News & Updates',
 	'transient_key'    => 'wowdevs_feeds',
 	'feed_link'        => 'https://wowdevs.com/feed',
@@ -198,6 +198,6 @@ $settings = array(
 			'title' => 'Changelog',
 		],
 	],
-);
+];
 
 new Admin_Feeds( $settings );

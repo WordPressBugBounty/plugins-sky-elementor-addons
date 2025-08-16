@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.2.0
+ * Version: 3.2.1
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -11,7 +11,7 @@
  * License: GPLv3 or later
  * License URI: https://opensource.org/licenses/GPL-3.0
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 3.30.1
+ * Elementor tested up to: 3.31.2
  *
  * @package Sky_Addons
  */
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.2.0' );
+define( 'SKY_ADDONS_VERSION', '3.2.1' );
 define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
@@ -185,11 +185,11 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 		// Include DCI SDK.
 		require_once __DIR__ . '/dci/start.php';
 
-		wp_register_style( 'dci-sdk-sky-addons', SKY_ADDONS_URL . 'dci/assets/css/dci.css', array(), '1.3.0', 'all' );
+		wp_register_style( 'dci-sdk-sky-addons', SKY_ADDONS_URL . 'dci/assets/css/dci.css', [], '1.3.0', 'all' );
 		wp_enqueue_style( 'dci-sdk-sky-addons' );
 
 		dci_dynamic_init(
-			array(
+			[
 				'sdk_version'          => '1.2.1',
 				'product_id'           => 1,
 				'plugin_name'          => 'Sky Addons for Elementor', // make simple, must not empty
@@ -199,19 +199,19 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 				'slug'                 => 'sky-elementor-addons',
 				'core_file'            => false,
 				'plugin_deactivate_id' => false,
-				'menu'                 => array(
+				'menu'                 => [
 					'slug' => 'sky-addons',
-				),
+				],
 				'public_key'           => 'pk_KBsDjbVN4rZidFoSQzBFrXIuMmHvOJvm',
 				'is_premium'           => false,
 				'popup_notice'         => false,
 				'deactivate_feedback'  => true,
-				'delay_time'           => array(
+				'delay_time'           => [
 					'time' => 3 * DAY_IN_SECONDS,
-				),
+				],
 				'text_domain'          => 'sky-elementor-addons',
 				'plugin_msg'           => '<p>Be Top-contributor by sharing non-sensitive plugin data and create an impact to the global WordPress community today! You can receive valuable emails periodically.</p>',
-			)
+			]
 		);
 	}
 	add_action( 'admin_init', 'dci_plugin_sky_addons' );
@@ -227,22 +227,22 @@ if ( ! function_exists( 'sky_addons_rc_plugin' ) ) {
 
 		require_once SKY_ADDONS_PATH . 'includes/feedbacks/start.php';
 
-		wp_register_style( 'rc-sdk-sky-addons', SKY_ADDONS_URL . 'includes/feedbacks/assets/rc.css', array(), '1.0.0', 'all' );
+		wp_register_style( 'rc-sdk-sky-addons', SKY_ADDONS_URL . 'includes/feedbacks/assets/rc.css', [], '1.0.0', 'all' );
 		wp_enqueue_style( 'rc-sdk-sky-addons' );
 
 		rc_dynamic_init(
-			array(
+			[
 				'sdk_version'  => '1.0.0',
 				'plugin_name'  => 'Sky Addons for Elementor',
 				'plugin_icon'  => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.svg',
 				'slug'         => 'sky-elementor-addons',
-				'menu'         => array(
+				'menu'         => [
 					'slug' => 'sky-addons',
-				),
+				],
 				'review_url'   => 'https://wordpress.org/support/plugin/sky-elementor-addons/reviews/#new-post',
 				'plugin_title' => 'Yay! Great that you\'re using Sky Addons',
 				'plugin_msg'   => '<p>Loved using Sky Addons on your website? Share your experience in a review and help us spread the love to everyone right now. Good words will help the community.</p>',
-			)
+			]
 		);
 	}
 	add_action( 'admin_init', 'sky_addons_rc_plugin' );

@@ -1,3 +1,7 @@
+= 3.2.1 [16th August 2025] =
+
+* Improved: System improved
+
 = 3.2.0 [26th July 2025] =
 
 * Added: Contact Form 7 widget added

@@ -382,7 +382,7 @@ class Stellar_Slider extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -2299,7 +2299,7 @@ class Stellar_Slider extends Widget_Base {
 			foreach ( $settings['social_icon_list'] as $index => $item ) :
 
 				$social = '';
-				if ( ! empty( $item['social_icon']['value'] ) && ( 'yes' == $settings['social_icon_default_color'] ) ) {
+				if ( ! empty( $item['social_icon']['value'] ) && ( 'yes' === $settings['social_icon_default_color'] ) ) {
 					$social = explode( ' ', $item['social_icon']['value'], 2 );
 
 					$social = str_replace( 'fa-', '', $social[1] );
@@ -2376,7 +2376,7 @@ class Stellar_Slider extends Widget_Base {
 
 		$video_url = get_post_meta( $post_id, 'sky_video_link_meta', true );
 
-		if ( ( 'yes' == $settings['show_video'] ) && ! empty( $video_url ) ) :
+		if ( ( 'yes' === $settings['show_video'] ) && ! empty( $video_url ) ) :
 			$tag = 'div';
 			$id = $this->get_id() . '-' . $post_id;
 
@@ -2386,7 +2386,7 @@ class Stellar_Slider extends Widget_Base {
 
 			$this->render_post_video_lightbox( $video_url, $id );
 
-			if ( $settings['video_open'] == 'file' ) {
+			if ( $settings['video_open'] === 'file' ) {
 				$tag = 'a';
 			}
 			$this->add_render_attribute( 'lightbox-attr-' . $id, [
@@ -2529,14 +2529,14 @@ class Stellar_Slider extends Widget_Base {
 					'data-settings' => [
 						wp_json_encode( array_filter( [
 							'effect'       => $settings['transition_effect'],
-							'fadeEffect'   => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] == 'yes' ) ? true : false,
-							'autoplay'     => $settings['autoplay'] == 'yes' ? [
+							'fadeEffect'   => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] === 'yes' ) ? true : false,
+							'autoplay'     => $settings['autoplay'] === 'yes' ? [
 								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop'         => ( $settings['loop'] == 'yes' ) ? true : false,
+							'loop'         => ( $settings['loop'] === 'yes' ) ? true : false,
 							'speed'        => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 2000,
-							'pauseOnHover' => ( $settings['autoplay'] == 'yes' && $settings['pause_on_hover'] == 'yes' ) ? true : false,
-							'observer'     => $settings['observer'] == 'yes' ? true : false,
+							'pauseOnHover' => ( $settings['autoplay'] === 'yes' && $settings['pause_on_hover'] === 'yes' ) ? true : false,
+							'observer'     => $settings['observer'] === 'yes' ? true : false,
 							'parallax'     => true,
 							'navigation'   => [
 								'nextEl' => "#$id .sa-swiper-button-next",
@@ -2545,8 +2545,8 @@ class Stellar_Slider extends Widget_Base {
 							'pagination'   => [
 								'el'             => "#$id .swiper-pagination",
 								'clickable'      => true,
-								'type'           => $settings['pagination_type'] != 'none' ? $settings['pagination_type'] : false,
-								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] == 'yes' ) ) ? true : false,
+								'type'           => $settings['pagination_type'] !== 'none' ? $settings['pagination_type'] : false,
+								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] === 'yes' ) ) ? true : false,
 							],
 
 						] ) ),
@@ -2584,15 +2584,15 @@ class Stellar_Slider extends Widget_Base {
 					?>
 				</div>
 				<?php
-				if ( $settings['show_social_icons'] == 'yes' ) :
+				if ( $settings['show_social_icons'] === 'yes' ) :
 					$this->render_social_icons();
 				endif;
 
-				if ( $settings['show_pagination'] == 'yes' ) :
+				if ( $settings['show_pagination'] === 'yes' ) :
 					$this->render_pagination();
 				endif;
 
-				if ( $settings['show_navigation'] == 'yes' ) :
+				if ( $settings['show_navigation'] === 'yes' ) :
 					?>
 					<div class="sa-navigation-wrapper sa-position-absolute sa-d-flex">
 						<?php $this->render_navigation(); ?>

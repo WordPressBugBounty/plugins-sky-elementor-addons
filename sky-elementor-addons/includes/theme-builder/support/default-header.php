@@ -17,7 +17,7 @@
 	<?php do_action( 'wowdevs_themes_builder_template_before_header' ); ?>
 	<div class="wowdevs-template-content-markup wowdevs-template-content-header wowdevs-template-content-theme-support">
 		<?php
-		$templates = \SkyAddons\ThemeBuilder\Theme_Builder::template_ids();
+		$templates = \Sky_Addons\ThemeBuilder\Theme_Builder::template_ids();
 		if ( isset( $templates['header'] ) && ! empty( $templates['header'] ) ) {
       //phpcs:ignore
 			echo wowdevs_render_elementor_content( $templates['header'] );

@@ -1063,7 +1063,7 @@ trait Global_Swiper_Controls {
 			$this->render_navigation();
 		endif;
 
-		if ( isset( $settings['pagination_type'] ) && $settings['pagination_type'] != 'none' ) :
+		if ( isset( $settings['pagination_type'] ) && $settings['pagination_type'] !== 'none' ) :
 			$this->render_pagination();
 		endif;
 		?>

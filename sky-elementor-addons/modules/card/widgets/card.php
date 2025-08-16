@@ -131,7 +131,7 @@ class Card extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -166,7 +166,7 @@ class Card extends Widget_Base {
 				'label'     => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h6',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_sub_title' => 'yes',
 				],
@@ -203,6 +203,7 @@ class Card extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => esc_html__( 'Badge', 'sky-elementor-addons' ),
 				'placeholder' => esc_html__( 'Badge Text', 'sky-elementor-addons' ),
+				'dynamic'     => [ 'active' => true ],
 				'condition'   => [
 					'show_badge' => 'yes',
 				],
@@ -1456,7 +1457,7 @@ class Card extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge sa-px-3 sa-py-2' );
-		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] == 'yes' ) ? 'sa-' . $settings['badge_position'] : '' );
+		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? 'sa-' . $settings['badge_position'] : '' );
 
 		if ( ! empty( $settings['image']['url'] ) ) {
 			$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
@@ -1492,13 +1493,13 @@ class Card extends Widget_Base {
 						);
 					}
 
-					if ( $settings['show_badge'] == 'yes' && ! empty( $settings['badge_text'] ) ) {
+					if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) {
 						$this->add_inline_editing_attributes( 'badge_text', 'none' );
 
 						printf(
 							'<span %1$s>%2$s</span>',
 							wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
-							esc_html( $settings['badge_text'] )
+							wp_kses_post( $settings['badge_text'] )
 						);
 					}
 
@@ -1508,7 +1509,7 @@ class Card extends Widget_Base {
 
 			<div class="sa-content-area">
 				<?php
-				if ( $settings['show_sub_title'] == 'yes' && ! empty( $settings['sub_title'] ) ) {
+				if ( $settings['show_sub_title'] === 'yes' && ! empty( $settings['sub_title'] ) ) {
 					printf(
 						'<%1$s class="%2$s">%3$s</%1$s>',
 						esc_attr( Utils::validate_html_tag( $settings['sub_title_tag'] ) ),
@@ -1539,10 +1540,10 @@ class Card extends Widget_Base {
 				?>
 
 				<?php
-				if ( $settings['show_button'] == 'yes' ) :
+				if ( $settings['show_button'] === 'yes' ) :
 
 					$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
-					$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] == 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
+					$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] === 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
 
 					if ( ! empty( $settings['link']['url'] ) ) {
 						$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );
@@ -1569,7 +1570,7 @@ class Card extends Widget_Base {
 					<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 
 						<?php
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',
@@ -1589,7 +1590,7 @@ class Card extends Widget_Base {
 
 						endif;
 
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',

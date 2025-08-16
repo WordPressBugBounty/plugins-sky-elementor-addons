@@ -150,7 +150,7 @@ class Advanced_Slider extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_elementor_template_settings(),
+				'options'     => sky_addons_elementor_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'elementor' ],
 			]
@@ -162,7 +162,7 @@ class Advanced_Slider extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_anywhere_template_settings(),
+				'options'     => sky_addons_anywhere_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'anywhere' ],
 			]
@@ -334,7 +334,7 @@ class Advanced_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -356,7 +356,7 @@ class Advanced_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h5',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_sub_title' => 'yes',
 				],
@@ -2563,7 +2563,7 @@ class Advanced_Slider extends Widget_Base {
 	protected function render_button( $link ) {
 		$settings = $this->get_settings_for_display();
 
-		if ( $settings['show_button'] == 'yes' ) :
+		if ( $settings['show_button'] === 'yes' ) :
 
 			$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-d-inline-flex sa-align-items-center sa-text-decoration-none sa-fw-bold', true );
 
@@ -2589,7 +2589,7 @@ class Advanced_Slider extends Widget_Base {
 			?>
 			<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 				<?php
-				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 					echo '<span class="sa-icon-wrap sa-button-icon">';
 					Icons_Manager::render_icon( $settings['button_icon'], [
 						'aria-hidden' => 'true',
@@ -2606,7 +2606,7 @@ class Advanced_Slider extends Widget_Base {
 					esc_html( $settings['button_text'] )
 				);
 
-				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 					echo '<span class="sa-icon-wrap sa-button-icon">';
 					Icons_Manager::render_icon( $settings['button_icon'], [
 						'aria-hidden' => 'true',
@@ -2685,28 +2685,28 @@ class Advanced_Slider extends Widget_Base {
 					'data-settings' => [
 						wp_json_encode( array_filter( [
 							'direction'       => $settings['direction'],
-							'autoplay'        => $settings['autoplay'] == 'yes' ? [
+							'autoplay'        => $settings['autoplay'] === 'yes' ? [
 								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop'            => ( $settings['loop'] == 'yes' ) ? true : false,
+							'loop'            => ( $settings['loop'] === 'yes' ) ? true : false,
 							'speed'           => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 300,
-							'pauseOnHover'    => ( $settings['autoplay'] == 'yes' && $settings['pause_on_hover'] == 'yes' ) ? true : false,
+							'pauseOnHover'    => ( $settings['autoplay'] === 'yes' && $settings['pause_on_hover'] === 'yes' ) ? true : false,
 							'effect'          => $settings['transition_effect'],
-							'fadeEffect'      => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] == 'yes' ) ? true : false,
+							'fadeEffect'      => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] === 'yes' ) ? true : false,
 							'coverflowEffect' => [
 								'rotate'       => ( isset( $settings['coverflow_rotate'] ) && ! empty( $settings['coverflow_rotate']['size'] ) ) ? $settings['coverflow_rotate']['size'] : false,
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
 							],
 							'flipEffect'      => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
 							],
 							'cubeEffect'      => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] == 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
 							],
-							'hashNavigation'  => ( $settings['hash_navigation'] == 'yes' ) ? [
+							'hashNavigation'  => ( $settings['hash_navigation'] === 'yes' ) ? [
 								'replaceState' => true,
 							] : false,
-							'observer'        => $settings['observer'] == 'yes' ? true : false,
+							'observer'        => $settings['observer'] === 'yes' ? true : false,
 							'navigation'      => [
 								'nextEl' => "#$id .sa-swiper-button-next",
 								'prevEl' => "#$id .sa-swiper-button-prev",
@@ -2714,8 +2714,8 @@ class Advanced_Slider extends Widget_Base {
 							'pagination'      => [
 								'el'             => "#$id .swiper-pagination",
 								'clickable'      => true,
-								'type'           => $settings['pagination_type'] != 'none' ? $settings['pagination_type'] : false,
-								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] == 'yes' ) ) ? true : false,
+								'type'           => $settings['pagination_type'] !== 'none' ? $settings['pagination_type'] : false,
+								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] === 'yes' ) ) ? true : false,
 							],
 							// scrollbar: {
 							// el: '.swiper-scrollbar',
@@ -2759,7 +2759,7 @@ class Advanced_Slider extends Widget_Base {
 			<?php
 			foreach ( $settings['slider_list'] as $index => $item ) :
 				$hash = null;
-				if ( $settings['hash_navigation'] == 'yes' ) {
+				if ( $settings['hash_navigation'] === 'yes' ) {
 					$hash = 'data-hash="' . sanitize_title( $item['title'] ) . '-' . $this->get_id() . $index . '"';
 				}
 
@@ -2772,7 +2772,7 @@ class Advanced_Slider extends Widget_Base {
 
 				<!-- Slides -->
 				<div class="swiper-slide" <?php echo esc_html( $hash ) . ' ' . wp_kses_post( $item_link ); ?>>
-					<?php if ( $item['content_source'] == 'custom' && ! empty( $item['content_source'] ) ) : ?>
+					<?php if ( $item['content_source'] === 'custom' && ! empty( $item['content_source'] ) ) : ?>
 
 						<?php
 						if ( ! empty( $item['slider_image']['url'] ) ) {
@@ -2796,11 +2796,11 @@ class Advanced_Slider extends Widget_Base {
 
 						<div class="sa-slider-content-wrapper">
 							<?php
-							if ( ( $settings['show_sub_title'] == 'yes' ) && ! empty( $item['sub_title'] ) ) :
+							if ( ( $settings['show_sub_title'] === 'yes' ) && ! empty( $item['sub_title'] ) ) :
 								$this->render_sub_title( [ 'sub_title' => $item['sub_title'] ] );
 							endif;
 
-							if ( ( $settings['show_title'] == 'yes' ) && ! empty( $item['title'] ) ) :
+							if ( ( $settings['show_title'] === 'yes' ) && ! empty( $item['title'] ) ) :
 								if ( ! empty( $item['link']['url'] ) ) :
 									$this->render_title( [
 										'title' => $item['title'],
@@ -2813,7 +2813,7 @@ class Advanced_Slider extends Widget_Base {
 							?>
 
 							<?php
-							if ( ( $settings['show_text'] == 'yes' ) && ! empty( $item['custom_text'] ) ) :
+							if ( ( $settings['show_text'] === 'yes' ) && ! empty( $item['custom_text'] ) ) :
 								printf(
 									'<div class="sa-content">%1$s</div>',
 									wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) )
@@ -2822,17 +2822,17 @@ class Advanced_Slider extends Widget_Base {
 							?>
 
 
-							<?php if ( $settings['show_button'] == 'yes' ) : ?>
+							<?php if ( $settings['show_button'] === 'yes' ) : ?>
 								<div class="sa-link-wrapper">
 									<?php $this->render_button( $item['link'] ); ?>
 								</div>
 							<?php endif; ?>
 						</div>
 						<?php
-					elseif ( $item['content_source'] == 'elementor' && ! empty( $item['template_id'] ) ) :
-						sky_display_el_tem_by_id( $item['template_id'] );
-					elseif ( $item['content_source'] == 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
-						sky_display_el_tem_by_id( $item['anywhere_id'] );
+					elseif ( $item['content_source'] === 'elementor' && ! empty( $item['template_id'] ) ) :
+						sky_addons_display_el_tem_by_id( $item['template_id'] );
+					elseif ( $item['content_source'] === 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
+						sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
 					else :
 						echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 					endif;
@@ -2844,11 +2844,11 @@ class Advanced_Slider extends Widget_Base {
 		</div>
 
 		<?php
-		if ( $settings['show_navigation'] == 'yes' ) :
+		if ( $settings['show_navigation'] === 'yes' ) :
 			$this->render_navigation();
 		endif;
 
-		if ( $settings['show_pagination'] == 'yes' ) :
+		if ( $settings['show_pagination'] === 'yes' ) :
 			$this->render_pagination();
 		endif;
 

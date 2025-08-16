@@ -371,7 +371,7 @@ class Number extends Widget_Base {
 			'class'         => 'sa-number',
 			'data-settings' => [
 				wp_json_encode(array_filter([
-					'animation' => $settings['number_animation'] == 'yes' ? 'yes' : 'no',
+					'animation' => $settings['number_animation'] === 'yes' ? 'yes' : 'no',
 					'number'    => (int) $settings['text'],
 					'time'      => isset( $settings['anim_duration'] ) && ! empty( $settings['anim_duration']['size'] ) ? $settings['anim_duration']['size'] : 2600,
 				])),

@@ -40,7 +40,7 @@ class Dynamic_Input_Module {
 		/**
 		 * Check if the instance is null then fire a instance
 		 */
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -51,7 +51,7 @@ class Dynamic_Input_Module {
 	 * Init the action
 	 */
 	public function init() {
-		add_action( 'wp_ajax_sky_addons_dynamic_select_input_data', array( $this, 'get_select_input_data' ) );
+		add_action( 'wp_ajax_sky_addons_dynamic_select_input_data', [ $this, 'get_select_input_data' ] );
 	}
 
 	/**
@@ -335,7 +335,7 @@ class Dynamic_Input_Module {
 		$taxonomies  = $this->get_all_public_taxonomies();
 		$include     = $this->get_seleced_ids();
 
-		if ( $this->get_post_type() == '_related_post_type' ) {
+		if ( $this->get_post_type() === '_related_post_type' ) {
 			$post_type = 'any';
 		} elseif ( $this->get_post_type() ) {
 			$post_type = $this->get_post_type();
@@ -478,12 +478,12 @@ class Dynamic_Input_Module {
 		$search_text = $this->get_search_query();
 		$results = [];
 		if ( post_type_exists( 'ae_global_templates' ) ) {
-			$anywhere = get_posts(array(
+			$anywhere = get_posts([
 				'fields'         => 'ids',
 				'posts_per_page' => -1,
 				'post_type'      => 'ae_global_templates',
 				's'              => $search_text,
-			));
+			]);
 			foreach ( $anywhere as $key => $value ) {
 				$results[] = [
 					'id'   => $value,

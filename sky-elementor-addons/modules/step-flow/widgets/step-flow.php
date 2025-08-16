@@ -83,7 +83,7 @@ class Step_Flow extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -1268,7 +1268,7 @@ class Step_Flow extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge' );
-		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] == 'yes' ) ? $settings['badge_position'] : '' );
+		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? $settings['badge_position'] : '' );
 		$this->add_inline_editing_attributes( 'badge_text', 'none' );
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-text-decoration-none' );
 		if ( ! empty( $settings['link']['url'] ) ) {
@@ -1286,10 +1286,10 @@ class Step_Flow extends Widget_Base {
 		}
 		?>
 		<div class="sa-step-flow sa-text-center">
-			<?php if ( ! empty( $settings['icon']['value'] ) || ! empty( $settings['badge_text'] ) || $settings['show_direction'] == 'yes' ) : ?>
+			<?php if ( ! empty( $settings['icon']['value'] ) || ! empty( $settings['badge_text'] ) || $settings['show_direction'] === 'yes' ) : ?>
 				<div class="sa-icon-wrap">
 					<?php
-					if ( $settings['show_badge'] == 'yes' && ! empty( $settings['badge_text'] ) ) :
+					if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) :
 						printf(
 							'<span %1$s>%2$s</span>',
 							wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
@@ -1303,7 +1303,7 @@ class Step_Flow extends Widget_Base {
 						] );
 					endif;
 
-					if ( $settings['show_direction'] == 'yes' ) : ?>
+					if ( $settings['show_direction'] === 'yes' ) : ?>
 						<span class="sa-step-arrow"></span>
 					<?php endif; ?>
 

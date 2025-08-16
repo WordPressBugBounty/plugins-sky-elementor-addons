@@ -1,6 +1,6 @@
 <?php
 
-namespace SkyAddons\ThemeBuilder\Themes_Hooks;
+namespace Sky_Addons\ThemeBuilder\Themes_Hooks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,13 +22,13 @@ class Generatepress {
 		}
 
 		if ( null !== $this->header ) {
-			add_action( 'template_redirect', array( $this, 'remove_theme_header_markup' ), 10 );
-			add_action( 'generate_header', array( $this, 'add_plugin_header_markup' ) );
+			add_action( 'template_redirect', [ $this, 'remove_theme_header_markup' ], 10 );
+			add_action( 'generate_header', [ $this, 'add_plugin_header_markup' ] );
 		}
 
 		if ( null !== $this->footer ) {
-			add_action( 'template_redirect', array( $this, 'remove_theme_footer_markup' ), 10 );
-			add_action( 'generate_footer', array( $this, 'add_plugin_footer_markup' ) );
+			add_action( 'template_redirect', [ $this, 'remove_theme_footer_markup' ], 10 );
+			add_action( 'generate_footer', [ $this, 'add_plugin_footer_markup' ] );
 		}
 	}
 

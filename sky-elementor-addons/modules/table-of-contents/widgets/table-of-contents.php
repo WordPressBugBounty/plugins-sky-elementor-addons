@@ -78,7 +78,7 @@ class Table_Of_Contents extends Widget_Base {
 				'multiple'    => true,
 				'description' => 'Select tags for Table of Contents.',
 				'default'     => [ 'h2', 'h3', 'h4' ],
-				'options'     => sky_title_tags(),
+				'options'     => sky_addons_title_tags(),
 			]
 		);
 

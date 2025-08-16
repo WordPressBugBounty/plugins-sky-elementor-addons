@@ -21,7 +21,7 @@ class Svg_Support {
 	/**
 	 * Add Mime Types
 	 */
-	public function set_svg_mimes( $mimes = array() ) {
+	public function set_svg_mimes( $mimes = [] ) {
 		if ( current_user_can( 'administrator' ) ) {
 			// allow SVG file upload
 			$mimes['svg']  = 'image/svg+xml';
@@ -38,14 +38,14 @@ class Svg_Support {
 				$svg_path = $response['url'];
 			}
 			$dimensions = $this->get_dimensions( $svg_path );
-			$response['sizes'] = array(
-				'full' => array(
+			$response['sizes'] = [
+				'full' => [
 					'url'         => $response['url'],
 					'width'       => $dimensions->width,
 					'height'      => $dimensions->height,
 					'orientation' => $dimensions->width > $dimensions->height ? 'landscape' : 'portrait',
-				),
-			);
+				],
+			];
 		}
 		return $response;
 	}
@@ -58,20 +58,20 @@ class Svg_Support {
 			$relative_path = str_replace( $upload_dir['basedir'], '', $svg_path );
 			$filename      = basename( $svg_path );
 			$dimensions = $this->get_dimensions( $svg_path );
-			$metadata = array(
+			$metadata = [
 				'width'  => intval( $dimensions->width ),
 				'height' => intval( $dimensions->height ),
 				'file'   => $relative_path,
-			);
+			];
 
-			$sizes = array();
+			$sizes = [];
 			global $wp_additional_image_sizes; // Access the global variable
 			foreach ( get_intermediate_image_sizes() as $s ) {
-				$sizes[ $s ] = array(
+				$sizes[ $s ] = [
 					'width'  => '',
 					'height' => '',
 					'crop'   => false,
-				);
+				];
 				if ( isset( $wp_additional_image_sizes[ $s ]['width'] ) ) {
 					$sizes[ $s ]['width'] = intval( $wp_additional_image_sizes[ $s ]['width'] );
 				} else {
@@ -117,10 +117,10 @@ class Svg_Support {
 			$width      = (string) $attributes->width;
 			$height     = (string) $attributes->height;
 		}
-		return (object) array(
+		return (object) [
 			'width'  => $width,
 			'height' => $height,
-		);
+		];
 	}
 
 	public static function get_instance() {

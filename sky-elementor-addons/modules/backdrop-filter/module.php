@@ -337,7 +337,7 @@ class Module extends Module_Base {
 			 * Will works for Section Overlay Only
 			 */
 
-			// if (sky_addons_init_pro() == true || sky_editor_mode() == true) {
+			// if (sky_addons_init_pro() == true || sky_addons_editor_mode() == true) {
 			$element->add_control(
 				'sa_bf_output_2',
 				[
@@ -356,8 +356,8 @@ class Module extends Module_Base {
 			);
 			// }
 
-			// if ((sky_addons_init_pro() == true || sky_editor_mode() == true) && 'container' == $element->get_name()) {
-			if ( 'container' == $element->get_name() ) {
+			// if ((sky_addons_init_pro() == true || sky_addons_editor_mode() == true) && 'container' == $element->get_name()) {
+			if ( 'container' === $element->get_name() ) {
 				$element->add_control(
 					'sa_bf_output_3',
 					[

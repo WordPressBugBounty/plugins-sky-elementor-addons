@@ -911,7 +911,7 @@ class Logo_Carousel extends Widget_Base {
 				$image = $item['logo']['url'];
 			}
 
-			$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] == 'yes' ) ? ' sa-tippy-tooltip' : '';
+			$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] === 'yes' ) ? ' sa-tippy-tooltip' : '';
 			$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none ' . $tippy_class, true );
 
 			if ( ! empty( $item['link']['url'] && 'custom' === $settings['link_to'] ) ) {
@@ -947,7 +947,7 @@ class Logo_Carousel extends Widget_Base {
 			$alt_text = $alt_text . Control_Media::get_image_alt( $item['logo'] );
 
 			// tooltip
-			if ( ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] == 'yes' ) ) :
+			if ( ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' ) ) :
 
 				$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none sa-tippy-tooltip ' . $tippy_class, true );
 
@@ -964,19 +964,19 @@ class Logo_Carousel extends Widget_Base {
 					$this->add_render_attribute( $link_attr, 'data-tippy-animation', esc_attr( $settings['tooltip_animation'] ), true );
 				}
 
-				if ( $settings['tooltip_offset_popover'] == 'yes' ) {
+				if ( $settings['tooltip_offset_popover'] === 'yes' ) {
 					if ( $settings['tooltip_x_offset']['size'] or $settings['tooltip_y_offset']['size'] ) {
 						$this->add_render_attribute( $link_attr, 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']', true );
 					}
 				}
 
-				if ( $settings['tooltip_arrow'] == 'yes' ) {
+				if ( $settings['tooltip_arrow'] === 'yes' ) {
 					$this->add_render_attribute( $link_attr, 'data-tippy-arrow', 'true', true );
 				} else {
 					$this->add_render_attribute( $link_attr, 'data-tippy-arrow', 'false', true );
 				}
 
-				if ( $settings['tooltip_trigger_on_click'] == 'yes' ) {
+				if ( $settings['tooltip_trigger_on_click'] === 'yes' ) {
 					$this->add_render_attribute( $link_attr, 'data-tippy-trigger', 'click', true );
 				}
 

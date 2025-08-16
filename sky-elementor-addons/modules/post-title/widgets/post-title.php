@@ -66,7 +66,7 @@ class Post_Title extends \Elementor\Widget_Heading {
 			return;
 		}
 
-		if ( sky_editor_mode() ) {
+		if ( sky_addons_editor_mode() ) {
 			$title = 'Lorem Ipsum is simply dummy text.';
 		}
 

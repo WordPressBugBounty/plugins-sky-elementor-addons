@@ -121,7 +121,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_elementor_template_settings(),
+				'options'     => sky_addons_elementor_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'elementor' ],
 			]
@@ -133,7 +133,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
-				'options'     => sky_anywhere_template_settings(),
+				'options'     => sky_addons_anywhere_template_settings(),
 				'label_block' => 'true',
 				'condition'   => [ 'content_source' => 'anywhere' ],
 			]
@@ -169,7 +169,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h3',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'separator' => 'before',
 			]
 		);
@@ -1253,8 +1253,8 @@ class Advanced_Accordion extends Widget_Base {
 							[
 								'id'           => 'sa-advanced-acc-' . $this->get_id(),
 								'duration'     => ( ! empty( $settings['acc_duration']['size'] ) ) ? $settings['acc_duration']['size'] : 400,
-								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( $settings['acc_collapse'] == 'yes' ) ) ? true : false,
-								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( $settings['acc_show_multiple'] == 'yes' ) ) ? true : false,
+								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( $settings['acc_collapse'] === 'yes' ) ) ? true : false,
+								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( $settings['acc_show_multiple'] === 'yes' ) ) ? true : false,
 								'openOnInit'   => ( ! empty( $settings['acc_open_default'] ) ) ? $open_init_arr : [],
 							]
 						),
@@ -1273,7 +1273,7 @@ class Advanced_Accordion extends Widget_Base {
 					<div class="sa-ac-trigger">
 
 						<div class="sa-title-wrapper">
-							<?php if ( 'yes' == $settings['show_title_icon'] && ! empty( $item['title_icon']['value'] ) ) : ?>
+							<?php if ( 'yes' === $settings['show_title_icon'] && ! empty( $item['title_icon']['value'] ) ) : ?>
 								<div class="sa-title-icon sa-icon-wrap sa-me-2">
 									<?php
 									Icons_Manager::render_icon( $item['title_icon'] );
@@ -1308,12 +1308,12 @@ class Advanced_Accordion extends Widget_Base {
 					<div class="sa-ac-panel">
 						<div class="sa-ac-content">
 							<?php
-							if ( 'custom' == $item['content_source'] && ! empty( $item['content_source'] ) ) :
+							if ( 'custom' === $item['content_source'] && ! empty( $item['content_source'] ) ) :
 								echo wp_kses_post( $this->parse_text_editor( $item['custom_content'] ) );
-							elseif ( 'elementor' == $item['content_source'] && ! empty( $item['template_id'] ) ) :
-								sky_display_el_tem_by_id( $item['template_id'] );
-							elseif ( 'anywhere' == $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
-								sky_display_el_tem_by_id( $item['anywhere_id'] );
+							elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
+								sky_addons_display_el_tem_by_id( $item['template_id'] );
+							elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
+								sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
 							else :
 								esc_html_e( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
 							endif;

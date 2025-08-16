@@ -25,7 +25,7 @@ class Menu {
 	 * @since 2.7.0
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Menu {
 	public function admin_menu() {
 		$parent_slug = 'sky-addons';
 		$capability  = 'manage_options';
-		add_menu_page( 'Sky Addons', 'Sky Addons', $capability, $parent_slug, array( $this, 'plugin_layout' ), $this->get_b64_icon(), 59 );
+		add_menu_page( 'Sky Addons', 'Sky Addons', $capability, $parent_slug, [ $this, 'plugin_layout' ], $this->get_b64_icon(), 59 );
 
 		add_submenu_page( $parent_slug, esc_html__( 'Dashboard', 'sky-elementor-addons' ), esc_html__( 'Dashboard', 'sky-elementor-addons' ), $capability, $parent_slug, [
 			$this,
@@ -95,7 +95,7 @@ class Menu {
 	}
 
 	public static function get_dashboard_link( $suffix = '#' ) {
-		return add_query_arg( array( 'page' => 'sky-addons' . $suffix ), admin_url( 'admin.php' ) );
+		return add_query_arg( [ 'page' => 'sky-addons' . $suffix ], admin_url( 'admin.php' ) );
 	}
 
 	public static function get_b64_icon() {

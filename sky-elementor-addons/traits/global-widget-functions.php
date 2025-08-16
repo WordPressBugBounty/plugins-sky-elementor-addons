@@ -93,7 +93,7 @@ trait Global_Widget_Functions {
 			return;
 		}
 
-		if ( ! function_exists( 'sky_get_post_category' ) ) {
+		if ( ! function_exists( 'sky_addons_get_post_category' ) ) {
 			return;
 		}
 
@@ -104,7 +104,7 @@ trait Global_Widget_Functions {
 		printf(
 			'<div class="%1$s">%2$s</div>',
 			esc_attr( $wrapper_class ),
-			wp_kses_post( sky_get_post_category( $this->get_settings( 'posts_source' ) ) )
+			wp_kses_post( sky_addons_get_post_category( $this->get_settings( 'posts_source' ) ) )
 		);
 	}
 
@@ -121,7 +121,7 @@ trait Global_Widget_Functions {
 			return;
 		}
 
-		if ( ! function_exists( 'sky_get_post_category' ) ) {
+		if ( ! function_exists( 'sky_addons_get_post_category' ) ) {
 			return;
 		}
 
@@ -129,7 +129,7 @@ trait Global_Widget_Functions {
 
 		printf(
 			'<div ' . wp_kses_post( $this->get_render_attribute_string( $id ) ) . '>%1$s</div>',
-			wp_kses_post( sky_get_post_category( $this->get_settings( 'posts_source' ) ) )
+			wp_kses_post( sky_addons_get_post_category( $this->get_settings( 'posts_source' ) ) )
 		);
 	}
 
@@ -142,8 +142,8 @@ trait Global_Widget_Functions {
 
 		$date = get_the_date();
 
-		if ( 'yes' == $settings['show_human_diff_time'] ) {
-			$date = sky_post_time_ago( ( 'yes' == $settings['human_diff_time_short'] ) ? 'short' : '' );
+		if ( 'yes' === $settings['show_human_diff_time'] ) {
+			$date = sky_addons_post_time_ago( ( 'yes' === $settings['human_diff_time_short'] ) ? 'short' : '' );
 		}
 
 		printf(
@@ -152,7 +152,7 @@ trait Global_Widget_Functions {
 			wp_kses_post( $date )
 		);
 
-		if ( isset( $settings['show_time'] ) && 'yes' == $settings['show_time'] ) {
+		if ( isset( $settings['show_time'] ) && 'yes' === $settings['show_time'] ) {
 			printf(
 				'<span class="%1$s"><i class="sky-icon-clock" aria-hidden="true"></i>%2$s</span>',
 				'sa-post-time sa-ms-1',
@@ -161,7 +161,7 @@ trait Global_Widget_Functions {
 		}
 	}
 
-	protected function render_post_excerpt( $length ) {
+	protected function render_post_excerpt( $length, $trail = '' ) {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! isset( $settings['show_excerpt'] ) || 'yes' !== $settings['show_excerpt'] ) {
@@ -173,7 +173,7 @@ trait Global_Widget_Functions {
 		if ( has_excerpt() ) {
 			$excerpt = get_the_excerpt();
 		} else {
-			$excerpt = sky_post_custom_excerpt( $length, $strip_shortcode );
+			$excerpt = sky_addons_post_custom_excerpt( $length, $strip_shortcode, $trail );
 		}
 
 		printf(
@@ -212,7 +212,7 @@ trait Global_Widget_Functions {
 		$params = [];
 		$params['autoplay'] = '0';
 
-		if ( 'yes' == $settings['video_autoplay'] ) {
+		if ( 'yes' === $settings['video_autoplay'] ) {
 			$params['autoplay'] = '1';
 			$params['mute'] = 1;
 		}
@@ -268,7 +268,7 @@ trait Global_Widget_Functions {
 			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'href' => $lightbox_url,
 			] );
-			if ( 'yes' == $settings['file_new_tab'] ) {
+			if ( 'yes' === $settings['file_new_tab'] ) {
 				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'target' => '_blank',
 				] );
@@ -312,7 +312,7 @@ trait Global_Widget_Functions {
 
 		$video_url = get_post_meta( $post_id, 'sky_video_link_meta', true );
 
-		if ( 'yes' == $settings['show_video'] ) :
+		if ( 'yes' === $settings['show_video'] ) :
 			$tag = 'div';
 			$id = $this->get_id() . '-' . $post_id;
 
@@ -322,13 +322,13 @@ trait Global_Widget_Functions {
 
 			$this->render_post_video_lightbox( $video_url, $id );
 
-			if ( $settings['video_open'] == 'file' ) {
+			if ( $settings['video_open'] === 'file' ) {
 				$tag = 'a';
 			}
 		endif;
 		?>
 		<div class="<?php print( esc_attr( $wrapper_class ) ); ?>">
-			<?php if ( empty( $video_url ) || 'yes' != $settings['show_video'] ) : ?>
+			<?php if ( empty( $video_url ) || 'yes' !== $settings['show_video'] ) : ?>
 				<!-- Extra - Link added in Image -->
 				<a class="sa-w-100 sa-h-100" href="<?php echo esc_url( get_permalink() ); ?>"
 					title="<?php echo esc_html( get_the_title() ); ?>">
@@ -351,7 +351,7 @@ trait Global_Widget_Functions {
 			<?php endif; ?>
 
 			<?php
-			if ( 'yes' == $settings['show_video'] && ! empty( $video_url ) ) :
+			if ( 'yes' === $settings['show_video'] && ! empty( $video_url ) ) :
 				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'class' => $play_class,
 				] );
@@ -379,7 +379,7 @@ trait Global_Widget_Functions {
 		$id = $this->get_id();
 		$link_attr = $id . get_the_ID();
 
-		if ( 'yes' != $settings['show_button'] ) {
+		if ( 'yes' !== $settings['show_button'] ) {
 			return;
 		}
 
@@ -397,7 +397,7 @@ trait Global_Widget_Functions {
 		?>
 		<a <?php $this->print_render_attribute_string( $link_attr ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
 					'class'       => 'sa-button-icon',
@@ -415,7 +415,7 @@ trait Global_Widget_Functions {
 				);
 
 			endif;
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
 					'class'       => 'sa-button-icon',

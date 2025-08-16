@@ -18,7 +18,7 @@ class Import_Template {
 	protected static $template = null;
 
 	public function load() {
-		add_action( 'elementor/ajax/register_actions', array( $this, 'ajax_actions' ) );
+		add_action( 'elementor/ajax/register_actions', [ $this, 'ajax_actions' ] );
 	}
 
 	public function ajax_actions( Ajax $ajax ) {

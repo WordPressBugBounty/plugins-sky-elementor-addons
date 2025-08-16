@@ -49,12 +49,12 @@ class FluentForm extends Widget_Base {
 		$this->start_controls_section(
 			'_section_fluent_form',
 			[
-				'label' => sky_is_fluent_form_activated() ? __( 'Fluent Form', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
+				'label' => sky_addons_is_fluent_form_activated() ? __( 'Fluent Form', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		if ( ! sky_is_fluent_form_activated() ) {
+		if ( ! sky_addons_is_fluent_form_activated() ) {
 
 			$this->add_control(
 				'_fluent_form_missing_notice',
@@ -64,7 +64,7 @@ class FluentForm extends Widget_Base {
 						__( 'Hello %2$s, the %1$s plugin is required for this widget to work properly. Please install and activate %1$s to access the full functionality of this widget. After installation, refresh this page to start using the form builder.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fluentform&tab=search&type=term' ) )
 						. '" target="_blank" rel="noopener">Fluent Form</a>',
-						sky_get_current_user_display_name()
+						sky_addons_get_current_user_display_name()
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -86,7 +86,7 @@ class FluentForm extends Widget_Base {
 					'label'       => __( 'Select Fluent Form', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( '-- Select a Form --', 'sky-elementor-addons' ) ] + \sky_get_fluent_forms(),
+					'options'     => [ '' => __( '-- Select a Form --', 'sky-elementor-addons' ) ] + \sky_addons_fluent_forms(),
 					'description' => sprintf(
 						__( 'Create or edit forms in the %1$sFluent Forms dashboard%2$s', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'admin.php?page=fluent_forms' ) ) . '" target="_blank">',
@@ -707,15 +707,15 @@ class FluentForm extends Widget_Base {
 	}
 
 	protected function render() {
-		if ( ! sky_is_fluent_form_activated() ) {
-			sky_show_plugin_missing_alert( __( 'Fluent Form', 'sky-elementor-addons' ) );
+		if ( ! sky_addons_is_fluent_form_activated() ) {
+			sky_addons_show_plugin_missing_alert( __( 'Fluent Form', 'sky-elementor-addons' ) );
 			return;
 		}
 
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['form_id'] ) ) {
-			echo sky_do_shortcode( 'fluentform', [
+			echo sky_addons_do_shortcode( 'fluentform', [
 				'id' => $settings['form_id'],
 			] );
 		}

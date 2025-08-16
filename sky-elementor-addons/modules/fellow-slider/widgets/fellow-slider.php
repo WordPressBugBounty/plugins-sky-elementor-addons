@@ -186,7 +186,7 @@ class Fellow_Slider extends Widget_Base {
 				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -1312,7 +1312,7 @@ class Fellow_Slider extends Widget_Base {
 		$params = [];
 		$params['autoplay'] = '0';
 
-		if ( 'yes' == $settings['video_autoplay'] ) {
+		if ( 'yes' === $settings['video_autoplay'] ) {
 			$params['autoplay'] = '1';
 			$params['mute'] = 1;
 		}
@@ -1368,7 +1368,7 @@ class Fellow_Slider extends Widget_Base {
 			$this->add_render_attribute( 'lightbox-attr-' . $id, [
 				'href' => $lightbox_url,
 			] );
-			if ( 'yes' == $settings['file_new_tab'] ) {
+			if ( 'yes' === $settings['file_new_tab'] ) {
 				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'target' => '_blank',
 				] );
@@ -1395,7 +1395,7 @@ class Fellow_Slider extends Widget_Base {
 
 		$video_url = get_post_meta( $post_id, 'sky_video_link_meta', true );
 
-		if ( 'yes' == $settings['show_video'] ) {
+		if ( 'yes' === $settings['show_video'] ) {
 			$tag = 'div';
 			$id = $this->get_id() . '-' . $post_id . $feature;
 
@@ -1405,14 +1405,14 @@ class Fellow_Slider extends Widget_Base {
 
 			$this->render_video_lightbox( $video_url, $id );
 
-			if ( $settings['video_open'] == 'file' ) {
+			if ( $settings['video_open'] === 'file' ) {
 				$tag = 'a';
 			}
 		}
 
 		?>
 		<div class="sa-post-img-wrapper sa-d-inline-block sa-overflow-hidden">
-			<?php if ( ( 'fellow' == $feature ) && ( 'yes' != $settings['show_video'] || empty( $video_url ) ) ) : ?>
+			<?php if ( ( 'fellow' === $feature ) && ( 'yes' !== $settings['show_video'] || empty( $video_url ) ) ) : ?>
 				<!-- Extra - Link added in Image -->
 				<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php echo esc_html( get_the_title() ); ?>">
 					<?php
@@ -1432,7 +1432,7 @@ class Fellow_Slider extends Widget_Base {
 			<?php endif; ?>
 
 			<?php
-			if ( 'yes' == $settings['show_video'] && ! empty( $video_url ) ) :
+			if ( 'yes' === $settings['show_video'] && ! empty( $video_url ) ) :
 				$this->add_render_attribute( 'lightbox-attr-' . $id, [
 					'class' => 'sa-play-button sa-icon-wrap sa-link',
 				] );
@@ -1596,10 +1596,10 @@ class Fellow_Slider extends Widget_Base {
 						wp_json_encode( array_filter( [
 							// 'autoHeight'    => true,
 							'direction'     => $settings['direction'],
-							'loop'          => ( $settings['loop'] == 'yes' ) ? true : false,
-							'autoplay'      => $settings['autoplay'] == 'yes' ? [ 'delay' => $settings['autoplay_speed']['size'] ] : false,
+							'loop'          => ( $settings['loop'] === 'yes' ) ? true : false,
+							'autoplay'      => $settings['autoplay'] === 'yes' ? [ 'delay' => $settings['autoplay_speed']['size'] ] : false,
 							'speed'         => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1500,
-							'pauseOnHover'  => ( $settings['autoplay'] == 'yes' && $settings['pause_on_hover'] == 'yes' ) ? true : false,
+							'pauseOnHover'  => ( $settings['autoplay'] === 'yes' && $settings['pause_on_hover'] === 'yes' ) ? true : false,
 							'effect'        => $settings['transition_effect'],
 							'slidesPerView' => 1,
 							'loopedSlides'  => 4,
@@ -1611,12 +1611,12 @@ class Fellow_Slider extends Widget_Base {
 					'data-playlist-settings' => [
 						wp_json_encode( array_filter( [
 							'direction'             => 'vertical',
-							'loop'                  => ( $settings['loop'] == 'yes' ) ? true : false,
+							'loop'                  => ( $settings['loop'] === 'yes' ) ? true : false,
 							'speed'                 => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1500,
 							'slidesPerView'         => 3,
 							'loopedSlides'          => 4,
 							'spaceBetween'          => 20,
-							'mousewheel'            => ( $settings['playlist_mouse_wheel'] == 'yes' ) ? true : false,
+							'mousewheel'            => ( $settings['playlist_mouse_wheel'] === 'yes' ) ? true : false,
 							'freeMode'              => false, // ($settings['playlist_free_mode'] == 'yes') ? true : false,
 							'watchSlidesVisibility' => true,
 							'watchSlidesProgress'   => true,
@@ -1626,8 +1626,8 @@ class Fellow_Slider extends Widget_Base {
 							// 'prevEl'         => $settings['playlist_show_navigation'] == 'yes' ? "#$id .sa-swiper-button-prev" : false
 							// ],
 							'scrollbar'             => [
-								'el'        => $settings['playlist_show_scrollbar'] == 'yes' ? "#$id .sa-swiper-scrollbar" : false,
-								'draggable' => $settings['playlist_show_scrollbar'] == 'yes' ? true : false,
+								'el'        => $settings['playlist_show_scrollbar'] === 'yes' ? "#$id .sa-swiper-scrollbar" : false,
+								'draggable' => $settings['playlist_show_scrollbar'] === 'yes' ? true : false,
 							],
 							'breakpoints'           => [
 								'320' => [
@@ -1681,7 +1681,7 @@ class Fellow_Slider extends Widget_Base {
 					endwhile;
 					?>
 				</div>
-				<?php if ( $settings['playlist_show_scrollbar'] == 'yes' ) : ?>
+				<?php if ( $settings['playlist_show_scrollbar'] === 'yes' ) : ?>
 					<div class="sa-swiper-scrollbar"></div>
 				<?php endif; ?>
 			</div>

@@ -68,7 +68,7 @@ class Slinky_Menu extends Widget_Base {
 			[
 				'label'   => esc_html__( 'Select Menu', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => sa_wp_get_menu(),
+				'options' => sky_addons_wp_get_menu(),
 				'default' => 0,
 			]
 		);
@@ -520,7 +520,7 @@ class Slinky_Menu extends Widget_Base {
 			return;
 		}
 
-		$nav_menu_args = array(
+		$nav_menu_args = [
 			'menu'           => $nav_menu,
 			'container'      => false,
 			'menu_class'     => 'slinky-vertical-menu',
@@ -531,7 +531,7 @@ class Slinky_Menu extends Widget_Base {
 			'walker'         => new Menu_Walker(),
 			'show_carets'    => true,
 			'theme_location' => 'default_navmenu',
-		);
+		];
 
 		wp_nav_menu( apply_filters( 'widget_nav_menu_args', $nav_menu_args, $nav_menu, $settings ) );
 	}

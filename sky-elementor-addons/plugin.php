@@ -30,7 +30,7 @@ class Sky_Addons_Plugin {
 	/**
 	 * @var array
 	 */
-	private $_localize_settings = array();
+	private $_localize_settings = [];
 
 	/**
 	 * @return string
@@ -162,13 +162,13 @@ class Sky_Addons_Plugin {
 
 		$filename = strtolower(
 			preg_replace(
-				array( '/^' . __NAMESPACE__ . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ),
-				array(
+				[ '/^' . __NAMESPACE__ . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
+				[
 					'',
 					'$1-$2',
 					'-',
 					DIRECTORY_SEPARATOR,
-				),
+				],
 				$_class
 			)
 		);
@@ -205,7 +205,7 @@ class Sky_Addons_Plugin {
 		wp_register_style(
 			'sky-elementor-addons',
 			SKY_ADDONS_URL . 'assets/css/sky-addons' . $direction_suffix . '.css',
-			array(),
+			[],
 			SKY_ADDONS_VERSION
 		);
 
@@ -218,7 +218,7 @@ class Sky_Addons_Plugin {
 		wp_enqueue_style(
 			'sky-elementor-addons-icons',
 			SKY_ADDONS_URL . 'assets/css/sky-editor' . $direction_suffix . '.css',
-			array(),
+			[],
 			SKY_ADDONS_VERSION
 		);
 	}
@@ -229,10 +229,10 @@ class Sky_Addons_Plugin {
 		wp_register_script(
 			'sky-elementor-addons',
 			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
-			array(
+			[
 				'jquery',
 				'elementor-frontend',
-			),
+			],
 			SKY_ADDONS_VERSION,
 			true
 		);
@@ -251,10 +251,10 @@ class Sky_Addons_Plugin {
 		wp_localize_script(
 			'sky-elementor-addons',
 			'Sky_AddonsFrontendConfig', // This is used in the js file to group all of your scripts together
-			array(
+			[
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'sky-elementor-addons' ),
-			)
+			]
 		);
 
 		wp_enqueue_script( 'sky-elementor-addons' );
@@ -265,62 +265,62 @@ class Sky_Addons_Plugin {
 		wp_register_script(
 			'sa-image-compare',
 			SKY_ADDONS_ASSETS_URL . 'vendor/js/image-compare-viewer' . $suffix . '.js',
-			array(
+			[
 				'jquery',
 				'elementor-frontend',
-			),
+			],
 			'1.0.0',
 			true
 		);
-		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider' . $suffix . '.js', array(), '1.0.0', true );
+		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider' . $suffix . '.js', [], '1.0.0', true );
 		wp_register_script(
 			'sa-reading-progress',
 			SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.reading-progress' . $suffix . '.js',
-			array(
+			[
 				'jquery',
-			),
+			],
 			'1.0.0',
 			true
 		);
-		wp_register_script( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', array(), '3.1.1', true );
+		wp_register_script( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', [], '3.1.1', true );
 		/**
 		 * No need Suffix on Anime JS
 		 */
 		wp_register_script(
 			'anime',
 			SKY_ADDONS_ASSETS_URL . 'vendor/js/anime.min.js',
-			array(
+			[
 				'jquery',
-			),
+			],
 			'3.2.1',
 			true
 		);
-		wp_register_script( 'popper', SKY_ADDONS_ASSETS_URL . 'vendor/js/popper' . $suffix . '.js', array(), '2.10.1', true );
-		wp_register_script( 'tippyjs', SKY_ADDONS_ASSETS_URL . 'vendor/js/tippy-bundle.umd' . $suffix . '.js', array(), '6.3.1', true );
+		wp_register_script( 'popper', SKY_ADDONS_ASSETS_URL . 'vendor/js/popper' . $suffix . '.js', [], '2.10.1', true );
+		wp_register_script( 'tippyjs', SKY_ADDONS_ASSETS_URL . 'vendor/js/tippy-bundle.umd' . $suffix . '.js', [], '6.3.1', true );
 
-		wp_register_script( 'countUp', SKY_ADDONS_ASSETS_URL . 'vendor/js/countUp' . $suffix . '.js', array(), '2.0.4', true );
-		wp_register_script( 'sweetalert2', SKY_ADDONS_ASSETS_URL . 'vendor/js/sweetalert2' . $suffix . '.js', array(), '2.0.0', true );
-		wp_register_script( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/js/metis-menu' . $suffix . '.js', array( 'jquery' ), '3.0.7', true );
-		wp_register_script( 'equal-height', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.matchHeight' . $suffix . '.js', array( 'jquery' ), '0.7.2', true );
-		wp_register_script( 'pdfobject', SKY_ADDONS_ASSETS_URL . 'vendor/js/pdfobject' . $suffix . '.js', array( 'jquery' ), 'v2.2.7', true );
-		wp_register_script( 'granim', SKY_ADDONS_ASSETS_URL . 'vendor/js/granim' . $suffix . '.js', array(), 'v2.0.0', true );
-		wp_register_script( 'ripples', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.ripples' . $suffix . '.js', array( 'jquery' ), 'v0.5.3', true );
-		wp_register_script( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/js/slinky' . $suffix . '.js', array( 'jquery' ), '1.0.0', true );
-		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx' . $suffix . '.js', array( 'jquery' ), '0.0.2', true );
-		wp_register_script( 'typed', SKY_ADDONS_ASSETS_URL . 'vendor/js/typed' . $suffix . '.js', array(), 'v2.0.12', true );
-		wp_register_script( 'morphext', SKY_ADDONS_ASSETS_URL . 'vendor/js/morphext' . $suffix . '.js', array(), 'v2.4.4', true );
-		wp_register_script( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/js/plyr' . $suffix . '.js', array(), '3.7.2', true );
-		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', array(), '5.6.2', true );
+		wp_register_script( 'countUp', SKY_ADDONS_ASSETS_URL . 'vendor/js/countUp' . $suffix . '.js', [], '2.0.4', true );
+		wp_register_script( 'sweetalert2', SKY_ADDONS_ASSETS_URL . 'vendor/js/sweetalert2' . $suffix . '.js', [], '2.0.0', true );
+		wp_register_script( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/js/metis-menu' . $suffix . '.js', [ 'jquery' ], '3.0.7', true );
+		wp_register_script( 'equal-height', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.matchHeight' . $suffix . '.js', [ 'jquery' ], '0.7.2', true );
+		wp_register_script( 'pdfobject', SKY_ADDONS_ASSETS_URL . 'vendor/js/pdfobject' . $suffix . '.js', [ 'jquery' ], 'v2.2.7', true );
+		wp_register_script( 'granim', SKY_ADDONS_ASSETS_URL . 'vendor/js/granim' . $suffix . '.js', [], 'v2.0.0', true );
+		wp_register_script( 'ripples', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.ripples' . $suffix . '.js', [ 'jquery' ], 'v0.5.3', true );
+		wp_register_script( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/js/slinky' . $suffix . '.js', [ 'jquery' ], '1.0.0', true );
+		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx' . $suffix . '.js', [ 'jquery' ], '0.0.2', true );
+		wp_register_script( 'typed', SKY_ADDONS_ASSETS_URL . 'vendor/js/typed' . $suffix . '.js', [], 'v2.0.12', true );
+		wp_register_script( 'morphext', SKY_ADDONS_ASSETS_URL . 'vendor/js/morphext' . $suffix . '.js', [], 'v2.4.4', true );
+		wp_register_script( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/js/plyr' . $suffix . '.js', [], '3.7.2', true );
+		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', [], '5.6.2', true );
 	}
 
 	public function register_site_styles() {
 		$direction_suffix = is_rtl() ? '.rtl' : '.min';
-		wp_register_style( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/css/accordion' . $direction_suffix . '.css', array(), '3.1.1' );
-		wp_register_style( 'tippy', SKY_ADDONS_ASSETS_URL . 'vendor/css/tippy-animation' . $direction_suffix . '.css', array(), '6.3.1' );
-		wp_register_style( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/css/momentum-slider' . $direction_suffix . '.css', array(), '1.0.0' );
-		wp_register_style( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/css/metis-menu' . $direction_suffix . '.css', array(), '13.0.7' );
-		wp_register_style( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/css/slinky' . $direction_suffix . '.css', array(), '1.0.0' );
-		wp_register_style( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/css/plyr' . $direction_suffix . '.css', array(), '6.3.1' );
+		wp_register_style( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/css/accordion' . $direction_suffix . '.css', [], '3.1.1' );
+		wp_register_style( 'tippy', SKY_ADDONS_ASSETS_URL . 'vendor/css/tippy-animation' . $direction_suffix . '.css', [], '6.3.1' );
+		wp_register_style( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/css/momentum-slider' . $direction_suffix . '.css', [], '1.0.0' );
+		wp_register_style( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/css/metis-menu' . $direction_suffix . '.css', [], '13.0.7' );
+		wp_register_style( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/css/slinky' . $direction_suffix . '.css', [], '1.0.0' );
+		wp_register_style( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/css/plyr' . $direction_suffix . '.css', [], '6.3.1' );
 	}
 
 	public function enqueue_editor_scripts() {
@@ -329,19 +329,19 @@ class Sky_Addons_Plugin {
 		wp_register_script(
 			'sky-addons-editor',
 			SKY_ADDONS_ASSETS_URL . 'js/sky-addons-editor' . $suffix . '.js',
-			array(
+			[
 				'backbone-marionette',
 				'elementor-common-modules',
 				'elementor-editor-modules',
-			),
+			],
 			SKY_ADDONS_VERSION,
 			true
 		);
 
-		$localize_data = array(
+		$localize_data = [
 			'pro_installed'       => _is_sky_addons_pro_activated(),
-			'promotional_widgets' => array(),
-		);
+			'promotional_widgets' => [],
+		];
 
 		if ( ! _is_sky_addons_pro_activated() ) {
 			$pro_widget_map                       = new \Sky_Addons\Includes\Pro_Widget_Map();
@@ -355,7 +355,7 @@ class Sky_Addons_Plugin {
 
 	public function enqueue_editor_style() {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
-		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', array(), SKY_ADDONS_VERSION );
+		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
 		wp_enqueue_style( 'sky-widget-icons' );
 	}
 
@@ -367,10 +367,10 @@ class Sky_Addons_Plugin {
 		 */
 		Plugin::instance()->elements_manager->add_category(
 			'sky-elementor-addons',
-			array(
+			[
 				'title' => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
 				'icon'  => 'font',
-			)
+			]
 		);
 
 		if ( class_exists( 'Sky_Addons\Templates\Init_Templates' ) ) {
@@ -413,12 +413,12 @@ class Sky_Addons_Plugin {
 		}
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 		wp_enqueue_style( 'wp-components' );
-		wp_register_style( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.css', array(), SKY_ADDONS_VERSION );
+		wp_register_style( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.css', [], SKY_ADDONS_VERSION );
 		wp_enqueue_style( 'sky-addons' );
 	}
 
 	public function localize_config() {
-		$script_config = array(
+		$script_config = [
 			'web_url'      => esc_url( home_url() ),
 			'ajax_url'     => esc_url( admin_url( 'admin-ajax.php' ) ),
 			'rest_url'     => esc_url( rest_url() ),
@@ -432,14 +432,14 @@ class Sky_Addons_Plugin {
 			'logo'         => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
 			'root_url'     => SKY_ADDONS_URL,
 			'pro_init'     => apply_filters( 'sky_addons_pro_init', false ),
-			'current_user' => array(
+			'current_user' => [
 				'domain'       => esc_url( home_url() ),
 				'display_name' => wp_get_current_user()->display_name,
 				'email'        => wp_get_current_user()->user_email,
 				'id'           => wp_get_current_user()->ID,
 				'avatar'       => get_avatar_url( wp_get_current_user()->ID ),
-			),
-		);
+			],
+		];
 
 		return $script_config;
 	}
@@ -486,7 +486,7 @@ class Sky_Addons_Plugin {
 		if ( in_array( $hook, [ 'post.php', 'post-new.php' ] ) ) {
 			global $post_type;
 			if ( 'wowdevs-hooks' === $post_type ) {
-				wp_register_script( 'wowdevs-hooks', SKY_ADDONS_URL . 'build/theme-builder/index.js', array(), SKY_ADDONS_VERSION, true );
+				wp_register_script( 'wowdevs-hooks', SKY_ADDONS_URL . 'build/theme-builder/index.js', [], SKY_ADDONS_VERSION, true );
 
 				$script_config = $this->localize_config();
 				wp_localize_script( 'wowdevs-hooks', 'SkyAddonsConfig', $script_config );
@@ -499,31 +499,31 @@ class Sky_Addons_Plugin {
 
 	protected function add_actions() {
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'app_enqueue_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'app_enqueue_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_hooks_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'app_enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'app_enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_hooks_scripts' ] );
 
-		add_action( 'elementor/init', array( $this, 'elementor_init' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_site_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 998 );
+		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'register_site_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 998 );
 
-		add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue_editor_style' ) );
-		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'enqueue_styles_backend' ), 991 );
-		add_action( 'elementor/editor/after_enqueue_scripts', array( $this, 'enqueue_editor_scripts' ) );
+		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_style' ] );
+		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_styles_backend' ], 991 );
+		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 
-		add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_scripts' ), 998 );
-		add_action( 'elementor/frontend/before_register_styles', array( $this, 'register_site_styles' ) );
+		add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'enqueue_scripts' ], 998 );
+		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_site_styles' ] );
 	}
 
 	/**
 	 * Plugin-> Sky_Addons constructor.
 	 */
 	private function __construct() {
-		spl_autoload_register( array( $this, 'autoload' ) );
+		spl_autoload_register( [ $this, 'autoload' ] );
 
 		// $this->includes();
 		// $this->add_actions();
-		add_action( 'init', array( $this, 'init_plugin' ) );
+		add_action( 'init', [ $this, 'init_plugin' ] );
 	}
 }
 

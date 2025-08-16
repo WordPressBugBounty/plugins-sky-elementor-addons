@@ -217,7 +217,7 @@ class Team_Member extends Widget_Base {
 				'label'   => esc_html__( 'Name HTML Tag', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
-				'options' => sky_title_tags(),
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
@@ -252,7 +252,7 @@ class Team_Member extends Widget_Base {
 				'label'     => esc_html__( 'Job Title HTML Tag', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h6',
-				'options'   => sky_title_tags(),
+				'options'   => sky_addons_title_tags(),
 				'condition' => [
 					'show_job_title' => 'yes',
 				],
@@ -1894,7 +1894,7 @@ class Team_Member extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-d-inline-block sa-text-decoration-none sa-my-2' );
-		$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] == 'yes' ) ? 'sa-d-block' : '' );
+		$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] === 'yes' ) ? 'sa-d-block' : '' );
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
 
 		if ( ! empty( $settings['link']['url'] ) ) {
@@ -1917,7 +1917,7 @@ class Team_Member extends Widget_Base {
 		?>
 		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
 					'class'       => 'sa-button-icon',
@@ -1935,7 +1935,7 @@ class Team_Member extends Widget_Base {
 				);
 
 			endif;
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] == 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
 					'class'       => 'sa-button-icon',
@@ -2044,7 +2044,7 @@ class Team_Member extends Widget_Base {
 				echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) );
 			}
 			// start alter_image
-			if ( $settings['show_alter_image'] == 'yes' ) {
+			if ( $settings['show_alter_image'] === 'yes' ) {
 				$this->alter_image();
 			}
 			?>
@@ -2069,7 +2069,7 @@ class Team_Member extends Widget_Base {
 					$this->name();
 				}
 
-				if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+				if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 					$this->job_title();
 				}
 
@@ -2077,15 +2077,15 @@ class Team_Member extends Widget_Base {
 					$this->text();
 				}
 
-				if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'before_socials' ) {
+				if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'before_socials' ) {
 					$this->button();
 				}
 
-				if ( $settings['show_socials'] == 'yes' ) {
+				if ( $settings['show_socials'] === 'yes' ) {
 					$this->social_icons();
 				}
 
-				if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'after_socials' ) {
+				if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'after_socials' ) {
 					$this->button();
 				}
 				?>
@@ -2112,13 +2112,13 @@ class Team_Member extends Widget_Base {
 					if ( ! empty( $settings['name'] ) ) {
 						$this->name();
 					}
-					if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+					if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 						$this->job_title();
 					}
 					?>
 				</div>
 				<?php
-				if ( $settings['show_socials'] == 'yes' ) {
+				if ( $settings['show_socials'] === 'yes' ) {
 					$this->social_icons();
 				}
 
@@ -2126,7 +2126,7 @@ class Team_Member extends Widget_Base {
 					$this->text();
 				}
 
-				if ( $settings['show_button'] == 'yes' ) {
+				if ( $settings['show_button'] === 'yes' ) {
 					$this->button();
 				}
 				?>
@@ -2152,15 +2152,15 @@ class Team_Member extends Widget_Base {
 						if ( ! empty( $settings['text'] ) ) {
 							$this->text();
 						}
-						if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'before_socials' ) {
+						if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'before_socials' ) {
 							$this->button();
 						}
 
-						if ( $settings['show_socials'] == 'yes' ) {
+						if ( $settings['show_socials'] === 'yes' ) {
 							$this->social_icons();
 						}
 
-						if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'after_socials' ) {
+						if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'after_socials' ) {
 							$this->button();
 						}
 						?>
@@ -2173,7 +2173,7 @@ class Team_Member extends Widget_Base {
 				if ( ! empty( $settings['name'] ) ) {
 					$this->name();
 				}
-				if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+				if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 					$this->job_title();
 				}
 				?>
@@ -2200,15 +2200,15 @@ class Team_Member extends Widget_Base {
 							if ( ! empty( $settings['text'] ) ) {
 								$this->text();
 							}
-							if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'before_socials' ) {
+							if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'before_socials' ) {
 								$this->button();
 							}
 
-							if ( $settings['show_socials'] == 'yes' ) {
+							if ( $settings['show_socials'] === 'yes' ) {
 								$this->social_icons();
 							}
 
-							if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'after_socials' ) {
+							if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'after_socials' ) {
 								$this->button();
 							}
 							?>
@@ -2222,7 +2222,7 @@ class Team_Member extends Widget_Base {
 				if ( ! empty( $settings['name'] ) ) {
 					$this->name();
 				}
-				if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+				if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 					$this->job_title();
 				}
 				?>
@@ -2247,21 +2247,21 @@ class Team_Member extends Widget_Base {
 						if ( ! empty( $settings['name'] ) ) {
 							$this->name();
 						}
-						if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+						if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 							$this->job_title();
 						}
 						if ( ! empty( $settings['text'] ) ) {
 							$this->text();
 						}
-						if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'before_socials' ) {
+						if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'before_socials' ) {
 							$this->button();
 						}
 
-						if ( $settings['show_socials'] == 'yes' ) {
+						if ( $settings['show_socials'] === 'yes' ) {
 							$this->social_icons();
 						}
 
-						if ( $settings['show_button'] == 'yes' && $settings['button_position'] == 'after_socials' ) {
+						if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'after_socials' ) {
 							$this->button();
 						}
 						?>
@@ -2289,11 +2289,11 @@ class Team_Member extends Widget_Base {
 					$this->name();
 				}
 
-				if ( $settings['show_job_title'] == 'yes' && ! empty( $settings['job_title'] ) ) {
+				if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
 					$this->job_title();
 				}
 
-				if ( $settings['show_socials'] == 'yes' ) {
+				if ( $settings['show_socials'] === 'yes' ) {
 					$this->social_icons();
 				}
 				?>
@@ -2330,19 +2330,19 @@ class Team_Member extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		if ( $settings['style_select'] == 'default' ) {
+		if ( $settings['style_select'] === 'default' ) {
 			$this->style_default();
-		} elseif ( $settings['style_select'] == 'ardent' ) {
+		} elseif ( $settings['style_select'] === 'ardent' ) {
 			$this->style_ardent();
-		} elseif ( $settings['style_select'] == 'folk' ) {
+		} elseif ( $settings['style_select'] === 'folk' ) {
 			$this->style_folk();
-		} elseif ( $settings['style_select'] == 'folker' ) {
+		} elseif ( $settings['style_select'] === 'folker' ) {
 			$this->style_folker();
-		} elseif ( $settings['style_select'] == 'slide' ) {
+		} elseif ( $settings['style_select'] === 'slide' ) {
 			$this->style_slide();
-		} elseif ( $settings['style_select'] == 'mold' ) {
+		} elseif ( $settings['style_select'] === 'mold' ) {
 			$this->style_mold();
-		} elseif ( $settings['style_select'] == 'flip' ) {
+		} elseif ( $settings['style_select'] === 'flip' ) {
 			$this->style_flip();
 		} else {
 		}
