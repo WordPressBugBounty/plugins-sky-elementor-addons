@@ -918,7 +918,7 @@ trait Global_Swiper_Controls {
 		$columns        = isset( $settings['columns'] ) ? (int) $settings['columns'] : 3;
 
 		/**
-		 * todo
+		 * Todo
 		 * Below Columns specially design for decimal/float views
 		 * Will ne use later
 		 * Need to test in panel slider widget
@@ -943,7 +943,7 @@ trait Global_Swiper_Controls {
 							'pauseOnHover'          => ( 'yes' === $settings['autoplay'] ) && ( 'yes' === $settings['pause_on_hover'] ) ? true : false,
 							'slidesPerView'         => $columns_mobile,
 							'slidesPerGroup'        => isset( $settings['slides_per_group_mobile'] ) ? (int) $settings['slides_per_group_mobile'] : 1,
-							'spaceBetween'          => ! empty( $settings['item_gap_mobile']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_mobile']['size'] : 10,
+							'spaceBetween'          => ( isset( $settings['item_gap_mobile']['size'] ) && ( ! empty( $settings['item_gap_mobile']['size'] ) || 0 === $settings['item_gap_mobile']['size'] ) ) ? (int) $settings['item_gap_mobile']['size'] : 10,
 							'centeredSlides'        => 'yes' === $settings['centered_slides'] ? true : false,
 							'grabCursor'            => 'yes' === $settings['grab_cursor'] ? true : false,
 							'freeMode'              => 'yes' === $settings['free_mode'] ? true : false,
@@ -975,7 +975,7 @@ trait Global_Swiper_Controls {
 							'breakpoints'           => [
 								(int) $viewport_md => [
 									'slidesPerView'  => $columns_tablet,
-									'spaceBetween'   => ! empty( $settings['item_gap_tablet']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_tablet']['size'] : 16,
+									'spaceBetween'   => ( isset( $settings['item_gap_tablet']['size'] ) && ( ! empty( $settings['item_gap_tablet']['size'] ) || 0 === $settings['item_gap_tablet']['size'] ) ) ? (int) $settings['item_gap_tablet']['size'] : 16,
 									'slidesPerGroup' => isset( $settings['slides_per_group_tablet'] ) ? (int) $settings['slides_per_group_tablet'] : 1,
 								],
 								(int) $viewport_lg => [

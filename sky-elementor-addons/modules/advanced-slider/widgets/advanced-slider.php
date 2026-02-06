@@ -2763,7 +2763,7 @@ class Advanced_Slider extends Widget_Base {
 					$hash = 'data-hash="' . sanitize_title( $item['title'] ) . '-' . $this->get_id() . $index . '"';
 				}
 
-				$item_link = null;
+				$item_link = '';
 				if ( $item_link_on === true && ! empty( $item['link']['url'] ) ) {
 					$target = $item['link']['is_external'] ? '_blank' : '_self';
 					$item_link = 'onclick="window.open(\'' . esc_url( $item['link']['url'] ) . '\', \'' . $target . '\')"';

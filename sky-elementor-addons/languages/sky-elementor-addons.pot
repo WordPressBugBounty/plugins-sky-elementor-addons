@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sky Addons for Elementor 3.2.1\n"
+"Project-Id-Version: Sky Addons for Elementor 3.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sky-elementor-addons\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-16T13:57:22+00:00\n"
+"POT-Creation-Date: 2025-12-10T05:25:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: sky-elementor-addons\n"
@@ -301,132 +301,148 @@ msgid "Dark Mode"
 msgstr ""
 
 #: includes/admin.php:404
-msgid "Data Table"
+msgid "Diamond Gallery"
 msgstr ""
 
 #: includes/admin.php:415
+msgid "Data Table"
+msgstr ""
+
+#: includes/admin.php:426
 #: modules/dual-button/module.info.php:8
 #: modules/dual-button/widgets/dual-button.php:26
 msgid "Dual Button"
 msgstr ""
 
-#: includes/admin.php:426
+#: includes/admin.php:437
 #: modules/fellow-slider/module.info.php:8
 #: modules/fellow-slider/widgets/fellow-slider.php:41
 #: modules/fellow-slider/widgets/fellow-slider.php:452
 msgid "Fellow Slider"
 msgstr ""
 
-#: includes/admin.php:437
+#: includes/admin.php:448
 msgid "Flow Slider"
 msgstr ""
 
-#: includes/admin.php:448
+#: includes/admin.php:459
 msgid "Form Builder"
 msgstr ""
 
-#: includes/admin.php:459
+#: includes/admin.php:470
+msgid "Full Page Menu"
+msgstr ""
+
+#: includes/admin.php:481
 msgid "Hover Video"
 msgstr ""
 
-#: includes/admin.php:470
+#: includes/admin.php:492
 #: modules/generic-grid/module.info.php:8
 #: modules/generic-grid/widgets/generic-grid.php:37
 #: modules/generic-grid/widgets/generic-grid.php:335
 msgid "Generic Grid"
 msgstr ""
 
-#: includes/admin.php:481
+#: includes/admin.php:503
 #: modules/generic-carousel/module.info.php:8
 #: modules/generic-carousel/widgets/generic-carousel.php:40
 #: modules/generic-carousel/widgets/generic-carousel.php:345
 msgid "Generic Carousel"
 msgstr ""
 
-#: includes/admin.php:492
+#: includes/admin.php:514
 msgid "Glory Slider"
 msgstr ""
 
-#: includes/admin.php:503
+#: includes/admin.php:525
 msgid "Iframe"
 msgstr ""
 
-#: includes/admin.php:514
+#: includes/admin.php:536
+msgid "Image Accordion"
+msgstr ""
+
+#: includes/admin.php:547
 msgid "Nav Menu"
 msgstr ""
 
-#: includes/admin.php:525
+#: includes/admin.php:558
+msgid "News Ticker"
+msgstr ""
+
+#: includes/admin.php:569
 msgid "Off Canvas Menu"
 msgstr ""
 
-#: includes/admin.php:536
+#: includes/admin.php:580
 #: modules/image-compare/widgets/image-compare.php:27
 #: modules/image-compare/widgets/image-compare.php:55
 msgid "Image Compare"
 msgstr ""
 
-#: includes/admin.php:547
+#: includes/admin.php:591
 #: modules/info-box/module.info.php:8
 #: modules/info-box/widgets/info-box.php:29
 #: modules/info-box/widgets/info-box.php:382
 msgid "Info Box"
 msgstr ""
 
-#: includes/admin.php:558
+#: includes/admin.php:602
 #: modules/list-group/module.info.php:8
 #: modules/list-group/widgets/list-group.php:27
 #: modules/list-group/widgets/list-group.php:57
 msgid "List Group"
 msgstr ""
 
-#: includes/admin.php:569
+#: includes/admin.php:613
 #: modules/logo-carousel/module.info.php:8
 #: modules/logo-carousel/widgets/logo-carousel.php:34
 msgid "Logo Carousel"
 msgstr ""
 
-#: includes/admin.php:580
+#: includes/admin.php:624
 #: modules/logo-grid/module.info.php:8
 #: modules/logo-grid/widgets/logo-grid.php:28
 #: modules/logo-grid/widgets/logo-grid.php:351
 msgid "Logo Grid"
 msgstr ""
 
-#: includes/admin.php:591
+#: includes/admin.php:635
 #: modules/luster-grid/module.info.php:8
 #: modules/luster-grid/widgets/luster-grid.php:34
 #: modules/luster-grid/widgets/luster-grid.php:316
 msgid "Luster Grid"
 msgstr ""
 
-#: includes/admin.php:602
+#: includes/admin.php:646
 #: modules/luster-carousel/module.info.php:8
 #: modules/luster-carousel/widgets/luster-carousel.php:38
 #: modules/luster-carousel/widgets/luster-carousel.php:366
 msgid "Luster Carousel"
 msgstr ""
 
-#: includes/admin.php:613
+#: includes/admin.php:657
 #: modules/mate-list/module.info.php:8
 #: modules/mate-list/widgets/mate-list.php:36
 #: modules/mate-list/widgets/mate-list.php:384
 msgid "Mate List"
 msgstr ""
 
-#: includes/admin.php:624
+#: includes/admin.php:668
 #: modules/mate-slider/module.info.php:8
 #: modules/mate-slider/widgets/mate-slider.php:37
 msgid "Mate Slider"
 msgstr ""
 
-#: includes/admin.php:635
+#: includes/admin.php:679
 #: modules/mate-carousel/module.info.php:8
 #: modules/mate-carousel/widgets/mate-carousel.php:40
 #: modules/mate-carousel/widgets/mate-carousel.php:382
 msgid "Mate Carousel"
 msgstr ""
 
-#: includes/admin.php:646
+#: includes/admin.php:690
 #: modules/momentum-slider/module.info.php:8
 #: modules/momentum-slider/widgets/momentum-slider.php:27
 #: modules/momentum-slider/widgets/momentum-slider.php:61
@@ -434,21 +450,21 @@ msgstr ""
 msgid "Momentum Slider"
 msgstr ""
 
-#: includes/admin.php:657
+#: includes/admin.php:701
 #: modules/naive-list/module.info.php:8
 #: modules/naive-list/widgets/naive-list.php:36
 #: modules/naive-list/widgets/naive-list.php:458
 msgid "Naive List"
 msgstr ""
 
-#: includes/admin.php:668
+#: includes/admin.php:712
 #: modules/naive-carousel/module.info.php:8
 #: modules/naive-carousel/widgets/naive-carousel.php:39
 #: modules/naive-carousel/widgets/naive-carousel.php:457
 msgid "Naive Carousel"
 msgstr ""
 
-#: includes/admin.php:679
+#: includes/admin.php:723
 #: modules/image-compare/module.info.php:8
 #: modules/list-group/widgets/list-group.php:80
 #: modules/list-group/widgets/list-group.php:122
@@ -463,17 +479,25 @@ msgstr ""
 msgid "Number"
 msgstr ""
 
-#: includes/admin.php:690
+#: includes/admin.php:734
+msgid "Off-Canvas"
+msgstr ""
+
+#: includes/admin.php:745
+msgid "Off-Canvas Menu"
+msgstr ""
+
+#: includes/admin.php:756
 msgid "Pace Slider"
 msgstr ""
 
-#: includes/admin.php:701
+#: includes/admin.php:767
 #: modules/panel-slider/module.info.php:8
 #: modules/panel-slider/widgets/panel-slider.php:34
 msgid "Panel Slider"
 msgstr ""
 
-#: includes/admin.php:712
+#: includes/admin.php:778
 #: modules/pdf-viewer/module.info.php:8
 #: modules/pdf-viewer/widgets/pdf-viewer.php:28
 #: modules/pdf-viewer/widgets/pdf-viewer.php:56
@@ -481,28 +505,28 @@ msgstr ""
 msgid "PDF Viewer"
 msgstr ""
 
-#: includes/admin.php:723
+#: includes/admin.php:789
 #: modules/post-list/module.info.php:8
 #: modules/post-list/widgets/post-list.php:36
 #: modules/post-list/widgets/post-list.php:357
 msgid "Post List"
 msgstr ""
 
-#: includes/admin.php:734
+#: includes/admin.php:800
 #: modules/portion-effect/module.info.php:8
 #: modules/portion-effect/widgets/portion-effect.php:23
 msgid "Portion Effect"
 msgstr ""
 
-#: includes/admin.php:745
+#: includes/admin.php:811
 msgid "Pricing Table"
 msgstr ""
 
-#: includes/admin.php:756
+#: includes/admin.php:822
 msgid "QR Code"
 msgstr ""
 
-#: includes/admin.php:767
+#: includes/admin.php:833
 #: modules/reading-progress/module.info.php:8
 #: modules/reading-progress/widgets/reading-progress.php:23
 #: modules/reading-progress/widgets/reading-progress.php:54
@@ -510,7 +534,7 @@ msgstr ""
 msgid "Reading Progress"
 msgstr ""
 
-#: includes/admin.php:778
+#: includes/admin.php:844
 #: modules/review/module.info.php:8
 #: modules/review/widgets/review.php:28
 #: modules/review/widgets/review.php:212
@@ -519,41 +543,53 @@ msgstr ""
 msgid "Review"
 msgstr ""
 
-#: includes/admin.php:789
+#: includes/admin.php:855
 msgid "Review Carousel"
 msgstr ""
 
-#: includes/admin.php:800
+#: includes/admin.php:866
 msgid "Remote Arrows"
 msgstr ""
 
-#: includes/admin.php:811
+#: includes/admin.php:877
 msgid "Remote Pagination"
 msgstr ""
 
-#: includes/admin.php:822
+#: includes/admin.php:888
 msgid "Remote Thumbs"
 msgstr ""
 
-#: includes/admin.php:833
+#: includes/admin.php:899
+msgid "Rounded Cursor"
+msgstr ""
+
+#: includes/admin.php:910
+msgid "Reveal Gallery"
+msgstr ""
+
+#: includes/admin.php:921
+msgid "Scrolling Gallery"
+msgstr ""
+
+#: includes/admin.php:932
 #: modules/sapling-grid/module.info.php:8
 #: modules/sapling-grid/widgets/sapling-grid.php:36
 #: modules/sapling-grid/widgets/sapling-grid.php:390
 msgid "Sapling Grid"
 msgstr ""
 
-#: includes/admin.php:844
+#: includes/admin.php:943
 #: modules/sapling-carousel/module.info.php:8
 #: modules/sapling-carousel/widgets/sapling-carousel.php:38
 #: modules/sapling-carousel/widgets/sapling-carousel.php:401
 msgid "Sapling Carousel"
 msgstr ""
 
-#: includes/admin.php:855
+#: includes/admin.php:954
 msgid "Slinky Menu (Vertical)"
 msgstr ""
 
-#: includes/admin.php:866
+#: includes/admin.php:965
 #: modules/social-icons/module.info.php:8
 #: modules/social-icons/widgets/social-icons.php:27
 #: modules/social-icons/widgets/social-icons.php:60
@@ -566,30 +602,34 @@ msgstr ""
 msgid "Social Icons"
 msgstr ""
 
-#: includes/admin.php:877
+#: includes/admin.php:976
+msgid "Social Share"
+msgstr ""
+
+#: includes/admin.php:987
 #: modules/stellar-slider/module.info.php:8
 #: modules/stellar-slider/widgets/stellar-slider.php:41
 msgid "Stellar Blog Slider"
 msgstr ""
 
-#: includes/admin.php:888
+#: includes/admin.php:998
 #: modules/step-flow/module.info.php:8
 #: modules/step-flow/widgets/step-flow.php:26
 #: modules/step-flow/widgets/step-flow.php:194
 msgid "Step Flow"
 msgstr ""
 
-#: includes/admin.php:899
+#: includes/admin.php:1009
 msgid "Table of Contents"
 msgstr ""
 
-#: includes/admin.php:910
+#: includes/admin.php:1020
 #: modules/team-member/module.info.php:8
 #: modules/team-member/widgets/team-member.php:30
 msgid "Team Member"
 msgstr ""
 
-#: includes/admin.php:921
+#: includes/admin.php:1031
 #: modules/testimonial/module.info.php:8
 #: modules/testimonial/widgets/testimonial.php:27
 #: modules/testimonial/widgets/testimonial.php:51
@@ -598,83 +638,111 @@ msgstr ""
 msgid "Testimonial"
 msgstr ""
 
-#: includes/admin.php:932
+#: includes/admin.php:1042
 msgid "Testimonial Carousel"
 msgstr ""
 
-#: includes/admin.php:943
+#: includes/admin.php:1053
 #: modules/tidy-list/module.info.php:8
 #: modules/tidy-list/widgets/tidy-list.php:27
 #: modules/tidy-list/widgets/tidy-list.php:51
 msgid "Tidy List"
 msgstr ""
 
-#: includes/admin.php:954
+#: includes/admin.php:1064
 #: modules/ultra-grid/module.info.php:8
 #: modules/ultra-grid/widgets/ultra-grid.php:35
 #: modules/ultra-grid/widgets/ultra-grid.php:423
 msgid "Ultra Grid"
 msgstr ""
 
-#: includes/admin.php:965
+#: includes/admin.php:1075
 #: modules/ultra-carousel/module.info.php:8
 #: modules/ultra-carousel/widgets/ultra-carousel.php:38
 #: modules/ultra-carousel/widgets/ultra-carousel.php:454
 msgid "Ultra Carousel"
 msgstr ""
 
-#: includes/admin.php:976
+#: includes/admin.php:1086
 msgid "Tags Cloud"
 msgstr ""
 
-#: includes/admin.php:987
+#: includes/admin.php:1097
+msgid "Vertical Menu"
+msgstr ""
+
+#: includes/admin.php:1108
 msgid "Video Gallery"
 msgstr ""
 
-#: includes/admin.php:998
+#: includes/admin.php:1119
 msgid "Bar Chart"
 msgstr ""
 
-#: includes/admin.php:1009
+#: includes/admin.php:1130
 msgid "Line Chart"
 msgstr ""
 
-#: includes/admin.php:1020
+#: includes/admin.php:1141
 msgid "Polar Area Chart"
 msgstr ""
 
-#: includes/admin.php:1031
+#: includes/admin.php:1152
 msgid "Pie & Doughnut Chart"
 msgstr ""
 
-#: includes/admin.php:1042
+#: includes/admin.php:1163
 msgid "Radar Chart"
 msgstr ""
 
-#: includes/admin.php:1055
+#: includes/admin.php:1174
+msgid "Loop Grid"
+msgstr ""
+
+#: includes/admin.php:1185
+msgid "Loop Carousel"
+msgstr ""
+
+#: includes/admin.php:1198
 msgid "WooCommerce Category Grid"
 msgstr ""
 
-#: includes/admin.php:1066
+#: includes/admin.php:1209
 msgid "WooCommerce Category Carousel"
 msgstr ""
 
-#: includes/admin.php:1077
+#: includes/admin.php:1220
 msgid "WooCommerce Products"
 msgstr ""
 
-#: includes/admin.php:1088
+#: includes/admin.php:1231
 msgid "WooCommerce Products Carousel"
 msgstr ""
 
-#: includes/admin.php:1099
+#: includes/admin.php:1242
+msgid "EDD Product Grid"
+msgstr ""
+
+#: includes/admin.php:1253
+msgid "EDD Product Carousel"
+msgstr ""
+
+#: includes/admin.php:1264
+msgid "EDD Category Grid"
+msgstr ""
+
+#: includes/admin.php:1275
+msgid "EDD Category Carousel"
+msgstr ""
+
+#: includes/admin.php:1286
 #: modules/cf7/module.info.php:8
 #: modules/cf7/widgets/cf7.php:24
 #: modules/cf7/widgets/cf7.php:546
 msgid "Contact Form 7"
 msgstr ""
 
-#: includes/admin.php:1110
+#: includes/admin.php:1297
 #: modules/fluent-form/module.info.php:8
 #: modules/fluent-form/widgets/fluent-form.php:24
 #: modules/fluent-form/widgets/fluent-form.php:52
@@ -682,7 +750,7 @@ msgstr ""
 msgid "Fluent Form"
 msgstr ""
 
-#: includes/admin.php:1121
+#: includes/admin.php:1308
 #: modules/gravity-forms/module.info.php:8
 #: modules/gravity-forms/widgets/gravity-forms.php:24
 #: modules/gravity-forms/widgets/gravity-forms.php:52
@@ -690,175 +758,175 @@ msgstr ""
 msgid "Gravity Forms"
 msgstr ""
 
-#: includes/admin.php:1132
+#: includes/admin.php:1319
 #: modules/ninja-forms/module.info.php:8
 #: modules/ninja-forms/widgets/ninja-forms.php:24
 #: modules/ninja-forms/widgets/ninja-forms.php:568
 msgid "Ninja Forms"
 msgstr ""
 
-#: includes/admin.php:1143
+#: includes/admin.php:1330
 #: modules/we-forms/module.info.php:8
 #: modules/we-forms/widgets/we-forms.php:25
 #: modules/we-forms/widgets/we-forms.php:730
 msgid "weForms"
 msgstr ""
 
-#: includes/admin.php:1154
+#: includes/admin.php:1341
 #: modules/wp-forms/module.info.php:8
 #: modules/wp-forms/widgets/wp-forms.php:25
 msgid "WP Forms"
 msgstr ""
 
-#: includes/admin.php:1167
+#: includes/admin.php:1354
 msgid "Advanced Tooltip"
 msgstr ""
 
-#: includes/admin.php:1178
+#: includes/admin.php:1365
 #: modules/animated-gradient-bg/module.info.php:7
 #: modules/animated-gradient-bg/module.php:38
 msgid "Animated Gradient Background"
 msgstr ""
 
-#: includes/admin.php:1189
+#: includes/admin.php:1376
 #: modules/backdrop-filter/module.info.php:7
 #: modules/backdrop-filter/module.php:53
 msgid "Backdrop Filter"
 msgstr ""
 
-#: includes/admin.php:1200
+#: includes/admin.php:1387
 msgid "Confetti Effects"
 msgstr ""
 
-#: includes/admin.php:1211
+#: includes/admin.php:1398
 #: modules/custom-clip-path/module.info.php:7
 #: modules/custom-clip-path/module.php:29
 msgid "Custom Clip Path"
 msgstr ""
 
-#: includes/admin.php:1222
+#: includes/admin.php:1409
 msgid "Custom Scripts"
 msgstr ""
 
-#: includes/admin.php:1233
+#: includes/admin.php:1420
 msgid "Duplicator"
 msgstr ""
 
-#: includes/admin.php:1244
+#: includes/admin.php:1431
 #: modules/equal-height/module.info.php:7
 msgid "Equal Height"
 msgstr ""
 
-#: includes/admin.php:1255
+#: includes/admin.php:1442
 #: modules/floating-effects/module.info.php:7
 #: modules/floating-effects/module.php:30
 msgid "Floating Effects"
 msgstr ""
 
-#: includes/admin.php:1266
+#: includes/admin.php:1453
 #: modules/gradient-text/module.info.php:7
 #: modules/gradient-text/module.php:31
 msgid "Gradient Text"
 msgstr ""
 
-#: includes/admin.php:1277
+#: includes/admin.php:1464
 msgid "Particles"
 msgstr ""
 
-#: includes/admin.php:1288
+#: includes/admin.php:1475
 #: modules/reveal-effects/module.info.php:7
 #: modules/reveal-effects/module.php:28
 msgid "Reveal Effects"
 msgstr ""
 
-#: includes/admin.php:1299
+#: includes/admin.php:1486
 #: modules/ripples-effect/module.info.php:7
 #: modules/ripples-effect/module.php:37
 msgid "Ripples Effect"
 msgstr ""
 
-#: includes/admin.php:1310
+#: includes/admin.php:1497
 #: modules/simple-parallax/module.info.php:7
 msgid "Simple Parallax"
 msgstr ""
 
-#: includes/admin.php:1321
+#: includes/admin.php:1508
 msgid "SVG Support"
 msgstr ""
 
-#: includes/admin.php:1332
+#: includes/admin.php:1519
 msgid "Smooth Scroll"
 msgstr ""
 
-#: includes/admin.php:1343
+#: includes/admin.php:1530
 msgid "Display Conditions"
 msgstr ""
 
-#: includes/admin.php:1354
+#: includes/admin.php:1541
 #: modules/wrapper-link/module.info.php:7
 msgid "Wrapper Link"
 msgstr ""
 
-#: includes/admin.php:1369
+#: includes/admin.php:1556
 msgid "Form Builder Emails Receiver"
 msgstr ""
 
-#: includes/admin.php:1370
+#: includes/admin.php:1557
 msgid "Email Address"
 msgstr ""
 
-#: includes/admin.php:1371
+#: includes/admin.php:1558
 msgid "By default, the form builder sends emails to the admin email. If you'd like to send emails to a different address, you can configure it here."
 msgstr ""
 
-#: includes/admin.php:1382
+#: includes/admin.php:1569
 msgid "Google Map"
 msgstr ""
 
-#: includes/admin.php:1383
+#: includes/admin.php:1570
 msgid "API Key"
 msgstr ""
 
-#: includes/admin.php:1384
+#: includes/admin.php:1571
 msgid "Google Maps API is a service that offers detailed maps and other geographic information for use in online and offline map applications, and websites."
 msgstr ""
 
-#: includes/admin.php:1395
+#: includes/admin.php:1582
 msgid "Mailchimp API Key"
 msgstr ""
 
-#: includes/admin.php:1396
+#: includes/admin.php:1583
 msgid "Access Key"
 msgstr ""
 
-#: includes/admin.php:1397
+#: includes/admin.php:1584
 msgid "Mailchimp is a popular marketing and automation platform for small businesses."
 msgstr ""
 
-#: includes/admin.php:1403
-#: includes/admin.php:1404
+#: includes/admin.php:1590
+#: includes/admin.php:1591
 msgid "Audience ID"
 msgstr ""
 
-#: includes/admin.php:1405
+#: includes/admin.php:1592
 msgid "Each Mailchimp audience has a unique audience ID (sometimes called a list ID) ."
 msgstr ""
 
-#: includes/admin.php:1417
+#: includes/admin.php:1604
 msgid "Instagram"
 msgstr ""
 
-#: includes/admin.php:1418
+#: includes/admin.php:1605
 msgid "App Id"
 msgstr ""
 
-#: includes/admin.php:1426
-#: includes/admin.php:1427
+#: includes/admin.php:1613
+#: includes/admin.php:1614
 msgid "App Secret"
 msgstr ""
 
-#: includes/admin.php:1435
-#: includes/admin.php:1436
+#: includes/admin.php:1622
+#: includes/admin.php:1623
 msgid "Access Token"
 msgstr ""
 
@@ -1649,7 +1717,7 @@ msgstr ""
 #: modules/pdf-viewer/widgets/pdf-viewer.php:293
 #: modules/review/widgets/review.php:263
 #: modules/social-icons/widgets/social-icons.php:69
-#: modules/social-icons/widgets/social-icons.php:674
+#: modules/social-icons/widgets/social-icons.php:678
 #: modules/stellar-slider/widgets/stellar-slider.php:240
 #: modules/step-flow/widgets/step-flow.php:58
 #: modules/step-flow/widgets/step-flow.php:245
@@ -1754,7 +1822,7 @@ msgstr ""
 #: modules/sapling-grid/widgets/sapling-grid.php:687
 #: modules/sapling-grid/widgets/sapling-grid.php:752
 #: modules/social-icons/widgets/social-icons.php:423
-#: modules/social-icons/widgets/social-icons.php:724
+#: modules/social-icons/widgets/social-icons.php:728
 #: modules/stellar-slider/widgets/stellar-slider.php:817
 #: modules/stellar-slider/widgets/stellar-slider.php:894
 #: modules/stellar-slider/widgets/stellar-slider.php:930
@@ -1852,7 +1920,7 @@ msgstr ""
 #: modules/sapling-grid/widgets/sapling-grid.php:585
 #: modules/slinky-menu/widgets/slinky-menu.php:171
 #: modules/slinky-menu/widgets/slinky-menu.php:370
-#: modules/social-icons/widgets/social-icons.php:455
+#: modules/social-icons/widgets/social-icons.php:459
 #: modules/stellar-slider/widgets/stellar-slider.php:1087
 #: modules/stellar-slider/widgets/stellar-slider.php:1212
 #: modules/stellar-slider/widgets/stellar-slider.php:1500
@@ -1977,8 +2045,8 @@ msgstr ""
 #: modules/slinky-menu/widgets/slinky-menu.php:179
 #: modules/slinky-menu/widgets/slinky-menu.php:301
 #: modules/slinky-menu/widgets/slinky-menu.php:378
-#: modules/social-icons/widgets/social-icons.php:463
-#: modules/social-icons/widgets/social-icons.php:608
+#: modules/social-icons/widgets/social-icons.php:467
+#: modules/social-icons/widgets/social-icons.php:612
 #: modules/stellar-slider/widgets/stellar-slider.php:1113
 #: modules/stellar-slider/widgets/stellar-slider.php:1220
 #: modules/stellar-slider/widgets/stellar-slider.php:1584
@@ -2152,8 +2220,8 @@ msgstr ""
 #: modules/slinky-menu/widgets/slinky-menu.php:273
 #: modules/slinky-menu/widgets/slinky-menu.php:402
 #: modules/slinky-menu/widgets/slinky-menu.php:406
-#: modules/social-icons/widgets/social-icons.php:526
-#: modules/social-icons/widgets/social-icons.php:584
+#: modules/social-icons/widgets/social-icons.php:530
+#: modules/social-icons/widgets/social-icons.php:588
 #: modules/stellar-slider/widgets/stellar-slider.php:1271
 #: modules/stellar-slider/widgets/stellar-slider.php:1312
 #: modules/stellar-slider/widgets/stellar-slider.php:1356
@@ -2299,8 +2367,8 @@ msgstr ""
 #: modules/slinky-menu/widgets/slinky-menu.php:240
 #: modules/slinky-menu/widgets/slinky-menu.php:323
 #: modules/slinky-menu/widgets/slinky-menu.php:430
-#: modules/social-icons/widgets/social-icons.php:536
-#: modules/social-icons/widgets/social-icons.php:634
+#: modules/social-icons/widgets/social-icons.php:540
+#: modules/social-icons/widgets/social-icons.php:638
 #: modules/stellar-slider/widgets/stellar-slider.php:1126
 #: modules/stellar-slider/widgets/stellar-slider.php:1242
 #: modules/stellar-slider/widgets/stellar-slider.php:1576
@@ -2385,7 +2453,7 @@ msgstr ""
 #: modules/sapling-grid/widgets/sapling-grid.php:463
 #: modules/slinky-menu/widgets/slinky-menu.php:250
 #: modules/social-icons/widgets/social-icons.php:246
-#: modules/social-icons/widgets/social-icons.php:564
+#: modules/social-icons/widgets/social-icons.php:568
 #: modules/stellar-slider/widgets/stellar-slider.php:1598
 #: modules/stellar-slider/widgets/stellar-slider.php:2130
 #: modules/step-flow/widgets/step-flow.php:590
@@ -2454,7 +2522,7 @@ msgstr ""
 #: modules/slinky-menu/widgets/slinky-menu.php:287
 #: modules/social-icons/widgets/social-icons.php:233
 #: modules/social-icons/widgets/social-icons.php:276
-#: modules/social-icons/widgets/social-icons.php:593
+#: modules/social-icons/widgets/social-icons.php:597
 #: modules/stellar-slider/widgets/stellar-slider.php:1280
 #: modules/stellar-slider/widgets/stellar-slider.php:1321
 #: modules/stellar-slider/widgets/stellar-slider.php:1365
@@ -2566,8 +2634,8 @@ msgstr ""
 #: modules/review/widgets/review.php:888
 #: modules/slinky-menu/widgets/slinky-menu.php:162
 #: modules/slinky-menu/widgets/slinky-menu.php:361
-#: modules/social-icons/widgets/social-icons.php:716
-#: modules/social-icons/widgets/social-icons.php:769
+#: modules/social-icons/widgets/social-icons.php:720
+#: modules/social-icons/widgets/social-icons.php:773
 #: modules/stellar-slider/widgets/stellar-slider.php:858
 #: modules/stellar-slider/widgets/stellar-slider.php:1026
 #: modules/stellar-slider/widgets/stellar-slider.php:1163
@@ -2664,7 +2732,7 @@ msgstr ""
 #: modules/slinky-menu/widgets/slinky-menu.php:231
 #: modules/slinky-menu/widgets/slinky-menu.php:314
 #: modules/slinky-menu/widgets/slinky-menu.php:421
-#: modules/social-icons/widgets/social-icons.php:625
+#: modules/social-icons/widgets/social-icons.php:629
 #: modules/stellar-slider/widgets/stellar-slider.php:867
 #: modules/stellar-slider/widgets/stellar-slider.php:1035
 #: modules/stellar-slider/widgets/stellar-slider.php:1172
@@ -2779,7 +2847,7 @@ msgstr ""
 #: modules/sapling-grid/widgets/sapling-grid.php:560
 #: modules/slinky-menu/widgets/slinky-menu.php:149
 #: modules/slinky-menu/widgets/slinky-menu.php:348
-#: modules/social-icons/widgets/social-icons.php:442
+#: modules/social-icons/widgets/social-icons.php:446
 #: modules/stellar-slider/widgets/stellar-slider.php:1074
 #: modules/stellar-slider/widgets/stellar-slider.php:1190
 #: modules/stellar-slider/widgets/stellar-slider.php:1487
@@ -2871,7 +2939,7 @@ msgstr ""
 #: modules/sapling-grid/widgets/sapling-grid.php:435
 #: modules/slinky-menu/widgets/slinky-menu.php:193
 #: modules/social-icons/widgets/social-icons.php:203
-#: modules/social-icons/widgets/social-icons.php:506
+#: modules/social-icons/widgets/social-icons.php:510
 #: modules/stellar-slider/widgets/stellar-slider.php:1528
 #: modules/stellar-slider/widgets/stellar-slider.php:1778
 #: modules/stellar-slider/widgets/stellar-slider.php:2073
@@ -2958,7 +3026,7 @@ msgstr ""
 #: modules/reading-progress/widgets/reading-progress.php:274
 #: modules/review/widgets/review.php:1008
 #: modules/slinky-menu/widgets/slinky-menu.php:448
-#: modules/social-icons/widgets/social-icons.php:756
+#: modules/social-icons/widgets/social-icons.php:760
 #: modules/stellar-slider/widgets/stellar-slider.php:1003
 #: modules/stellar-slider/widgets/stellar-slider.php:1151
 #: modules/stellar-slider/widgets/stellar-slider.php:1535
@@ -4327,7 +4395,7 @@ msgstr ""
 #: modules/logo-carousel/widgets/logo-carousel.php:624
 #: modules/logo-grid/widgets/logo-grid.php:632
 #: modules/review/widgets/review.php:624
-#: modules/social-icons/widgets/social-icons.php:660
+#: modules/social-icons/widgets/social-icons.php:664
 #: modules/stellar-slider/widgets/stellar-slider.php:2223
 #: modules/team-member/widgets/team-member.php:1129
 msgid "Hover Animation"
@@ -4595,8 +4663,8 @@ msgstr ""
 #: modules/momentum-slider/widgets/momentum-slider.php:634
 #: modules/review/widgets/review.php:546
 #: modules/review/widgets/review.php:581
-#: modules/social-icons/widgets/social-icons.php:544
-#: modules/social-icons/widgets/social-icons.php:642
+#: modules/social-icons/widgets/social-icons.php:548
+#: modules/social-icons/widgets/social-icons.php:646
 #: modules/stellar-slider/widgets/stellar-slider.php:2110
 #: modules/stellar-slider/widgets/stellar-slider.php:2205
 #: modules/step-flow/widgets/step-flow.php:513
@@ -5251,7 +5319,7 @@ msgid "READ MORE"
 msgstr ""
 
 #: modules/dual-button/widgets/dual-button.php:865
-#: modules/social-icons/widgets/social-icons.php:745
+#: modules/social-icons/widgets/social-icons.php:749
 msgid "Separator"
 msgstr ""
 
@@ -6297,7 +6365,7 @@ msgstr ""
 #: modules/glory-slider/widgets/glory-slider.php:854
 #: modules/info-box/widgets/info-box.php:441
 #: modules/reading-progress/widgets/reading-progress.php:317
-#: modules/social-icons/widgets/social-icons.php:682
+#: modules/social-icons/widgets/social-icons.php:686
 #: modules/stellar-slider/widgets/stellar-slider.php:1973
 #: modules/step-flow/widgets/step-flow.php:275
 #: modules/team-member/widgets/team-member.php:1476
@@ -6727,7 +6795,7 @@ msgstr ""
 
 #: modules/info-box/widgets/info-box.php:688
 #: modules/number/widgets/number.php:233
-#: modules/social-icons/widgets/social-icons.php:479
+#: modules/social-icons/widgets/social-icons.php:483
 #: modules/stellar-slider/widgets/stellar-slider.php:2047
 #: modules/step-flow/widgets/step-flow.php:443
 #: modules/team-member/widgets/team-member.php:1533
@@ -6737,7 +6805,7 @@ msgstr ""
 
 #: modules/info-box/widgets/info-box.php:696
 #: modules/number/widgets/number.php:241
-#: modules/social-icons/widgets/social-icons.php:487
+#: modules/social-icons/widgets/social-icons.php:491
 #: modules/stellar-slider/widgets/stellar-slider.php:2055
 #: modules/step-flow/widgets/step-flow.php:451
 #: modules/team-member/widgets/team-member.php:1541
@@ -6747,7 +6815,7 @@ msgstr ""
 
 #: modules/info-box/widgets/info-box.php:698
 #: modules/number/widgets/number.php:243
-#: modules/social-icons/widgets/social-icons.php:489
+#: modules/social-icons/widgets/social-icons.php:493
 #: modules/stellar-slider/widgets/stellar-slider.php:2057
 #: modules/step-flow/widgets/step-flow.php:453
 #: modules/team-member/widgets/team-member.php:1543
@@ -7708,8 +7776,8 @@ msgstr ""
 msgid "/"
 msgstr ""
 
-#: modules/social-icons/widgets/social-icons.php:513
-#: modules/social-icons/widgets/social-icons.php:571
+#: modules/social-icons/widgets/social-icons.php:517
+#: modules/social-icons/widgets/social-icons.php:575
 #: modules/stellar-slider/widgets/stellar-slider.php:2080
 #: modules/stellar-slider/widgets/stellar-slider.php:2137
 #: modules/team-member/widgets/team-member.php:1568
@@ -7717,7 +7785,7 @@ msgstr ""
 msgid "Icons Color"
 msgstr ""
 
-#: modules/social-icons/widgets/social-icons.php:704
+#: modules/social-icons/widgets/social-icons.php:708
 msgid "Label"
 msgstr ""
 

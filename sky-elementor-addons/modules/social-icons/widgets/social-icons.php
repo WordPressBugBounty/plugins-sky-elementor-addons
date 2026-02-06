@@ -210,8 +210,8 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}} '       => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}} svg * ' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}} '       => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}} svg * ' => 'fill: {{VALUE}};',
 				],
 			]
 		);
@@ -222,7 +222,7 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Background Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -233,7 +233,7 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -253,8 +253,8 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover '       => 'color: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover svg * ' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover '       => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover svg * ' => 'fill: {{VALUE}};',
 				],
 			]
 		);
@@ -265,7 +265,7 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Background Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -276,7 +276,7 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -430,8 +430,12 @@ class Social_Icons extends Widget_Base {
 						'step' => 1,
 					],
 				],
+				'default'    => [
+					'size' => 10,
+					'unit' => 'px',
+				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons' => 'gap: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -443,7 +447,7 @@ class Social_Icons extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons .sa-link'     => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link'     => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -453,7 +457,7 @@ class Social_Icons extends Widget_Base {
 			[
 				'name'     => 'social_icons_border',
 				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link, {{WRAPPER}} .sa-social-icons .sa-link svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link, {{WRAPPER}} .sky-social-icons .sa-link svg',
 			]
 		);
 
@@ -464,8 +468,8 @@ class Social_Icons extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons .sa-link'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
@@ -489,8 +493,8 @@ class Social_Icons extends Widget_Base {
 				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
 				'dynamic'   => [ 'active' => true ],
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link'     => 'border-radius: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link svg' => 'border-radius: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link'     => 'border-radius: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link svg' => 'border-radius: {{VALUE}};',
 				],
 				'condition' => [
 					'show_socials_adv_border_radius' => 'yes',
@@ -513,8 +517,8 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link'       => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sa-social-icons .sa-link svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons .sa-link'       => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons .sa-link svg *' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -525,7 +529,7 @@ class Social_Icons extends Widget_Base {
 				'name'     => 'social_icons_bg',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link, {{WRAPPER}} .sa-social-icons .sa-link svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link, {{WRAPPER}} .sky-social-icons .sa-link svg',
 			]
 		);
 
@@ -534,7 +538,7 @@ class Social_Icons extends Widget_Base {
 			[
 				'name'     => 'social_icons_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link, {{WRAPPER}} .sa-social-icons .sa-link svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link, {{WRAPPER}} .sky-social-icons .sa-link svg',
 			]
 		);
 
@@ -551,7 +555,7 @@ class Social_Icons extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link' => 'opacity: {{SIZE}};',
 				],
 			]
 		);
@@ -571,8 +575,8 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover'       => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover'       => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover svg *' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -583,7 +587,7 @@ class Social_Icons extends Widget_Base {
 				'name'     => 'social_icons_bg_hover',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover, {{WRAPPER}} .sa-social-icons .sa-link:hover svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link:hover, {{WRAPPER}} .sky-social-icons .sa-link:hover svg',
 			]
 		);
 
@@ -593,8 +597,8 @@ class Social_Icons extends Widget_Base {
 				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover'     => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover svg' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover'     => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover svg' => 'border-color: {{VALUE}};',
 				],
 				'condition' => [
 					'social_icons_border_border!' => '',
@@ -609,8 +613,8 @@ class Social_Icons extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover'     => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
@@ -623,7 +627,7 @@ class Social_Icons extends Widget_Base {
 			[
 				'name'     => 'social_icons_shadow_hover',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover i, {{WRAPPER}} .sa-social-icons .sa-link:hover svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link:hover i, {{WRAPPER}} .sky-social-icons .sa-link:hover svg',
 			]
 		);
 
@@ -632,7 +636,7 @@ class Social_Icons extends Widget_Base {
 			[
 				'name'     => 'social_icons_box_shadow_hover',
 				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-social-icons .sa-link:hover, {{WRAPPER}} .sa-social-icons .sa-link:hover svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons .sa-link:hover, {{WRAPPER}} .sky-social-icons .sa-link:hover svg',
 			]
 		);
 
@@ -649,7 +653,7 @@ class Social_Icons extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons .sa-link:hover' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-link:hover' => 'opacity: {{SIZE}};',
 				],
 			]
 		);
@@ -691,7 +695,7 @@ class Social_Icons extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}}' => '--icon-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
+					'{{WRAPPER}} .sky-social-icons .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
 				],
 			]
 		);
@@ -783,7 +787,7 @@ class Social_Icons extends Widget_Base {
 			$class_animation = ' elementor-animation-' . $settings['icons_hover_animation'];
 		}
 		?>
-		<div class="sa-social-icons sa-d-inline-flex sa-align-items-center sa-justify-content-center">
+		<div class="sky-social-icons sa-d-inline-flex sa-align-items-center sa-justify-content-center">
 			<?php
 			foreach ( $settings['social_icon_list'] as $index => $item ) :
 

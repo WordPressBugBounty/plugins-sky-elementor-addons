@@ -1044,6 +1044,7 @@ var widgetAudioPlayer = function ($scope, $) {
         'sky-testimonial-carousel.default': widgetGlobalCarousel,
         'sky-wc-category-carousel.default': widgetGlobalCarousel,
         'sky-edd-category-carousel.default': widgetGlobalCarousel,
+        'sky-loop-carousel.default': widgetGlobalCarousel,
 
     };
 

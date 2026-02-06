@@ -1464,8 +1464,8 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'margin-right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'margin-right: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1483,8 +1483,8 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
 				],
 			]
 		);
@@ -1496,8 +1496,8 @@ class Team_Member extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					// '{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					// '{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1507,7 +1507,7 @@ class Team_Member extends Widget_Base {
 			[
 				'name'     => 'social_icons_border',
 				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-social-icons-wrapper .sa-link, {{WRAPPER}} .sa-social-icons-wrapper .sa-link svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons-wrapper .sa-link, {{WRAPPER}} .sky-social-icons-wrapper .sa-link svg',
 			]
 		);
 
@@ -1518,8 +1518,8 @@ class Team_Member extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
@@ -1543,8 +1543,8 @@ class Team_Member extends Widget_Base {
 				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
 				'dynamic'   => [ 'active' => true ],
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'border-radius: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg' => 'border-radius: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'border-radius: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'border-radius: {{VALUE}};',
 				],
 				'condition' => [
 					'show_socials_adv_border_radius' => 'yes',
@@ -1568,8 +1568,8 @@ class Team_Member extends Widget_Base {
 				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg *' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -1580,7 +1580,7 @@ class Team_Member extends Widget_Base {
 				'name'     => 'social_icons_bg',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-social-icons-wrapper .sa-link, {{WRAPPER}} .sa-social-icons-wrapper .sa-link svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons-wrapper .sa-link, {{WRAPPER}} .sky-social-icons-wrapper .sa-link svg',
 			]
 		);
 
@@ -1601,8 +1601,8 @@ class Team_Member extends Widget_Base {
 				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover svg *' => 'fill: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg *' => 'fill: {{VALUE}}',
 				],
 			]
 		);
@@ -1613,7 +1613,7 @@ class Team_Member extends Widget_Base {
 				'name'     => 'social_icons_bg_hover',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover, {{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover svg',
+				'selector' => '{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover, {{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg',
 			]
 		);
 
@@ -1623,8 +1623,8 @@ class Team_Member extends Widget_Base {
 				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover' => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover svg' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg' => 'border-color: {{VALUE}};',
 				],
 				'condition' => [
 					'social_icons_border_border!' => '',
@@ -1639,8 +1639,8 @@ class Team_Member extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-social-icons-wrapper .sa-link:hover svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition'  => [
 					'show_socials_adv_border_radius!' => 'yes',
@@ -1949,7 +1949,7 @@ class Team_Member extends Widget_Base {
 	protected function social_icons() {
 		$settings = $this->get_settings_for_display();
 		?>
-		<div class="sa-social-icons-wrapper">
+		<div class="sky-social-icons-wrapper">
 			<ul class="sa-m-0 sa-p-0 sa-d-inline">
 				<?php
 				foreach ( $settings['social_list'] as $item ) {
