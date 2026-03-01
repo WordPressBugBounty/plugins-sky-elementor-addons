@@ -12,7 +12,7 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Post_Featured_Image extends \Elementor\Widget_Image {
@@ -37,6 +37,10 @@ class Post_Featured_Image extends \Elementor\Widget_Image {
 		return [ 'sky', 'post', 'title', 'themebuilder', 'single' ];
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 		parent::register_controls();
 
@@ -55,16 +59,16 @@ class Post_Featured_Image extends \Elementor\Widget_Image {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$post_id = get_the_ID();
+		$settings                   = $this->get_settings_for_display();
+		$post_id                    = get_the_ID();
 		$settings['caption_source'] = 'attachment';
 
 		if ( sky_addons_editor_mode() ) {
 			// elementor default placeholder
 			$featured_image_url = Utils::get_placeholder_image_src();
-			$featured_image_id = '';
+			$featured_image_id  = '';
 		} else {
-			$featured_image_id = get_post_thumbnail_id( $post_id );
+			$featured_image_id      = get_post_thumbnail_id( $post_id );
 				$featured_image_url = wp_get_attachment_image_url( $featured_image_id, $settings['image_size'] );
 		}
 

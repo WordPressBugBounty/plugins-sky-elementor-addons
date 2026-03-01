@@ -14,7 +14,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Sky_Addons_Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Content_Switcher extends Widget_Base {
@@ -47,6 +47,10 @@ class Content_Switcher extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/content-switcher/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -169,7 +173,7 @@ class Content_Switcher extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -226,10 +230,10 @@ class Content_Switcher extends Widget_Base {
 		$this->add_responsive_control(
 			'switcher_alignment',
 			[
-				'label'                => esc_html__( 'Switcher Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'options'              => [
-					'left' => [
+				'label' => esc_html__( 'Switcher Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -237,7 +241,7 @@ class Content_Switcher extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -247,7 +251,7 @@ class Content_Switcher extends Widget_Base {
 					'center' => 'justify-content: center;',
 					'right'  => 'justify-content: right;',
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-switcher-container' => '{{VALUE}}',
 				],
 			]
@@ -308,9 +312,9 @@ class Content_Switcher extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'      => 'switcher_border',
-				'label'     => esc_html__( 'Border', 'sky-elementor-addons' ),
-				'selector'  => '{{WRAPPER}} .sa-switcher-tabs',
+				'name'     => 'switcher_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-switcher-tabs',
 				'condition' => [
 					'switcher_type' => 'button',
 				],
@@ -344,8 +348,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item, {{WRAPPER}} .sa-switch-item:focus' => 'color: {{VALUE}}',
 				],
@@ -355,8 +359,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item .sa-icon-wrapper' => 'color: {{VALUE}}; fill: {{VALUE}}',
 				],
@@ -366,10 +370,10 @@ class Content_Switcher extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'switcher_background',
-				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .sa-switch-item:not(.sa-active)',
+				'name'     => 'switcher_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-switch-item:not(.sa-active)',
 				'condition' => [
 					'switcher_type' => 'button',
 				],
@@ -388,9 +392,9 @@ class Content_Switcher extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'      => 'switcher_box_shadow',
-				'label'     => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
-				'selector'  => '{{WRAPPER}} .sa-switch-item',
+				'name'     => 'switcher_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-switch-item',
 				'condition' => [
 					'switcher_type' => 'button',
 				],
@@ -409,8 +413,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_color_active',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item.sa-active' => 'color: {{VALUE}}',
 				],
@@ -420,8 +424,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_icon_color_active',
 			[
-				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item.sa-active .sa-icon-wrapper' => 'color: {{VALUE}}; fill: {{VALUE}}',
 				],
@@ -431,10 +435,10 @@ class Content_Switcher extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'      => 'switcher_background_active',
-				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .sa-selector',
+				'name'     => 'switcher_background_active',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-selector',
 				'condition' => [
 					'switcher_type' => 'button',
 				],
@@ -444,8 +448,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item.sa-active' => 'border-color: {{VALUE}};',
 				],
@@ -485,9 +489,9 @@ class Content_Switcher extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'      => 'switcher_box_shadow_active',
-				'label'     => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
-				'selector'  => '{{WRAPPER}} .sa-switch-item.sa-active',
+				'name'     => 'switcher_box_shadow_active',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-switch-item.sa-active',
 				'condition' => [
 					'switcher_type' => 'button',
 				],
@@ -568,8 +572,8 @@ class Content_Switcher extends Widget_Base {
 		$this->start_controls_section(
 			'section_switcher_control_style',
 			[
-				'label'     => esc_html__( 'Switcher', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Switcher', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'switcher_type!' => 'button',
 				],
@@ -606,8 +610,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_control_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-switcher .sa-switcher-slider:before' => 'background: {{VALUE}}',
 				],
@@ -636,8 +640,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'switcher_control_color_active',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-switcher input:checked+.sa-switcher-slider:before' => 'background: {{VALUE}}',
 				],
@@ -671,18 +675,18 @@ class Content_Switcher extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -733,8 +737,8 @@ class Content_Switcher extends Widget_Base {
 		$this->add_control(
 			'content_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-content-item' => 'color: {{VALUE}}',
 				],
@@ -786,9 +790,9 @@ class Content_Switcher extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-content-switcher-' . $this->get_id();
+		$id       = 'sa-content-switcher-' . $this->get_id();
 		$this->add_render_attribute( 'content-switcher', [
-			'class'         => [ 'sa-content-switcher', 'sa-style-' . $settings['switcher_type'] ],
+			'class' => [ 'sa-content-switcher', 'sa-style-' . $settings['switcher_type'] ],
 			'data-settings' => [
 				wp_json_encode( array_filter( [
 					'id'         => '#' . $id,
@@ -799,12 +803,12 @@ class Content_Switcher extends Widget_Base {
 			],
 		] );
 
-		$primary = ( isset( $settings['switcher_list'][0] ) ? $settings['switcher_list'][0] : false );
+		$primary   = ( isset( $settings['switcher_list'][0] ) ? $settings['switcher_list'][0] : false );
 		$secondary = ( isset( $settings['switcher_list'][1] ) ? $settings['switcher_list'][1] : false );
 
 		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
 		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_checked = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
+		$switcher_b_checked   = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
 
 		?>
 		<div <?php $this->print_render_attribute_string( 'content-switcher' ); ?>>
@@ -815,7 +819,8 @@ class Content_Switcher extends Widget_Base {
 							class="sa-switch-item sa-d-flex sa-align-items-center sa-me-5 sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>	sa-icon-position-<?php echo esc_html( $primary['icon_position'] ); ?>">
 
 							<?php
-							if ( ! empty( $primary['icon']['value'] ) ) : ?>
+							if ( ! empty( $primary['icon']['value'] ) ) :
+								?>
 								<div class="sa-icon-wrapper sa-d-flex">
 									<span class="sa-icon-wrap">
 										<?php
@@ -849,7 +854,8 @@ class Content_Switcher extends Widget_Base {
 						<div
 							class="sa-switch-item sa-d-flex sa-align-items-center sa-ms-5 sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?> sa-icon-position-<?php echo esc_html( $secondary['icon_position'] ); ?>">
 							<?php
-							if ( ! empty( $secondary['icon']['value'] ) ) : ?>
+							if ( ! empty( $secondary['icon']['value'] ) ) :
+								?>
 								<div class="sa-icon-wrapper sa-d-flex">
 									<span class="sa-icon-wrap">
 										<?php
@@ -875,7 +881,7 @@ class Content_Switcher extends Widget_Base {
 							<?php
 							foreach ( $settings['switcher_list'] as $index => $item ) :
 								$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
-								$_item_id = $this->get_id() . '-' . $item['_id'];
+								$_item_id    = $this->get_id() . '-' . $item['_id'];
 
 								$this->add_render_attribute( 'switcher-item' . $index, [
 									'class'   => [
@@ -890,7 +896,8 @@ class Content_Switcher extends Widget_Base {
 								?>
 								<a <?php $this->print_render_attribute_string( 'switcher-item' . $index ); ?>>
 									<?php
-									if ( ! empty( $item['icon']['value'] ) ) : ?>
+									if ( ! empty( $item['icon']['value'] ) ) :
+										?>
 										<div class="sa-icon-wrapper">
 											<span class="sa-icon-wrap">
 												<?php
@@ -952,7 +959,7 @@ class Content_Switcher extends Widget_Base {
 						<?php
 						foreach ( $settings['switcher_list'] as $index => $item ) :
 							$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
-							$_item_id = $this->get_id() . '-' . $item['_id'];
+							$_item_id    = $this->get_id() . '-' . $item['_id'];
 
 							$this->add_render_attribute( 'content-item' . $index, [
 								'class' => [
@@ -960,8 +967,8 @@ class Content_Switcher extends Widget_Base {
 									esc_html( $active_item ),
 									'sa-icon-position-' . esc_html( $secondary['icon_position'] ),
 								],
-								'id'    => esc_attr( $_item_id ),
-								'href'  => 'javascript:void(0);',
+								'id'   => esc_attr( $_item_id ),
+								'href' => 'javascript:void(0);',
 							] );
 
 							?>
@@ -969,9 +976,9 @@ class Content_Switcher extends Widget_Base {
 								<?php
 								if ( $item['content_source'] === 'custom' && ! empty( $item['content_source'] ) ) :
 									echo wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
-								elseif ( $item['content_source'] === 'elementor' && ! empty( $item['template_id'] ) ) :
+								elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
 									sky_addons_display_el_tem_by_id( $item['template_id'] );
-								elseif ( $item['content_source'] === 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
+								elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
 									sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
 								else :
 									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );

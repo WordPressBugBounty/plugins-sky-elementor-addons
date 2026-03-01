@@ -168,9 +168,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_agbg_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -188,7 +188,7 @@ class Module extends Module_Base {
 	}
 
 	public function widget_before_render( $widget ) {
-		$settings                      = $widget->get_settings_for_display();
+		$settings = $widget->get_settings_for_display();
 		if ( 'yes' === $settings['sa_agbg_enable'] ) {
 			wp_enqueue_script( 'granim' );
 		}

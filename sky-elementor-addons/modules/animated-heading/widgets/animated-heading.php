@@ -10,7 +10,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Animated_Heading extends Widget_Base {
@@ -37,6 +37,10 @@ class Animated_Heading extends Widget_Base {
 
 	public function get_script_depends() {
 		return [ 'typed', 'morphext' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -134,18 +138,18 @@ class Animated_Heading extends Widget_Base {
 		$this->add_responsive_control(
 			'align',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -154,7 +158,7 @@ class Animated_Heading extends Widget_Base {
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'default'   => '',
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}}' => 'text-align: {{VALUE}};',
 				],
@@ -166,8 +170,8 @@ class Animated_Heading extends Widget_Base {
 		$this->start_controls_section(
 			'section_typed_settings',
 			[
-				'label'     => esc_html__( 'Animation Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Animation Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'animate_style' => 'typed',
 				],
@@ -177,12 +181,12 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'typed_speed',
 			[
-				'label'   => esc_html__( 'Speed', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Speed', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 60,
 				],
-				'range'   => [
+				'range' => [
 					'px' => [
 						'min' => 30,
 						'max' => 100,
@@ -204,9 +208,9 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'typed_loop_count',
 			[
-				'label'     => esc_html__( 'Loop Count', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 0,
+				'label'   => esc_html__( 'Loop Count', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 0,
 				'condition' => [
 					'typed_loop' => 'true',
 				],
@@ -216,12 +220,12 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'typed_start_delay',
 			[
-				'label'   => esc_html__( 'Start Delay', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Start Delay', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 1000,
 				],
-				'range'   => [
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 5000,
@@ -233,12 +237,12 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'typed_back_speed',
 			[
-				'label'   => esc_html__( 'Back Speed', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Back Speed', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 30,
 				],
-				'range'   => [
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 1000,
@@ -250,12 +254,12 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'typed_back_delay',
 			[
-				'label'   => esc_html__( 'Back Delay', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Back Delay', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 500,
 				],
-				'range'   => [
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 5000,
@@ -269,8 +273,8 @@ class Animated_Heading extends Widget_Base {
 		$this->start_controls_section(
 			'section_animated_settings',
 			[
-				'label'     => esc_html__( 'Animation Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Animation Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'animate_style' => 'animated',
 				],
@@ -291,12 +295,12 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'animated_speed',
 			[
-				'label'   => esc_html__( 'Speed', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Speed', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'default' => [
 					'size' => 2000,
 				],
-				'range'   => [
+				'range' => [
 					'px' => [
 						'min' => 500,
 						'max' => 5000,
@@ -318,8 +322,8 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-animated-heading' => 'color: {{VALUE}};',
 				],
@@ -382,8 +386,8 @@ class Animated_Heading extends Widget_Base {
 		$this->start_controls_section(
 			'section_prefix_title_style',
 			[
-				'label'     => esc_html__( 'Prefix', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Prefix', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'title_prefix!' => '',
 				],
@@ -393,8 +397,8 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'prefix_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-prefix' => 'color: {{VALUE}};',
 				],
@@ -430,8 +434,8 @@ class Animated_Heading extends Widget_Base {
 		$this->start_controls_section(
 			'section_suffix_title_style',
 			[
-				'label'     => esc_html__( 'Suffix', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Suffix', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'title_suffix!' => '',
 				],
@@ -441,8 +445,8 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'suffix_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-suffix' => 'color: {{VALUE}};',
 				],
@@ -478,7 +482,7 @@ class Animated_Heading extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-animated-heading-' . $this->get_id();
+		$id       = 'sa-animated-heading-' . $this->get_id();
 
 		// Early return if all title fields are empty
 		if ( empty( $settings['title'] ) && empty( $settings['title_prefix'] ) && empty( $settings['title_suffix'] ) ) {

@@ -15,7 +15,7 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Text_Shadow;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 trait Global_Swiper_Controls {
@@ -72,8 +72,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'dynamic_bullets',
 			[
-				'label'     => esc_html__( 'Dynamic Bullets', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Dynamic Bullets', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'pagination_type'  => 'bullets',
 					'pagination_type!' => 'none',
@@ -84,21 +84,21 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'progressbar_position',
 			[
-				'label'                => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'default'              => 'bottom',
-				'options'              => [
+				'label'   => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'bottom',
+				'options' => [
 					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 					// 'top'    => esc_html__('Top', 'sky-elementor-addons'), //todo
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .swiper-pagination-progressbar' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
 					'bottom' => '',
 					'top'    => 'top: 0; bottom: unset;',
 				],
-				'condition'            => [
+				'condition' => [
 					'pagination_type'  => 'progressbar',
 					'direction'        => 'horizontal',
 					'pagination_type!' => 'none',
@@ -109,21 +109,21 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'progressbar_position_vertical',
 			[
-				'label'                => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'default'              => 'left',
-				'options'              => [
+				'label'   => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'left',
+				'options' => [
 					'left'  => esc_html__( 'Left', 'sky-elementor-addons' ),
 					'right' => esc_html__( 'Right', 'sky-elementor-addons' ),
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .swiper-vertical > .swiper-pagination-progressbar' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
 					'left'  => '',
 					'right' => 'right: 0; left: unset;',
 				],
-				'condition'            => [
+				'condition' => [
 					'pagination_type'  => 'progressbar',
 					'direction'        => 'vertical',
 					'pagination_type!' => 'none',
@@ -134,10 +134,10 @@ trait Global_Swiper_Controls {
 		$this->add_responsive_control(
 			'pagination_alignment',
 			[
-				'label'      => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'       => Controls_Manager::CHOOSE,
-				'options'    => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -145,7 +145,7 @@ trait Global_Swiper_Controls {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -170,7 +170,7 @@ trait Global_Swiper_Controls {
 						],
 					],
 				],
-				'selectors'  => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .swiper-pagination' => 'text-align: {{VALUE}};',
 				],
 			]
@@ -184,8 +184,8 @@ trait Global_Swiper_Controls {
 		$this->start_controls_section(
 			'section_carousel_navigation_style',
 			[
-				'label'     => esc_html__( 'Navigation', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_navigation' => 'yes',
 				],
@@ -304,8 +304,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'navigation_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-prev, {{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-next'             => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-prev svg *, {{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-next svg *' => 'fill: {{VALUE}}',
@@ -353,8 +353,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'navigation_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-next:hover'             => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-prev:hover svg *, {{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-next:hover svg *' => 'fill: {{VALUE}}',
@@ -375,8 +375,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'navigation_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-' . $name . ' .sa-swiper-button-next:hover' => 'border-color: {{VALUE}};',
 				],
@@ -415,8 +415,8 @@ trait Global_Swiper_Controls {
 		$this->start_controls_section(
 			'section_carousel_pagination_style',
 			[
-				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'pagination_type!' => 'none',
 				],
@@ -436,7 +436,7 @@ trait Global_Swiper_Controls {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-' . $name . ' .swiper-pagination' => '--sa-pagination-v-spacing: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-' . $name => '--sa-pagination-v-spacing: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -543,8 +543,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'pagination_color',
 			[
-				'label'     => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name => '--sa-pagination-color: {{VALUE}}',
 				],
@@ -554,8 +554,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'pagination_active_color',
 			[
-				'label'     => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-' . $name => '--sa-pagination-active-color: {{VALUE}}',
 				],
@@ -603,9 +603,9 @@ trait Global_Swiper_Controls {
 		$this->add_responsive_control(
 			'item_gap',
 			[
-				'label'          => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 20,
 				],
 				'tablet_default' => [
@@ -614,7 +614,7 @@ trait Global_Swiper_Controls {
 				'mobile_default' => [
 					'size' => 10,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -770,8 +770,8 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'slide_shadows',
 			[
-				'label'     => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'transition_effect' => [ 'coverflow' ],
 				],
@@ -790,15 +790,15 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label'     => esc_html__( 'Autoplay Speed (ms)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Autoplay Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 1000,
 						'max' => 10000,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 5000,
 				],
@@ -820,9 +820,9 @@ trait Global_Swiper_Controls {
 		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 1,
 						'max'  => 5000,
@@ -1068,5 +1068,6 @@ trait Global_Swiper_Controls {
 		endif;
 		?>
 		</div>
-<?php }
+		<?php
+	}
 }

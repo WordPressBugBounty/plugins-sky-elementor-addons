@@ -16,7 +16,7 @@ use Sky_Addons\Sky_Addons_Plugin;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Audio_Player extends Widget_Base {
@@ -49,6 +49,10 @@ class Audio_Player extends Widget_Base {
 		return [
 			'plyr',
 		];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -94,7 +98,7 @@ class Audio_Player extends Widget_Base {
 				'label'      => esc_html__( 'Local Audio', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::MEDIA,
 				'dynamic'    => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::MEDIA_CATEGORY,
@@ -122,7 +126,7 @@ class Audio_Player extends Widget_Base {
 				],
 				'placeholder'   => 'https://example.com/music.mp3',
 				'dynamic'       => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -137,10 +141,10 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'player_controls_icon_size',
 			[
-				'label'     => esc_html__( 'Controls Icon Size', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'units'     => [ 'px', 'em' ],
-				'range'     => [
+				'label' => esc_html__( 'Controls Icon Size', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'units' => [ 'px', 'em' ],
+				'range' => [
 					'px' => [
 						'min' => 5,
 						'max' => 100,
@@ -211,8 +215,8 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'player_controls_color',
 			[
-				'label'     => esc_html__( 'Controls Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Controls Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--plyr-audio-control-color: {{VALUE}}',
 				],
@@ -222,8 +226,8 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'player_controls_color_hover',
 			[
-				'label'     => esc_html__( 'Controls Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Controls Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--plyr-audio-control-color-hover: {{VALUE}}',
 				],
@@ -233,8 +237,8 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'player_primary_color',
 			[
-				'label'     => esc_html__( 'Primary Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Primary Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--plyr-color-main: {{VALUE}}',
 				],
@@ -262,8 +266,8 @@ class Audio_Player extends Widget_Base {
 		$this->add_control(
 			'player_tooltip_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--plyr-tooltip-color: {{VALUE}}',
 				],
@@ -342,8 +346,8 @@ class Audio_Player extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'audio-player' => [
-					'id'            => $id,
-					'class'         => 'sa-audio-player',
+					'id'    => $id,
+					'class' => 'sa-audio-player',
 					'data-settings' => [
 						wp_json_encode(
 							[

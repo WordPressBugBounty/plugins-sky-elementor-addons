@@ -19,7 +19,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Traits\Global_Swiper_Controls;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Logo_Carousel extends Widget_Base {
@@ -59,6 +59,10 @@ class Logo_Carousel extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/logo-carousel/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -154,10 +158,10 @@ class Logo_Carousel extends Widget_Base {
 		$repeater->add_control(
 			'tooltip_placement',
 			[
-				'label'     => esc_html__( 'Tooltip Placement', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'top',
-				'options'   => [
+				'label'   => esc_html__( 'Tooltip Placement', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'top',
+				'options' => [
 					'top'    => esc_html__( 'Top', 'sky-elementor-addons' ),
 					'right'  => esc_html__( 'Right', 'sky-elementor-addons' ),
 					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
@@ -256,10 +260,10 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'open_lightbox',
 			[
-				'label'     => esc_html__( 'Lightbox', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'default',
-				'options'   => [
+				'label'   => esc_html__( 'Lightbox', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => [
 					'default' => esc_html__( 'Default', 'sky-elementor-addons' ),
 					'yes'     => esc_html__( 'Yes', 'sky-elementor-addons' ),
 					'no'      => esc_html__( 'No', 'sky-elementor-addons' ),
@@ -376,9 +380,9 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'tooltip_x_offset',
 			[
-				'label'          => esc_html__( 'X Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'X Offset', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -387,14 +391,14 @@ class Logo_Carousel extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'tooltip_offset_popover' => 'yes',
 				],
 			]
@@ -403,9 +407,9 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'tooltip_y_offset',
 			[
-				'label'          => esc_html__( 'Y Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'Y Offset', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -414,14 +418,14 @@ class Logo_Carousel extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'tooltip_offset_popover' => 'yes',
 				],
 			]
@@ -524,9 +528,9 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'grid_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -578,9 +582,9 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'grid_opacity_hover',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -604,9 +608,9 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'grid_transition',
 			[
-				'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 3,
 						'step' => 0.1,
@@ -733,19 +737,19 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_responsive_control(
 			'tooltip_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'default'   => 'center',
-				'options'   => [
-					'left' => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -824,8 +828,8 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'tooltip_title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"] .tippy-content .sa-tippy-title' => 'color: {{VALUE}}',
 				],
@@ -853,8 +857,8 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'tooltip_text_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"]' => 'color: {{VALUE}}',
 				],
@@ -886,8 +890,8 @@ class Logo_Carousel extends Widget_Base {
 		$this->add_control(
 			'tooltip_arrow_color',
 			[
-				'label'     => esc_html__( 'Arrow Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Arrow Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"] .tippy-arrow' => 'color: {{VALUE}}',
 				],
@@ -905,7 +909,7 @@ class Logo_Carousel extends Widget_Base {
 		<?php
 		foreach ( $settings['logo_list'] as $index => $item ) :
 			$link_attr = 'link-attr-' . $index;
-			$image = Group_Control_Image_Size::get_attachment_image_src( $item['logo']['id'], 'thumbnail', $settings );
+			$image     = Group_Control_Image_Size::get_attachment_image_src( $item['logo']['id'], 'thumbnail', $settings );
 
 			if ( ! $image ) {
 				$image = $item['logo']['url'];
@@ -1028,7 +1032,7 @@ class Logo_Carousel extends Widget_Base {
 
 	public function render_header() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-logo-carousel-' . $this->get_id();
+		$id       = 'sa-logo-carousel-' . $this->get_id();
 
 		/**
 		 * global function

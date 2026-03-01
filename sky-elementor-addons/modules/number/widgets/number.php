@@ -11,7 +11,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Number extends Widget_Base {
@@ -38,6 +38,10 @@ class Number extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/number/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -72,15 +76,15 @@ class Number extends Widget_Base {
 		$this->add_control(
 			'anim_duration',
 			[
-				'label'     => esc_html__( 'Animation Duration', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Animation Duration', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 2000,
 						'max' => 5000,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 2600,
 				],
@@ -113,9 +117,9 @@ class Number extends Widget_Base {
 		$this->add_responsive_control(
 			'number_align',
 			[
-				'label'                => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'options'              => [
+				'label'  => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'   => Controls_Manager::CHOOSE,
+				'options' => [
 					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -129,8 +133,8 @@ class Number extends Widget_Base {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'toggle'               => true,
-				'selectors'            => [
+				'toggle' => true,
+				'selectors' => [
 					'{{WRAPPER}} .sa-number' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -187,20 +191,20 @@ class Number extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'background',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'exclude'        => [ 'image' ],
+				'name'     => 'background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
-					'color' => [
+					'color'      => [
 						'default' => '#8441A4',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .sa-number',
+				'selector' => '{{WRAPPER}} .sa-number',
 			]
 		);
 
@@ -238,10 +242,10 @@ class Number extends Widget_Base {
 		$this->add_control(
 			'adv_border_radius',
 			[
-				'label'     => esc_html__( 'Radius', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Radius', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'selectors' => [
 					'{{WRAPPER}} .sa-number' => 'border-radius: {{VALUE}};',
 				],
@@ -315,9 +319,9 @@ class Number extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#fff',
+				'label'   => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '#fff',
 				'selectors' => [
 					'{{WRAPPER}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -368,7 +372,7 @@ class Number extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$this->add_render_attribute('number', [
-			'class'         => 'sa-number',
+			'class' => 'sa-number',
 			'data-settings' => [
 				wp_json_encode(array_filter([
 					'animation' => $settings['number_animation'] === 'yes' ? 'yes' : 'no',

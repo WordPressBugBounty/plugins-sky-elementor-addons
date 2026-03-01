@@ -12,7 +12,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Includes\Parsedown;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Changelog extends Widget_Base {
@@ -35,6 +35,10 @@ class Changelog extends Widget_Base {
 
 	public function get_keywords() {
 		return [ 'sky', 'changelog' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -71,9 +75,9 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'cache_time',
 			[
-				'label'     => esc_html__( 'Cache Time (Days)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 3,
+				'label'   => esc_html__( 'Cache Time (Days)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 3,
 				'condition' => [
 					'cache_data' => 'yes',
 				],
@@ -93,10 +97,10 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'heading_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container > p' => 'color: {{VALUE}}',
+					'{{WRAPPER}} p' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -106,7 +110,7 @@ class Changelog extends Widget_Base {
 			[
 				'name'     => 'heading_typography',
 				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .elementor-widget-container > p',
+				'selector' => '{{WRAPPER}} p',
 			]
 		);
 
@@ -141,8 +145,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'fixed_color',
 			[
-				'label'     => esc_html__( 'Fixed Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Fixed Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-fixed' => 'color: {{VALUE}}',
 				],
@@ -171,8 +175,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'added_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-added' => 'color: {{VALUE}}',
 				],
@@ -201,8 +205,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'updated_color',
 			[
-				'label'     => esc_html__( 'Updated Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Updated Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-updated' => 'color: {{VALUE}}',
 				],
@@ -231,8 +235,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'note_color',
 			[
-				'label'     => esc_html__( 'Note Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Note Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-note' => 'color: {{VALUE}}',
 				],
@@ -261,8 +265,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'changed_color',
 			[
-				'label'     => esc_html__( 'Changed Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Changed Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-changed' => 'color: {{VALUE}}',
 				],
@@ -291,8 +295,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'removed_color',
 			[
-				'label'     => esc_html__( 'Removed Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Removed Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-label-changelog.sa-removed' => 'color: {{VALUE}}',
 				],
@@ -321,8 +325,8 @@ class Changelog extends Widget_Base {
 		$this->add_control(
 			'heading_text_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} li:not(span)' => 'color: {{VALUE}}',
 				],
@@ -334,13 +338,13 @@ class Changelog extends Widget_Base {
 
 
 	protected function parse_data( $response_data ) {
-		$parsedown = new Parsedown();
-		$parsedown->addTag = '<span class="sa-label sa-added">' . esc_html__( 'Added:', 'sky-elementor-addons' ) . '</span>';
-		$parsedown->removeTag = '<span class="sa-label sa-remove">' . esc_html__( 'Removed', 'sky-elementor-addons' ) . '</span>';
-		$parsedown->updateTag = '<span class="sa-label sa-update">' . esc_html__( 'Updated', 'sky-elementor-addons' ) . '</span>';
+		$parsedown             = new Parsedown();
+		$parsedown->addTag     = '<span class="sa-label sa-added">' . esc_html__( 'Added:', 'sky-elementor-addons' ) . '</span>';
+		$parsedown->removeTag  = '<span class="sa-label sa-remove">' . esc_html__( 'Removed', 'sky-elementor-addons' ) . '</span>';
+		$parsedown->updateTag  = '<span class="sa-label sa-update">' . esc_html__( 'Updated', 'sky-elementor-addons' ) . '</span>';
 		$parsedown->changedTag = '<span class="sa-label sa-changed">' . esc_html__( 'Changed', 'sky-elementor-addons' ) . '</span>';
-		$parsedown->fixedTag = '<span class="sa-label sa-fixed">' . esc_html__( 'Fixed', 'sky-elementor-addons' ) . '</span>';
-		$parsedown->noteTag = '<span class="sa-label sa-note">' . esc_html__( 'Note', 'sky-elementor-addons' ) . '</span>';
+		$parsedown->fixedTag   = '<span class="sa-label sa-fixed">' . esc_html__( 'Fixed', 'sky-elementor-addons' ) . '</span>';
+		$parsedown->noteTag    = '<span class="sa-label sa-note">' . esc_html__( 'Note', 'sky-elementor-addons' ) . '</span>';
 
 		$parsedown = $parsedown->text( $response_data );
 
@@ -351,7 +355,7 @@ class Changelog extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'tf_changelog_' . $this->get_id();
+		$id       = 'tf_changelog_' . $this->get_id();
 		require_once SKY_ADDONS_INC_PATH . 'class-parsedown.php';
 
 		$transient_key = $id . '_data';

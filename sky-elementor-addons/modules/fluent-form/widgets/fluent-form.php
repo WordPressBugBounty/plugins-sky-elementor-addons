@@ -11,7 +11,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class FluentForm extends Widget_Base {
@@ -42,6 +42,10 @@ class FluentForm extends Widget_Base {
 
 	public function is_reload_preview_required() {
 		return true;
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -180,8 +184,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'field_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-form-control' => 'color: {{VALUE}}',
 				],
@@ -191,8 +195,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label'     => __( 'Placeholder Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Placeholder Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
@@ -329,8 +333,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-input--label label' => 'color: {{VALUE}}',
 				],
@@ -340,8 +344,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'check_box_label_color',
 			[
-				'label'     => __( 'Check Box Label Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Check Box Label Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-form-check .ff-el-form-check-label' => 'color: {{VALUE}}',
 				],
@@ -351,8 +355,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'required_label_color',
 			[
-				'label'     => __( 'Required Label Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Required Label Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-input--label label:before' => 'color: {{VALUE}}',
 				],
@@ -415,8 +419,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'help_text_icon_color',
 			[
-				'label'     => __( 'Icon Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Icon Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-tooltip' => 'color: {{VALUE}}',
 				],
@@ -426,8 +430,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'help_text_color',
 			[
-				'label'     => __( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-tooltip:before' => 'color: {{VALUE}}',
 				],
@@ -437,8 +441,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'help_text_arrow_color',
 			[
-				'label'     => __( 'Arrow Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Arrow Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-tooltip:after' => 'border-top-color: {{VALUE}}',
 				],
@@ -551,9 +555,9 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'submit_text_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '#FFFFFF',
 				'selectors' => [
 					'{{WRAPPER}} .ff-btn-submit' => 'color: {{VALUE}};',
 				],
@@ -582,9 +586,9 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'submit_hover_text_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
+				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '#FFFFFF',
 				'selectors' => [
 					'{{WRAPPER}} .ff-btn-submit:hover, {{WRAPPER}} .ff-btn-submit:focus' => 'color: {{VALUE}};',
 				],
@@ -604,8 +608,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label'     => __( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-btn-submit:hover, {{WRAPPER}} .ff-btn-submit:focus' => 'border-color: {{VALUE}};',
 				],
@@ -672,8 +676,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'section_break_title_color',
 			[
-				'label'     => __( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-section-break .ff-el-section-title' => 'color: {{VALUE}};',
 				],
@@ -692,8 +696,8 @@ class FluentForm extends Widget_Base {
 		$this->add_control(
 			'section_break_description_color',
 			[
-				'label'     => __( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ff-el-section-break .ff-section_break_desk' => 'color: {{VALUE}};',
 				],

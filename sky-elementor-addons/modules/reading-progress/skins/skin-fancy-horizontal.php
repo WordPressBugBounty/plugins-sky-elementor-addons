@@ -8,7 +8,7 @@ use Elementor\Controls_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Skin_Fancy_Horizontal extends Elementor_Skin_Base {

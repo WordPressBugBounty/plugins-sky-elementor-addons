@@ -37,6 +37,10 @@ class Table_Of_Contents extends Widget_Base {
 		return true;
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -134,10 +138,10 @@ class Table_Of_Contents extends Widget_Base {
 		$this->add_control(
 			'select_list_style',
 			[
-				'label'     => esc_html__( 'Select Style', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'decimal',
-				'options'   => [
+				'label'   => esc_html__( 'Select Style', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'decimal',
+				'options' => [
 					'decimal'     => esc_html__( 'Decimal', 'sky-elementor-addons' ),
 					'circle'      => esc_html__( 'Circle', 'sky-elementor-addons' ),
 					'disc'        => esc_html__( 'Disc', 'sky-elementor-addons' ),
@@ -165,7 +169,7 @@ class Table_Of_Contents extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -199,8 +203,8 @@ class Table_Of_Contents extends Widget_Base {
 		$this->add_control(
 			'simple_list_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} a' => 'color: {{VALUE}}',
 				],
@@ -219,8 +223,8 @@ class Table_Of_Contents extends Widget_Base {
 		$this->add_control(
 			'simple_list_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} a:hover' => 'color: {{VALUE}}',
 				],
@@ -236,12 +240,12 @@ class Table_Of_Contents extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-table-of-contents-' . $this->get_id();
+		$id       = 'sa-table-of-contents-' . $this->get_id();
 
 		$heading_selectors = implode( ',', $settings['heading_selectors'] );
 
 		$this->add_render_attribute( 'sa-table-of-contents', [
-			'class'         => 'sa-table-of-contents',
+			'class' => 'sa-table-of-contents',
 			'data-settings' => [
 				wp_json_encode(
 					array_filter( [

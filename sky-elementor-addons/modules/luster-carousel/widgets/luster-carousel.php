@@ -65,6 +65,10 @@ class Luster_Carousel extends Widget_Base {
 		return $this->_query;
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 		$this->start_controls_section(
 			'section_post_list_layout',
@@ -106,18 +110,18 @@ class Luster_Carousel extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -177,10 +181,10 @@ class Luster_Carousel extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -239,9 +243,9 @@ class Luster_Carousel extends Widget_Base {
 		$this->add_control(
 			'strip_shortcode',
 			[
-				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'show_excerpt' => 'yes',
 				],
@@ -279,8 +283,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_video_settings',
 			[
-				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -423,8 +427,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes',
 				],
@@ -434,17 +438,17 @@ class Luster_Carousel extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'image_overlay',
-				'label'          => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
-				'types'          => [ 'gradient' ],
-				'separator'      => 'before',
-				'exclude'        => [ 'image' ],
+				'name'      => 'image_overlay',
+				'label'     => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
+				'types'     => [ 'gradient' ],
+				'separator' => 'before',
+				'exclude'   => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label' => 'Image Overlay',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .sa-post-img-wrapper:after',
+				'selector'  => '{{WRAPPER}} .sa-post-img-wrapper:after',
 			]
 		);
 
@@ -492,8 +496,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -545,17 +549,17 @@ class Luster_Carousel extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'title_bar_color',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'separator'      => 'before',
-				'exclude'        => [ 'image' ],
+				'name'      => 'title_bar_color',
+				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'     => [ 'classic', 'gradient' ],
+				'separator' => 'before',
+				'exclude'   => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label' => 'Bar Color',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .sa-post-title:after',
+				'selector'  => '{{WRAPPER}} .sa-post-title:after',
 			]
 		);
 
@@ -580,8 +584,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_category_style',
 			[
-				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_category' => 'yes',
 				],
@@ -635,8 +639,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
@@ -700,8 +704,8 @@ class Luster_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -772,11 +776,11 @@ class Luster_Carousel extends Widget_Base {
 		$args = [];
 		if ( $posts_per_page ) {
 			$args['posts_per_page'] = $posts_per_page;
-			$args['paged'] = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
 		}
 
 		$default = $this->getGroupControlQueryArgs();
-		$args = array_merge( $default, $args );
+		$args    = array_merge( $default, $args );
 
 		$this->_query = new \WP_Query( $args );
 	}
@@ -804,13 +808,15 @@ class Luster_Carousel extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		if ( 'yes' !== $settings['show_date'] ) {
 			return;
-		} ?>
+		}
+		?>
 		<div class="sa-post-date-wrapper sa-d-flex sa-align-items-center">
 			<div class="sa-icon-wrap sa-me-1">
 				<i class="eicon-calendar"></i>
 			</div>
 			<?php
-			$this->render_post_date(); ?>
+			$this->render_post_date();
+			?>
 		</div>
 		<?php
 	}
@@ -843,7 +849,8 @@ class Luster_Carousel extends Widget_Base {
 						'wrapper_class' => 'sa-mb-2',
 					] );
 
-					$this->render_post_excerpt( $excerpt_length ); ?>
+					$this->render_post_excerpt( $excerpt_length );
+					?>
 				</div>
 			</div>
 		</div>
@@ -852,7 +859,7 @@ class Luster_Carousel extends Widget_Base {
 
 	public function render_header() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-luster-carousel-' . $this->get_id();
+		$id       = 'sa-luster-carousel-' . $this->get_id();
 
 		/**
 		 * global function

@@ -15,7 +15,7 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Logo_Grid extends Widget_Base {
@@ -52,6 +52,10 @@ class Logo_Grid extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/logo-grid/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -148,10 +152,10 @@ class Logo_Grid extends Widget_Base {
 		$repeater->add_control(
 			'tooltip_placement',
 			[
-				'label'     => esc_html__( 'Tooltip Placement', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'top',
-				'options'   => [
+				'label'   => esc_html__( 'Tooltip Placement', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'top',
+				'options' => [
 					'top'    => esc_html__( 'Top', 'sky-elementor-addons' ),
 					'right'  => esc_html__( 'Right', 'sky-elementor-addons' ),
 					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
@@ -272,9 +276,9 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'tooltip_x_offset',
 			[
-				'label'          => esc_html__( 'X Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'X Offset', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -283,14 +287,14 @@ class Logo_Grid extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'tooltip_offset_popover' => 'yes',
 				],
 			]
@@ -299,9 +303,9 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'tooltip_y_offset',
 			[
-				'label'          => esc_html__( 'Y Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'Y Offset', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -310,14 +314,14 @@ class Logo_Grid extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'tooltip_offset_popover' => 'yes',
 				],
 			]
@@ -435,10 +439,10 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'border_type',
 			[
-				'label'     => esc_html__( 'Border Type', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'solid',
-				'options'   => [
+				'label'   => esc_html__( 'Border Type', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'solid',
+				'options' => [
 					'none'   => esc_html__( 'None', 'sky-elementor-addons' ),
 					'solid'  => esc_html__( 'Solid', 'sky-elementor-addons' ),
 					'double' => esc_html__( 'Double', 'sky-elementor-addons' ),
@@ -474,8 +478,8 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ' => '--sky-border-color: {{VALUE}}',
 				],
@@ -532,9 +536,9 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'grid_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -586,9 +590,9 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'grid_opacity_hover',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -612,9 +616,9 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'grid_transition',
 			[
-				'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 3,
 						'step' => 0.1,
@@ -670,19 +674,19 @@ class Logo_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'tooltip_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'default'   => 'center',
-				'options'   => [
-					'left' => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'default' => 'center',
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -761,8 +765,8 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'tooltip_title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"] .tippy-content .sa-tippy-title' => 'color: {{VALUE}}',
 				],
@@ -790,8 +794,8 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'tooltip_text_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"]' => 'color: {{VALUE}}',
 				],
@@ -823,8 +827,8 @@ class Logo_Grid extends Widget_Base {
 		$this->add_control(
 			'tooltip_arrow_color',
 			[
-				'label'     => esc_html__( 'Arrow Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Arrow Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'.tippy-box[data-theme="sa-tippy-{{ID}}"] .tippy-arrow' => 'color: {{VALUE}}',
 				],
@@ -841,7 +845,7 @@ class Logo_Grid extends Widget_Base {
 		<div class="sa-logo-grid sa-<?php echo esc_attr( $settings['style_select'] ); ?>">
 			<?php
 			foreach ( $settings['logo_list'] as $item ) {
-				$image = wp_get_attachment_image_url( $item['logo']['id'], $settings['thumbnail_size'] );
+				$image       = wp_get_attachment_image_url( $item['logo']['id'], $settings['thumbnail_size'] );
 				$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] === 'yes' ) ? ' sa-tippy-tooltip' : '';
 				$this->add_render_attribute( 'link-attr', 'class', 'sa-logo-link sa-d-inline-block sa-text-decoration-none ' . $tippy_class, true );
 

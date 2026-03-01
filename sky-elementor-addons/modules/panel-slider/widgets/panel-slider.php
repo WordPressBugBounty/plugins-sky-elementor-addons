@@ -19,7 +19,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Traits\Global_Swiper_Controls;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Panel_Slider extends Widget_Base {
@@ -58,6 +58,10 @@ class Panel_Slider extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/carousel-slider/panel-slider/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -211,11 +215,11 @@ class Panel_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_position',
 			[
-				'label'                => esc_html__( 'Content Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'top' => [
+				'label'           => esc_html__( 'Content Position', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::CHOOSE,
+				'label_block'     => false,
+				'options' => [
+					'top'    => [
 						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-top',
 					],
@@ -228,11 +232,11 @@ class Panel_Slider extends Widget_Base {
 						'icon'  => 'eicon-v-align-bottom',
 					],
 				],
-				'desktop_default'      => 'bottom',
-				'tablet_default'       => 'bottom',
-				'mobile_default'       => 'bottom',
-				'style_transfer'       => true,
-				'selectors'            => [
+				'desktop_default' => 'bottom',
+				'tablet_default'  => 'bottom',
+				'mobile_default'  => 'bottom',
+				'style_transfer'  => true,
+				'selectors' => [
 					'{{WRAPPER}} .sa-content' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -246,18 +250,18 @@ class Panel_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -356,8 +360,8 @@ class Panel_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -393,7 +397,7 @@ class Panel_Slider extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -570,17 +574,17 @@ class Panel_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'slider_overlay_hover',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
+				'name'     => 'slider_overlay_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'fields_options' => [
-					'background' => [
+					'background'   => [
 						'default' => 'gradient',
 					],
-					'color' => [
+					'color'        => [
 						'default' => '#FFFFFF00',
 					],
-					'color_b' => [
+					'color_b'      => [
 						'default' => '#2626261C',
 					],
 					'color_b_stop' => [
@@ -590,7 +594,7 @@ class Panel_Slider extends Widget_Base {
 						],
 					],
 				],
-				'selector'       => '{{WRAPPER}} .swiper-slide:hover .sa-img-wrapper::after',
+				'selector' => '{{WRAPPER}} .swiper-slide:hover .sa-img-wrapper::after',
 			]
 		);
 
@@ -649,8 +653,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title a' => 'color: {{VALUE}}',
 				],
@@ -660,8 +664,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Hover Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Hover Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title:hover a' => 'color: {{VALUE}}',
 				],
@@ -726,8 +730,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -757,8 +761,8 @@ class Panel_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -819,8 +823,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button' => 'color: {{VALUE}}',
 				],
@@ -867,8 +871,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'color: {{VALUE}}',
 				],
@@ -888,8 +892,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'border-color: {{VALUE}};',
 				],
@@ -1064,7 +1068,7 @@ class Panel_Slider extends Widget_Base {
 
 	protected function render_item() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-panel-slider-' . $this->get_id();
+		$id       = 'sa-panel-slider-' . $this->get_id();
 
 		$item_link_on = false;
 		if ( ! empty( $settings['link_on'] ) ) {
@@ -1102,7 +1106,7 @@ class Panel_Slider extends Widget_Base {
 						<?php
 
 						$placeholder_image_src = Utils::get_placeholder_image_src();
-						$image_url = Group_Control_Image_Size::get_attachment_image_src( $item['image']['id'], 'thumbnail', $settings );
+						$image_url             = Group_Control_Image_Size::get_attachment_image_src( $item['image']['id'], 'thumbnail', $settings );
 
 						if ( ! $image_url ) {
 							printf( '<img src="%1$s" alt="%2$s" class="%3$s">', esc_url( $placeholder_image_src ), esc_html( $item['title'] ), 'sa-cover' );
@@ -1129,7 +1133,8 @@ class Panel_Slider extends Widget_Base {
 					</div>
 				</div>
 			</div>
-		<?php endforeach;
+			<?php
+		endforeach;
 	}
 
 	protected function render() {
@@ -1147,7 +1152,7 @@ class Panel_Slider extends Widget_Base {
 
 	public function render_header() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-panel-slider-' . $this->get_id();
+		$id       = 'sa-panel-slider-' . $this->get_id();
 
 		/**
 		 * global function
@@ -1159,8 +1164,8 @@ class Panel_Slider extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'carousel' => [
-					'class'                => [ 'sa-panel-slider', 'sa-swiper-global-carousel' ],
-					'id'                   => $id,
+					'class' => [ 'sa-panel-slider', 'sa-swiper-global-carousel' ],
+					'id'    => $id,
 					'data-slider-settings' => [
 						wp_json_encode( array_filter( [
 							'showContent' => $show_content,

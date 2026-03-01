@@ -17,7 +17,7 @@ use Sky_Addons\Traits\Global_Widget_Functions;
 use Sky_Addons\Traits\Global_Widget_Controls;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Naive_List extends Widget_Base {
@@ -56,6 +56,10 @@ class Naive_List extends Widget_Base {
 
 	public function get_query() {
 		return $this->_query;
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -126,16 +130,16 @@ class Naive_List extends Widget_Base {
 		$this->add_responsive_control(
 			'column_gap',
 			[
-				'label'          => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'size_units'     => [ 'px', 'em' ],
-				'range'          => [
+				'label'      => esc_html__( 'Column Gap', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default'        => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 36,
 				],
@@ -147,7 +151,7 @@ class Naive_List extends Widget_Base {
 					'unit' => 'px',
 					'size' => 24,
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-naive-list' => 'grid-column-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -165,18 +169,18 @@ class Naive_List extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -237,10 +241,10 @@ class Naive_List extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -300,9 +304,9 @@ class Naive_List extends Widget_Base {
 		$this->add_control(
 			'strip_shortcode',
 			[
-				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'show_excerpt' => 'yes',
 				],
@@ -359,8 +363,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_video_settings',
 			[
-				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -377,8 +381,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -414,7 +418,7 @@ class Naive_List extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -580,8 +584,8 @@ class Naive_List extends Widget_Base {
 		$this->add_control(
 			'item_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-item:hover' => 'border-color: {{VALUE}};',
 				],
@@ -600,8 +604,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes',
 				],
@@ -672,8 +676,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -742,8 +746,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_category_style',
 			[
-				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_category' => 'yes',
 				],
@@ -798,8 +802,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
@@ -868,8 +872,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -886,8 +890,8 @@ class Naive_List extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -948,11 +952,11 @@ class Naive_List extends Widget_Base {
 		$args = [];
 		if ( $posts_per_page ) {
 			$args['posts_per_page'] = $posts_per_page;
-			$args['paged'] = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
 		}
 
 		$default = $this->getGroupControlQueryArgs();
-		$args = array_merge( $default, $args );
+		$args    = array_merge( $default, $args );
 
 		$this->_query = new \WP_Query( $args );
 	}
@@ -1002,7 +1006,7 @@ class Naive_List extends Widget_Base {
 			return;
 		}
 		$strip_shortcode = ( $settings['strip_shortcode'] ) ? true : false;
-		$excerpt = '';
+		$excerpt         = '';
 
 		if ( has_excerpt() ) {
 			$excerpt = get_the_excerpt();

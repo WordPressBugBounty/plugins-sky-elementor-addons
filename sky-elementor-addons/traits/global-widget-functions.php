@@ -8,19 +8,19 @@ use Elementor\Embed;
 use Elementor\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 trait Global_Widget_Functions {
 
 	protected function render_post_image( $add = [] ) {
-		$image_id = $add['image_id'];
+		$image_id       = $add['image_id'];
 		$thumbnail_size = $add['thumbnail_size'];
 
 		$wrapper_class = 'sa-post-img';
 
 		$placeholder_image_src = Utils::get_placeholder_image_src();
-		$image_src = wp_get_attachment_image_src( $image_id, $thumbnail_size );
+		$image_src             = wp_get_attachment_image_src( $image_id, $thumbnail_size );
 
 		if ( isset( $add['wrapper_class'] ) ) {
 			$wrapper_class .= ' ' . $add['wrapper_class'];
@@ -42,7 +42,7 @@ trait Global_Widget_Functions {
 	}
 
 	protected function render_post_title( $add = [] ) {
-		$settings = $this->get_settings_for_display();
+		$settings      = $this->get_settings_for_display();
 		$wrapper_class = 'sa-post-title';
 
 		if ( ! isset( $settings['show_title'] ) || 'yes' !== $settings['show_title'] ) {
@@ -86,7 +86,7 @@ trait Global_Widget_Functions {
 	}
 
 	protected function render_post_category( $add = [] ) {
-		$settings = $this->get_settings_for_display();
+		$settings      = $this->get_settings_for_display();
 		$wrapper_class = 'sa-post-category';
 
 		if ( ! isset( $settings['show_category'] ) || 'yes' !== $settings['show_category'] ) {
@@ -168,7 +168,7 @@ trait Global_Widget_Functions {
 			return;
 		}
 		$strip_shortcode = ( $settings['strip_shortcode'] ) ? true : false;
-		$excerpt = '';
+		$excerpt         = '';
 
 		if ( has_excerpt() ) {
 			$excerpt = get_the_excerpt();
@@ -209,12 +209,12 @@ trait Global_Widget_Functions {
 	public function get_post_lightbox_embed_params() {
 		$settings = $this->get_settings_for_display();
 
-		$params = [];
+		$params             = [];
 		$params['autoplay'] = '0';
 
 		if ( 'yes' === $settings['video_autoplay'] ) {
 			$params['autoplay'] = '1';
-			$params['mute'] = 1;
+			$params['mute']     = 1;
 		}
 
 		if ( $settings['mute'] ) {
@@ -225,8 +225,8 @@ trait Global_Widget_Functions {
 	}
 
 	public function get_post_lightbox_embed_options() {
-		$settings = $this->get_settings_for_display();
-		$embed_options = [];
+		$settings                   = $this->get_settings_for_display();
+		$embed_options              = [];
 		$embed_options['lazy_load'] = ! empty( $settings['lazy_load'] );
 
 		return $embed_options;
@@ -239,7 +239,7 @@ trait Global_Widget_Functions {
 			return;
 		}
 
-		$embed_params = $this->get_post_lightbox_embed_params();
+		$embed_params  = $this->get_post_lightbox_embed_params();
 		$embed_options = $this->get_post_lightbox_embed_options();
 
 		$lightbox_url = Embed::get_embed_url( $video_url, $embed_params, $embed_options );
@@ -247,9 +247,9 @@ trait Global_Widget_Functions {
 		if ( $settings['video_open'] !== 'file' ) {
 
 			$lightbox_options = [
-				'type'         => 'video',
+				'type' => 'video',
 				// 'videoType' => $settings['video_type'],
-				'url'          => $lightbox_url,
+				'url'  => $lightbox_url,
 				'modalOptions' => [
 					'id'                       => 'elementor-lightbox-' . $id,
 					'entranceAnimation'        => $settings['lightbox_content_animation'],
@@ -283,9 +283,9 @@ trait Global_Widget_Functions {
 	}
 
 	protected function render_post_thumb_with_video( $post_id, $image_size = 'full', $add = [] ) {
-		$settings = $this->get_settings_for_display();
+		$settings      = $this->get_settings_for_display();
 		$wrapper_class = 'sa-post-img-wrapper';
-		$play_class = 'sa-post-play-button sa-post-play-button-style-1 sa-icon-wrap sa-link sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-circle';
+		$play_class    = 'sa-post-play-button sa-post-play-button-style-1 sa-icon-wrap sa-link sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-circle';
 
 		if ( 'yes' !== $settings['show_image'] ) {
 			return;
@@ -314,7 +314,7 @@ trait Global_Widget_Functions {
 
 		if ( 'yes' === $settings['show_video'] ) :
 			$tag = 'div';
-			$id = $this->get_id() . '-' . $post_id;
+			$id  = $this->get_id() . '-' . $post_id;
 
 			/**
 			 * Lightbox
@@ -375,8 +375,8 @@ trait Global_Widget_Functions {
 	 * End Video Lightbox in Global Posts
 	 */
 	protected function render_post_general_button() {
-		$settings = $this->get_settings_for_display();
-		$id = $this->get_id();
+		$settings  = $this->get_settings_for_display();
+		$id        = $this->get_id();
 		$link_attr = $id . get_the_ID();
 
 		if ( 'yes' !== $settings['show_button'] ) {

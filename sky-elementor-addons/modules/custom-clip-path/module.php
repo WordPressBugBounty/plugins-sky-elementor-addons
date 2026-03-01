@@ -64,14 +64,14 @@ class Module extends Module_Base {
 			$widget->add_control(
 				'sa_custom_cp_css_normal',
 				[
-					'label'       => esc_html__( 'Clip-path', 'sky-elementor-addons' ),
-					'type'        => Controls_Manager::TEXTAREA,
-					'rows'        => 3,
-					'default'     => 'clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);',
+					'label'   => esc_html__( 'Clip-path', 'sky-elementor-addons' ),
+					'type'    => Controls_Manager::TEXTAREA,
+					'rows'    => 3,
+					'default' => 'clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);',
 					'placeholder' => esc_html__('clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
 ', 'sky-elementor-addons'),
-					'selectors'   => [
-						'{{WRAPPER}} .elementor-widget-container img' => '{{VALUE}};',
+					'selectors' => [
+						'{{WRAPPER}} img' => '{{VALUE}};',
 					],
 				]
 			);
@@ -88,13 +88,13 @@ class Module extends Module_Base {
 			$widget->add_control(
 				'sa_custom_cp_css_hover',
 				[
-					'label'       => esc_html__( 'Clip-path', 'sky-elementor-addons' ),
-					'type'        => Controls_Manager::TEXTAREA,
-					'rows'        => 3,
+					'label' => esc_html__( 'Clip-path', 'sky-elementor-addons' ),
+					'type'  => Controls_Manager::TEXTAREA,
+					'rows'  => 3,
 					'placeholder' => esc_html__('clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
 ', 'sky-elementor-addons'),
-					'selectors'   => [
-						'{{WRAPPER}} .elementor-widget-container:hover img' => '{{VALUE}};',
+					'selectors' => [
+						'{{WRAPPER}}:hover img' => '{{VALUE}};',
 					],
 				]
 			);
@@ -118,9 +118,9 @@ class Module extends Module_Base {
 			$widget->add_control(
 				'sa_custom_cp_transition',
 				[
-					'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-					'type'      => Controls_Manager::SLIDER,
-					'range'     => [
+					'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+					'type'  => Controls_Manager::SLIDER,
+					'range' => [
 						'px' => [
 							'max'  => 3,
 							'step' => 0.1,
@@ -138,10 +138,10 @@ class Module extends Module_Base {
 			$widget->add_control(
 				'sa_custom_cp_transition_type',
 				[
-					'label'     => esc_html__( 'Transition Type', 'sky-elementor-addons' ),
-					'type'      => Controls_Manager::SELECT,
-					'default'   => 'ease-in-out',
-					'options'   => [
+					'label'   => esc_html__( 'Transition Type', 'sky-elementor-addons' ),
+					'type'    => Controls_Manager::SELECT,
+					'default' => 'ease-in-out',
+					'options' => [
 						'ease'        => 'Ease',
 						'linear'      => 'Linear',
 						'ease-in'     => 'Ease-In',
@@ -159,9 +159,9 @@ class Module extends Module_Base {
 			$widget->add_control(
 				'sa_custom_cp_transition_delay',
 				[
-					'label'     => esc_html__( 'Transition Delay (s)', 'sky-elementor-addons' ),
-					'type'      => Controls_Manager::SLIDER,
-					'range'     => [
+					'label' => esc_html__( 'Transition Delay (s)', 'sky-elementor-addons' ),
+					'type'  => Controls_Manager::SLIDER,
+					'range' => [
 						'px' => [
 							'max'  => 3,
 							'step' => 0.1,
@@ -182,7 +182,7 @@ class Module extends Module_Base {
 					'type'        => Controls_Manager::HIDDEN,
 					'default'     => '1',
 					'selectors'   => [
-						'{{WRAPPER}} .elementor-widget-container img' => 'transition: clip-path var(--sky-ccp-transition, 0.3)s var(--sky-ccp-transition-type, ease-in) var(--sky-ccp-transition-delay, 0.1)s;',
+						'{{WRAPPER}} img' => 'transition: clip-path var(--sky-ccp-transition, 0.3)s var(--sky-ccp-transition-type, ease-in) var(--sky-ccp-transition-delay, 0.1)s;',
 					],
 					'render_type' => 'template',
 					'condition'   => [

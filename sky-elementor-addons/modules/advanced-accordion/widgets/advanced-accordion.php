@@ -15,7 +15,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Sky_Addons_Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Advanced_Accordion extends Widget_Base {
@@ -53,6 +53,10 @@ class Advanced_Accordion extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/advanced-accordion/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -188,7 +192,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'        => esc_html__( 'Icon Alignment', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options'      => [
-					'left' => [
+					'left'  => [
 						'title' => esc_html__( 'Start', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
@@ -214,7 +218,7 @@ class Advanced_Accordion extends Widget_Base {
 					'library' => 'fa-solid',
 				],
 				'recommended' => [
-					'fa-solid' => [
+					'fa-solid'   => [
 						'chevron-down',
 						'angle-down',
 						'angle-double-down',
@@ -241,7 +245,7 @@ class Advanced_Accordion extends Widget_Base {
 					'library' => 'fa-solid',
 				],
 				'recommended' => [
-					'fa-solid' => [
+					'fa-solid'   => [
 						'chevron-up',
 						'angle-up',
 						'angle-double-up',
@@ -274,9 +278,9 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'acc_duration',
 			[
-				'label'   => esc_html__( 'Duration', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Duration', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 400,
 						'max' => 1000,
@@ -316,6 +320,16 @@ class Advanced_Accordion extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'faq_schema',
+			[
+				'label'       => esc_html__( 'FAQ Schema (itemscope)', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'separator'   => 'before',
+				'description' => esc_html__( 'Enable Schema.org FAQPage microdata (itemscope) for SEO-friendly FAQ rich results.', 'sky-elementor-addons' ),
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -329,9 +343,9 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'item_spacing',
 			[
-				'label'     => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -395,8 +409,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'item_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover' => 'border-color: {{VALUE}};',
 				],
@@ -427,8 +441,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'item_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active' => 'border-color: {{VALUE}};',
 				],
@@ -524,8 +538,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
@@ -563,8 +577,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-trigger:hover .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
@@ -574,8 +588,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-trigger:hover' => 'border-color: {{VALUE}};',
 				],
@@ -616,8 +630,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_color_active',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger .sa--title:not(.sa-ac-panel .sa--title)' => 'color: {{VALUE}}',
 				],
@@ -627,8 +641,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-ac-trigger:not(.sa-ac-panel .sa-ac-trigger)' => 'border-color: {{VALUE}};',
 				],
@@ -704,7 +718,7 @@ class Advanced_Accordion extends Widget_Base {
 				],
 				'selectors'  => [
 					// '{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => '--sa-acc-icon-spacing: {{SIZE}}px;',
-					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-ac-trigger' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -754,8 +768,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_icon_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -793,8 +807,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_icon_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -804,8 +818,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_icon_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-title-icon.sa-icon-wrap' => 'border-color: {{VALUE}};',
 				],
@@ -846,8 +860,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_icon_color_active',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -857,8 +871,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'title_icon_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-title-icon.sa-icon-wrap' => 'border-color: {{VALUE}};',
 				],
@@ -922,9 +936,9 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_spacing',
 			[
-				'label'     => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -981,8 +995,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
@@ -1020,8 +1034,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
@@ -1031,8 +1045,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item:hover .sa-trigger-icon.sa-icon-wrapper' => 'border-color: {{VALUE}};',
 				],
@@ -1073,8 +1087,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_color_active',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper' => 'color: {{VALUE}}',
 				],
@@ -1084,8 +1098,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'icon_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-item.is-active .sa-trigger-icon.sa-icon-wrapper' => 'border-color: {{VALUE}};',
 				],
@@ -1131,18 +1145,18 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -1160,8 +1174,8 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'content_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-ac-content' => 'color: {{VALUE}}',
 				],
@@ -1235,7 +1249,7 @@ class Advanced_Accordion extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		// acc_open_default
+		// acc_open_default.
 		$acc_open = explode( ',', $settings['acc_open_default'] );
 
 		$open_init_arr = [];
@@ -1246,15 +1260,15 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'advanced-accordion' => [
-					'id'            => 'sa-advanced-acc-' . $this->get_id(),
-					'class'         => 'sa-advanced-accordion',
+					'id'    => 'sa-advanced-acc-' . $this->get_id(),
+					'class' => 'sa-advanced-accordion',
 					'data-settings' => [
 						wp_json_encode(
 							[
 								'id'           => 'sa-advanced-acc-' . $this->get_id(),
 								'duration'     => ( ! empty( $settings['acc_duration']['size'] ) ) ? $settings['acc_duration']['size'] : 400,
-								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( $settings['acc_collapse'] === 'yes' ) ) ? true : false,
-								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( $settings['acc_show_multiple'] === 'yes' ) ) ? true : false,
+								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( 'yes' === $settings['acc_collapse'] ) ) ? true : false,
+								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( 'yes' === $settings['acc_show_multiple'] ) ) ? true : false,
 								'openOnInit'   => ( ! empty( $settings['acc_open_default'] ) ) ? $open_init_arr : [],
 							]
 						),
@@ -1263,13 +1277,26 @@ class Advanced_Accordion extends Widget_Base {
 			]
 		);
 
+		$faq_schema = ( isset( $settings['faq_schema'] ) && 'yes' === $settings['faq_schema'] );
+
+		if ( $faq_schema ) {
+			$this->add_render_attribute( 'advanced-accordion', [
+				'itemscope' => 'itemscope',
+				'itemtype'  => 'https://schema.org/FAQPage',
+			] );
+		}
+
 		?>
 
 		<div <?php $this->print_render_attribute_string( 'advanced-accordion' ); ?>>
 
 			<?php foreach ( $settings['acc_list'] as $index => $item ) : ?>
 
+				<?php if ( $faq_schema ) : ?>
+				<div class="sa-ac-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+				<?php else : ?>
 				<div class="sa-ac-item">
+				<?php endif; ?>
 					<div class="sa-ac-trigger">
 
 						<div class="sa-title-wrapper">
@@ -1282,9 +1309,10 @@ class Advanced_Accordion extends Widget_Base {
 							<?php endif; ?>
 							<?php
 							printf(
-								'<%1$s class="sa--title sa--text-title sa-ac-title sa-m-0 sa-p-0"> %2$s </%1$s>',
+								'<%1$s class="sa--title sa--text-title sa-ac-title sa-m-0 sa-p-0"%3$s> %2$s </%1$s>',
 								esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-								esc_html( $item['title'] )
+								esc_html( $item['title'] ),
+								$faq_schema ? ' itemprop="name"' : ''
 							);
 							?>
 						</div>
@@ -1305,8 +1333,13 @@ class Advanced_Accordion extends Widget_Base {
 							</span>
 						</span>
 					</div>
+					<?php if ( $faq_schema ) : ?>
+					<div class="sa-ac-panel" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div class="sa-ac-content" itemprop="text">
+					<?php else : ?>
 					<div class="sa-ac-panel">
 						<div class="sa-ac-content">
+					<?php endif; ?>
 							<?php
 							if ( 'custom' === $item['content_source'] && ! empty( $item['content_source'] ) ) :
 								echo wp_kses_post( $this->parse_text_editor( $item['custom_content'] ) );

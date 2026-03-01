@@ -1386,25 +1386,25 @@ jQuery('body').on('click', '.sa-element-link', function () {
 
                 if (this.settings('apply_elements') == 'widgets') {
                     //Widgets > 1st Element
-                    elementContainer.find('.elementor-widget-container').addClass(elementEql);
+                    elementContainer.find('.elementor-widget').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_1st') {
                     //Widgets > 1st Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(1)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(1)').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_1st_2nd') {
                     //Widgets > 2nd Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(2)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(2)').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_1st_3rd') {
                     //Widgets > 3rd Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(3)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(3)').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_2nd') {
                     //Widgets > Child > 1st Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(1) > :nth-child(1)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(1) > :nth-child(1)').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_2nd_2nd') {
                     //Widgets > Child > 2nd Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(1) > :nth-child(2)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(1) > :nth-child(2)').addClass(elementEql);
                 } else if (this.settings('apply_elements') == 'widgets_3rd') {
                     //Widgets > Child > Child > 1st Element
-                    elementContainer.find('.elementor-widget-container > :nth-child(1) > :nth-child(1) > :nth-child(1)').addClass(elementEql);
+                    elementContainer.find('.elementor-widget > :nth-child(1) > :nth-child(1) > :nth-child(1)').addClass(elementEql);
                 } else {
                     //custom
                     if (this.settings('apply_elements_custom')) {
@@ -1414,7 +1414,7 @@ jQuery('body').on('click', '.sa-element-link', function () {
 
                 // todo target
                 // foreach diye 1st, 2nd, 3rd ante hobe for target
-                // options.target = $('#test').find('.elementor-widget-container');
+                // options.target = $('#test').find('.elementor-widget');
                 // todo column
 
                 if (this.settings('css_property') == 'min_height') {
@@ -2033,7 +2033,7 @@ jQuery('body').on('click', '.sa-element-link', function () {
           options.overflow = this.settings('overflow');
         }
 
-        var container = this.$element.find('.elementor-widget-container');
+        var container = $(this.$element);
         if (container.length) {
           let mediaType = obj.settings('media_type');
           let mediaElements = container.find(mediaType === 'video' ? 'video' : 'img');

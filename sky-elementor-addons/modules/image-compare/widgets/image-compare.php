@@ -13,7 +13,7 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Image_Compare extends Widget_Base {
@@ -45,6 +45,10 @@ class Image_Compare extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/image-compare/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -103,10 +107,10 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'before_text',
 			[
-				'label'     => esc_html__( 'Before Text', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'Before', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Before Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'Before', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'show_labels' => 'yes',
 				],
@@ -116,10 +120,10 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'after_text',
 			[
-				'label'     => esc_html__( 'After Text', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'After', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'After Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'After', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'show_labels' => 'yes',
 				],
@@ -227,8 +231,8 @@ class Image_Compare extends Widget_Base {
 		$this->start_controls_section(
 			'section_ic_content',
 			[
-				'label'     => esc_html__( 'Content', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Content', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_content' => 'yes',
 				],
@@ -270,10 +274,10 @@ class Image_Compare extends Widget_Base {
 		$this->add_responsive_control(
 			'content_wrapper_position',
 			[
-				'label'                => esc_html__( 'Content Area Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
+				'label'          => esc_html__( 'Content Area Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options' => [
 					'top'    => [
 						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-top',
@@ -287,13 +291,13 @@ class Image_Compare extends Widget_Base {
 						'icon'  => 'eicon-v-align-bottom',
 					],
 				],
-				'style_transfer'       => true,
-				'toggle'               => false,
+				'style_transfer' => true,
+				'toggle'         => false,
 				// 'desktop_default'      => 'middle',
 				// 'tablet_default'       => 'middle',
 				// 'mobile_default'       => 'middle',
-				'default'              => 'middle',
-				'selectors'            => [
+				'default'        => 'middle',
+				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper' => '{{VALUE}};',
 				],
 				// 'prefix_class'         => 'sa-list-layout-%s-',
@@ -363,8 +367,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'add_circle_blur',
 			[
-				'label'     => esc_html__( 'Add Circle Blur', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Add Circle Blur', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'add_circle' => 'yes',
 				],
@@ -394,15 +398,15 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'smoothing_amount',
 			[
-				'label'     => esc_html__( 'Smoothing Amount', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Smoothing Amount', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 100,
 				],
@@ -434,9 +438,9 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'starting_point',
 			[
-				'label'   => esc_html__( 'Starting Point', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Starting Point', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -530,8 +534,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'overlay_color',
 			[
-				'label'     => esc_html__( 'Overlay Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Overlay Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-image-compare:before' => 'background-color: {{VALUE}}',
 				],
@@ -546,8 +550,8 @@ class Image_Compare extends Widget_Base {
 		$this->start_controls_section(
 			'section_ic_labels_style',
 			[
-				'label'     => esc_html__( 'Labels', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Labels', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_labels' => 'yes',
 				],
@@ -566,8 +570,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'labels_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .icv__label' => 'color: {{VALUE}}',
 				],
@@ -621,8 +625,8 @@ class Image_Compare extends Widget_Base {
 		$this->start_controls_section(
 			'section_content_style',
 			[
-				'label'     => esc_html__( 'Content', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Content', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_content' => 'yes',
 				],
@@ -632,15 +636,15 @@ class Image_Compare extends Widget_Base {
 		$this->add_responsive_control(
 			'content_wrapper_width',
 			[
-				'label'     => esc_html__( 'Width', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 40,
 						'max' => 100,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 70,
 				],
@@ -671,10 +675,10 @@ class Image_Compare extends Widget_Base {
 		$this->add_responsive_control(
 			'content_wrapper_align',
 			[
-				'label'                => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
+				'label'           => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::CHOOSE,
+				'label_block'     => false,
+				'options' => [
 					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -692,13 +696,13 @@ class Image_Compare extends Widget_Base {
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'toggle'               => false,
-				'desktop_default'      => 'top',
-				'tablet_default'       => 'top',
-				'mobile_default'       => 'top',
+				'toggle'          => false,
+				'desktop_default' => 'top',
+				'tablet_default'  => 'top',
+				'mobile_default'  => 'top',
 				// 'prefix_class'         => 'sa-card-%s-',
-				'style_transfer'       => true,
-				'selectors'            => [
+				'style_transfer'  => true,
+				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -786,8 +790,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper .sa-title' => 'color: {{VALUE}}',
 				],
@@ -797,8 +801,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'title_background',
 			[
-				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper  .sa-title' => 'background-color: {{VALUE}}',
 				],
@@ -847,8 +851,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'content_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper .sa-content' => 'color: {{VALUE}}',
 				],
@@ -858,8 +862,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'content_background',
 			[
-				'label'     => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content-wrapper .sa-content' => 'background-color: {{VALUE}}',
 				],
@@ -932,8 +936,8 @@ class Image_Compare extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'image-compare' => [
-					'id'            => 'image-compare-' . $this->get_id(),
-					'class'         => 'sa-image-compare',
+					'id'    => 'image-compare-' . $this->get_id(),
+					'class' => 'sa-image-compare',
 					'data-settings' => [
 						wp_json_encode(
 							[

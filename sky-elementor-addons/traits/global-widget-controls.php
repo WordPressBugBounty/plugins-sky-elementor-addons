@@ -11,7 +11,7 @@ use Elementor\Group_Control_Background;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 trait Global_Widget_Controls {
@@ -19,8 +19,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'show_human_diff_time',
 			[
-				'label'     => esc_html__( 'Human Diff Time', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Human Diff Time', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'show_date' => 'yes',
 				],
@@ -30,8 +30,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'human_diff_time_short',
 			[
-				'label'     => esc_html__( 'Time Short?', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Time Short?', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'show_date'            => 'yes',
 					'show_human_diff_time' => 'yes',
@@ -42,8 +42,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'show_time',
 			[
-				'label'     => esc_html__( 'Show Time', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Show Time', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'show_date' => 'yes',
 				],
@@ -56,8 +56,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					"{{WRAPPER}} $class a" => 'color: {{VALUE}}',
 				],
@@ -67,8 +67,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					"{{WRAPPER}} $class a:hover" => 'color: {{VALUE}}',
 				],
@@ -98,8 +98,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-text' => 'color: {{VALUE}}',
 				],
@@ -195,8 +195,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'category_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-category a, {{WRAPPER}} .sa-post-category a:focus' => 'color: {{VALUE}}',
 				],
@@ -243,8 +243,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'category_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-category a:hover' => 'color: {{VALUE}}',
 				],
@@ -282,8 +282,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'category_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-category a:hover' => 'border-color: {{VALUE}};',
 				],
@@ -302,8 +302,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'meta_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--sa-post-meta-color: {{VALUE}}',
 				],
@@ -313,8 +313,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'meta_color_hover',
 			[
-				'label'     => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-meta a:hover' => 'color: {{VALUE}}',
 				],
@@ -347,8 +347,8 @@ trait Global_Widget_Controls {
 		$this->start_controls_section(
 			'section_post_pagination_style',
 			[
-				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_pagination' => 'yes',
 				],
@@ -358,9 +358,9 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			'post_pagination_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
 					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -467,8 +467,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'post_pagination_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-page-link' => 'color: {{VALUE}}',
 				],
@@ -497,8 +497,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'post_pagination_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-page-link:hover' => 'color: {{VALUE}}',
 				],
@@ -518,8 +518,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'post_pagination_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-page-link:hover' => 'border-color: {{VALUE}};',
 				],
@@ -541,8 +541,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'post_pagination_color_active',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-page-active .sa-post-page-link' => 'color: {{VALUE}}',
 				],
@@ -562,8 +562,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'post_pagination_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-page-active .sa-post-page-link' => 'border-color: {{VALUE}};',
 				],
@@ -654,8 +654,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$prefix . '_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ' . $selector . '' => 'color: {{VALUE}}',
 				],
@@ -702,8 +702,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$prefix . '_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ' . $selector . ':hover' => 'color: {{VALUE}}',
 				],
@@ -723,8 +723,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$prefix . '_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ' . $selector . ':hover' => 'border-color: {{VALUE}};',
 				],
@@ -781,8 +781,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			'file_new_tab',
 			[
-				'label'     => esc_html__( 'File Open in a New Tab?', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'File Open in a New Tab?', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'video_open' => 'file',
 				],
@@ -792,8 +792,8 @@ trait Global_Widget_Controls {
 		$this->add_responsive_control(
 			'lightbox_content_animation',
 			[
-				'label'     => esc_html__( 'Entrance Animation', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::ANIMATION,
+				'label' => esc_html__( 'Entrance Animation', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::ANIMATION,
 				'condition' => [
 					'video_open!' => 'file',
 				],
@@ -901,8 +901,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$name . '_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					"{{WRAPPER}} $selector, {{WRAPPER}} $selector:focus" => 'color: {{VALUE}}',
 				],
@@ -949,8 +949,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$name . '_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					"{{WRAPPER}} $selector:hover" => 'color: {{VALUE}}',
 				],
@@ -970,8 +970,8 @@ trait Global_Widget_Controls {
 		$this->add_control(
 			$name . '_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					"{{WRAPPER}} $selector:hover" => 'border-color: {{VALUE}};',
 				],

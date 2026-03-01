@@ -14,7 +14,7 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Momentum_Slider extends Widget_Base {
@@ -51,6 +51,10 @@ class Momentum_Slider extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/carousel-slider/momentum-slider/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -170,8 +174,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -212,7 +216,7 @@ class Momentum_Slider extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -275,7 +279,7 @@ class Momentum_Slider extends Widget_Base {
 						'max'  => 1000,
 						'step' => 5,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -291,8 +295,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_number_style',
 			[
-				'label'     => esc_html__( 'Number', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Number', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'hide_number!' => 'yes',
 				],
@@ -302,8 +306,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'number_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ms--numbers .ms-slide' => 'color: {{VALUE}}',
 				],
@@ -342,8 +346,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ms--titles .ms-slide-title' => 'color: {{VALUE}}',
 				],
@@ -386,8 +390,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -445,8 +449,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ms--links .ms-slide__link.sa-link' => 'color: {{VALUE}}',
 				],
@@ -514,8 +518,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ms--links .ms-slide__link.sa-link:hover' => 'color: {{VALUE}}',
 				],
@@ -535,8 +539,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ms--links .ms-slide__link.sa-link:hover' => 'border-color: {{VALUE}};',
 				],
@@ -631,9 +635,9 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'img_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -677,8 +681,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_pagination_style',
 			[
-				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'hide_pagination!' => 'yes',
 				],
@@ -727,8 +731,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-momentum-slider .pagination__button:before' => 'background-color: {{VALUE}}',
 				],
@@ -738,8 +742,8 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_control(
 			'pagination_color_active',
 			[
-				'label'     => esc_html__( 'Active Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Active Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-momentum-slider .pagination__button:after' => 'background-color: {{VALUE}}',
 				],
@@ -750,10 +754,10 @@ class Momentum_Slider extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings      = $this->get_settings_for_display();
 		$slider_titles = [];
 		$slider_images = [];
-		$id = 'sa-momentum-slider-' . $this->get_id();
+		$id            = 'sa-momentum-slider-' . $this->get_id();
 		// $slider_links = [];
 		$slider_attr = [];
 		foreach ( $settings['momentum_list'] as $index => $item ) {
@@ -777,7 +781,7 @@ class Momentum_Slider extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'momentum-slider' => [
-					'class'         => 'sa-momentum-slider',
+					'class' => 'sa-momentum-slider',
 					'data-settings' => [
 						wp_json_encode(
 							[

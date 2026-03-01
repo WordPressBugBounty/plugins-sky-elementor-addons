@@ -9,7 +9,7 @@ use Elementor\Repeater;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Portion_Effect extends Widget_Base {
@@ -39,6 +39,10 @@ class Portion_Effect extends Widget_Base {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/portion-effect/';
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -52,8 +56,8 @@ class Portion_Effect extends Widget_Base {
 		$this->add_control(
 			'image',
 			[
-				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::MEDIA,
+				'label' => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::MEDIA,
 				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
 				],
@@ -65,9 +69,9 @@ class Portion_Effect extends Widget_Base {
 		$repeater->add_responsive_control(
 			'block_height',
 			[
-				'label'     => esc_html__( 'Height', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Height', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -83,9 +87,9 @@ class Portion_Effect extends Widget_Base {
 		$repeater->add_responsive_control(
 			'block_width',
 			[
-				'label'     => esc_html__( 'Width', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -101,9 +105,9 @@ class Portion_Effect extends Widget_Base {
 		$repeater->add_responsive_control(
 			'block_top',
 			[
-				'label'     => esc_html__( 'Top', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Top', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -119,9 +123,9 @@ class Portion_Effect extends Widget_Base {
 		$repeater->add_responsive_control(
 			'block_left',
 			[
-				'label'     => esc_html__( 'Left', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Left', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -194,9 +198,9 @@ class Portion_Effect extends Widget_Base {
 		$this->add_responsive_control(
 			'portion_angel',
 			[
-				'label'     => esc_html__( 'Angle', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Angle', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 30,
 						'max'  => 50,
@@ -221,9 +225,9 @@ class Portion_Effect extends Widget_Base {
 		$this->add_responsive_control(
 			'left_width',
 			[
-				'label'     => esc_html__( 'Width', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Width', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -239,9 +243,9 @@ class Portion_Effect extends Widget_Base {
 		$this->add_responsive_control(
 			'left_rotate_y',
 			[
-				'label'     => esc_html__( 'Rotate Y', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Rotate Y', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 50,
 						'max'  => 70,
@@ -257,9 +261,9 @@ class Portion_Effect extends Widget_Base {
 		$this->add_responsive_control(
 			'left_brightness',
 			[
-				'label'     => esc_html__( 'Brightness', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Brightness', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 100,
@@ -281,7 +285,7 @@ class Portion_Effect extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'portion' => [
-					'class'         => 'sa-portion-effect',
+					'class' => 'sa-portion-effect',
 					'data-settings' => [
 						wp_json_encode(array_filter([
 							'image' => isset( $settings['image']['url'] ) ? esc_url( $settings['image']['url'] ) : false,

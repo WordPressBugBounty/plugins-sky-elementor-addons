@@ -70,7 +70,7 @@ class Module extends Module_Base {
 							'from' => 0,
 							'to'   => 10,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [
@@ -103,7 +103,7 @@ class Module extends Module_Base {
 							'from' => 0,
 							'to'   => 10,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [
@@ -200,7 +200,7 @@ class Module extends Module_Base {
 							'from' => 0,
 							'to'   => 45,
 						],
-						'unit'  => 'deg',
+						'unit' => 'deg',
 					],
 					'range'              => [
 						'deg' => [
@@ -233,7 +233,7 @@ class Module extends Module_Base {
 							'from' => 0,
 							'to'   => 45,
 						],
-						'unit'  => 'deg',
+						'unit' => 'deg',
 					],
 					'range'              => [
 						'deg' => [
@@ -266,7 +266,7 @@ class Module extends Module_Base {
 							'from' => 0,
 							'to'   => 45,
 						],
-						'unit'  => 'deg',
+						'unit' => 'deg',
 					],
 					'range'              => [
 						'deg' => [
@@ -364,7 +364,7 @@ class Module extends Module_Base {
 							'from' => 1,
 							'to'   => 1.5,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [
@@ -398,7 +398,7 @@ class Module extends Module_Base {
 							'from' => 1,
 							'to'   => 1.5,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [
@@ -497,7 +497,7 @@ class Module extends Module_Base {
 							'from' => 1,
 							'to'   => 1.5,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [
@@ -530,7 +530,7 @@ class Module extends Module_Base {
 							'from' => 1,
 							'to'   => 1.5,
 						],
-						'unit'  => 'px',
+						'unit' => 'px',
 					],
 					'range'              => [
 						'px' => [

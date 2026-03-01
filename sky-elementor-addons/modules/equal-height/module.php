@@ -127,7 +127,7 @@ class Module extends Module_Base {
 	}
 
 	public function widget_equal_height_before_render( $widget ) {
-		$settings                      = $widget->get_settings_for_display();
+		$settings = $widget->get_settings_for_display();
 		if ( $settings['sa_eqh_enable'] === 'yes' ) {
 			wp_enqueue_script( 'equal-height' );
 		}

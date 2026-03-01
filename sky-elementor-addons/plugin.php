@@ -5,10 +5,11 @@ namespace Sky_Addons;
 use Elementor\Plugin;
 use Elementor\Controls_Manager;
 use Elementor\Elements_Manager;
+use Sky_Addons\Includes\WPML_Init;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly
+}
 
 /**
  * Main class plugin -> Sky_Addons
@@ -86,9 +87,14 @@ class Sky_Addons_Plugin {
 			do_action( 'skyaddons_loaded' );
 			self::$_instance->add_actions();
 			self::$_instance->includes();
+			self::$_instance->wpml_compatibility()->init();
 		}
 
 		return self::$_instance;
+	}
+
+	public function wpml_compatibility() {
+		return WPML_Init::get_instance();
 	}
 
 	private function includes() {
@@ -149,10 +155,21 @@ class Sky_Addons_Plugin {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-theme-builder.php';
 
 		/**
+		 * Custom Scripts Manager
+		 */
+		require_once SKY_ADDONS_INC_PATH . 'custom-scripts/class-custom-scripts-data.php';
+		require_once SKY_ADDONS_INC_PATH . 'custom-scripts/class-custom-scripts-loader.php';
+
+		/**
 			 * Features
 			 */
 		require_once SKY_ADDONS_INC_PATH . 'features/class-init.php';
 		\Sky_Addons\Features\Init::get_instance();
+
+		/**
+		 * WPML
+		 */
+		require_once SKY_ADDONS_INC_PATH . 'class-wpml-init.php';
 	}
 
 	public function autoload( $_class ) {
@@ -419,19 +436,19 @@ class Sky_Addons_Plugin {
 
 	public function localize_config() {
 		$script_config = [
-			'web_url'      => esc_url( home_url() ),
-			'ajax_url'     => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'rest_url'     => esc_url( rest_url() ),
-			'version'      => SKY_ADDONS_VERSION,
-			'plugin_name'  => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
-			'plugin_slug'  => defined( 'SKY_ADDONS_SLUG' ) ? SKY_ADDONS_SLUG : '',
-			'admin_url'    => esc_url( admin_url() ),
-			'pro_version'  => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
-			'nonce'        => wp_create_nonce( 'sky_addons_nonce' ),
-			'assets_url'   => SKY_ADDONS_ASSETS_URL,
-			'logo'         => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
-			'root_url'     => SKY_ADDONS_URL,
-			'pro_init'     => apply_filters( 'sky_addons_pro_init', false ),
+			'web_url'     => esc_url( home_url() ),
+			'ajax_url'    => esc_url( admin_url( 'admin-ajax.php' ) ),
+			'rest_url'    => esc_url( rest_url() ),
+			'version'     => SKY_ADDONS_VERSION,
+			'plugin_name' => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
+			'plugin_slug' => defined( 'SKY_ADDONS_SLUG' ) ? SKY_ADDONS_SLUG : '',
+			'admin_url'   => esc_url( admin_url() ),
+			'pro_version' => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
+			'nonce'       => wp_create_nonce( 'sky_addons_nonce' ),
+			'assets_url'  => SKY_ADDONS_ASSETS_URL,
+			'logo'        => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
+			'root_url'    => SKY_ADDONS_URL,
+			'pro_init'    => apply_filters( 'sky_addons_pro_init', false ),
 			'current_user' => [
 				'domain'       => esc_url( home_url() ),
 				'display_name' => wp_get_current_user()->display_name,
@@ -523,6 +540,7 @@ class Sky_Addons_Plugin {
 
 		// $this->includes();
 		// $this->add_actions();
+
 		add_action( 'init', [ $this, 'init_plugin' ] );
 	}
 }

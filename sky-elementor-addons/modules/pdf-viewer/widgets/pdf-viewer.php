@@ -15,7 +15,7 @@ use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class PDF_Viewer extends Widget_Base {
@@ -46,6 +46,10 @@ class PDF_Viewer extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/pdf-viewer/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -100,7 +104,7 @@ class PDF_Viewer extends Widget_Base {
 				],
 				'placeholder'   => 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
 				'dynamic'       => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -143,7 +147,7 @@ class PDF_Viewer extends Widget_Base {
 						'min' => 0,
 						'max' => 1900,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -204,10 +208,10 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -228,8 +232,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -306,7 +310,7 @@ class PDF_Viewer extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -411,8 +415,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 					'title!'     => '',
@@ -423,8 +427,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title' => 'color: {{VALUE}}',
 				],
@@ -466,8 +470,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -528,8 +532,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button, {{WRAPPER}} .sa-button:focus' => 'color: {{VALUE}}',
 				],
@@ -576,8 +580,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'color: {{VALUE}}',
 				],
@@ -597,8 +601,8 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'border-color: {{VALUE}};',
 				],
@@ -663,8 +667,8 @@ class PDF_Viewer extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-pdf-viewer' . $this->get_id();
-		$pdf_url = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) ) ? $settings['hosted_url']['url'] : ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) ) ? $settings['remote_url']['url'] : false );
+		$id       = 'sa-pdf-viewer' . $this->get_id();
+		$pdf_url  = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) ) ? $settings['hosted_url']['url'] : ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) ) ? $settings['remote_url']['url'] : false );
 
 		if ( $pdf_url === false ) {
 			$this->empty_alert();
@@ -672,8 +676,8 @@ class PDF_Viewer extends Widget_Base {
 		}
 
 		$this->add_render_attribute( 'pdf-viewer', [
-			'class'             => [ 'sa-pdf-viewer' ],
-			'data-settings'     => [
+			'class' => [ 'sa-pdf-viewer' ],
+			'data-settings' => [
 				wp_json_encode( array_filter( [
 					'id'     => '#' . $id,
 					'pdfUrl' => $pdf_url,

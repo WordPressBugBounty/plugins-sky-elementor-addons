@@ -11,7 +11,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class NinjaForms extends Widget_Base {
@@ -38,6 +38,10 @@ class NinjaForms extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/forms/ninja-forms/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -174,8 +178,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'field_textcolor',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .textbox-wrap input[type=text], {{WRAPPER}} .email-wrap input, {{WRAPPER}} .textarea-wrap textarea' => 'color: {{VALUE}}',
 				],
@@ -185,8 +189,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label'     => __( 'Placeholder Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Placeholder Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
@@ -343,8 +347,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label'     => __( 'Label Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Label Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .textbox-wrap label, {{WRAPPER}} .email-wrap label, {{WRAPPER}} .textarea-wrap label' => 'color: {{VALUE}}',
 				],
@@ -354,8 +358,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'requered_label',
 			[
-				'label'     => __( 'Required Symbol Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Required Symbol Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .ninja-forms-req-symbol' => 'color: {{VALUE}}',
 				],
@@ -365,8 +369,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'desc_color',
 			[
-				'label'     => __( 'Description Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Description Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .nf-field-description p' => 'color: {{VALUE}}',
 				],
@@ -392,7 +396,7 @@ class NinjaForms extends Widget_Base {
 				'label'           => __( 'Button Position', 'sky-elementor-addons' ),
 				'type'            => Controls_Manager::CHOOSE,
 				'options'         => [
-					'left' => [
+					'left'   => [
 						'title' => __( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
@@ -400,7 +404,7 @@ class NinjaForms extends Widget_Base {
 						'title' => __( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => __( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -497,9 +501,9 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'submit_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '',
+				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .submit-container input' => 'color: {{VALUE}};',
 				],
@@ -528,8 +532,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .submit-container input:hover, {{WRAPPER}} .submit-container input:focus' => 'color: {{VALUE}};',
 				],
@@ -549,8 +553,8 @@ class NinjaForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label'     => __( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .submit-container input:hover, {{WRAPPER}} .submit-container input:focus' => 'border-color: {{VALUE}};',
 				],

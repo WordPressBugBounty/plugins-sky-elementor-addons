@@ -15,7 +15,7 @@ use Elementor\Utils;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Glory_Slider extends Widget_Base {
@@ -53,6 +53,10 @@ class Glory_Slider extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/audio-video-widgets/glory-slider/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -126,7 +130,7 @@ class Glory_Slider extends Widget_Base {
 				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -147,7 +151,7 @@ class Glory_Slider extends Widget_Base {
 				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -168,7 +172,7 @@ class Glory_Slider extends Widget_Base {
 				'label'       => esc_html__( 'Link', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -186,8 +190,8 @@ class Glory_Slider extends Widget_Base {
 		$repeater->add_control(
 			'external_url_set',
 			[
-				'label'     => esc_html__( 'External URL', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'External URL', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'video_type' => 'hosted',
 				],
@@ -204,7 +208,7 @@ class Glory_Slider extends Widget_Base {
 				'label_block'  => true,
 				'show_label'   => false,
 				'dynamic'      => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::POST_META_CATEGORY,
 						TagsModule::URL_CATEGORY,
@@ -225,7 +229,7 @@ class Glory_Slider extends Widget_Base {
 				'label'      => esc_html__( 'Choose File', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::MEDIA,
 				'dynamic'    => [
-					'active'     => true,
+					'active' => true,
 					'categories' => [
 						TagsModule::MEDIA_CATEGORY,
 					],
@@ -374,9 +378,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 100,
 						'max'  => 5000,
@@ -516,10 +520,10 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -529,10 +533,10 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'player_content_position',
 			[
-				'label'                => esc_html__( 'Text Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'label_block'          => false,
-				'options'              => [
+				'label'           => esc_html__( 'Text Position', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::SELECT,
+				'label_block'     => false,
+				'options' => [
 					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
 					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
 					'top-right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
@@ -540,11 +544,11 @@ class Glory_Slider extends Widget_Base {
 					'bottom-center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
 					'bottom-right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
 				],
-				'desktop_default'      => 'top-left',
-				'tablet_default'       => 'top-left',
-				'mobile_default'       => 'top-left',
-				'style_transfer'       => true,
-				'selectors'            => [
+				'desktop_default' => 'top-left',
+				'tablet_default'  => 'top-left',
+				'mobile_default'  => 'top-left',
+				'style_transfer'  => true,
+				'selectors' => [
 					'{{WRAPPER}} .sa-glory-player .sa-player-content-wrapper' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -561,18 +565,18 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'player_content_alignment',
 			[
-				'label'     => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Text Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -609,9 +613,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'item_gap',
 			[
-				'label'          => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label' => esc_html__( 'Item Gap', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 20,
 				],
 				'tablet_default' => [
@@ -620,7 +624,7 @@ class Glory_Slider extends Widget_Base {
 				'mobile_default' => [
 					'size' => 10,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -682,8 +686,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'poster_overlay',
 			[
-				'label'     => esc_html__( 'Poster Overlay', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Poster Overlay', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .swiper-slide-active .sa-player-wrapper::after' => 'background: {{VALUE}}',
 				],
@@ -713,8 +717,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'video_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-player-title' => 'color: {{VALUE}}',
 				],
@@ -790,8 +794,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'video_credit_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-player-credit' => 'color: {{VALUE}}',
 				],
@@ -911,8 +915,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'play_button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-play-button' => 'color: {{VALUE}}',
 				],
@@ -959,8 +963,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'play_button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'color: {{VALUE}}',
 				],
@@ -980,8 +984,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'play_button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-play-button:hover' => 'border-color: {{VALUE}};',
 				],
@@ -1090,9 +1094,9 @@ class Glory_Slider extends Widget_Base {
 	}
 
 	protected function get_video_thum( $video_type, $video_url ) {
-		$thumb_url = '';
+		$thumb_url        = '';
 		$video_properties = Embed::get_video_properties( $video_url );
-		$video_id = isset( $video_properties['video_id'] ) ? $video_properties['video_id'] : false;
+		$video_id         = isset( $video_properties['video_id'] ) ? $video_properties['video_id'] : false;
 
 		if ( $video_type === 'youtube' ) {
 			$thumb_url = '//img.youtube.com/vi/' . $video_id . '/0.jpg';
@@ -1109,14 +1113,14 @@ class Glory_Slider extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-glory-slider-' . $this->get_id();
+		$id       = 'sa-glory-slider-' . $this->get_id();
 
 		$elementor_vp_lg = get_option( 'elementor_viewport_lg' );
 		$elementor_vp_md = get_option( 'elementor_viewport_md' );
-		$viewport_lg = ! empty( $elementor_vp_lg ) ? $elementor_vp_lg - 1 : 1023;
-		$viewport_md = ! empty( $elementor_vp_md ) ? $elementor_vp_md - 1 : 767;
+		$viewport_lg     = ! empty( $elementor_vp_lg ) ? $elementor_vp_lg - 1 : 1023;
+		$viewport_md     = ! empty( $elementor_vp_md ) ? $elementor_vp_md - 1 : 767;
 
-		$item_gap = ! empty( $settings['item_gap']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap']['size'] : 16;
+		$item_gap        = ! empty( $settings['item_gap']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap']['size'] : 16;
 		$item_gap_tablet = ! empty( $settings['item_gap_tablet']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_tablet']['size'] : 16;
 		$item_gap_mobile = ! empty( $settings['item_gap_mobile']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_mobile']['size'] : 10;
 
@@ -1125,33 +1129,33 @@ class Glory_Slider extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'player-settings' => [
-					'class'                => 'sa-glory-slider',
-					'id'                   => $id,
+					'class' => 'sa-glory-slider',
+					'id'    => $id,
 					'data-player-settings' => [
 						wp_json_encode( array_filter( [
-							'effect'          => 'coverflow',
-							'slidesPerView'   => 1.2,
+							'effect'         => 'coverflow',
+							'slidesPerView'  => 1.2,
 							// 'touchRatio'          => 0.8,
 							// 'slideToClickedSlide' => true,
-							'centeredSlides'  => true,
-							'loop'            => true,
-							'speed'           => $speed,
-							'loopedSlides'    => 10,
-							'spaceBetween'    => 0,
-							'freeMode'        => false,
-							'lazy'            => true,
-							'parallax'        => true,
-							'observer'        => true,
-							'observeParents'  => true,
+							'centeredSlides' => true,
+							'loop'           => true,
+							'speed'          => $speed,
+							'loopedSlides'   => 10,
+							'spaceBetween'   => 0,
+							'freeMode'       => false,
+							'lazy'           => true,
+							'parallax'       => true,
+							'observer'       => true,
+							'observeParents' => true,
 							'coverflowEffect' => [
 								'depth'        => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
 								'modifier'     => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
 								'rotate'       => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
 								'stretch'      => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
 
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
-							'breakpoints'     => [
+							'breakpoints' => [
 								(int) $viewport_md => [
 									'slidesPerView' => 1.4,
 								],
@@ -1199,13 +1203,13 @@ class Glory_Slider extends Widget_Base {
 
 						if ( $item['video_type'] === 'youtube' ) {
 							$video_url = $this->re_arrange_video_url( $item['youtube_url'] );
-							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
+							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
 						} elseif ( $item['video_type'] === 'vimeo' ) {
 							$video_url = $this->re_arrange_video_url( $item['vimeo_url'] );
-							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
+							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
 						} elseif ( $item['video_type'] === 'dailymotion' ) {
 							$video_url = $this->re_arrange_video_url( $item['dailymotion_url'] );
-							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
+							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
 						} elseif ( $item['video_type'] === 'hosted' ) {
 							if ( $item['external_url_set'] === 'yes' ) {
 								$video_url = $item['external_url']['url'];
@@ -1243,12 +1247,12 @@ class Glory_Slider extends Widget_Base {
 									endif;
 
 									if ( ! empty( $item['credit_url']['url'] ) ) {
-										$target = $item['credit_url']['is_external'] ? '_blank' : '_self';
-										$nofollow = $item['credit_url']['nofollow'] ? ' rel="nofollow"' : '';
+										$target     = $item['credit_url']['is_external'] ? '_blank' : '_self';
+										$nofollow   = $item['credit_url']['nofollow'] ? ' rel="nofollow"' : '';
 										$credit_url = ! empty( $item['credit_url']['url'] ) ? $item['credit_url']['url'] : 'javascript:void(0);';
 									} else {
-										$target = 'target="_self"';
-										$nofollow = '';
+										$target     = 'target="_self"';
+										$nofollow   = '';
 										$credit_url = 'javascript:void(0);';
 									}
 									?>

@@ -738,11 +738,17 @@ video {
 .sky-addons .ml-4 {
   margin-left: 1rem;
 }
+.sky-addons .ml-6 {
+  margin-left: 1.5rem;
+}
 .sky-addons .ml-auto {
   margin-left: auto;
 }
 .sky-addons .mr-0 {
   margin-right: 0px;
+}
+.sky-addons .mr-1 {
+  margin-right: 0.25rem;
 }
 .sky-addons .mr-2 {
   margin-right: 0.5rem;
@@ -984,6 +990,9 @@ video {
 .sky-addons .animate-spin {
   animation: spin 1s linear infinite;
 }
+.sky-addons .cursor-not-allowed {
+  cursor: not-allowed;
+}
 .sky-addons .cursor-pointer {
   cursor: pointer;
 }
@@ -1091,6 +1100,11 @@ video {
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
+.sky-addons :is(.space-y-6 > :not([hidden]) ~ :not([hidden])) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
 .sky-addons :is(.space-y-8 > :not([hidden]) ~ :not([hidden])) {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1194,6 +1208,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
+.sky-addons .border-green-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 252 231 / var(--tw-border-opacity, 1));
+}
 .sky-addons .border-indigo-600 {
   --tw-border-opacity: 1;
   border-color: rgb(79 70 229 / var(--tw-border-opacity, 1));
@@ -1201,6 +1219,10 @@ video {
 .sky-addons .border-purple-500 {
   --tw-border-opacity: 1;
   border-color: rgb(168 85 247 / var(--tw-border-opacity, 1));
+}
+.sky-addons .border-red-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 226 226 / var(--tw-border-opacity, 1));
 }
 .sky-addons .border-transparent {
   border-color: transparent;
@@ -1294,6 +1316,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
+.sky-addons .bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
 .sky-addons .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
@@ -1308,6 +1334,10 @@ video {
 .sky-addons .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.sky-addons .bg-yellow-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
 }
 .sky-addons .bg-yellow-50 {
   --tw-bg-opacity: 1;
@@ -1515,6 +1545,9 @@ video {
 .sky-addons .ps-3 {
   padding-inline-start: 0.75rem;
 }
+.sky-addons .pt-3 {
+  padding-top: 0.75rem;
+}
 .sky-addons .pt-6 {
   padding-top: 1.5rem;
 }
@@ -1526,6 +1559,9 @@ video {
 }
 .sky-addons .text-start {
   text-align: start;
+}
+.sky-addons .font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 .sky-addons .font-sans {
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -1603,6 +1639,9 @@ video {
 }
 .sky-addons .tracking-tight {
   letter-spacing: -0.025em;
+}
+.sky-addons .tracking-wide {
+  letter-spacing: 0.025em;
 }
 .sky-addons .tracking-widest {
   letter-spacing: 0.1em;
@@ -1682,6 +1721,10 @@ video {
 .sky-addons .text-purple-500 {
   --tw-text-opacity: 1;
   color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+.sky-addons .text-purple-600 {
+  --tw-text-opacity: 1;
+  color: rgb(147 51 234 / var(--tw-text-opacity, 1));
 }
 .sky-addons .text-purple-700 {
   --tw-text-opacity: 1;
@@ -1866,6 +1909,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(187 247 208 / var(--tw-bg-opacity, 1));
 }
+.sky-addons .hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
 .sky-addons .hover\:bg-green-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(22 101 52 / var(--tw-bg-opacity, 1));
@@ -1977,6 +2024,10 @@ video {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(209 213 219 / var(--tw-ring-opacity, 1));
 }
+.sky-addons .focus\:ring-green-200:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(187 247 208 / var(--tw-ring-opacity, 1));
+}
 .sky-addons .focus\:ring-green-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(134 239 172 / var(--tw-ring-opacity, 1));
@@ -2024,9 +2075,17 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
 }
+.sky-addons .dark\:border-green-800:is(.dark *) {
+  --tw-border-opacity: 1;
+  border-color: rgb(22 101 52 / var(--tw-border-opacity, 1));
+}
 .sky-addons .dark\:border-purple-600:is(.dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(147 51 234 / var(--tw-border-opacity, 1));
+}
+.sky-addons .dark\:border-red-800:is(.dark *) {
+  --tw-border-opacity: 1;
+  border-color: rgb(153 27 27 / var(--tw-border-opacity, 1));
 }
 .sky-addons .dark\:bg-blue-900:is(.dark *) {
   --tw-bg-opacity: 1;
@@ -2079,6 +2138,10 @@ video {
 .sky-addons .dark\:bg-stone-900:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(28 25 23 / var(--tw-bg-opacity, 1));
+}
+.sky-addons .dark\:bg-yellow-900:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(113 63 18 / var(--tw-bg-opacity, 1));
 }
 .sky-addons .dark\:from-gray-900:is(.dark *) {
   --tw-gradient-from: #111827 var(--tw-gradient-from-position);
@@ -2138,6 +2201,10 @@ video {
 .sky-addons .dark\:text-white:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.sky-addons .dark\:text-yellow-300:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(253 224 71 / var(--tw-text-opacity, 1));
 }
 .sky-addons .dark\:text-yellow-400:is(.dark *) {
   --tw-text-opacity: 1;
@@ -2224,6 +2291,10 @@ video {
 .sky-addons .dark\:focus\:ring-gray-700:focus:is(.dark *) {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(55 65 81 / var(--tw-ring-opacity, 1));
+}
+.sky-addons .dark\:focus\:ring-green-600:focus:is(.dark *) {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(22 163 74 / var(--tw-ring-opacity, 1));
 }
 .sky-addons .dark\:focus\:ring-green-800:focus:is(.dark *) {
   --tw-ring-opacity: 1;
@@ -2407,8 +2478,16 @@ video {
     order: 2;
   }
 
+  .sky-addons .lg\:col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
   .sky-addons .lg\:col-span-6 {
     grid-column: span 6 / span 6;
+  }
+
+  .sky-addons .lg\:col-span-8 {
+    grid-column: span 8 / span 8;
   }
 
   .sky-addons .lg\:my-6 {

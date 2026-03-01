@@ -12,7 +12,7 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Post_Title extends \Elementor\Widget_Heading {
@@ -35,6 +35,10 @@ class Post_Title extends \Elementor\Widget_Heading {
 
 	public function get_keywords() {
 		return [ 'sky', 'post', 'title', 'themebuilder', 'single' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -60,7 +64,7 @@ class Post_Title extends \Elementor\Widget_Heading {
 		$settings = $this->get_settings_for_display();
 
 		$title = get_the_title();
-		$link = get_permalink();
+		$link  = get_permalink();
 
 		if ( empty( $title ) ) {
 			return;

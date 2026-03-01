@@ -16,7 +16,7 @@ use Elementor\Icons_Manager;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Card extends Widget_Base {
@@ -43,6 +43,10 @@ class Card extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/card/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -79,15 +83,15 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'image_position',
 			[
-				'label'                => esc_html__( 'Image Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'           => esc_html__( 'Image Position', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::CHOOSE,
+				'label_block'     => false,
+				'options' => [
+					'left'  => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'top' => [
+					'top'   => [
 						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-top',
 					],
@@ -96,14 +100,14 @@ class Card extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'toggle'               => false,
-				'desktop_default'      => 'top',
-				'tablet_default'       => 'top',
-				'mobile_default'       => 'top',
-				'prefix_class'         => 'sa-card-%s-',
-				'style_transfer'       => true,
-				'selectors'            => [
-					'{{WRAPPER}} .elementor-widget-container .sa-card' => '{{VALUE}};',
+				'toggle'          => false,
+				'desktop_default' => 'top',
+				'tablet_default'  => 'top',
+				'mobile_default'  => 'top',
+				'prefix_class'    => 'sa-card-%s-',
+				'style_transfer'  => true,
+				'selectors' => [
+					'{{WRAPPER}} .sa-card' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
 					'left'  => 'display: flex; flex-direction: row; text-align: left;',
@@ -163,10 +167,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'sub_title_tag',
 			[
-				'label'     => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h6',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h6',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_sub_title' => 'yes',
 				],
@@ -213,10 +217,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'badge_position',
 			[
-				'label'     => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'top-left',
-				'options'   => [
+				'label'   => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'top-left',
+				'options' => [
 					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
 					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
 					'top-right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
@@ -263,8 +267,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -293,10 +297,10 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'button_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -304,7 +308,7 @@ class Card extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -312,7 +316,7 @@ class Card extends Widget_Base {
 				'condition' => [
 					'button_full_width' => 'yes',
 				],
-				'default'   => 'center',
+				'default' => 'center',
 				'selectors' => [
 					'{{WRAPPER}} .sa-button' => 'justify-content: {{VALUE}};',
 				],
@@ -338,7 +342,7 @@ class Card extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -387,18 +391,18 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'card_alignment',
 			[
-				'label'     => esc_html__( 'Card Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Card Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -428,10 +432,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'widget_overflow_hidden',
 			[
-				'label'     => esc_html__( 'Overflow Hidden?', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Overflow Hidden?', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container' => 'overflow:hidden;',
+					'{{WRAPPER}}' => 'overflow:hidden;',
 				],
 			]
 		);
@@ -457,7 +461,7 @@ class Card extends Widget_Base {
 						'min' => 50,
 						'max' => 500,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -499,9 +503,9 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'img_horizontal_offset',
 			[
-				'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -510,18 +514,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-card' => '--sky-media-h-offset: {{SIZE}}px;',
 				],
 			]
@@ -530,9 +534,9 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'img_vertical_offset',
 			[
-				'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -541,18 +545,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-card' => '--sky-media-v-offset: {{SIZE}}px;',
 				],
 			]
@@ -561,10 +565,10 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'img_rotate',
 			[
-				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
-				'default'        => [
+				'label'       => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'devices'     => [ 'desktop', 'tablet', 'mobile' ],
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -573,18 +577,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -360,
 						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'render_type'    => 'ui',
-				'selectors'      => [
+				'render_type' => 'ui',
+				'selectors' => [
 					'{{WRAPPER}} .sa-card' => '--sky-media-rotate: {{SIZE}}deg;',
 				],
 			]
@@ -656,9 +660,9 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'img_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -691,9 +695,9 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'img_opacity_hover',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -717,9 +721,9 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'img_transition',
 			[
-				'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 3,
 						'step' => 0.1,
@@ -748,8 +752,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_badge_style',
 			[
-				'label'     => esc_html__( 'Badge', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Badge', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_badge' => 'yes',
 				],
@@ -769,9 +773,9 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'badge_horizontal_offset',
 			[
-				'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -780,18 +784,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'badge_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}}' => '--sky-badge-h-offset: {{SIZE}}px;',
 				],
 			]
@@ -800,9 +804,9 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'badge_vertical_offset',
 			[
-				'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -811,18 +815,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -300,
 						'step' => 2,
 						'max'  => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'badge_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}}' => '--sky-badge-v-offset: {{SIZE}}px;',
 				],
 			]
@@ -831,10 +835,10 @@ class Card extends Widget_Base {
 		$this->add_responsive_control(
 			'badge_rotate',
 			[
-				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
-				'default'        => [
+				'label'       => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'devices'     => [ 'desktop', 'tablet', 'mobile' ],
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -843,18 +847,18 @@ class Card extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min'  => -360,
 						'max'  => 360,
 						'step' => 5,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'badge_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}}' => '--sky-badge-rotate: {{SIZE}}deg;',
 				],
 			]
@@ -886,8 +890,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'badge_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-img-area .sa-badge' => 'color: {{VALUE}}',
 				],
@@ -939,8 +943,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_sub_title_style',
 			[
-				'label'     => esc_html__( 'Sub Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Sub Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'sub_title!'     => '',
 					'show_sub_title' => 'yes',
@@ -960,7 +964,7 @@ class Card extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -992,8 +996,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'sub_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-sub-title' => 'color: {{VALUE}}',
 				],
@@ -1021,10 +1025,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'sub_title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-sub-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-sub-title:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1034,7 +1038,7 @@ class Card extends Widget_Base {
 			[
 				'name'     => 'sub_title_text_shadow_hover',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .elementor-widget-container:hover .sa-sub-title',
+				'selector' => '{{WRAPPER}} .sa-sub-title:hover',
 			]
 		);
 
@@ -1047,8 +1051,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'title!' => '',
 				],
@@ -1067,7 +1071,7 @@ class Card extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1099,8 +1103,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title' => 'color: {{VALUE}}',
 				],
@@ -1128,10 +1132,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-card:hover .sa-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1141,7 +1145,7 @@ class Card extends Widget_Base {
 			[
 				'name'     => 'title_text_shadow_hover',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .elementor-widget-container:hover .sa-title',
+				'selector' => '{{WRAPPER}} .sa-card:hover .sa-title',
 			]
 		);
 
@@ -1154,8 +1158,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_desc_style',
 			[
-				'label'     => esc_html__( 'Description', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Description', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'description!' => '',
 				],
@@ -1174,7 +1178,7 @@ class Card extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1206,8 +1210,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'desc_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-desc' => 'color: {{VALUE}}',
 				],
@@ -1226,10 +1230,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'desc_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-desc' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-card:hover .sa-desc' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1243,8 +1247,8 @@ class Card extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -1305,8 +1309,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button, {{WRAPPER}} .sa-button:focus' => 'color: {{VALUE}}',
 				],
@@ -1353,8 +1357,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'color: {{VALUE}}',
 				],
@@ -1374,8 +1378,8 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'border-color: {{VALUE}};',
 				],
@@ -1435,10 +1439,10 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'card_h_btn_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-button' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-card:hover .sa-button' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'card_h_btn_color_change' => 'yes',

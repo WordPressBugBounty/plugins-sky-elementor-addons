@@ -14,7 +14,7 @@ use Elementor\Repeater;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Tidy_List extends Widget_Base {
@@ -43,6 +43,10 @@ class Tidy_List extends Widget_Base {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/tidy-list/';
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -56,11 +60,11 @@ class Tidy_List extends Widget_Base {
 		$this->add_responsive_control(
 			'list_layout',
 			[
-				'label'                => esc_html__( 'Layout', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'block' => [
+				'label'           => esc_html__( 'Layout', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::CHOOSE,
+				'label_block'     => false,
+				'options' => [
+					'block'  => [
 						'title' => esc_html__( 'Block', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-editor-list-ul',
 					],
@@ -69,15 +73,15 @@ class Tidy_List extends Widget_Base {
 						'icon'  => 'eicon-navigation-horizontal',
 					],
 				],
-				'style_transfer'       => true,
-				'toggle'               => false,
-				'desktop_default'      => 'block',
-				'tablet_default'       => 'block',
-				'mobile_default'       => 'block',
-				'selectors'            => [
+				'style_transfer'  => true,
+				'toggle'          => false,
+				'desktop_default' => 'block',
+				'tablet_default'  => 'block',
+				'mobile_default'  => 'block',
+				'selectors' => [
 					'{{WRAPPER}} .sa-list-item' => '{{VALUE}};',
 				],
-				'prefix_class'         => 'sa-list-layout-%s-',
+				'prefix_class'    => 'sa-list-layout-%s-',
 				'selectors_dictionary' => [
 					'block'  => 'display: block; width: 100%;',
 					'inline' => 'display: inline-block; width: auto;',
@@ -94,11 +98,11 @@ class Tidy_List extends Widget_Base {
 				'type'           => Controls_Manager::CHOOSE,
 				'label_block'    => false,
 				'options'        => [
-					'icon' => [
+					'icon'   => [
 						'title' => esc_html__( 'Icon', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-check',
 					],
-					'image' => [
+					'image'  => [
 						'title' => esc_html__( 'Image', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-image',
 					],
@@ -127,25 +131,25 @@ class Tidy_List extends Widget_Base {
 		$repeater->add_control(
 			'list_image',
 			[
-				'label'     => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::MEDIA,
-				'default'   => [
+				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
 				],
 				'condition' => [
 					'media_type' => 'image',
 				],
-				'dynamic'   => [ 'active' => true ],
+				'dynamic' => [ 'active' => true ],
 			]
 		);
 
 		$repeater->add_control(
 			'list_number',
 			[
-				'label'     => esc_html__( 'Number', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( '1', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Number', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( '1', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'media_type' => 'number',
 				],
@@ -240,15 +244,15 @@ class Tidy_List extends Widget_Base {
 		$this->add_responsive_control(
 			'media_position',
 			[
-				'label'                => esc_html__( 'Media Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'          => esc_html__( 'Media Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'top' => [
+					'top'    => [
 						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-top',
 					],
@@ -256,16 +260,16 @@ class Tidy_List extends Widget_Base {
 						'title' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-bottom',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'style_transfer'       => true,
-				'toggle'               => true,
-				'default'              => 'left',
-				'prefix_class'         => 'sa-media-position-%s-',
-				'selectors'            => [
+				'style_transfer' => true,
+				'toggle'         => true,
+				'default'        => 'left',
+				'prefix_class'   => 'sa-media-position-%s-',
+				'selectors' => [
 					'{{WRAPPER}} .sa-list-wrapper' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -280,11 +284,11 @@ class Tidy_List extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'                => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'          => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -292,14 +296,14 @@ class Tidy_List extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'style_transfer'       => true,
-				'default'              => 'left',
-				'selectors'            => [
+				'style_transfer' => true,
+				'default'        => 'left',
+				'selectors' => [
 					'{{WRAPPER}} .sa-link' => '{{VALUE}};',
 					'{{WRAPPER}} .sa-tidy-list .sa-media-wrapper' => '{{VALUE}};',
 				],
@@ -335,11 +339,11 @@ class Tidy_List extends Widget_Base {
 		$this->add_responsive_control(
 			'list_alignment',
 			[
-				'label'                => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'          => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -347,14 +351,14 @@ class Tidy_List extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'style_transfer'       => true,
-				'default'              => 'left',
-				'selectors'            => [
+				'style_transfer' => true,
+				'default'        => 'left',
+				'selectors' => [
 					'{{WRAPPER}} .sa-list-ul' => '{{VALUE}};',
 				],
 				// 'prefix_class'         => 'sa-align-%s-',
@@ -363,7 +367,7 @@ class Tidy_List extends Widget_Base {
 					'center' => 'text-align: center; justify-content: center;',
 					'right'  => 'text-align: right; justify-content: flex-end;',
 				],
-				'condition'            => [
+				'condition' => [
 					'list_layout' => 'inline',
 				],
 			]
@@ -488,8 +492,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'list_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover' => 'border-color: {{VALUE}}',
 				],
@@ -575,8 +579,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'media_border',
-				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'name'  => 'media_border',
+				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-media-wrapper img, 
                             {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap, 
                             {{WRAPPER}} .sa-media-wrapper .sa-number',
@@ -618,8 +622,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'num_icon_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-number, {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .sa-media-wrapper .sa-icon-wrap *' => 'fill: {{VALUE}};',
@@ -630,9 +634,9 @@ class Tidy_List extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'media_background',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'    => [ 'classic', 'gradient' ],
+				'name'  => 'media_background',
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types' => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-media-wrapper img, 
                             {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap, 
                             {{WRAPPER}} .sa-media-wrapper .sa-number',
@@ -651,8 +655,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'num_icon_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-number, {{WRAPPER}} .sa-link:hover .sa-media-wrapper .sa-icon-wrap' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .sa-link:hover .sa-media-wrapper .sa-icon-wrap *' => 'fill: {{VALUE}};',
@@ -695,7 +699,7 @@ class Tidy_List extends Widget_Base {
 						'min' => 0,
 						'max' => 50,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -709,8 +713,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title' => 'color: {{VALUE}}',
 				],
@@ -720,8 +724,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-title' => 'color: {{VALUE}}',
 				],
@@ -751,8 +755,8 @@ class Tidy_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_list_text_style',
 			[
-				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_text' => 'yes',
 				],
@@ -771,8 +775,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -782,8 +786,8 @@ class Tidy_List extends Widget_Base {
 		$this->add_control(
 			'text_color_hover',
 			[
-				'label'     => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-text' => 'color: {{VALUE}}',
 				],
@@ -883,7 +887,8 @@ class Tidy_List extends Widget_Base {
 										printf( '<%s class="sa--title sa--text-title sa-title sa-mt-0 sa-mb-0"> %s </%s>', esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ), wp_kses_post( $item['list_title'] ), esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ) );
 									endif;
 
-									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) : ?>
+									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) :
+										?>
 										<div class="sa--text sa--text-info sa-text">
 											<?php echo wp_kses_post( $item['list_text'] ); ?>
 										</div>

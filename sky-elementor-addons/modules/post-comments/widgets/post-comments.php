@@ -12,7 +12,7 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Post_Comments extends Widget_Base {
@@ -35,6 +35,10 @@ class Post_Comments extends Widget_Base {
 
 	public function get_keywords() {
 		return [ 'sky', 'post', 'title', 'themebuilder', 'single' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -105,8 +109,8 @@ class Post_Comments extends Widget_Base {
 		$this->add_control(
 			'comments_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .comments-area' => 'color: {{VALUE}};',
 				],

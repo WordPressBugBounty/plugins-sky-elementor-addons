@@ -14,7 +14,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Testimonial extends Widget_Base {
@@ -41,6 +41,10 @@ class Testimonial extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/testimonial/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -71,7 +75,7 @@ class Testimonial extends Widget_Base {
 				'label'        => esc_html__( 'Alignment', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options'      => [
-					'left' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -79,7 +83,7 @@ class Testimonial extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -106,8 +110,8 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'testimonial_image',
 			[
-				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::MEDIA,
+				'label' => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::MEDIA,
 				'dynamic' => [
 					'active' => true,
 				],
@@ -218,8 +222,8 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'testimonial_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-testimonial-content' => 'color: {{VALUE}}',
 				],
@@ -287,7 +291,7 @@ class Testimonial extends Widget_Base {
 						'min' => 0,
 						'max' => 200,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -354,10 +358,10 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'adv_border_radius',
 			[
-				'label'     => esc_html__( 'Radius', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Radius', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'selectors' => [
 					'{{WRAPPER}} .sa-reviewer-thumb img' => 'border-radius: {{VALUE}};',
 				],
@@ -430,8 +434,8 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'name_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-testimonial-name' => 'color: {{VALUE}}',
 				],
@@ -459,8 +463,8 @@ class Testimonial extends Widget_Base {
 		$this->add_control(
 			'job_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-testimonial-job' => 'color: {{VALUE}}',
 				],
@@ -483,9 +487,9 @@ class Testimonial extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$has_content = ! ! $settings['testimonial_text'];
-		$has_image = ! ! $settings['testimonial_image']['url'];
-		$has_name = ! ! $settings['testimonial_name'];
-		$has_job = ! ! $settings['testimonial_job'];
+		$has_image   = ! ! $settings['testimonial_image']['url'];
+		$has_name    = ! ! $settings['testimonial_name'];
+		$has_job     = ! ! $settings['testimonial_job'];
 
 		if ( ! $has_content && ! $has_image && ! $has_name && ! $has_job ) {
 			return;

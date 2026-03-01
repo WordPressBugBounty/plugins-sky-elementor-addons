@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
-	public $element_selector = '.sa-backdrop-filter-yes > .elementor-widget-container';
+	public $element_selector = '.sa-backdrop-filter-yes > .elementor-element';
 
 	public function __construct() {
 		parent::__construct();
@@ -31,7 +31,7 @@ class Module extends Module_Base {
 			$this->element_selector = '';
 		} else {
 			$tab                    = Controls_Manager::TAB_ADVANCED;
-			$this->element_selector = '.sa-backdrop-filter-yes > .elementor-widget-container';
+			$this->element_selector = '.sa-backdrop-filter-yes > .elementor-element';
 		}
 
 		if ( 'section' === $element->get_name() ) {
@@ -72,9 +72,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_blur',
 			[
-				'label'     => esc_html__( 'Blur', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Blur', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 200,
 						'min'  => 0,
@@ -94,9 +94,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_brightness',
 			[
-				'label'     => esc_html__( 'Brightness', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Brightness', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max' => 200,
 						'min' => 0,
@@ -115,9 +115,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_contrast',
 			[
-				'label'     => esc_html__( 'Contrast', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Contrast', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 2,
 						'min'  => 0,
@@ -137,9 +137,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_grayscale',
 			[
-				'label'     => esc_html__( 'Grayscale', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Grayscale', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0,
@@ -159,9 +159,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_hue_rotate',
 			[
-				'label'     => esc_html__( 'Hue Rotate', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Hue Rotate', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max' => 180,
 						'min' => 0,
@@ -180,9 +180,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_invert',
 			[
-				'label'     => esc_html__( 'Invert', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Invert', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0,
@@ -202,9 +202,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0,
@@ -224,9 +224,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_sepia',
 			[
-				'label'     => esc_html__( 'Sepia', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Sepia', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0,
@@ -246,9 +246,9 @@ class Module extends Module_Base {
 		$element->add_control(
 			'sa_bf_saturate',
 			[
-				'label'     => esc_html__( 'Saturate', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Saturate', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 2,
 						'min'  => 0,

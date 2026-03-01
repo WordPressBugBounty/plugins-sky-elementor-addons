@@ -10,7 +10,7 @@ class Module extends Module_Base {
 
 		add_action(
 			'elementor/element/before_section_end',
-			function( $section, $section_id, $args ) {
+			function ( $section, $section_id, $args ) {
 				if ( 'sky-post-excerpt' === $section->get_name() && 'section_editor' === $section_id ) {
 					$section->remove_control( 'editor' );
 					$section->remove_control( 'drop_cap' );

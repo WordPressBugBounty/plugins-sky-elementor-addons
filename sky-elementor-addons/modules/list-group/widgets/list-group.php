@@ -14,7 +14,7 @@ use Elementor\Repeater;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class List_Group extends Widget_Base {
@@ -49,6 +49,10 @@ class List_Group extends Widget_Base {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/list-group/';
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -68,11 +72,11 @@ class List_Group extends Widget_Base {
 				'type'           => Controls_Manager::CHOOSE,
 				'label_block'    => false,
 				'options'        => [
-					'icon' => [
+					'icon'   => [
 						'title' => esc_html__( 'Icon', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-check',
 					],
-					'image' => [
+					'image'  => [
 						'title' => esc_html__( 'Image', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-image',
 					],
@@ -104,12 +108,12 @@ class List_Group extends Widget_Base {
 		$repeater->add_control(
 			'list_image',
 			[
-				'label'     => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::MEDIA,
-				'default'   => [
+				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
 				],
-				'dynamic'   => [ 'active' => true ],
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'media_type' => 'image',
 				],
@@ -119,10 +123,10 @@ class List_Group extends Widget_Base {
 		$repeater->add_control(
 			'list_number',
 			[
-				'label'     => esc_html__( 'Number', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => '1',
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Number', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '1',
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'media_type' => 'number',
 				],
@@ -177,8 +181,8 @@ class List_Group extends Widget_Base {
 		$repeater->add_control(
 			'item_title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Title Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-list-item{{CURRENT_ITEM}} .sa-title' => 'color: {{VALUE}}',
 				],
@@ -191,8 +195,8 @@ class List_Group extends Widget_Base {
 		$repeater->add_control(
 			'item_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-list-item{{CURRENT_ITEM}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -271,11 +275,11 @@ class List_Group extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'                => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'           => esc_html__( 'Content Alignment', 'sky-elementor-addons' ),
+				'type'            => Controls_Manager::CHOOSE,
+				'label_block'     => false,
+				'options' => [
+					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
@@ -283,16 +287,16 @@ class List_Group extends Widget_Base {
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'style_transfer'       => true,
-				'desktop_default'      => 'justify',
-				'tablet_default'       => 'justify',
-				'mobile_default'       => 'justify',
-				'selectors'            => [
+				'style_transfer'  => true,
+				'desktop_default' => 'justify',
+				'tablet_default'  => 'justify',
+				'mobile_default'  => 'justify',
+				'selectors' => [
 					'{{WRAPPER}} .sa-link' => '{{VALUE}};',
 				],
 				// 'prefix_class'         => 'sa-align-%s-',
@@ -443,8 +447,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'list_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover' => 'border-color: {{VALUE}}',
 				],
@@ -530,8 +534,8 @@ class List_Group extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'media_border',
-				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'name'  => 'media_border',
+				'label' => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-media-wrapper img, 
                             {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap, 
                             {{WRAPPER}} .sa-media-wrapper .sa-number',
@@ -583,8 +587,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'num_icon_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-number, {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .sa-media-wrapper .sa-icon-wrap *' => 'fill: {{VALUE}};',
@@ -595,9 +599,9 @@ class List_Group extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'     => 'media_background',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'    => [ 'classic', 'gradient' ],
+				'name'  => 'media_background',
+				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types' => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-media-wrapper img, 
                             {{WRAPPER}} .sa-media-wrapper .sa-icon-wrap, 
                             {{WRAPPER}} .sa-media-wrapper .sa-number',
@@ -616,8 +620,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'num_icon_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-number, {{WRAPPER}} .sa-link:hover .sa-media-wrapper .sa-icon-wrap' => 'color: {{VALUE}}; fill: {{VALUE}};',
 					'{{WRAPPER}} .sa-link:hover .sa-media-wrapper .sa-icon-wrap *' => 'fill: {{VALUE}};',
@@ -660,7 +664,7 @@ class List_Group extends Widget_Base {
 						'min' => 0,
 						'max' => 50,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -674,8 +678,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title' => 'color: {{VALUE}}',
 				],
@@ -685,8 +689,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-title' => 'color: {{VALUE}}',
 				],
@@ -716,8 +720,8 @@ class List_Group extends Widget_Base {
 		$this->start_controls_section(
 			'section_list_text_style',
 			[
-				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_text' => 'yes',
 				],
@@ -736,8 +740,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'sub_title_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -747,8 +751,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'sub_title_color_hover',
 			[
-				'label'     => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-text' => 'color: {{VALUE}}',
 				],
@@ -762,8 +766,8 @@ class List_Group extends Widget_Base {
 		$this->start_controls_section(
 			'section_direction_style',
 			[
-				'label'     => esc_html__( 'Direction', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Direction', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_direction' => 'yes',
 				],
@@ -851,8 +855,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'direction_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-direction-wrapper .sa-direction-icon' => 'color: {{VALUE}}',
 				],
@@ -881,8 +885,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'direction_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-direction-wrapper .sa-direction-icon' => 'color: {{VALUE}}',
 				],
@@ -892,8 +896,8 @@ class List_Group extends Widget_Base {
 		$this->add_control(
 			'direction_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link:hover .sa-direction-wrapper .sa-direction-icon' => 'border-color: {{VALUE}}',
 				],
@@ -1018,7 +1022,8 @@ class List_Group extends Widget_Base {
 										);
 									endif;
 
-									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) : ?>
+									if ( ! empty( $item['list_text'] ) && ( $settings['show_text'] === 'yes' ) ) :
+										?>
 										<div class="sa--text sa--text-info sa-text">
 											<?php echo wp_kses_post( $item['list_text'] ); ?>
 										</div>

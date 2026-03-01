@@ -22,7 +22,7 @@ use Sky_Addons\Traits\Global_Widget_Controls;
 
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Fellow_Slider extends Widget_Base {
@@ -66,6 +66,10 @@ class Fellow_Slider extends Widget_Base {
 
 	public function get_script_depends() {
 		return [ 'swiper' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -112,18 +116,18 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -243,9 +247,9 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'strip_shortcode',
 			[
-				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'show_excerpt' => 'yes',
 				],
@@ -313,15 +317,15 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label'     => esc_html__( 'Autoplay Speed (ms)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Autoplay Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 1000,
 						'max' => 10000,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 5000,
 				],
@@ -343,9 +347,9 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Slide Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 500,
 						'max'  => 5000,
@@ -431,8 +435,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_video_settings',
 			[
-				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -487,13 +491,13 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'           => 'item_border',
-				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'fields_options' => [
 					'border' => [
 						'default' => 'solid',
 					],
-					'width' => [
+					'width'  => [
 						'default' => [
 							'top'      => '1',
 							'right'    => '1',
@@ -503,11 +507,11 @@ class Fellow_Slider extends Widget_Base {
 							'isLinked' => false,
 						],
 					],
-					'color' => [
+					'color'  => [
 						'default' => '#eaeaea',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .sa-post-item',
+				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
 
@@ -574,8 +578,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'item_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-item:hover' => 'border-color: {{VALUE}};',
 				],
@@ -594,8 +598,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes',
 				],
@@ -671,7 +675,7 @@ class Fellow_Slider extends Widget_Base {
 						'min' => 50,
 						'max' => 500,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -729,8 +733,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -769,8 +773,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow .sa-post-title a' => 'color: {{VALUE}}',
 				],
@@ -780,8 +784,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow .sa-post-title a:hover' => 'color: {{VALUE}}',
 				],
@@ -836,8 +840,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow-items .sa-post-title a' => 'color: {{VALUE}}',
 				],
@@ -847,8 +851,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow-items .sa-post-title a:hover' => 'color: {{VALUE}}',
 				],
@@ -898,8 +902,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_category_style',
 			[
-				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_category' => 'yes',
 				],
@@ -935,8 +939,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
@@ -1000,8 +1004,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_author_style',
 			[
-				'label'     => esc_html__( 'Author', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Author', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_author' => 'yes',
 				],
@@ -1011,8 +1015,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'author_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow .sa-post-author-text' => 'color: {{VALUE}}',
 				],
@@ -1022,8 +1026,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'author_color_hover',
 			[
-				'label'     => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-fellow .sa-post-author-wrapper:hover .sa-post-author-text' => 'color: {{VALUE}}',
 				],
@@ -1068,7 +1072,7 @@ class Fellow_Slider extends Widget_Base {
 						'min' => 50,
 						'max' => 500,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1129,8 +1133,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'author_date_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--sa-post-author-date-color: {{VALUE}}',
 				],
@@ -1160,8 +1164,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'list_scrollbar_style',
 			[
-				'label'     => esc_html__( 'Scrollbar', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Scrollbar', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'playlist_show_scrollbar' => 'yes',
 				],
@@ -1190,8 +1194,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_scrollbar_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-scrollbar' => 'background-color: {{VALUE}}',
 				],
@@ -1201,8 +1205,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'list_scrollbar_drag_color',
 			[
-				'label'     => esc_html__( 'Drag Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Drag Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .swiper-scrollbar-drag' => 'background-color: {{VALUE}}',
 				],
@@ -1214,8 +1218,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -1235,8 +1239,8 @@ class Fellow_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'item_play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button Items', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button Items', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -1297,11 +1301,11 @@ class Fellow_Slider extends Widget_Base {
 		$args = [];
 		if ( $posts_per_page ) {
 			$args['posts_per_page'] = $posts_per_page;
-			$args['paged'] = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
 		}
 
 		$default = $this->getGroupControlQueryArgs();
-		$args = array_merge( $default, $args );
+		$args    = array_merge( $default, $args );
 
 		$this->_query = new \WP_Query( $args );
 	}
@@ -1309,12 +1313,12 @@ class Fellow_Slider extends Widget_Base {
 	public function get_embed_params() {
 		$settings = $this->get_settings_for_display();
 
-		$params = [];
+		$params             = [];
 		$params['autoplay'] = '0';
 
 		if ( 'yes' === $settings['video_autoplay'] ) {
 			$params['autoplay'] = '1';
-			$params['mute'] = 1;
+			$params['mute']     = 1;
 		}
 
 		if ( $settings['mute'] ) {
@@ -1325,8 +1329,8 @@ class Fellow_Slider extends Widget_Base {
 	}
 
 	public function get_embed_options() {
-		$settings = $this->get_settings_for_display();
-		$embed_options = [];
+		$settings                   = $this->get_settings_for_display();
+		$embed_options              = [];
 		$embed_options['lazy_load'] = ! empty( $settings['lazy_load'] );
 
 		return $embed_options;
@@ -1339,7 +1343,7 @@ class Fellow_Slider extends Widget_Base {
 			return;
 		}
 
-		$embed_params = $this->get_embed_params();
+		$embed_params  = $this->get_embed_params();
 		$embed_options = $this->get_embed_options();
 
 		$lightbox_url = Embed::get_embed_url( $video_url, $embed_params, $embed_options );
@@ -1347,9 +1351,9 @@ class Fellow_Slider extends Widget_Base {
 		if ( $settings['video_open'] !== 'file' ) {
 
 			$lightbox_options = [
-				'type'         => 'video',
+				'type' => 'video',
 				// 'videoType' => $settings['video_type'],
-				'url'          => $lightbox_url,
+				'url'  => $lightbox_url,
 				'modalOptions' => [
 					'id'                       => 'elementor-lightbox-' . $id,
 					'entranceAnimation'        => $settings['lightbox_content_animation'],
@@ -1397,7 +1401,7 @@ class Fellow_Slider extends Widget_Base {
 
 		if ( 'yes' === $settings['show_video'] ) {
 			$tag = 'div';
-			$id = $this->get_id() . '-' . $post_id . $feature;
+			$id  = $this->get_id() . '-' . $post_id . $feature;
 
 			/**
 			 * Lightbox
@@ -1578,7 +1582,7 @@ class Fellow_Slider extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-fellow-slider-' . $this->get_id();
+		$id       = 'sa-fellow-slider-' . $this->get_id();
 
 		$this->query_posts( $settings['posts_per_page'] );
 		$wp_query = $this->get_query();
@@ -1590,9 +1594,9 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'fellow-slider' => [
-					'class'                  => 'sa-fellow-slider',
-					'id'                     => $id,
-					'data-player-settings'   => [
+					'class' => 'sa-fellow-slider',
+					'id'    => $id,
+					'data-player-settings' => [
 						wp_json_encode( array_filter( [
 							// 'autoHeight'    => true,
 							'direction'     => $settings['direction'],

@@ -19,7 +19,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Sky_Addons_Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Advanced_Slider extends Widget_Base {
@@ -54,6 +54,10 @@ class Advanced_Slider extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/advanced-slider/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -226,7 +230,7 @@ class Advanced_Slider extends Widget_Base {
 						'min' => 200,
 						'max' => 1000,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -240,10 +244,10 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_position',
 			[
-				'label'                => esc_html__( 'Content Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'label_block'          => false,
-				'options'              => [
+				'label'          => esc_html__( 'Content Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SELECT,
+				'label_block'    => false,
+				'options' => [
 					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
 					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
 					'top-right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
@@ -255,13 +259,13 @@ class Advanced_Slider extends Widget_Base {
 					'bottom-right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
 				],
 				// 'toggle'               => false,
-				'default'              => 'middle-center',
+				'default'        => 'middle-center',
 				// 'desktop_default'       => 'middle-center',
 				// 'tablet_default'       => 'middle-center',
 				// 'mobile_default'       => 'middle-center',
 				// 'prefix_class'         => 'sa-slider-%s-',
-				'style_transfer'       => true,
-				'selectors'            => [
+				'style_transfer' => true,
+				'selectors' => [
 					'{{WRAPPER}} .sa-advanced-slider .sa-slider-content-wrapper' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -331,10 +335,10 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -353,10 +357,10 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'sub_title_tag',
 			[
-				'label'     => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h5',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Sub Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h5',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_sub_title' => 'yes',
 				],
@@ -443,9 +447,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'cross_fade',
 			[
-				'label'     => esc_html__( 'Cross Fade', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Cross Fade', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'transition_effect' => 'fade',
 				],
@@ -455,15 +459,15 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'coverflow_rotate',
 			[
-				'label'     => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 30,
 				],
@@ -476,8 +480,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'slide_shadows',
 			[
-				'label'     => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Slide Shadows', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'transition_effect' => [ 'coverflow', 'flip', 'cube' ],
 				],
@@ -496,16 +500,16 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label'     => esc_html__( 'Autoplay Speed (sec)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Autoplay Speed (sec)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 10,
 						'step' => .5,
 					],
 				],
-				'default'   => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 5,
 				],
@@ -527,9 +531,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Slide Speed (sec)', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SLIDER,
-				'range'   => [
+				'label' => esc_html__( 'Slide Speed (sec)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 10,
@@ -546,8 +550,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'pause_on_hover',
 			[
-				'label'     => esc_html__( 'Pause On Hover', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
+				'label' => esc_html__( 'Pause On Hover', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 				'condition' => [
 					'autoplay' => 'yes',
 				],
@@ -579,8 +583,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -616,7 +620,7 @@ class Advanced_Slider extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -718,21 +722,21 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'progressbar_position',
 			[
-				'label'                => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'default'              => 'bottom',
-				'options'              => [
+				'label'   => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'bottom',
+				'options' => [
 					'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 					'top'    => esc_html__( 'Top', 'sky-elementor-addons' ),
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .swiper-horizontal > .swiper-pagination-progressbar' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
 					'bottom' => '',
 					'top'    => 'top: 0; bottom: unset;',
 				],
-				'condition'            => [
+				'condition' => [
 					'pagination_type' => 'progressbar',
 					'direction'       => 'horizontal',
 				],
@@ -742,21 +746,21 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'progressbar_position_vertical',
 			[
-				'label'                => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'default'              => 'left',
-				'options'              => [
+				'label'   => esc_html__( 'Progress Bar Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'left',
+				'options' => [
 					'left'  => esc_html__( 'Left', 'sky-elementor-addons' ),
 					'right' => esc_html__( 'Right', 'sky-elementor-addons' ),
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .swiper-vertical > .swiper-pagination-progressbar' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
 					'left'  => '',
 					'right' => 'right: 0; left: unset;',
 				],
-				'condition'            => [
+				'condition' => [
 					'pagination_type' => 'progressbar',
 					'direction'       => 'vertical',
 				],
@@ -776,20 +780,20 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'sliders_bg',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'exclude'        => [ 'image' ],
+				'name'     => 'sliders_bg',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
-					'color' => [
+					'color'      => [
 						'default' => '#8441A4',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .swiper-slide',
+				'selector' => '{{WRAPPER}} .swiper-slide',
 			]
 		);
 
@@ -799,8 +803,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'sliders_bg_overlay',
 			[
-				'label'     => esc_html__( 'Background Overlay', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Background Overlay', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .swiper-slide:before' => 'background: {{VALUE}}; z-index: 1;',
 					'{{WRAPPER}} .sa-advanced-slider .sa-slider-content-wrapper' => 'z-index: 2;',
@@ -815,16 +819,16 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'sliders_adv_bg_overlay',
-				'label'          => esc_html__( 'Advanced Overlay', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'exclude'        => [ 'image' ],
+				'name'     => 'sliders_adv_bg_overlay',
+				'label'    => esc_html__( 'Advanced Overlay', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label' => esc_html__( 'Advanced Overlay', 'sky-elementor-addons' ),
 					],
 				],
-				'selector'       => '{{WRAPPER}} .swiper-slide:before',
+				'selector' => '{{WRAPPER}} .swiper-slide:before',
 			]
 		);
 
@@ -887,7 +891,7 @@ class Advanced_Slider extends Widget_Base {
 						'min' => 500,
 						'max' => 1300,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 50,
 						'max' => 100,
 					],
@@ -904,18 +908,18 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -1019,9 +1023,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'img_opacity',
 			[
-				'label'     => esc_html__( 'Image Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Image Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 1,
@@ -1054,9 +1058,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'img_opacity_hover',
 			[
-				'label'     => esc_html__( 'Image Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Image Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min'  => 0,
 						'max'  => 1,
@@ -1094,8 +1098,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -1122,7 +1126,7 @@ class Advanced_Slider extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1145,8 +1149,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-title, {{WRAPPER}} .sa-title *' => 'color: {{VALUE}}',
 				],
@@ -1198,8 +1202,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_sub_title_style',
 			[
-				'label'     => esc_html__( 'Sub Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Sub Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_sub_title' => 'yes',
 				],
@@ -1226,7 +1230,7 @@ class Advanced_Slider extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1249,8 +1253,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'sub_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-sub-title, {{WRAPPER}} .sa-sub-title *' => 'color: {{VALUE}}',
 				],
@@ -1302,8 +1306,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_text_style',
 			[
-				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_text' => 'yes',
 				],
@@ -1322,7 +1326,7 @@ class Advanced_Slider extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1345,8 +1349,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-content, {{WRAPPER}} .sa-content *' => 'color: {{VALUE}}',
 				],
@@ -1389,8 +1393,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button / Link', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -1451,8 +1455,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button' => 'color: {{VALUE}}',
 				],
@@ -1499,8 +1503,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'color: {{VALUE}}',
 				],
@@ -1520,8 +1524,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'border-color: {{VALUE}};',
 				],
@@ -1776,8 +1780,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation_style',
 			[
-				'label'     => esc_html__( 'Navigation', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_navigation' => 'yes',
 				],
@@ -1787,9 +1791,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_bottom_spacing',
 			[
-				'label'     => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -1870,8 +1874,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'navigation_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev svg *, {{WRAPPER}} .sa-swiper-button-next svg *' => 'fill: {{VALUE}}',
@@ -1931,8 +1935,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'navigation_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev:hover svg *, {{WRAPPER}} .sa-swiper-button-next:hover svg *' => 'fill: {{VALUE}}',
@@ -1953,8 +1957,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'navigation_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-color: {{VALUE}};',
 				],
@@ -2214,8 +2218,8 @@ class Advanced_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_pagination_style',
 			[
-				'label'     => esc_html__( 'Pagination', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Pagination', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_pagination' => 'yes',
 				],
@@ -2225,9 +2229,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'pagination_bottom_spacing',
 			[
-				'label'     => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Bottom Spacing', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -2315,9 +2319,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'fraction_color',
 			[
-				'label'     => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#ddd',
+				'label'   => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '#ddd',
 				'selectors' => [
 					'{{WRAPPER}} .swiper-pagination.swiper-pagination-fraction' => 'color: {{VALUE}}',
 				],
@@ -2340,17 +2344,17 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'pagination_color',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'exclude'        => [ 'image' ],
+				'name'     => 'pagination_color',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label' => esc_html__( 'Pagination Color', 'sky-elementor-addons' ),
 					],
 				],
-				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet, {{WRAPPER}} .swiper-pagination-progressbar',
-				'conditions'     => [
+				'selector' => '{{WRAPPER}} .swiper-pagination-bullet, {{WRAPPER}} .swiper-pagination-progressbar',
+				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
 						[
@@ -2444,17 +2448,17 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'pagination_active_color',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'          => [ 'classic', 'gradient' ],
-				'exclude'        => [ 'image' ],
+				'name'     => 'pagination_active_color',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
 						'label' => esc_html__( 'Pagination Active Color', 'sky-elementor-addons' ),
 					],
 				],
-				'selector'       => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active, {{WRAPPER}} .swiper-pagination-progressbar-fill',
-				'conditions'     => [
+				'selector' => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active, {{WRAPPER}} .swiper-pagination-progressbar-fill',
+				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
 						[
@@ -2521,7 +2525,7 @@ class Advanced_Slider extends Widget_Base {
 	}
 
 	protected function render_title( array $item ) {
-		$settings = $this->get_settings_for_display();
+		$settings   = $this->get_settings_for_display();
 		$title_link = false;
 		if ( ! empty( $settings['link_on'] ) ) {
 			if ( in_array( 'title', $settings['link_on'] ) ) {
@@ -2529,10 +2533,10 @@ class Advanced_Slider extends Widget_Base {
 			}
 		}
 
-		$title_tag = Utils::validate_html_tag( $settings['title_tag'] );
+		$title_tag     = Utils::validate_html_tag( $settings['title_tag'] );
 		$title_content = $item['title'];
 
-		if ( $title_link === true && isset( $item['link']['url'] ) && ! empty( $item['link']['url'] ) ) :
+		if ( true === $title_link && isset( $item['link']['url'] ) && ! empty( $item['link']['url'] ) ) :
 			$this->add_render_attribute( 'title-link-attr', 'href', esc_url( $item['link']['url'] ), true );
 
 			if ( $item['link']['is_external'] ) {
@@ -2563,7 +2567,7 @@ class Advanced_Slider extends Widget_Base {
 	protected function render_button( $link ) {
 		$settings = $this->get_settings_for_display();
 
-		if ( $settings['show_button'] === 'yes' ) :
+		if ( 'yes' === $settings['show_button'] ) :
 
 			$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-d-inline-flex sa-align-items-center sa-text-decoration-none sa-fw-bold', true );
 
@@ -2589,7 +2593,7 @@ class Advanced_Slider extends Widget_Base {
 			?>
 			<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 				<?php
-				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+				if ( ! empty( $settings['button_icon']['value'] ) && 'before' === $settings['button_icon_position'] ) {
 					echo '<span class="sa-icon-wrap sa-button-icon">';
 					Icons_Manager::render_icon( $settings['button_icon'], [
 						'aria-hidden' => 'true',
@@ -2606,7 +2610,7 @@ class Advanced_Slider extends Widget_Base {
 					esc_html( $settings['button_text'] )
 				);
 
-				if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+				if ( ! empty( $settings['button_icon']['value'] ) && 'after' === $settings['button_icon_position'] ) {
 					echo '<span class="sa-icon-wrap sa-button-icon">';
 					Icons_Manager::render_icon( $settings['button_icon'], [
 						'aria-hidden' => 'true',
@@ -2676,46 +2680,46 @@ class Advanced_Slider extends Widget_Base {
 
 	protected function render_header() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-' . $this->get_id();
+		$id       = 'sa-' . $this->get_id();
 		$this->add_render_attribute(
 			[
 				'slider' => [
-					'class'         => 'sa-advanced-slider',
-					'id'            => $id,
+					'class' => 'sa-advanced-slider',
+					'id'    => $id,
 					'data-settings' => [
 						wp_json_encode( array_filter( [
-							'direction'       => $settings['direction'],
-							'autoplay'        => $settings['autoplay'] === 'yes' ? [
+							'direction'    => $settings['direction'],
+							'autoplay' => 'yes' === $settings['autoplay'] ? [
 								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop'            => ( $settings['loop'] === 'yes' ) ? true : false,
-							'speed'           => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 300,
-							'pauseOnHover'    => ( $settings['autoplay'] === 'yes' && $settings['pause_on_hover'] === 'yes' ) ? true : false,
-							'effect'          => $settings['transition_effect'],
-							'fadeEffect'      => ( isset( $settings['cross_fade'] ) && $settings['cross_fade'] === 'yes' ) ? true : false,
+							'loop'         => ( 'yes' === $settings['loop'] ) ? true : false,
+							'speed'        => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 300,
+							'pauseOnHover' => ( 'yes' === $settings['autoplay'] && 'yes' === $settings['pause_on_hover'] ) ? true : false,
+							'effect'       => $settings['transition_effect'],
+							'fadeEffect'   => ( isset( $settings['cross_fade'] ) && 'yes' === $settings['cross_fade'] ) ? true : false,
 							'coverflowEffect' => [
 								'rotate'       => ( isset( $settings['coverflow_rotate'] ) && ! empty( $settings['coverflow_rotate']['size'] ) ) ? $settings['coverflow_rotate']['size'] : false,
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
-							'flipEffect'      => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
+							'flipEffect' => [
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
-							'cubeEffect'      => [
-								'slideShadows' => ( isset( $settings['slide_shadows'] ) && $settings['slide_shadows'] === 'yes' ) ? true : false,
+							'cubeEffect' => [
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
-							'hashNavigation'  => ( $settings['hash_navigation'] === 'yes' ) ? [
+							'hashNavigation' => ( 'yes' === $settings['hash_navigation'] ) ? [
 								'replaceState' => true,
 							] : false,
-							'observer'        => $settings['observer'] === 'yes' ? true : false,
-							'navigation'      => [
+							'observer'     => 'yes' === $settings['observer'] ? true : false,
+							'navigation' => [
 								'nextEl' => "#$id .sa-swiper-button-next",
 								'prevEl' => "#$id .sa-swiper-button-prev",
 							],
-							'pagination'      => [
+							'pagination' => [
 								'el'             => "#$id .swiper-pagination",
 								'clickable'      => true,
-								'type'           => $settings['pagination_type'] !== 'none' ? $settings['pagination_type'] : false,
-								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] === 'yes' ) ) ? true : false,
+								'type'           => 'none' !== $settings['pagination_type'] ? $settings['pagination_type'] : false,
+								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( 'yes' === $settings['dynamic_bullets'] ) ) ? true : false,
 							],
 							// scrollbar: {
 							// el: '.swiper-scrollbar',
@@ -2759,20 +2763,20 @@ class Advanced_Slider extends Widget_Base {
 			<?php
 			foreach ( $settings['slider_list'] as $index => $item ) :
 				$hash = null;
-				if ( $settings['hash_navigation'] === 'yes' ) {
+				if ( 'yes' === $settings['hash_navigation'] ) {
 					$hash = 'data-hash="' . sanitize_title( $item['title'] ) . '-' . $this->get_id() . $index . '"';
 				}
 
 				$item_link = '';
-				if ( $item_link_on === true && ! empty( $item['link']['url'] ) ) {
-					$target = $item['link']['is_external'] ? '_blank' : '_self';
+				if ( true === $item_link_on && ! empty( $item['link']['url'] ) ) {
+					$target    = $item['link']['is_external'] ? '_blank' : '_self';
 					$item_link = 'onclick="window.open(\'' . esc_url( $item['link']['url'] ) . '\', \'' . $target . '\')"';
 				}
 				?>
 
 				<!-- Slides -->
 				<div class="swiper-slide" <?php echo esc_html( $hash ) . ' ' . wp_kses_post( $item_link ); ?>>
-					<?php if ( $item['content_source'] === 'custom' && ! empty( $item['content_source'] ) ) : ?>
+					<?php if ( 'custom' === $item['content_source'] && ! empty( $item['content_source'] ) ) : ?>
 
 						<?php
 						if ( ! empty( $item['slider_image']['url'] ) ) {
@@ -2796,11 +2800,11 @@ class Advanced_Slider extends Widget_Base {
 
 						<div class="sa-slider-content-wrapper">
 							<?php
-							if ( ( $settings['show_sub_title'] === 'yes' ) && ! empty( $item['sub_title'] ) ) :
+							if ( ( 'yes' === $settings['show_sub_title'] ) && ! empty( $item['sub_title'] ) ) :
 								$this->render_sub_title( [ 'sub_title' => $item['sub_title'] ] );
 							endif;
 
-							if ( ( $settings['show_title'] === 'yes' ) && ! empty( $item['title'] ) ) :
+							if ( ( 'yes' === $settings['show_title'] ) && ! empty( $item['title'] ) ) :
 								if ( ! empty( $item['link']['url'] ) ) :
 									$this->render_title( [
 										'title' => $item['title'],
@@ -2813,7 +2817,7 @@ class Advanced_Slider extends Widget_Base {
 							?>
 
 							<?php
-							if ( ( $settings['show_text'] === 'yes' ) && ! empty( $item['custom_text'] ) ) :
+							if ( ( 'yes' === $settings['show_text'] ) && ! empty( $item['custom_text'] ) ) :
 								printf(
 									'<div class="sa-content">%1$s</div>',
 									wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) )
@@ -2822,16 +2826,16 @@ class Advanced_Slider extends Widget_Base {
 							?>
 
 
-							<?php if ( $settings['show_button'] === 'yes' ) : ?>
+							<?php if ( 'yes' === $settings['show_button'] ) : ?>
 								<div class="sa-link-wrapper">
 									<?php $this->render_button( $item['link'] ); ?>
 								</div>
 							<?php endif; ?>
 						</div>
 						<?php
-					elseif ( $item['content_source'] === 'elementor' && ! empty( $item['template_id'] ) ) :
+					elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
 						sky_addons_display_el_tem_by_id( $item['template_id'] );
-					elseif ( $item['content_source'] === 'anywhere' && ! empty( $item['anywhere_id'] ) ) :
+					elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
 						sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
 					else :
 						echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
@@ -2844,11 +2848,11 @@ class Advanced_Slider extends Widget_Base {
 		</div>
 
 		<?php
-		if ( $settings['show_navigation'] === 'yes' ) :
+		if ( 'yes' === $settings['show_navigation'] ) :
 			$this->render_navigation();
 		endif;
 
-		if ( $settings['show_pagination'] === 'yes' ) :
+		if ( 'yes' === $settings['show_pagination'] ) :
 			$this->render_pagination();
 		endif;
 

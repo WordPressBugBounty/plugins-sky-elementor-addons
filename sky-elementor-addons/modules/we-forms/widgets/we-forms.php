@@ -12,7 +12,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class WeForms extends Widget_Base {
@@ -43,6 +43,10 @@ class WeForms extends Widget_Base {
 
 	public function is_reload_preview_required() {
 		return true;
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -133,7 +137,7 @@ class WeForms extends Widget_Base {
 					'size' => 99,
 				],
 				'range'       => [
-					'%' => [
+					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
@@ -203,8 +207,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'field_textcolor',
 			[
-				'label'     => __( 'Field Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Field Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input:not(.weforms_submit_btn), {{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields textarea' => 'color: {{VALUE}};',
 				],
@@ -214,8 +218,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label'     => __( 'Field Placeholder Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Field Placeholder Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
@@ -372,8 +376,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label'     => __( 'Label Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Label Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-label label, {{WRAPPER}} .wpuf-form-sub-label' => 'color: {{VALUE}}',
 				],
@@ -383,8 +387,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'requered_label',
 			[
-				'label'     => __( 'Required Label Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Required Label Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-label .required' => 'color: {{VALUE}} !important',
 				],
@@ -394,8 +398,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'desc_color',
 			[
-				'label'     => __( 'Help Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Help Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-fields .wpuf-help' => 'color: {{VALUE}}',
 				],
@@ -442,7 +446,7 @@ class WeForms extends Widget_Base {
 					'size' => 100,
 				],
 				'range'      => [
-					'%' => [
+					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
@@ -463,7 +467,7 @@ class WeForms extends Widget_Base {
 				'label'           => __( 'Button Position', 'sky-elementor-addons' ),
 				'type'            => Controls_Manager::CHOOSE,
 				'options'         => [
-					'left' => [
+					'left'   => [
 						'title' => __( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
@@ -471,7 +475,7 @@ class WeForms extends Widget_Base {
 						'title' => __( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => __( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -579,9 +583,9 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'submit_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '',
+				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]' => 'color: {{VALUE}};',
 				],
@@ -610,8 +614,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]:hover, {{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]:focus' => 'color: {{VALUE}};',
 				],
@@ -631,8 +635,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label'     => __( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]:hover, {{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit input[type=submit]:focus' => 'border-color: {{VALUE}};',
 				],
@@ -691,8 +695,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'break_title_color',
 			[
-				'label'     => __( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .section_break .wpuf-section-title' => 'color: {{VALUE}};',
 				],
@@ -711,8 +715,8 @@ class WeForms extends Widget_Base {
 		$this->add_control(
 			'break_description_color',
 			[
-				'label'     => __( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .section_break .wpuf-section-details' => 'color: {{VALUE}};',
 				],

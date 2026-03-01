@@ -17,7 +17,7 @@ use Sky_Addons\Traits\Global_Widget_Controls;
 use Sky_Addons\Traits\Global_Swiper_Controls;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Sapling_Carousel extends Widget_Base {
@@ -65,6 +65,10 @@ class Sapling_Carousel extends Widget_Base {
 		return $this->_query;
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -107,14 +111,14 @@ class Sapling_Carousel extends Widget_Base {
 		$this->add_responsive_control(
 			'content_layout',
 			[
-				'label'                => esc_html__( 'Content Layout', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::SELECT,
-				'options'              => [
+				'label'   => esc_html__( 'Content Layout', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
 					'column-reverse' => esc_html__( 'Content Top', 'sky-elementor-addons' ),
 					'column'         => esc_html__( 'Content Bottom', 'sky-elementor-addons' ),
 				],
-				'default'              => 'column-reverse',
-				'selectors'            => [
+				'default' => 'column-reverse',
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
@@ -127,18 +131,18 @@ class Sapling_Carousel extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'                => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'options'              => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -153,7 +157,7 @@ class Sapling_Carousel extends Widget_Base {
 					'right'   => 'text-align: right; justify-content: right; align-items: flex-end',
 					'justify' => 'text-align: justify;',
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-item, {{WRAPPER}} .sa-post-meta' => '{{VALUE}}',
 					'{{WRAPPER}} .sa-post-img-wrapper, {{WRAPPER}} .sa-post-category' => '{{VALUE}}',
 				],
@@ -204,10 +208,10 @@ class Sapling_Carousel extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -274,9 +278,9 @@ class Sapling_Carousel extends Widget_Base {
 		$this->add_control(
 			'strip_shortcode',
 			[
-				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'show_excerpt' => 'yes',
 				],
@@ -314,8 +318,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_video_settings',
 			[
-				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -497,8 +501,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->add_control(
 			'item_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-item:hover' => 'border-color: {{VALUE}};',
 				],
@@ -517,8 +521,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes',
 				],
@@ -536,7 +540,7 @@ class Sapling_Carousel extends Widget_Base {
 						'min' => 50,
 						'max' => 500,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -632,8 +636,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -684,8 +688,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_category_style',
 			[
-				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_category' => 'yes',
 				],
@@ -739,8 +743,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
@@ -804,8 +808,8 @@ class Sapling_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -876,11 +880,11 @@ class Sapling_Carousel extends Widget_Base {
 		$args = [];
 		if ( $posts_per_page ) {
 			$args['posts_per_page'] = $posts_per_page;
-			$args['paged'] = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
 		}
 
 		$default = $this->getGroupControlQueryArgs();
-		$args = array_merge( $default, $args );
+		$args    = array_merge( $default, $args );
 
 		$this->_query = new \WP_Query( $args );
 	}
@@ -966,7 +970,7 @@ class Sapling_Carousel extends Widget_Base {
 
 	public function render_header() {
 		$settings = $this->get_settings_for_display();
-		$id = 'sa-sapling-carousel-' . $this->get_id();
+		$id       = 'sa-sapling-carousel-' . $this->get_id();
 
 		/**
 		 * global function

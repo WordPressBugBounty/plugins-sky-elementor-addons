@@ -11,7 +11,7 @@ class Module extends Module_Base {
 
 		add_action(
 			'elementor/element/before_section_end',
-			function( $section, $section_id, $args ) {
+			function ( $section, $section_id, $args ) {
 				if ( 'sky-post-featured-image' === $section->get_name() && 'section_image' === $section_id ) {
 					$section->remove_control( 'image' );
 					$section->remove_control( 'caption_source' );

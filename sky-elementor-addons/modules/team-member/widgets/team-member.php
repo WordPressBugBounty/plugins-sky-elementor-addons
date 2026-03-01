@@ -17,7 +17,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Team_Member extends Widget_Base {
@@ -51,6 +51,10 @@ class Team_Member extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/team-member/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -104,15 +108,15 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'image_position',
 			[
-				'label'                => esc_html__( 'Image Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'label_block'          => false,
-				'options'              => [
-					'left' => [
+				'label'          => esc_html__( 'Image Position', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options' => [
+					'left'  => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'top' => [
+					'top'   => [
 						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-v-align-top',
 					],
@@ -121,22 +125,22 @@ class Team_Member extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default'              => 'top',
-				'toggle'               => false,
-				'prefix_class'         => 'sa-team-member-%s-',
-				'style_transfer'       => true,
-				'selectors'            => [
-					'{{WRAPPER}} .elementor-widget-container .sa-team-member' => '{{VALUE}};',
+				'default'        => 'top',
+				'toggle'         => false,
+				'prefix_class'   => 'sa-team-member-%s-',
+				'style_transfer' => true,
+				'selectors' => [
+					'{{WRAPPER}} .sa-team-member' => '{{VALUE}};',
 				],
 				'selectors_dictionary' => [
 					'left'  => 'display: flex; flex-direction: row; text-align: left;',
 					'top'   => 'text-align: left; display: block; flex-direction: unset; flex-flow: unset;',
 					'right' => 'display: flex; flex-direction: row-reverse; text-align: right;',
 				],
-				'condition'            => [
+				'condition' => [
 					'style_select' => 'default',
 				],
-				'separator'            => 'before',
+				'separator'      => 'before',
 			]
 		);
 		$this->add_control(
@@ -175,12 +179,12 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'alter_image',
 			[
-				'label'     => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::MEDIA,
-				'default'   => [
+				'label'   => esc_html__( 'Choose Image', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::MEDIA,
+				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
 				],
-				'dynamic'   => [ 'active' => true ],
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'show_alter_image' => 'yes',
 				],
@@ -249,10 +253,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'job_title_tag',
 			[
-				'label'     => esc_html__( 'Job Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h6',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Job Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h6',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_job_title' => 'yes',
 				],
@@ -319,8 +323,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_socials_layout',
 			[
-				'label'     => esc_html__( 'Social Media', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Social Media', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_socials' => 'yes',
 				],
@@ -400,8 +404,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}} ' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}} svg * ' => 'fill: {{VALUE}};',
@@ -412,8 +416,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_bg',
 			[
-				'label'     => esc_html__( 'Background Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}' => 'background-color: {{VALUE}};',
 				],
@@ -423,8 +427,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
 				],
@@ -443,8 +447,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_color_hover',
 			[
-				'label'     => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icon Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}:hover ' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}:hover svg * ' => 'fill: {{VALUE}};',
@@ -455,8 +459,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_bg_hover',
 			[
-				'label'     => esc_html__( 'Background Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}:hover' => 'background-color: {{VALUE}};',
 				],
@@ -466,8 +470,8 @@ class Team_Member extends Widget_Base {
 		$repeater->add_control(
 			'item_icon_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-link{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
 				],
@@ -520,8 +524,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_button',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -531,10 +535,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'button_position',
 			[
-				'label'     => esc_html__( 'Button Position', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'after_socials',
-				'options'   => [
+				'label'   => esc_html__( 'Button Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'after_socials',
+				'options' => [
 					'after_socials'  => esc_html__( 'After Social Icons', 'sky-elementor-addons' ),
 					'before_socials' => esc_html__( 'Before Social Icons', 'sky-elementor-addons' ),
 				],
@@ -581,18 +585,18 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'button_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -629,7 +633,7 @@ class Team_Member extends Widget_Base {
 						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
-					'after' => [
+					'after'  => [
 						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
@@ -678,18 +682,18 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'member_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left' => [
+				'label' => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center' => [
+					'center'  => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
+					'right'   => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-right',
 					],
@@ -721,8 +725,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_mold_Content_style',
 			[
-				'label'     => esc_html__( 'Mold Content', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Mold Content', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'style_select' => [ 'mold' ],
 					// 'style_select' => ['mold','default']
@@ -764,7 +768,7 @@ class Team_Member extends Widget_Base {
 				'name'     => 'content_bg_hover',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .elementor-widget-container:hover .sa-content-area::before',
+				'selector' => '{{WRAPPER}} .sa-team-member:hover .sa-content-area::before',
 			]
 		);
 
@@ -777,8 +781,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_ardent_overlay_style',
 			[
-				'label'     => esc_html__( 'Overlay', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Overlay', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'style_select' => [ 'ardent', 'folk', 'slide' ],
 				],
@@ -788,8 +792,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'ardent_overlay_color',
 			[
-				'label'     => esc_html__( 'Overlay Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Overlay Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-overlay-area' => 'background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,{{VALUE}} 100%)',
 					'{{WRAPPER}} .style-folk .sa-overlay-area, {{WRAPPER}} .style-slide .sa-overlay-area' => 'background: {{VALUE}}',
@@ -831,7 +835,7 @@ class Team_Member extends Widget_Base {
 						'max'  => 100,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -854,7 +858,7 @@ class Team_Member extends Widget_Base {
 						'max'  => 200,
 						'step' => 1,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -899,9 +903,9 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'img_horizontal_offset',
 			[
-				'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -910,17 +914,17 @@ class Team_Member extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min' => -300,
 						'max' => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-team-member' => '--sky-media-h-offset: {{SIZE}}px;',
 				],
 			]
@@ -929,9 +933,9 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'img_vertical_offset',
 			[
-				'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'       => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -940,17 +944,17 @@ class Team_Member extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min' => -300,
 						'max' => 300,
 					],
 				],
-				'render_type'    => 'ui',
-				'condition'      => [
+				'render_type' => 'ui',
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-team-member' => '--sky-media-v-offset: {{SIZE}}px;',
 				],
 			]
@@ -959,10 +963,10 @@ class Team_Member extends Widget_Base {
 		$this->add_responsive_control(
 			'img_rotate',
 			[
-				'label'          => esc_html__( 'Rotate', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'devices'        => [ 'desktop', 'tablet', 'mobile' ],
-				'default'        => [
+				'label'       => esc_html__( 'Rotate', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'devices'     => [ 'desktop', 'tablet', 'mobile' ],
+				'default' => [
 					'size' => 0,
 				],
 				'tablet_default' => [
@@ -971,22 +975,22 @@ class Team_Member extends Widget_Base {
 				'mobile_default' => [
 					'size' => 0,
 				],
-				'range'          => [
+				'range' => [
 					'px' => [
 						'min' => -360,
 						'max' => 360,
 					],
 				],
-				'condition'      => [
+				'condition' => [
 					'img_offset_popover' => 'yes',
 				],
-				'render_type'    => 'ui',
+				'render_type' => 'ui',
 				// 'selectors'   => [
 				// '(desktop){{WRAPPER}} .sa-team-member .sa-img-area' => 'transform: translate({{img_horizontal_offset.SIZE}}px, {{img_vertical_offset.SIZE}}px) rotate({{SIZE}}deg);',
 				// '(tablet){{WRAPPER}} .sa-team-member .sa-img-area'  => 'transform: translate({{img_horizontal_offset_tablet.SIZE}}px, {{img_vertical_offset_tablet.SIZE}}px) rotate({{SIZE}}deg);',
 				// '(mobile){{WRAPPER}} .sa-team-member .sa-img-area'  => 'transform: translate({{img_horizontal_offset_mobile.SIZE}}px, {{img_vertical_offset_mobile.SIZE}}px) rotate({{SIZE}}deg);',
 				// ],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .sa-team-member' => '--sky-media-rotate: {{SIZE}}deg;',
 				],
 			]
@@ -1048,9 +1052,9 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'img_opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -1083,9 +1087,9 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'img_opacity_hover',
 			[
-				'label'     => esc_html__( 'Opacity', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Opacity', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 1,
 						'min'  => 0.10,
@@ -1109,9 +1113,9 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'img_transition',
 			[
-				'label'     => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SLIDER,
-				'range'     => [
+				'label' => esc_html__( 'Transition Duration (s)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'max'  => 3,
 						'step' => 0.1,
@@ -1140,8 +1144,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_name_style',
 			[
-				'label'     => esc_html__( 'Name', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Name', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'name!' => '',
 				],
@@ -1159,7 +1163,7 @@ class Team_Member extends Widget_Base {
 						'min' => 0,
 						'max' => 100,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1191,8 +1195,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'name_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-name' => 'color: {{VALUE}}',
 				],
@@ -1220,10 +1224,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'name_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-name' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-team-member:hover .sa-name' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1233,7 +1237,7 @@ class Team_Member extends Widget_Base {
 			[
 				'name'     => 'name_text_shadow_hover',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .elementor-widget-container:hover .sa-name',
+				'selector' => '{{WRAPPER}} .sa-team-member:hover .sa-name',
 			]
 		);
 
@@ -1246,8 +1250,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_job_title_style',
 			[
-				'label'     => esc_html__( 'Job Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Job Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'job_title!'     => '',
 					'show_job_title' => 'yes',
@@ -1266,7 +1270,7 @@ class Team_Member extends Widget_Base {
 						'min' => 0,
 						'max' => 100,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1298,8 +1302,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'job_title_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-job-title' => 'color: {{VALUE}}',
 				],
@@ -1327,10 +1331,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'job_title_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-job-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-team-member:hover .sa-job-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1340,7 +1344,7 @@ class Team_Member extends Widget_Base {
 			[
 				'name'     => 'job_title_text_shadow_hover',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .elementor-widget-container:hover .sa-job-title',
+				'selector' => '{{WRAPPER}} .sa-team-member:hover .sa-job-title',
 			]
 		);
 
@@ -1353,8 +1357,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_text_style',
 			[
-				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'text!' => '',
 				],
@@ -1372,7 +1376,7 @@ class Team_Member extends Widget_Base {
 						'min' => 0,
 						'max' => 100,
 					],
-					'%' => [
+					'%'  => [
 						'min' => 0,
 						'max' => 100,
 					],
@@ -1404,8 +1408,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-text' => 'color: {{VALUE}}',
 				],
@@ -1424,10 +1428,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'text_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .elementor-widget-container:hover .sa-text' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sa-team-member:hover .sa-text' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1443,8 +1447,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_social_icons_style',
 			[
-				'label'     => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Social Icons', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_socials' => 'yes',
 				],
@@ -1538,10 +1542,10 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'socials_adv_border_radius',
 			[
-				'label'     => esc_html__( 'Radius', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Radius', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( '30% 70% 70% 30% / 30% 30% 70% 70% ', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'selectors' => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'border-radius: {{VALUE}};',
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'border-radius: {{VALUE}};',
@@ -1565,8 +1569,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'social_icons_color',
 			[
-				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg *' => 'fill: {{VALUE}}',
@@ -1598,8 +1602,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'social_icons_color_hover',
 			[
-				'label'     => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Icons Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg *' => 'fill: {{VALUE}}',
@@ -1620,8 +1624,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'social_icons_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover' => 'border-color: {{VALUE}};',
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link:hover svg' => 'border-color: {{VALUE}};',
@@ -1659,8 +1663,8 @@ class Team_Member extends Widget_Base {
 		$this->start_controls_section(
 			'section_button_style',
 			[
-				'label'     => esc_html__( 'Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_button' => 'yes',
 				],
@@ -1712,8 +1716,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'button_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button' => 'color: {{VALUE}}',
 				],
@@ -1781,8 +1785,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'button_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'color: {{VALUE}}',
 				],
@@ -1802,8 +1806,8 @@ class Team_Member extends Widget_Base {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-button:hover' => 'border-color: {{VALUE}};',
 				],

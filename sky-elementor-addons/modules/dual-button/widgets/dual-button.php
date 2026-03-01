@@ -13,7 +13,7 @@ use Elementor\Icons_Manager;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Dual_Button extends Widget_Base {
@@ -42,6 +42,10 @@ class Dual_Button extends Widget_Base {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/dual-button/';
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -55,9 +59,9 @@ class Dual_Button extends Widget_Base {
 		$this->add_responsive_control(
 			'dual_button_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
 					'flex-start' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
@@ -71,8 +75,8 @@ class Dual_Button extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default'   => 'center',
-				'toggle'    => false,
+				'default' => 'center',
+				'toggle'  => false,
 				'selectors' => [
 					'{{WRAPPER}} .sa-dual-button' => 'justify-content: {{VALUE}} !important;',
 				],
@@ -163,10 +167,10 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'separator_content_text',
 			[
-				'label'     => esc_html__( 'Text', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'or', 'sky-elementor-addons' ),
-				'dynamic'   => [ 'active' => true ],
+				'label'   => esc_html__( 'Text', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'or', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
 				'condition' => [
 					'separator_content_type' => 'text',
 					'show_separator'         => 'yes',
@@ -232,9 +236,9 @@ class Dual_Button extends Widget_Base {
 		$this->add_responsive_control(
 			'button_a_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
 					'flex-start' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -248,8 +252,8 @@ class Dual_Button extends Widget_Base {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'toggle'    => false,
-				'default'   => 'center',
+				'toggle'  => false,
+				'default' => 'center',
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a' => 'justify-content: {{VALUE}};',
 				],
@@ -356,9 +360,9 @@ class Dual_Button extends Widget_Base {
 		$this->add_responsive_control(
 			'button_b_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
 					'flex-start' => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -372,8 +376,8 @@ class Dual_Button extends Widget_Base {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'default'   => 'center',
-				'toggle'    => false,
+				'default' => 'center',
+				'toggle'  => false,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b' => 'justify-content: {{VALUE}};',
 				],
@@ -520,8 +524,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_a_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a'       => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-btn-a svg *' => 'fill: {{VALUE}}',
@@ -590,8 +594,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_a_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a:hover'       => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-btn-a:hover svg *' => 'fill: {{VALUE}}',
@@ -620,8 +624,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_a_border_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}  .sa-btn-a:hover' => 'border-color: {{VALUE}};',
 				],
@@ -710,8 +714,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_b_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b'       => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-btn-b svg *' => 'fill: {{VALUE}}',
@@ -780,8 +784,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_b_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b:hover'       => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-btn-b:hover svg *' => 'fill: {{VALUE}}',
@@ -810,8 +814,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'button_b_border_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}  .sa-btn-b:hover' => 'border-color: {{VALUE}};',
 				],
@@ -862,8 +866,8 @@ class Dual_Button extends Widget_Base {
 		$this->start_controls_section(
 			'separator_style',
 			[
-				'label'     => esc_html__( 'Separator', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Separator', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_separator' => 'yes',
 				],
@@ -891,8 +895,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'separator_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-separator' => 'color: {{VALUE}}',
 				],
@@ -953,8 +957,8 @@ class Dual_Button extends Widget_Base {
 		$this->start_controls_section(
 			'icon_a_style',
 			[
-				'label'     => esc_html__( 'Icon A', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Icon A', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'button_a_icon[value]!' => '',
 				],
@@ -1024,8 +1028,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_a_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -1063,8 +1067,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_a_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a:hover .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -1084,8 +1088,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_a_hover_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-a:hover .sa-icon-wrap' => 'border-color: {{VALUE}}',
 				],
@@ -1113,8 +1117,8 @@ class Dual_Button extends Widget_Base {
 		$this->start_controls_section(
 			'icon_b_style',
 			[
-				'label'     => esc_html__( 'Icon B', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Icon B', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'button_b_icon[value]!' => '',
 				],
@@ -1184,8 +1188,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_b_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -1223,8 +1227,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_b_color_hover',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b:hover .sa-icon-wrap' => 'color: {{VALUE}}',
 				],
@@ -1244,8 +1248,8 @@ class Dual_Button extends Widget_Base {
 		$this->add_control(
 			'icon_b_hover_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-btn-b:hover .sa-icon-wrap' => 'border-color: {{VALUE}}',
 				],

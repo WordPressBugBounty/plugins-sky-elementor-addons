@@ -6,7 +6,7 @@ use Elementor\Widget_Base;
 use Elementor\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Post_Excerpt extends \Elementor\Widget_Text_Editor {
@@ -29,6 +29,10 @@ class Post_Excerpt extends \Elementor\Widget_Text_Editor {
 
 	public function get_keywords() {
 		return [ 'sky', 'post', 'title', 'themebuilder', 'single' ];
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {

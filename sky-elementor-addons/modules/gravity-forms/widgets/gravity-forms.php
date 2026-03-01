@@ -11,7 +11,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class GravityForms extends Widget_Base {
@@ -44,6 +44,10 @@ class GravityForms extends Widget_Base {
 		return true;
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 		$this->start_controls_section(
@@ -51,7 +55,7 @@ class GravityForms extends Widget_Base {
 			[
 				'label' => sky_addons_is_gravityforms_activated() ? __( 'Gravity Forms', 'sky-elementor-addons' ) : __( 'Missing Notice',
 				'sky-elementor-addons' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
@@ -134,7 +138,7 @@ class GravityForms extends Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
-					'%' => [
+					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
@@ -206,8 +210,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'field_textcolor',
 			[
-				'label'     => esc_html__( 'Field Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Field Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gfield .ginput_container > input' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .gfield .ginput_container.ginput_complex input' => 'color: {{VALUE}};',
@@ -222,8 +226,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label'     => esc_html__( 'Placeholder Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Placeholder Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
@@ -244,7 +248,7 @@ class GravityForms extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'field_border',
+				'name' => 'field_border',
 				'selector' => '{{WRAPPER}} .gfield .ginput_container:not(.ginput_container_fileupload) > input,
 				{{WRAPPER}} .gfield .ginput_complex input,
 				{{WRAPPER}} .gfield .ginput_container_address input,
@@ -257,7 +261,7 @@ class GravityForms extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'field_box_shadow',
+				'name' => 'field_box_shadow',
 				'selector' => '{{WRAPPER}} .gfield .ginput_container:not(.ginput_container_fileupload) > input,
 				{{WRAPPER}} .gfield .ginput_complex input,
 				{{WRAPPER}} .gfield .ginput_container_address input,
@@ -287,7 +291,7 @@ class GravityForms extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'     => 'field_focus_border',
+				'name' => 'field_focus_border',
 				'selector' => '{{WRAPPER}} .gfield .ginput_container > input:focus,
 				{{WRAPPER}} .gfield .ginput_complex input:focus,
 				{{WRAPPER}} .gfield .ginput_container_address input:focus,
@@ -299,7 +303,7 @@ class GravityForms extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'field_focus_box_shadow',
+				'name' => 'field_focus_box_shadow',
 				'selector' => '{{WRAPPER}} .gfield .ginput_container > input:focus,
 				{{WRAPPER}} .gfield .ginput_complex input:focus,
 				{{WRAPPER}} .gfield .ginput_container_address input:focus,
@@ -398,8 +402,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label'     => esc_html__( 'Label Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Label Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_body .gfield .gfield_label' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .gform_body .gfield .ginput_complex label' => 'color: {{VALUE}}',
@@ -411,8 +415,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'sub_label_color',
 			[
-				'label'     => esc_html__( 'Sub-label Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Sub-label Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_body .gfield .gfield_description' => 'color: {{VALUE}}',
 				],
@@ -422,8 +426,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'requered_label',
 			[
-				'label'     => esc_html__( 'Required Label Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Required Label Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_body .gfield .gfield_label .gfield_required' => 'color: {{VALUE}}',
 				],
@@ -469,7 +473,7 @@ class GravityForms extends Widget_Base {
 					'size' => 100,
 				],
 				'range'      => [
-					'%' => [
+					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
@@ -488,10 +492,10 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'submit_btn_position',
 			[
-				'label'                => esc_html__( 'Submit Button Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'options'              => [
-					'left' => [
+				'label'   => esc_html__( 'Submit Button Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
+					'left'   => [
 						'title' => __( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
@@ -499,21 +503,21 @@ class GravityForms extends Widget_Base {
 						'title' => __( 'Center', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-center',
 					],
-					'right' => [
+					'right'  => [
 						'title' => __( 'Right', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'condition'            => [
+				'condition' => [
 					'submit_btn_width' => '',
 				],
-				'default'              => 'left',
+				'default' => 'left',
 				'selectors_dictionary' => [
 					'left'   => 'justify-content: flex-start; text-align: left;',
 					'center' => 'justify-content: center; text-align: center;',
 					'right'  => 'justify-content: flex-end; text-align: right;',
 				],
-				'selectors'            => [
+				'selectors' => [
 					'{{WRAPPER}} .gform_wrapper .gform_footer' => '{{Value}};',
 					'{{WRAPPER}}.elementor-widget-sky-gravity-forms .gform_wrapper .gform_footer' => '{{Value}};',
 				],
@@ -598,9 +602,9 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'submit_color',
 			[
-				'label'     => esc_html__( 'Submit Button Text Color (Normal)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '',
+				'label'   => esc_html__( 'Submit Button Text Color (Normal)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .gform_wrapper .gform_button' => 'color: {{VALUE}};',
 					'{{WRAPPER}}.elementor-widget-sky-gravity-forms .gform_wrapper input[type="submit"].gform_button' => 'color: {{VALUE}};',
@@ -630,8 +634,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_color',
 			[
-				'label'     => esc_html__( 'Submit Button Text Color (Hover)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Submit Button Text Color (Hover)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_wrapper .gform_button:hover' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .gform_wrapper .gform_button:focus' => 'color: {{VALUE}};',
@@ -654,8 +658,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label'     => esc_html__( 'Submit Button Border Color (Hover)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Submit Button Border Color (Hover)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_wrapper .gform_button:hover' => 'border-color: {{VALUE}};',
 					'{{WRAPPER}} .gform_wrapper .gform_button:focus' => 'border-color: {{VALUE}};',
@@ -724,8 +728,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'section_break_title_color',
 			[
-				'label'     => esc_html__( 'Section Break Title Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Section Break Title Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gsection .gsection_title' => 'color: {{VALUE}};',
 				],
@@ -744,8 +748,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'section_break_description_color',
 			[
-				'label'     => esc_html__( 'Section Break Description Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Section Break Description Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gsection .gsection_description' => 'color: {{VALUE}};',
 				],
@@ -841,9 +845,9 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'page_break_color',
 			[
-				'label'     => esc_html__( 'Page Break Button Text Color (Normal)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '',
+				'label'   => esc_html__( 'Page Break Button Text Color (Normal)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .gform_next_button.button' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .gform_previous_button.button' => 'color: {{VALUE}};',
@@ -873,8 +877,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'page_break_hover_color',
 			[
-				'label'     => esc_html__( 'Page Break Button Text Color (Hover)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Page Break Button Text Color (Hover)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_next_button.button:hover' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .gform_next_button.button:focus' => 'color: {{VALUE}};',
@@ -897,8 +901,8 @@ class GravityForms extends Widget_Base {
 		$this->add_control(
 			'page_break_hover_border_color',
 			[
-				'label'     => esc_html__( 'Page Break Button Border Color (Hover)', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Page Break Button Border Color (Hover)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .gform_next_button.button:hover' => 'border-color: {{VALUE}};',
 					'{{WRAPPER}} .gform_next_button.button:focus' => 'border-color: {{VALUE}};',
@@ -976,7 +980,7 @@ class GravityForms extends Widget_Base {
 		}
 
 		$settings = $this->get_settings_for_display();
-		$ajax = false;
+		$ajax     = false;
 		if ( 'yes' === $settings['ajax'] ) {
 			$ajax = true;
 		}

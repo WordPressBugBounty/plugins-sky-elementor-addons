@@ -11,7 +11,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Cf7 extends Widget_Base {
@@ -38,6 +38,10 @@ class Cf7 extends Widget_Base {
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/forms/contact-form-7/';
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -113,9 +117,9 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_width',
 			[
-				'label'          => __( 'Field Width', 'sky-elementor-addons' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
+				'label'      => __( 'Field Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'default' => [
 					'unit' => '%',
 				],
 				'tablet_default' => [
@@ -124,9 +128,9 @@ class Cf7 extends Widget_Base {
 				'mobile_default' => [
 					'unit' => '%',
 				],
-				'size_units'     => [ '%', 'px' ],
-				'range'          => [
-					'%' => [
+				'size_units' => [ '%', 'px' ],
+				'range' => [
+					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
@@ -135,7 +139,7 @@ class Cf7 extends Widget_Base {
 						'max' => 500,
 					],
 				],
-				'selectors'      => [
+				'selectors' => [
 					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .sky-cf7-form label' => 'width: {{SIZE}}{{UNIT}};',
 				],
@@ -226,8 +230,8 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'field_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'color: {{VALUE}}',
 				],
@@ -237,8 +241,8 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label'     => __( 'Placeholder Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Placeholder Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
@@ -374,8 +378,8 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} label' => 'color: {{VALUE}}',
 				],
@@ -475,9 +479,9 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'submit_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '',
+				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit' => 'color: {{VALUE}};',
 				],
@@ -506,8 +510,8 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'submit_hover_color',
 			[
-				'label'     => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'color: {{VALUE}};',
 				],
@@ -527,8 +531,8 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label'     => __( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => __( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'border-color: {{VALUE}};',
 				],

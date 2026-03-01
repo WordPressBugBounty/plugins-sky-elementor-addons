@@ -9,7 +9,7 @@ use Elementor\Widget_Base;
 use Sky_Addons\Modules\ReadingProgress\Skins;
 
 if ( ! defined( 'ABSPATH' ) ) {
-		exit; // Exit if accessed directly
+		exit;
 }
 
 class Reading_Progress extends Widget_Base {
@@ -46,6 +46,10 @@ class Reading_Progress extends Widget_Base {
 			$this->add_skin( new Skins\Skin_With_Cursor( $this ) );
 	}
 
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
+	}
+
 	protected function register_controls() {
 
 			$this->start_controls_section(
@@ -68,7 +72,7 @@ class Reading_Progress extends Widget_Base {
 						],
 					],
 					'selectors'   => [
-						'{{WRAPPER}} .elementor-widget-container' => '--sky-reading-progress-size: {{SIZE}}px;',
+						'{{WRAPPER}}' => '--sky-reading-progress-size: {{SIZE}}px;',
 					],
 					'separator'   => 'before',
 					'render_type' => 'template',
@@ -78,21 +82,21 @@ class Reading_Progress extends Widget_Base {
 			$this->add_control(
 				'position',
 				[
-					'label'                => esc_html__( 'Select Position', 'sky-elementor-addons' ),
-					'type'                 => Controls_Manager::SELECT,
-					'default'              => 'top',
-					'options'              => [
+					'label'   => esc_html__( 'Select Position', 'sky-elementor-addons' ),
+					'type'    => Controls_Manager::SELECT,
+					'default' => 'top',
+					'options' => [
 						'top'    => esc_html__( 'Top', 'sky-elementor-addons' ),
 						'bottom' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
 					],
-					'selectors'            => [
+					'selectors' => [
 						'{{WRAPPER}} .sa-reading-progress.sa-skin-default' => '{{VALUE}};',
 					],
 					'selectors_dictionary' => [
 						'top'    => 'bottom: unset; top: 0;',
 						'bottom' => 'top: unset !important; bottom: 0;',
 					],
-					'condition'            => [
+					'condition' => [
 						'_skin' => [ '' ],
 					],
 				]
@@ -101,22 +105,22 @@ class Reading_Progress extends Widget_Base {
 			$this->add_control(
 				'fancy_reading_position',
 				[
-					'label'                => esc_html__( 'Select Position', 'sky-elementor-addons' ),
-					'type'                 => Controls_Manager::SELECT,
-					'default'              => 'left',
-					'options'              => [
+					'label'        => esc_html__( 'Select Position', 'sky-elementor-addons' ),
+					'type'         => Controls_Manager::SELECT,
+					'default'      => 'left',
+					'options' => [
 						'left'  => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'right' => esc_html__( 'Right', 'sky-elementor-addons' ),
 					],
-					'prefix_class'         => 'sa-fancy-reading-position-',
-					'selectors'            => [
+					'prefix_class' => 'sa-fancy-reading-position-',
+					'selectors' => [
 						'{{WRAPPER}} .sa-reading-progress.sa-skin-fancy-vertical' => '{{VALUE}};',
 					],
 					'selectors_dictionary' => [
 						'left'  => 'right: unset; left: var(--sky-rp-fancy-spacing, 2vw);',
 						'right' => 'right: var(--sky-rp-fancy-spacing, 2vw); left:unset;',
 					],
-					'condition'            => [
+					'condition' => [
 						'_skin' => [ 'sky-skin-fancy-vertical' ],
 					],
 				]
@@ -146,17 +150,17 @@ class Reading_Progress extends Widget_Base {
 			$this->add_control(
 				'scroll_top_position',
 				[
-					'label'                => esc_html__( 'Position', 'sky-elementor-addons' ),
-					'type'                 => Controls_Manager::SELECT,
-					'default'              => '2',
-					'options'              => [
+					'label'        => esc_html__( 'Position', 'sky-elementor-addons' ),
+					'type'         => Controls_Manager::SELECT,
+					'default'      => '2',
+					'options' => [
 						'1' => esc_html__( 'Right top', 'sky-elementor-addons' ),
 						'2' => esc_html__( 'Right Bottom', 'sky-elementor-addons' ),
 						'3' => esc_html__( 'Left Top', 'sky-elementor-addons' ),
 						'4' => esc_html__( 'Left Bottom', 'sky-elementor-addons' ),
 					],
-					'prefix_class'         => 'sa-fancy-reading-position-',
-					'selectors'            => [
+					'prefix_class' => 'sa-fancy-reading-position-',
+					'selectors' => [
 						'{{WRAPPER}} .sa-reading-progress.sa-skin-scroll-top' => '{{VALUE}};',
 					],
 					'selectors_dictionary' => [
@@ -165,13 +169,13 @@ class Reading_Progress extends Widget_Base {
 						'3' => 'left: 50px; top: 50px; right:unset; bottom:unset;',
 						'4' => 'left: 50px; right:unset;',
 					],
-					'condition'            => [
+					'condition' => [
 						'_skin' => [ 'sky-skin-scroll-top' ],
 					],
 				]
 			);
 
-			// start offset
+			// start offset.
 			$this->add_control(
 				'reading_progress_offset_popover',
 				[
@@ -197,9 +201,9 @@ class Reading_Progress extends Widget_Base {
 			$this->add_responsive_control(
 				'reading_progress_horizontal_offset',
 				[
-					'label'          => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
-					'type'           => Controls_Manager::SLIDER,
-					'default'        => [
+					'label'       => esc_html__( 'Horizontal Offset', 'sky-elementor-addons' ),
+					'type'        => Controls_Manager::SLIDER,
+					'default' => [
 						'size' => 0,
 					],
 					'tablet_default' => [
@@ -208,17 +212,17 @@ class Reading_Progress extends Widget_Base {
 					'mobile_default' => [
 						'size' => 0,
 					],
-					'range'          => [
+					'range' => [
 						'px' => [
 							'min' => -100,
 							'max' => 100,
 						],
 					],
-					'render_type'    => 'ui',
-					'condition'      => [
+					'render_type' => 'ui',
+					'condition' => [
 						'reading_progress_offset_popover' => 'yes',
 					],
-					'selectors'      => [
+					'selectors' => [
 						'{{WRAPPER}} .sa-reading-progress' => '--sky-media-h-offset: {{SIZE}}px;',
 					],
 				]
@@ -227,9 +231,9 @@ class Reading_Progress extends Widget_Base {
 			$this->add_responsive_control(
 				'reading_progress_vertical_offset',
 				[
-					'label'          => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
-					'type'           => Controls_Manager::SLIDER,
-					'default'        => [
+					'label'       => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ),
+					'type'        => Controls_Manager::SLIDER,
+					'default' => [
 						'size' => 0,
 					],
 					'tablet_default' => [
@@ -238,17 +242,17 @@ class Reading_Progress extends Widget_Base {
 					'mobile_default' => [
 						'size' => 0,
 					],
-					'range'          => [
+					'range' => [
 						'px' => [
 							'min' => -100,
 							'max' => 100,
 						],
 					],
-					'render_type'    => 'ui',
-					'condition'      => [
+					'render_type' => 'ui',
+					'condition' => [
 						'reading_progress_offset_popover' => 'yes',
 					],
-					'selectors'      => [
+					'selectors' => [
 						'{{WRAPPER}} .sa-reading-progress' => '--sky-media-v-offset: {{SIZE}}px;',
 					],
 				]
@@ -337,8 +341,8 @@ class Reading_Progress extends Widget_Base {
 			$this->start_controls_section(
 				'section_perc_style',
 				[
-					'label'     => esc_html__( 'Percentage', 'sky-elementor-addons' ),
-					'tab'       => Controls_Manager::TAB_STYLE,
+					'label' => esc_html__( 'Percentage', 'sky-elementor-addons' ),
+					'tab'   => Controls_Manager::TAB_STYLE,
 					'condition' => [
 						'_skin' => [ 'sky-skin-fancy-horizontal', 'sky-skin-fancy-vertical' ],
 					],
@@ -348,8 +352,8 @@ class Reading_Progress extends Widget_Base {
 			$this->add_control(
 				'perc_value_color',
 				[
-					'label'     => esc_html__( 'Value Color', 'sky-elementor-addons' ),
-					'type'      => Controls_Manager::COLOR,
+					'label' => esc_html__( 'Value Color', 'sky-elementor-addons' ),
+					'type'  => Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}}' => '--sky-rp-perc-value-color: {{VALUE}}',
 					],
@@ -359,8 +363,8 @@ class Reading_Progress extends Widget_Base {
 			$this->add_control(
 				'perc_color',
 				[
-					'label'     => esc_html__( 'Percentage Color', 'sky-elementor-addons' ),
-					'type'      => Controls_Manager::COLOR,
+					'label' => esc_html__( 'Percentage Color', 'sky-elementor-addons' ),
+					'type'  => Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}}' => '--sky-rp-perc-color: {{VALUE}}',
 					],
@@ -381,12 +385,12 @@ class Reading_Progress extends Widget_Base {
 
 	public function render() {
 			$settings = $this->get_settings_for_display();
-			$id = 'sa-reading-progress-' . $this->get_id();
+			$id       = 'sa-reading-progress-' . $this->get_id();
 			$this->add_render_attribute(
 				[
 					'reading-progress' => [
-						'id'            => $id,
-						'class'         => 'sa-reading-progress sa-skin-default',
+						'id'    => $id,
+						'class' => 'sa-reading-progress sa-skin-default',
 						'data-settings' => [
 							wp_json_encode(
 								[

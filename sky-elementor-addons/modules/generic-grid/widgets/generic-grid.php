@@ -17,7 +17,7 @@ use Sky_Addons\Traits\Global_Widget_Functions;
 use Sky_Addons\Traits\Global_Widget_Controls;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Generic_Grid extends Widget_Base {
@@ -57,6 +57,10 @@ class Generic_Grid extends Widget_Base {
 
 	public function get_query() {
 		return $this->_query;
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_optimized_markup' );
 	}
 
 	protected function register_controls() {
@@ -138,9 +142,9 @@ class Generic_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => esc_html__( 'Alignment', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
+				'label'   => esc_html__( 'Alignment', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
 					'left'    => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-text-align-left',
@@ -158,8 +162,8 @@ class Generic_Grid extends Widget_Base {
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
-				'default'   => 'center',
-				'toggle'    => false,
+				'default' => 'center',
+				'toggle'  => false,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-item' => 'text-align: {{VALUE}};',
 					'{{WRAPPER}} .sa-post-meta' => 'justify-content: {{VALUE}};',
@@ -211,10 +215,10 @@ class Generic_Grid extends Widget_Base {
 		$this->add_control(
 			'title_tag',
 			[
-				'label'     => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
+				'label'   => esc_html__( 'Title HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -265,9 +269,9 @@ class Generic_Grid extends Widget_Base {
 		$this->add_control(
 			'strip_shortcode',
 			[
-				'label'     => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
+				'label'   => esc_html__( 'Strip ShortCode', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 				'condition' => [
 					'show_excerpt' => 'yes',
 				],
@@ -314,8 +318,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_video_settings',
 			[
-				'label'     => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_CONTENT,
+				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -363,8 +367,8 @@ class Generic_Grid extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name'           => 'item_border',
-				'label'          => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'name'     => 'item_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'fields_options' => [
 					'border' => [
 						'default' => 'solid',
@@ -383,7 +387,7 @@ class Generic_Grid extends Widget_Base {
 						'default' => '#eaeaea',
 					],
 				],
-				'selector'       => '{{WRAPPER}} .sa-post-item',
+				'selector' => '{{WRAPPER}} .sa-post-item',
 			]
 		);
 
@@ -468,8 +472,8 @@ class Generic_Grid extends Widget_Base {
 		$this->add_control(
 			'item_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-item:hover' => 'border-color: {{VALUE}};',
 				],
@@ -488,8 +492,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'section_image_style',
 			[
-				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_image' => 'yes',
 				],
@@ -581,8 +585,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'     => esc_html__( 'Title', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title' => 'yes',
 				],
@@ -633,8 +637,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'section_category_style',
 			[
-				'label'     => esc_html__( 'Category', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Category', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_category' => 'yes',
 				],
@@ -688,8 +692,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label'      => esc_html__( 'Meta', 'sky-elementor-addons' ),
-				'tab'        => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
 					'terms'    => [
@@ -709,10 +713,10 @@ class Generic_Grid extends Widget_Base {
 		$this->add_responsive_control(
 			'meta_position',
 			[
-				'label'                => esc_html__( 'Position', 'sky-elementor-addons' ),
-				'type'                 => Controls_Manager::CHOOSE,
-				'options'              => [
-					'top_left' => [
+				'label'   => esc_html__( 'Position', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::CHOOSE,
+				'options' => [
+					'top_left'  => [
 						'title' => esc_html__( 'Top Left', 'sky-elementor-addons' ),
 						'icon'  => 'eicon-h-align-left',
 					],
@@ -721,8 +725,8 @@ class Generic_Grid extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default'              => 'center',
-				'selectors'            => [
+				'default' => 'center',
+				'selectors' => [
 					'{{WRAPPER}} .sa-post-meta' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
@@ -786,8 +790,8 @@ class Generic_Grid extends Widget_Base {
 		$this->add_control(
 			'meta_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-day' => 'color: {{VALUE}}',
 				],
@@ -824,8 +828,8 @@ class Generic_Grid extends Widget_Base {
 		$this->add_control(
 			'month_color',
 			[
-				'label'     => esc_html__( 'Color', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-month' => 'color: {{VALUE}}',
 				],
@@ -864,8 +868,8 @@ class Generic_Grid extends Widget_Base {
 		$this->start_controls_section(
 			'play_btn_style',
 			[
-				'label'     => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_video' => 'yes',
 				],
@@ -926,11 +930,11 @@ class Generic_Grid extends Widget_Base {
 		$args = [];
 		if ( $posts_per_page ) {
 			$args['posts_per_page'] = $posts_per_page;
-			$args['paged']  = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
 		}
 
 		$default = $this->getGroupControlQueryArgs();
-		$args = array_merge( $default, $args );
+		$args    = array_merge( $default, $args );
 
 		$this->_query = new \WP_Query( $args );
 	}

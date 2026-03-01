@@ -5,7 +5,7 @@ namespace Sky_Addons\Modules\ReadingProgress\Skins;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 class Skin_Fancy_Vertical extends Elementor_Skin_Base {

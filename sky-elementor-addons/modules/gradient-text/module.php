@@ -69,19 +69,19 @@ class Module extends Module_Base {
 		$widget->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name'           => 'sky_gr_background',
-				'label'          => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'name'        => 'sky_gr_background',
+				'label'       => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'fields_options' => [
 					'background' => [
 						'label'   => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 						'default' => 'gradient',
 					],
 				],
-				'render_type'    => 'template',
-				'condition'      => [
+				'render_type' => 'template',
+				'condition' => [
 					'sky_gr_enable' => 'yes',
 				],
-				'selector'       => $this->get_wrapped_selectors(),
+				'selector'    => $this->get_wrapped_selectors(),
 			]
 		);
 
