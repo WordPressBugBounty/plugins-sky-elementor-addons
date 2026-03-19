@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sky Addons for Elementor 3.2.4\n"
+"Project-Id-Version: Sky Addons for Elementor 3.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sky-elementor-addons\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-01T19:11:56+00:00\n"
+"POT-Creation-Date: 2026-03-19T18:07:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: sky-elementor-addons\n"
@@ -44,134 +44,6 @@ msgstr ""
 #: plugin.php:54
 #: plugin.php:65
 msgid "Cheatin&#8217; huh?"
-msgstr ""
-
-#: dci/deactivate-feedback.php:48
-msgid "Give feedback"
-msgstr ""
-
-#: dci/deactivate-feedback.php:50
-msgid "Goodbyes are never easy. If you have a moment, please share your feedback on how we can improve."
-msgstr ""
-
-#: dci/deactivate-feedback.php:76
-msgid "Switching Domain"
-msgstr ""
-
-#: dci/deactivate-feedback.php:99
-msgid "Couldn't understand"
-msgstr ""
-
-#: dci/deactivate-feedback.php:146
-msgid "Found a better plugin"
-msgstr ""
-
-#: dci/deactivate-feedback.php:163
-msgid "Missing a specific feature"
-msgstr ""
-
-#: dci/deactivate-feedback.php:201
-msgid "Not working"
-msgstr ""
-
-#: dci/deactivate-feedback.php:225
-msgid "Others"
-msgstr ""
-
-#: dci/deactivate-feedback.php:233
-msgid "What is the main reason for deactivating?"
-msgstr ""
-
-#: dci/deactivate-feedback.php:239
-msgid "Skip & Deactivate"
-msgstr ""
-
-#: dci/deactivate-feedback.php:243
-msgid "Cancel"
-msgstr ""
-
-#: dci/deactivate-feedback.php:248
-msgid "Submit & Deactivate"
-msgstr ""
-
-#: dci/insights.php:655
-msgid "Learn More"
-msgstr ""
-
-#: dci/insights.php:664
-msgid "Yes, I'd Love To Contribute"
-msgstr ""
-
-#: dci/insights.php:667
-msgid "Skip For Now"
-msgstr ""
-
-#: dci/insights.php:670
-msgid "No Thanks"
-msgstr ""
-
-#: dci/insights.php:705
-msgid "What we"
-msgstr ""
-
-#: dci/insights.php:706
-msgid "collect"
-msgstr ""
-
-#: dci/insights.php:714
-msgid "Allow"
-msgstr ""
-
-#: dci/insights.php:717
-msgid "I'll Skip For Now"
-msgstr ""
-
-#: dci/insights.php:720
-msgid "Don't Allow"
-msgstr ""
-
-#: dci/notice.php:21
-msgid "Never miss an important update."
-msgstr ""
-
-#: dci/notice.php:24
-msgid "Get notified when there are new updates available for your plugins and themes. In the current version of this message it is clear that you are being sent a confirmation email to confirm your opt-in."
-msgstr ""
-
-#: dci/notice.php:42
-msgid "Allow & Continue"
-msgstr ""
-
-#: dci/notice.php:46
-msgid "Skip"
-msgstr ""
-
-#: dci/notice.php:52
-msgid "Which permission are being granted?"
-msgstr ""
-
-#: dci/notice.php:64
-msgid "View Basic Profile Info."
-msgstr ""
-
-#: dci/notice.php:67
-msgid "Your WordPress user's first & last name, and email address."
-msgstr ""
-
-#: dci/notice.php:79
-msgid "View Basic Website Info."
-msgstr ""
-
-#: dci/notice.php:82
-msgid "Homepage URL & title, WP & PHP versions, and site language."
-msgstr ""
-
-#: dci/notice.php:94
-msgid "View Basic Plugin Info."
-msgstr ""
-
-#: dci/notice.php:97
-msgid "Current Plugin & SDK versions, and if active or uninstalled."
 msgstr ""
 
 #: includes/admin.php:62
@@ -1961,7 +1833,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:190
 #: modules/generic-carousel/widgets/generic-carousel.php:189
 #: modules/generic-grid/widgets/generic-grid.php:218
-#: modules/glory-slider/widgets/glory-slider.php:523
+#: modules/glory-slider/widgets/glory-slider.php:574
 #: modules/image-compare/widgets/image-compare.php:255
 #: modules/info-box/widgets/info-box.php:221
 #: modules/list-group/widgets/list-group.php:314
@@ -2089,7 +1961,8 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:599
 #: modules/generic-grid/widgets/generic-grid.php:651
 #: modules/generic-grid/widgets/generic-grid.php:742
-#: modules/glory-slider/widgets/glory-slider.php:779
+#: modules/glory-slider/widgets/glory-slider.php:871
+#: modules/glory-slider/widgets/glory-slider.php:1214
 #: modules/image-compare/widgets/image-compare.php:660
 #: modules/info-box/widgets/info-box.php:480
 #: modules/list-group/widgets/list-group.php:505
@@ -2186,8 +2059,9 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:559
 #: modules/generic-grid/widgets/generic-grid.php:371
 #: modules/generic-grid/widgets/generic-grid.php:549
-#: modules/glory-slider/widgets/glory-slider.php:889
-#: modules/glory-slider/widgets/glory-slider.php:1056
+#: modules/glory-slider/widgets/glory-slider.php:981
+#: modules/glory-slider/widgets/glory-slider.php:1148
+#: modules/glory-slider/widgets/glory-slider.php:1245
 #: modules/image-compare/widgets/image-compare.php:595
 #: modules/image-compare/widgets/image-compare.php:755
 #: modules/info-box/widgets/info-box.php:678
@@ -2304,8 +2178,10 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:567
 #: modules/generic-grid/widgets/generic-grid.php:397
 #: modules/generic-grid/widgets/generic-grid.php:557
-#: modules/glory-slider/widgets/glory-slider.php:897
-#: modules/glory-slider/widgets/glory-slider.php:1064
+#: modules/glory-slider/widgets/glory-slider.php:989
+#: modules/glory-slider/widgets/glory-slider.php:1156
+#: modules/glory-slider/widgets/glory-slider.php:1302
+#: modules/glory-slider/widgets/glory-slider.php:1377
 #: modules/image-compare/widgets/image-compare.php:603
 #: modules/image-compare/widgets/image-compare.php:763
 #: modules/info-box/widgets/info-box.php:686
@@ -2460,10 +2336,12 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:429
 #: modules/generic-grid/widgets/generic-grid.php:457
 #: modules/generic-grid/widgets/generic-grid.php:773
-#: modules/glory-slider/widgets/glory-slider.php:732
-#: modules/glory-slider/widgets/glory-slider.php:809
-#: modules/glory-slider/widgets/glory-slider.php:930
-#: modules/glory-slider/widgets/glory-slider.php:978
+#: modules/glory-slider/widgets/glory-slider.php:824
+#: modules/glory-slider/widgets/glory-slider.php:901
+#: modules/glory-slider/widgets/glory-slider.php:1022
+#: modules/glory-slider/widgets/glory-slider.php:1070
+#: modules/glory-slider/widgets/glory-slider.php:1275
+#: modules/glory-slider/widgets/glory-slider.php:1336
 #: modules/gradient-text/module.php:73
 #: modules/gravity-forms/widgets/gravity-forms.php:276
 #: modules/gravity-forms/widgets/gravity-forms.php:318
@@ -2625,8 +2503,10 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:439
 #: modules/generic-grid/widgets/generic-grid.php:467
 #: modules/generic-grid/widgets/generic-grid.php:570
-#: modules/glory-slider/widgets/glory-slider.php:949
-#: modules/glory-slider/widgets/glory-slider.php:1011
+#: modules/glory-slider/widgets/glory-slider.php:1041
+#: modules/glory-slider/widgets/glory-slider.php:1103
+#: modules/glory-slider/widgets/glory-slider.php:1294
+#: modules/glory-slider/widgets/glory-slider.php:1369
 #: modules/image-compare/widgets/image-compare.php:776
 #: modules/info-box/widgets/info-box.php:739
 #: modules/info-box/widgets/info-box.php:1217
@@ -2733,7 +2613,8 @@ msgstr ""
 #: modules/fluent-form/widgets/fluent-form.php:582
 #: modules/generic-carousel/widgets/generic-carousel.php:459
 #: modules/generic-grid/widgets/generic-grid.php:449
-#: modules/glory-slider/widgets/glory-slider.php:959
+#: modules/glory-slider/widgets/glory-slider.php:1051
+#: modules/glory-slider/widgets/glory-slider.php:1316
 #: modules/gravity-forms/widgets/gravity-forms.php:630
 #: modules/gravity-forms/widgets/gravity-forms.php:873
 #: modules/info-box/widgets/info-box.php:815
@@ -2812,7 +2693,8 @@ msgstr ""
 #: modules/fluent-form/widgets/fluent-form.php:611
 #: modules/generic-carousel/widgets/generic-carousel.php:485
 #: modules/generic-grid/widgets/generic-grid.php:475
-#: modules/glory-slider/widgets/glory-slider.php:987
+#: modules/glory-slider/widgets/glory-slider.php:1079
+#: modules/glory-slider/widgets/glory-slider.php:1345
 #: modules/info-box/widgets/info-box.php:837
 #: modules/info-box/widgets/info-box.php:1255
 #: modules/list-group/widgets/list-group.php:450
@@ -2906,8 +2788,8 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:853
 #: modules/generic-grid/widgets/generic-grid.php:805
 #: modules/generic-grid/widgets/generic-grid.php:843
-#: modules/glory-slider/widgets/glory-slider.php:742
-#: modules/glory-slider/widgets/glory-slider.php:819
+#: modules/glory-slider/widgets/glory-slider.php:834
+#: modules/glory-slider/widgets/glory-slider.php:911
 #: modules/image-compare/widgets/image-compare.php:565
 #: modules/image-compare/widgets/image-compare.php:828
 #: modules/image-compare/widgets/image-compare.php:889
@@ -3006,10 +2888,12 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:862
 #: modules/generic-grid/widgets/generic-grid.php:814
 #: modules/generic-grid/widgets/generic-grid.php:852
-#: modules/glory-slider/widgets/glory-slider.php:763
-#: modules/glory-slider/widgets/glory-slider.php:840
-#: modules/glory-slider/widgets/glory-slider.php:940
-#: modules/glory-slider/widgets/glory-slider.php:1002
+#: modules/glory-slider/widgets/glory-slider.php:855
+#: modules/glory-slider/widgets/glory-slider.php:932
+#: modules/glory-slider/widgets/glory-slider.php:1032
+#: modules/glory-slider/widgets/glory-slider.php:1094
+#: modules/glory-slider/widgets/glory-slider.php:1285
+#: modules/glory-slider/widgets/glory-slider.php:1360
 #: modules/image-compare/widgets/image-compare.php:837
 #: modules/image-compare/widgets/image-compare.php:898
 #: modules/info-box/widgets/info-box.php:992
@@ -3111,10 +2995,11 @@ msgstr ""
 #: modules/generic-grid/widgets/generic-grid.php:347
 #: modules/generic-grid/widgets/generic-grid.php:524
 #: modules/generic-grid/widgets/generic-grid.php:760
-#: modules/glory-slider/widgets/glory-slider.php:750
-#: modules/glory-slider/widgets/glory-slider.php:827
-#: modules/glory-slider/widgets/glory-slider.php:876
-#: modules/glory-slider/widgets/glory-slider.php:1033
+#: modules/glory-slider/widgets/glory-slider.php:842
+#: modules/glory-slider/widgets/glory-slider.php:919
+#: modules/glory-slider/widgets/glory-slider.php:968
+#: modules/glory-slider/widgets/glory-slider.php:1125
+#: modules/glory-slider/widgets/glory-slider.php:1232
 #: modules/image-compare/widgets/image-compare.php:614
 #: modules/image-compare/widgets/image-compare.php:720
 #: modules/image-compare/widgets/image-compare.php:815
@@ -3217,7 +3102,8 @@ msgstr ""
 #: modules/fluent-form/widgets/fluent-form.php:551
 #: modules/generic-carousel/widgets/generic-carousel.php:431
 #: modules/generic-grid/widgets/generic-grid.php:421
-#: modules/glory-slider/widgets/glory-slider.php:911
+#: modules/glory-slider/widgets/glory-slider.php:1003
+#: modules/glory-slider/widgets/glory-slider.php:1255
 #: modules/gravity-forms/widgets/gravity-forms.php:244
 #: modules/gravity-forms/widgets/gravity-forms.php:598
 #: modules/gravity-forms/widgets/gravity-forms.php:841
@@ -3314,6 +3200,8 @@ msgstr ""
 #: modules/generic-carousel/widgets/generic-carousel.php:841
 #: modules/generic-grid/widgets/generic-grid.php:793
 #: modules/generic-grid/widgets/generic-grid.php:831
+#: modules/glory-slider/widgets/glory-slider.php:1262
+#: modules/glory-slider/widgets/glory-slider.php:1323
 #: modules/list-group/widgets/list-group.php:590
 #: modules/list-group/widgets/list-group.php:623
 #: modules/list-group/widgets/list-group.php:681
@@ -3364,6 +3252,7 @@ msgstr ""
 #: modules/dual-button/widgets/dual-button.php:1131
 #: modules/fellow-slider/widgets/fellow-slider.php:1067
 #: modules/fellow-slider/widgets/fellow-slider.php:1178
+#: modules/glory-slider/widgets/glory-slider.php:1196
 #: modules/list-group/widgets/list-group.php:487
 #: modules/list-group/widgets/list-group.php:780
 #: modules/mate-carousel/widgets/mate-carousel.php:832
@@ -3448,7 +3337,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:123
 #: modules/generic-carousel/widgets/generic-carousel.php:120
 #: modules/generic-grid/widgets/generic-grid.php:149
-#: modules/glory-slider/widgets/glory-slider.php:572
+#: modules/glory-slider/widgets/glory-slider.php:623
 #: modules/gravity-forms/widgets/gravity-forms.php:499
 #: modules/image-compare/widgets/image-compare.php:198
 #: modules/image-compare/widgets/image-compare.php:683
@@ -3512,7 +3401,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:127
 #: modules/generic-carousel/widgets/generic-carousel.php:124
 #: modules/generic-grid/widgets/generic-grid.php:153
-#: modules/glory-slider/widgets/glory-slider.php:576
+#: modules/glory-slider/widgets/glory-slider.php:627
 #: modules/gravity-forms/widgets/gravity-forms.php:503
 #: modules/image-compare/widgets/image-compare.php:202
 #: modules/image-compare/widgets/image-compare.php:687
@@ -3569,7 +3458,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:131
 #: modules/generic-carousel/widgets/generic-carousel.php:128
 #: modules/generic-grid/widgets/generic-grid.php:157
-#: modules/glory-slider/widgets/glory-slider.php:580
+#: modules/glory-slider/widgets/glory-slider.php:631
 #: modules/gravity-forms/widgets/gravity-forms.php:507
 #: modules/image-compare/widgets/image-compare.php:206
 #: modules/image-compare/widgets/image-compare.php:691
@@ -3626,7 +3515,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:135
 #: modules/generic-carousel/widgets/generic-carousel.php:132
 #: modules/generic-grid/widgets/generic-grid.php:161
-#: modules/glory-slider/widgets/glory-slider.php:584
+#: modules/glory-slider/widgets/glory-slider.php:635
 #: modules/info-box/widgets/info-box.php:315
 #: modules/info-box/widgets/info-box.php:413
 #: modules/logo-carousel/widgets/logo-carousel.php:757
@@ -4188,14 +4077,14 @@ msgstr ""
 #: modules/card/widgets/card.php:224
 #: modules/generic-carousel/widgets/generic-carousel.php:730
 #: modules/generic-grid/widgets/generic-grid.php:720
-#: modules/glory-slider/widgets/glory-slider.php:540
+#: modules/glory-slider/widgets/glory-slider.php:591
 #: modules/step-flow/widgets/step-flow.php:153
 msgid "Top Left"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:252
 #: modules/card/widgets/card.php:225
-#: modules/glory-slider/widgets/glory-slider.php:541
+#: modules/glory-slider/widgets/glory-slider.php:592
 #: modules/step-flow/widgets/step-flow.php:157
 msgid "Top Center"
 msgstr ""
@@ -4204,7 +4093,7 @@ msgstr ""
 #: modules/card/widgets/card.php:226
 #: modules/generic-carousel/widgets/generic-carousel.php:734
 #: modules/generic-grid/widgets/generic-grid.php:724
-#: modules/glory-slider/widgets/glory-slider.php:542
+#: modules/glory-slider/widgets/glory-slider.php:593
 #: modules/step-flow/widgets/step-flow.php:154
 msgid "Top Right"
 msgstr ""
@@ -4226,21 +4115,21 @@ msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:257
 #: modules/card/widgets/card.php:230
-#: modules/glory-slider/widgets/glory-slider.php:543
+#: modules/glory-slider/widgets/glory-slider.php:594
 #: modules/step-flow/widgets/step-flow.php:155
 msgid "Bottom Left"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:258
 #: modules/card/widgets/card.php:231
-#: modules/glory-slider/widgets/glory-slider.php:544
+#: modules/glory-slider/widgets/glory-slider.php:595
 #: modules/step-flow/widgets/step-flow.php:158
 msgid "Bottom Center"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:259
 #: modules/card/widgets/card.php:232
-#: modules/glory-slider/widgets/glory-slider.php:545
+#: modules/glory-slider/widgets/glory-slider.php:596
 #: modules/step-flow/widgets/step-flow.php:156
 msgid "Bottom Right"
 msgstr ""
@@ -4290,7 +4179,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:181
 #: modules/generic-carousel/widgets/generic-carousel.php:180
 #: modules/generic-grid/widgets/generic-grid.php:209
-#: modules/glory-slider/widgets/glory-slider.php:513
+#: modules/glory-slider/widgets/glory-slider.php:564
 #: modules/luster-carousel/widgets/luster-carousel.php:175
 #: modules/luster-grid/widgets/luster-grid.php:182
 #: modules/mate-carousel/widgets/mate-carousel.php:208
@@ -4349,6 +4238,7 @@ msgid "Show Button / Link"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:392
+#: modules/glory-slider/widgets/glory-slider.php:554
 #: modules/mate-slider/widgets/mate-slider.php:429
 #: modules/stellar-slider/widgets/stellar-slider.php:641
 #: traits/global-swiper-controls.php:28
@@ -4437,6 +4327,7 @@ msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:494
 #: modules/fellow-slider/widgets/fellow-slider.php:311
+#: modules/glory-slider/widgets/glory-slider.php:513
 #: modules/mate-slider/widgets/mate-slider.php:349
 #: modules/stellar-slider/widgets/stellar-slider.php:560
 #: traits/global-swiper-controls.php:784
@@ -4445,6 +4336,7 @@ msgid "Autoplay"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:503
+#: modules/glory-slider/widgets/glory-slider.php:523
 #: modules/stellar-slider/widgets/stellar-slider.php:569
 msgid "Autoplay Speed (sec)"
 msgstr ""
@@ -4452,6 +4344,7 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:525
 #: modules/animated-heading/widgets/animated-heading.php:201
 #: modules/fellow-slider/widgets/fellow-slider.php:341
+#: modules/glory-slider/widgets/glory-slider.php:545
 #: modules/mate-slider/widgets/mate-slider.php:380
 #: modules/stellar-slider/widgets/stellar-slider.php:591
 #: traits/global-swiper-controls.php:814
@@ -4561,6 +4454,8 @@ msgstr ""
 #: modules/advanced-slider/widgets/advanced-slider.php:665
 #: modules/advanced-slider/widgets/advanced-slider.php:1783
 #: modules/generic-carousel/widgets/generic-carousel.php:321
+#: modules/glory-slider/widgets/glory-slider.php:672
+#: modules/glory-slider/widgets/glory-slider.php:1185
 #: modules/logo-carousel/widgets/logo-carousel.php:322
 #: modules/luster-carousel/widgets/luster-carousel.php:342
 #: modules/mate-carousel/widgets/mate-carousel.php:358
@@ -4577,6 +4472,7 @@ msgid "Navigation"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:674
+#: modules/glory-slider/widgets/glory-slider.php:681
 #: modules/mate-slider/widgets/mate-slider.php:461
 #: modules/stellar-slider/widgets/stellar-slider.php:671
 #: traits/global-swiper-controls.php:38
@@ -4584,6 +4480,7 @@ msgid "Prev Icon"
 msgstr ""
 
 #: modules/advanced-slider/widgets/advanced-slider.php:682
+#: modules/glory-slider/widgets/glory-slider.php:689
 #: modules/mate-slider/widgets/mate-slider.php:469
 #: modules/stellar-slider/widgets/stellar-slider.php:679
 #: traits/global-swiper-controls.php:47
@@ -4775,10 +4672,10 @@ msgstr ""
 #: modules/fluent-form/widgets/fluent-form.php:336
 #: modules/fluent-form/widgets/fluent-form.php:558
 #: modules/fluent-form/widgets/fluent-form.php:589
-#: modules/glory-slider/widgets/glory-slider.php:720
-#: modules/glory-slider/widgets/glory-slider.php:797
-#: modules/glory-slider/widgets/glory-slider.php:918
-#: modules/glory-slider/widgets/glory-slider.php:966
+#: modules/glory-slider/widgets/glory-slider.php:812
+#: modules/glory-slider/widgets/glory-slider.php:889
+#: modules/glory-slider/widgets/glory-slider.php:1010
+#: modules/glory-slider/widgets/glory-slider.php:1058
 #: modules/gradient-text/module.php:76
 #: modules/image-compare/widgets/image-compare.php:573
 #: modules/image-compare/widgets/image-compare.php:793
@@ -5254,7 +5151,7 @@ msgstr ""
 #: modules/card/widgets/card.php:423
 #: modules/generic-carousel/widgets/generic-carousel.php:368
 #: modules/generic-grid/widgets/generic-grid.php:358
-#: modules/glory-slider/widgets/glory-slider.php:700
+#: modules/glory-slider/widgets/glory-slider.php:792
 #: modules/info-box/widgets/info-box.php:432
 #: modules/panel-slider/widgets/panel-slider.php:526
 #: modules/step-flow/widgets/step-flow.php:235
@@ -5907,7 +5804,7 @@ msgid "Slide Speed (ms)"
 msgstr ""
 
 #: modules/fellow-slider/widgets/fellow-slider.php:400
-#: modules/glory-slider/widgets/glory-slider.php:639
+#: modules/glory-slider/widgets/glory-slider.php:731
 msgid "Mouse Wheel"
 msgstr ""
 
@@ -6023,7 +5920,7 @@ msgstr ""
 #: modules/fellow-slider/widgets/fellow-slider.php:1221
 #: modules/generic-carousel/widgets/generic-carousel.php:876
 #: modules/generic-grid/widgets/generic-grid.php:871
-#: modules/glory-slider/widgets/glory-slider.php:850
+#: modules/glory-slider/widgets/glory-slider.php:942
 #: modules/luster-carousel/widgets/luster-carousel.php:707
 #: modules/luster-grid/widgets/luster-grid.php:712
 #: modules/mate-carousel/widgets/mate-carousel.php:932
@@ -6487,9 +6384,12 @@ msgid "Row Gap"
 msgstr ""
 
 #: modules/glory-slider/module.info.php:8
-#: modules/glory-slider/widgets/glory-slider.php:28
 #: modules/glory-slider/widgets/glory-slider.php:67
 msgid "Glory Video Slider"
+msgstr ""
+
+#: modules/glory-slider/widgets/glory-slider.php:28
+msgid "Glory Slider (Image / Video)"
 msgstr ""
 
 #: modules/glory-slider/widgets/glory-slider.php:76
@@ -6560,7 +6460,8 @@ msgstr ""
 
 #: modules/glory-slider/widgets/glory-slider.php:306
 #: modules/glory-slider/widgets/glory-slider.php:313
-msgid "Poster"
+#: modules/glory-slider/widgets/glory-slider.php:1117
+msgid "Thumbnail"
 msgstr ""
 
 #: modules/glory-slider/widgets/glory-slider.php:333
@@ -6635,45 +6536,59 @@ msgstr ""
 msgid "Stretch"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:536
+#: modules/glory-slider/widgets/glory-slider.php:587
 msgid "Text Position"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:568
+#: modules/glory-slider/widgets/glory-slider.php:619
 #: modules/panel-slider/widgets/panel-slider.php:253
 msgid "Text Alignment"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:597
+#: modules/glory-slider/widgets/glory-slider.php:648
 msgid "Show Play Button On Hover"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:608
-msgid "Thumbnail Settings"
+#: modules/glory-slider/widgets/glory-slider.php:657
+msgid "Show Playlist"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:616
+#: modules/glory-slider/widgets/glory-slider.php:659
+#: modules/gravity-forms/widgets/gravity-forms.php:94
+msgid "Show"
+msgstr ""
+
+#: modules/glory-slider/widgets/glory-slider.php:660
+#: modules/gravity-forms/widgets/gravity-forms.php:95
+msgid "Hide"
+msgstr ""
+
+#: modules/glory-slider/widgets/glory-slider.php:699
+msgid "Playlist Settings"
+msgstr ""
+
+#: modules/glory-slider/widgets/glory-slider.php:708
 #: traits/global-swiper-controls.php:606
 msgid "Item Gap"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:681
+#: modules/glory-slider/widgets/glory-slider.php:773
 msgid "Player Content"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:689
+#: modules/glory-slider/widgets/glory-slider.php:781
 msgid "Poster Overlay"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:713
+#: modules/glory-slider/widgets/glory-slider.php:805
 msgid "T I T L E"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:772
+#: modules/glory-slider/widgets/glory-slider.php:864
 msgid "C R E D I T / S U B T I T L E"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:858
+#: modules/glory-slider/widgets/glory-slider.php:950
 #: modules/info-box/widgets/info-box.php:454
 #: modules/reading-progress/widgets/reading-progress.php:321
 #: modules/social-icons/widgets/social-icons.php:690
@@ -6684,11 +6599,7 @@ msgstr ""
 msgid "Icon Size"
 msgstr ""
 
-#: modules/glory-slider/widgets/glory-slider.php:1025
-msgid "Thumbnail"
-msgstr ""
-
-#: modules/glory-slider/widgets/glory-slider.php:1076
+#: modules/glory-slider/widgets/glory-slider.php:1168
 msgid "Border Color Active"
 msgstr ""
 
@@ -6732,14 +6643,6 @@ msgstr ""
 
 #: modules/gravity-forms/widgets/gravity-forms.php:91
 msgid "Display Form Title"
-msgstr ""
-
-#: modules/gravity-forms/widgets/gravity-forms.php:94
-msgid "Show"
-msgstr ""
-
-#: modules/gravity-forms/widgets/gravity-forms.php:95
-msgid "Hide"
 msgstr ""
 
 #: modules/gravity-forms/widgets/gravity-forms.php:104

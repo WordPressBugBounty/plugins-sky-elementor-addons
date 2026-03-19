@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.2.4
+ * Version: 3.3.0
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.2.4' );
+define( 'SKY_ADDONS_VERSION', '3.3.0' );
 define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
@@ -185,12 +185,8 @@ if ( ! function_exists( 'dci_plugin_sky_addons' ) ) {
 		// Include DCI SDK.
 		require_once __DIR__ . '/dci/start.php';
 
-		wp_register_style( 'dci-sdk-sky-addons', SKY_ADDONS_URL . 'dci/assets/css/dci.css', [], '1.3.0', 'all' );
-		wp_enqueue_style( 'dci-sdk-sky-addons' );
-
 		dci_dynamic_init(
 			[
-				'sdk_version'          => '1.2.1',
 				'product_id'           => 1,
 				'plugin_name'          => 'Sky Addons for Elementor', // make simple, must not empty
 				'plugin_title'         => 'Love using Sky Addons? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
@@ -227,12 +223,8 @@ if ( ! function_exists( 'sky_addons_rc_plugin' ) ) {
 
 		require_once SKY_ADDONS_PATH . 'includes/feedbacks/start.php';
 
-		wp_register_style( 'rc-sdk-sky-addons', SKY_ADDONS_URL . 'includes/feedbacks/assets/rc.css', [], '1.0.0', 'all' );
-		wp_enqueue_style( 'rc-sdk-sky-addons' );
-
 		rc_dynamic_init(
 			[
-				'sdk_version'  => '1.0.0',
 				'plugin_name'  => 'Sky Addons for Elementor',
 				'plugin_icon'  => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.svg',
 				'slug'         => 'sky-elementor-addons',

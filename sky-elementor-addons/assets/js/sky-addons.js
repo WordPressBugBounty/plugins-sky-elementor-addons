@@ -630,16 +630,20 @@ var widgetGlorySlider = function ($scope, $) {
     const Swiper = elementorFrontend.utils.swiper;
     initSwiper();
     async function initSwiper() {
-
-        var playerThumbs = await new Swiper($thumbsContainer, $thumbsSettings);
+        var playerThumbs = null;
+        if ($thumbsContainer.length) {
+            playerThumbs = await new Swiper($thumbsContainer, $thumbsSettings);
+        }
 
         var player = await new Swiper($playerContainer, $playerSettings);
 
-        player.controller.control = playerThumbs;
-        playerThumbs.controller.control = player;
+        if (playerThumbs) {
+            player.controller.control = playerThumbs;
+            playerThumbs.controller.control = player;
 
-        var testWidth = $glorySlider.find('.sa-glory-player .swiper-slide-active').width();
-        $glorySlider.find('.sa-glory-thumbs').width(testWidth);
+            var testWidth = $glorySlider.find('.sa-glory-player .swiper-slide-active').width();
+            $glorySlider.find('.sa-glory-thumbs').width(testWidth);
+        }
 
         player.on('slideChange', function () {
             resetVideos();
