@@ -510,22 +510,22 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'autoplay',
 			[
-				'label' => esc_html__('Autoplay', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'no',
-				'separator' => 'before'
+				'label'     => esc_html__( 'Autoplay', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'no',
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label' => esc_html__('Autoplay Speed (sec)', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SLIDER,
+				'label' => esc_html__( 'Autoplay Speed (sec)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
 				'range' => [
 					'px' => [
-						'min' => 0,
-						'max' => 10,
+						'min'  => 0,
+						'max'  => 10,
 						'step' => .5,
 					],
 				],
@@ -542,8 +542,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'loop',
 			[
-				'label' => esc_html__('Loop', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SWITCHER,
+				'label'   => esc_html__( 'Loop', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
 				'default' => 'yes',
 			]
 		);
@@ -551,9 +551,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'show_navigation',
 			[
-				'label' => esc_html__('Show Navigation', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'label'     => esc_html__( 'Show Navigation', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -654,13 +654,13 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'show_playlist',
 			[
-				'label' => esc_html__('Show Playlist', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__('Show', 'sky-elementor-addons'),
-				'label_off' => esc_html__('Hide', 'sky-elementor-addons'),
+				'label'        => esc_html__( 'Show Playlist', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Show', 'sky-elementor-addons' ),
+				'label_off'    => esc_html__( 'Hide', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
-				'default' => 'yes',
-				'separator' => 'before',
+				'default'      => 'yes',
+				'separator'    => 'before',
 			]
 		);
 
@@ -669,25 +669,25 @@ class Glory_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation',
 			[
-				'label' => esc_html__('Navigation', 'sky-elementor-addons'),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'condition' => ['show_navigation' => 'yes'],
+				'label'     => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'show_navigation' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
 			'prev_icon',
 			[
-				'label' => esc_html__('Prev Icon', 'sky-elementor-addons'),
-				'type' => Controls_Manager::ICONS,
+				'label' => esc_html__( 'Prev Icon', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
 		$this->add_control(
 			'next_icon',
 			[
-				'label' => esc_html__('Next Icon', 'sky-elementor-addons'),
-				'type' => Controls_Manager::ICONS,
+				'label' => esc_html__( 'Next Icon', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::ICONS,
 			]
 		);
 
@@ -696,9 +696,9 @@ class Glory_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_playlist_settings',
 			[
-				'label' => esc_html__( 'Playlist Settings', 'sky-elementor-addons' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-				'condition' => ['show_playlist' => 'yes'],
+				'label'     => esc_html__( 'Playlist Settings', 'sky-elementor-addons' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'show_playlist' => 'yes' ],
 			]
 		);
 
@@ -1182,8 +1182,8 @@ class Glory_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_navigation_style',
 			[
-				'label' => esc_html__('Navigation', 'sky-elementor-addons'),
-				'tab' => Controls_Manager::TAB_STYLE,
+				'label' => esc_html__( 'Navigation', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_navigation' => 'yes',
 				],
@@ -1193,9 +1193,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_size',
 			[
-				'label' => esc_html__('Size', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => ['px', 'em'],
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
 				'range' => [
 					'px' => [
 						'min' => 5,
@@ -1211,9 +1211,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_spacing',
 			[
-				'label' => esc_html__('Spacing', 'sky-elementor-addons'),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => ['px', 'em'],
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
@@ -1229,9 +1229,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_padding',
 			[
-				'label' => esc_html__('Padding', 'sky-elementor-addons'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px', 'em', '%'],
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1241,26 +1241,26 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			[
-				'name' => 'navigation_border',
-				'label' => esc_html__('Border', 'sky-elementor-addons'),
+				'name'     => 'navigation_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
 
-		$this->start_controls_tabs('navigation_tabs');
+		$this->start_controls_tabs( 'navigation_tabs' );
 
 		$this->start_controls_tab(
 			'navigation_tab_normal',
 			[
-				'label' => esc_html__('Normal', 'sky-elementor-addons'),
+				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color',
 			[
-				'label' => esc_html__('Color', 'sky-elementor-addons'),
-				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev svg *, {{WRAPPER}} .sa-swiper-button-next svg *' => 'fill: {{VALUE}}',
@@ -1271,9 +1271,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name' => 'navigation_bg',
-				'label' => esc_html__('Background', 'sky-elementor-addons'),
-				'types' => ['classic', 'gradient'],
+				'name'     => 'navigation_bg',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -1281,8 +1281,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			[
-				'name' => 'navigation_text_shadow',
-				'label' => esc_html__('Text Shadow', 'sky-elementor-addons'),
+				'name'     => 'navigation_text_shadow',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -1290,8 +1290,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name' => 'navigation_box_shadow',
-				'label' => esc_html__('Box Shadow', 'sky-elementor-addons'),
+				'name'     => 'navigation_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next',
 			]
 		);
@@ -1299,9 +1299,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_border_radius',
 			[
-				'label' => esc_html__('Border Radius', 'sky-elementor-addons'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px', 'em', '%'],
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev, {{WRAPPER}} .sa-swiper-button-next' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1313,15 +1313,15 @@ class Glory_Slider extends Widget_Base {
 		$this->start_controls_tab(
 			'navigation_tab_hover',
 			[
-				'label' => esc_html__('Hover', 'sky-elementor-addons'),
+				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'navigation_color_hover',
 			[
-				'label' => esc_html__('Color', 'sky-elementor-addons'),
-				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .sa-swiper-button-prev:hover svg *, {{WRAPPER}} .sa-swiper-button-next:hover svg *' => 'fill: {{VALUE}}',
@@ -1332,9 +1332,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
-				'name' => 'navigation_bg_hover',
-				'label' => esc_html__('Background', 'sky-elementor-addons'),
-				'types' => ['classic', 'gradient'],
+				'name'     => 'navigation_bg_hover',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
@@ -1342,8 +1342,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_control(
 			'navigation_border_color_hover',
 			[
-				'label' => esc_html__('Border Color', 'sky-elementor-addons'),
-				'type' => Controls_Manager::COLOR,
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-color: {{VALUE}};',
 				],
@@ -1356,8 +1356,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Text_Shadow::get_type(),
 			[
-				'name' => 'navigation_text_shadow_hover',
-				'label' => esc_html__('Text Shadow', 'sky-elementor-addons'),
+				'name'     => 'navigation_text_shadow_hover',
+				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
@@ -1365,8 +1365,8 @@ class Glory_Slider extends Widget_Base {
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
-				'name' => 'navigation_box_shadow_hover',
-				'label' => esc_html__('Box Shadow', 'sky-elementor-addons'),
+				'name'     => 'navigation_box_shadow_hover',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 			]
 		);
@@ -1374,9 +1374,9 @@ class Glory_Slider extends Widget_Base {
 		$this->add_responsive_control(
 			'navigation_border_radius_hover',
 			[
-				'label' => esc_html__('Border Radius', 'sky-elementor-addons'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => ['px', 'em', '%'],
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [
 					'{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1470,7 +1470,7 @@ class Glory_Slider extends Widget_Base {
 							'autoplay' => 'yes' === $settings['autoplay'] ? [
 								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop' => ('yes' === $settings['loop']) ? true : false,
+							'loop'           => ( 'yes' === $settings['loop'] ) ? true : false,
 							'effect'         => 'coverflow',
 							'slidesPerView'  => 1.2,
 							// 'touchRatio'          => 0.8,
@@ -1597,11 +1597,11 @@ class Glory_Slider extends Widget_Base {
 					<?php endforeach; ?>
 				</div>
 				<?php
-					if ( 'yes' === $settings['show_navigation'] ) :
-						$this->render_navigation();
+				if ( 'yes' === $settings['show_navigation'] ) :
+					$this->render_navigation();
 					endif;
-					?>				
-			</div>
+				?>
+								</div>
 
 			<?php if ( 'yes' === $settings['show_playlist'] ) : ?>
 			<div class="swiper sa-glory-thumbs">
@@ -1638,19 +1638,18 @@ class Glory_Slider extends Widget_Base {
 		<?php
 	}
 
-	protected function render_navigation()
-	{
+	protected function render_navigation() {
 		$settings = $this->get_settings_for_display();
 		?>
 			<!-- If we need navigation buttons -->
 			<div class="sa-swiper-button-prev sa-slider-navigation sa-icon-wrap">
 				<?php
-				if (!empty($settings['prev_icon']['value'])):
+				if ( ! empty( $settings['prev_icon']['value'] ) ) :
 					Icons_Manager::render_icon($settings['prev_icon'], [
 						'aria-hidden' => 'true',
-						'class' => 'fa-fw',
+						'class'       => 'fa-fw',
 					]);
-				else:
+				else :
 					?>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
 							<path d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z">
@@ -1662,12 +1661,12 @@ class Glory_Slider extends Widget_Base {
 			</div>
 			<div class="sa-swiper-button-next sa-slider-navigation sa-icon-wrap">
 				<?php
-				if (!empty($settings['next_icon']['value'])):
+				if ( ! empty( $settings['next_icon']['value'] ) ) :
 					Icons_Manager::render_icon($settings['next_icon'], [
 						'aria-hidden' => 'true',
-						'class' => 'fa-fw',
+						'class'       => 'fa-fw',
 					]);
-				else:
+				else :
 					?>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
 							<path d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z">

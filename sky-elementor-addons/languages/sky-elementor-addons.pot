@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Sky Addons for Elementor 3.3.0\n"
+"Project-Id-Version: Sky Addons for Elementor 3.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sky-elementor-addons\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-19T18:07:59+00:00\n"
+"POT-Creation-Date: 2026-04-21T18:18:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: sky-elementor-addons\n"
@@ -46,12 +46,17 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
+#: class-core.php:168
+#: plugin.php:360
+msgid "Sky Addons"
+msgstr ""
+
 #: includes/admin.php:62
 msgid "Get 70% OFF on Sky Addons Pro. Limited Time Offer! "
 msgstr ""
 
 #: includes/admin.php:62
-#: includes/admin/class-menu.php:129
+#: includes/admin/class-menu.php:136
 msgid "Get Pro"
 msgstr ""
 
@@ -786,7 +791,7 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: includes/admin/class-menu.php:120
+#: includes/admin/class-menu.php:127
 #: modules/advanced-accordion/widgets/advanced-accordion.php:273
 #: modules/advanced-slider/widgets/advanced-slider.php:413
 #: modules/changelog/widgets/changelog.php:49
@@ -797,7 +802,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-menu.php:128
+#: includes/admin/class-menu.php:135
 msgid "Get 30% OFF!"
 msgstr ""
 
@@ -850,7 +855,7 @@ msgid "Items Not Found"
 msgstr ""
 
 #: includes/class-admin-feeds.php:147
-#: includes/functions.php:212
+#: includes/functions.php:205
 msgid "ago"
 msgstr ""
 
@@ -1284,17 +1289,17 @@ msgctxt "Admin String"
 msgid "Duplicate Template"
 msgstr ""
 
-#: includes/functions.php:97
+#: includes/functions.php:90
 #: includes/theme-builder/class-builder-data.php:34
 msgid "Edit Template"
 msgstr ""
 
-#: includes/functions.php:114
+#: includes/functions.php:107
 msgid "Template Not Found!"
 msgstr ""
 
-#: includes/functions.php:116
-#: includes/functions.php:141
+#: includes/functions.php:109
+#: includes/functions.php:134
 #: modules/advanced-accordion/widgets/advanced-accordion.php:125
 #: modules/advanced-accordion/widgets/advanced-accordion.php:137
 #: modules/advanced-slider/widgets/advanced-slider.php:154
@@ -1304,20 +1309,20 @@ msgstr ""
 msgid "Select Template"
 msgstr ""
 
-#: includes/functions.php:147
+#: includes/functions.php:140
 msgid "AE Plugin Not Installed"
 msgstr ""
 
-#: includes/functions.php:368
+#: includes/functions.php:361
 #: modules/slinky-menu/widgets/slinky-menu.php:73
 msgid "Select Menu"
 msgstr ""
 
-#: includes/functions.php:393
+#: includes/functions.php:386
 msgid "The post is not published or does not exist."
 msgstr ""
 
-#: includes/functions.php:695
+#: includes/functions.php:688
 msgid " is missing! Please install and activate "
 msgstr ""
 
@@ -8418,32 +8423,27 @@ msgstr ""
 msgid "Wrapper Links"
 msgstr ""
 
-#: plugin.php:388
-#: plugin.php:443
-msgid "Sky Addons"
-msgstr ""
-
-#: sky-elementor-addons.php:116
+#: sky-elementor-addons.php:122
 msgid "Sky Addons for Elementor is not working because you need to activate the Elementor plugin."
 msgstr ""
 
-#: sky-elementor-addons.php:117
+#: sky-elementor-addons.php:123
 msgid "Activate Elementor Now"
 msgstr ""
 
-#: sky-elementor-addons.php:125
+#: sky-elementor-addons.php:131
 msgid "Sky Addons for Elementor is not working because you need to install the Elemenor plugin"
 msgstr ""
 
-#: sky-elementor-addons.php:126
+#: sky-elementor-addons.php:132
 msgid "Install Elementor Now"
 msgstr ""
 
-#: sky-elementor-addons.php:140
+#: sky-elementor-addons.php:146
 msgid "Sky Addons for Elementor is not working because you are using an old version of Elementor."
 msgstr ""
 
-#: sky-elementor-addons.php:141
+#: sky-elementor-addons.php:147
 msgid "Update Elementor Now"
 msgstr ""
 

@@ -19,7 +19,7 @@ if (
 	version_compare( $_rc_sdk_this_version, $GLOBALS['_rc_sdk_version'], '>' )
 ) {
 	$GLOBALS['_rc_sdk_version'] = $_rc_sdk_this_version;
-	$GLOBALS['_rc_sdk_path']    = dirname( __FILE__ );
+	$GLOBALS['_rc_sdk_path']    = __DIR__;
 }
 
 if ( ! function_exists( 'rc_dynamic_init' ) ) {

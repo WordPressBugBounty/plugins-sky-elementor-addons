@@ -38,13 +38,6 @@ if ( ! function_exists( 'sky_addons_control_indicator_pro' ) ) {
 	}
 }
 
-/**
- * @param $suffix
- */
-function sky_addons_dashboard_link( $suffix = '' ) {
-	return add_query_arg( [ 'page' => 'sky-addons' . $suffix ], admin_url( 'admin.php' ) );
-}
-
 function sky_addons_elementor() {
 	return \Elementor\Plugin::instance();
 }

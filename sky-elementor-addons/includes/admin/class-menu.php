@@ -108,6 +108,13 @@ class Menu {
 		return 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( SKY_ADDONS_ASSETS_PATH . 'images/sky-top-menu-logo.svg' ) );
 	}
 
+	/**
+	 * @param $suffix
+	 */
+	public static function dashboard_link( $suffix = '' ) {
+		return add_query_arg( [ 'page' => 'sky-addons' . $suffix ], admin_url( 'admin.php' ) );
+	}
+
 	public static function add_action_links( $links ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return $links;
@@ -116,7 +123,7 @@ class Menu {
 		$links = array_merge( [
 			sprintf(
 				'<a href="%s">%s</a>',
-				sky_addons_dashboard_link(),
+				self::dashboard_link(),
 				esc_html__( 'Settings', 'sky-elementor-addons' )
 			),
 		], $links );

@@ -99,8 +99,6 @@ class Sky_Addons_Plugin {
 
 	private function includes() {
 
-		require_once __DIR__ . '/includes/functions.php';
-
 		require SKY_ADDONS_PATH . 'includes/modules-manager.php';
 		/**
 		 * Utils Files
@@ -130,35 +128,9 @@ class Sky_Addons_Plugin {
 		require_once sky_addons_core()->includes_dir . 'templates/Load_Template.php';
 
 		/**
-		 * Admin Files with REST API
-		 *
-		 * No admin Check, Because it's required also for REST API
-		 */
-		require_once sky_addons_core()->includes_dir . 'admin.php';
-
-		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-dashboard.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-widgets-settings.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/class-menu.php';
-		require_once SKY_ADDONS_INC_PATH . 'admin/class-admin.php';
-		new Admin();
-
-		/**
-		 * Admin Files Only
-		 */
-		if ( is_admin() ) {
-			require_once SKY_ADDONS_INC_PATH . 'class-admin-feeds.php';
-		}
-
-		/**
 		 * Themes Builder
 		 */
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-theme-builder.php';
-
-		/**
-		 * Custom Scripts Manager
-		 */
-		require_once SKY_ADDONS_INC_PATH . 'custom-scripts/class-custom-scripts-data.php';
-		require_once SKY_ADDONS_INC_PATH . 'custom-scripts/class-custom-scripts-loader.php';
 
 		/**
 			 * Features
@@ -409,116 +381,7 @@ class Sky_Addons_Plugin {
 		return trailingslashit( plugin_dir_path( self::sky_addons_file() ) );
 	}
 
-	/**
-	 * Initialize the plugin
-	 *
-	 * @return void
-	 */
-	public function init_plugin() {
-		require_once __DIR__ . '/includes/functions.php';
-	}
-
-
-	/**
-	 * App Styles
-	 *
-	 * @since 2.6.5
-	 */
-	public function app_enqueue_styles( $hook_suffix ) {
-		if ( 'toplevel_page_sky-addons' !== $hook_suffix && 'sky-addons_page_sky-addons-pro' !== $hook_suffix ) {
-			return;
-		}
-		$direction_suffix = is_rtl() ? '.rtl' : '';
-		wp_enqueue_style( 'wp-components' );
-		wp_register_style( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.css', [], SKY_ADDONS_VERSION );
-		wp_enqueue_style( 'sky-addons' );
-	}
-
-	public function localize_config() {
-		$script_config = [
-			'web_url'     => esc_url( home_url() ),
-			'ajax_url'    => esc_url( admin_url( 'admin-ajax.php' ) ),
-			'rest_url'    => esc_url( rest_url() ),
-			'version'     => SKY_ADDONS_VERSION,
-			'plugin_name' => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
-			'plugin_slug' => defined( 'SKY_ADDONS_SLUG' ) ? SKY_ADDONS_SLUG : '',
-			'admin_url'   => esc_url( admin_url() ),
-			'pro_version' => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
-			'nonce'       => wp_create_nonce( 'sky_addons_nonce' ),
-			'assets_url'  => SKY_ADDONS_ASSETS_URL,
-			'logo'        => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
-			'root_url'    => SKY_ADDONS_URL,
-			'pro_init'    => apply_filters( 'sky_addons_pro_init', false ),
-			'current_user' => [
-				'domain'       => esc_url( home_url() ),
-				'display_name' => wp_get_current_user()->display_name,
-				'email'        => wp_get_current_user()->user_email,
-				'id'           => wp_get_current_user()->ID,
-				'avatar'       => get_avatar_url( wp_get_current_user()->ID ),
-			],
-		];
-
-		return $script_config;
-	}
-
-	/**
-	 * App Scripts
-	 *
-	 * @since 2.6.5
-	 * @return void
-	 */
-	public function app_enqueue_scripts( $hook_suffix ) {
-
-		// wp_register_script( 'sky-addons-admin', SKY_ADDONS_ASSETS_URL . 'js/sky-addons-admin.js', array( 'jquery', 'linkboss-socket' ), SKY_ADDONS_VERSION, true );
-		// wp_enqueue_script( 'sky-addons-admin' );
-
-		if ( 'toplevel_page_sky-addons' !== $hook_suffix ) {
-			return;
-		}
-
-		$asset_file = plugin_dir_path( __FILE__ ) . 'build/admin/index.asset.php';
-
-		if ( ! file_exists( $asset_file ) ) {
-			return;
-		}
-
-		$asset = include $asset_file;
-
-		wp_register_script( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.js', $asset['dependencies'], $asset['version'], true );
-		wp_enqueue_script( 'sky-addons' );
-
-		/**
-		 * Localize Script
-		 */
-		$script_config = $this->localize_config();
-
-		wp_localize_script( 'sky-addons', 'SkyAddonsConfig', $script_config );
-	}
-
-	/**
-	 * Theme Builder Pinned Items Condition
-	 */
-	public function admin_hooks_scripts( $hook ) {
-    //phpcs:ignore
-		if ( in_array( $hook, [ 'post.php', 'post-new.php' ] ) ) {
-			global $post_type;
-			if ( 'wowdevs-hooks' === $post_type ) {
-				wp_register_script( 'wowdevs-hooks', SKY_ADDONS_URL . 'build/theme-builder/index.js', [], SKY_ADDONS_VERSION, true );
-
-				$script_config = $this->localize_config();
-				wp_localize_script( 'wowdevs-hooks', 'SkyAddonsConfig', $script_config );
-
-				wp_enqueue_script( 'wowdevs-hooks' );
-			}
-		}
-	}
-
-
 	protected function add_actions() {
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'app_enqueue_styles' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'app_enqueue_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_hooks_scripts' ] );
 
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_site_scripts' ] );
@@ -537,22 +400,29 @@ class Sky_Addons_Plugin {
 	 */
 	private function __construct() {
 		spl_autoload_register( [ $this, 'autoload' ] );
-
-		// $this->includes();
-		// $this->add_actions();
-
-		add_action( 'init', [ $this, 'init_plugin' ] );
 	}
 }
 
 /**
- * Initializes the main plugin
+ * Helper functions — always available, no Elementor dependency at load time.
+ */
+require_once __DIR__ . '/includes/functions.php';
+
+/**
+ * Initializes the main plugin.
+ * Only runs when Elementor is confirmed loaded and meets the minimum version.
  */
 function sky_elementor_addons() {
-	if ( ! defined( 'SKY_ADDONS_TEST' ) ) {
-		// In tests we run the instance manually.
-		Sky_Addons_Plugin::instance();
+	if ( defined( 'SKY_ADDONS_TEST' ) ) {
+		return;
 	}
+	if ( ! did_action( 'elementor/loaded' ) ) {
+		return;
+	}
+	if ( ! defined( 'ELEMENTOR_VERSION' ) || ! version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) {
+		return;
+	}
+	Sky_Addons_Plugin::instance();
 }
 
 // kick-off the plugin

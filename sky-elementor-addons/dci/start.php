@@ -21,7 +21,7 @@ if (
 	version_compare( $_dci_sdk_this_version, $GLOBALS['_dci_sdk_version'], '>' )
 ) {
 	$GLOBALS['_dci_sdk_version'] = $_dci_sdk_this_version;
-	$GLOBALS['_dci_sdk_path']    = dirname( __FILE__ );
+	$GLOBALS['_dci_sdk_path']    = __DIR__;
 }
 
 if ( ! function_exists( 'dci_dynamic_init' ) ) {

@@ -1,3 +1,7 @@
+= 3.3.1 [21th April 2026] =
+
+* Improved: System improved
+
 = 3.3.0 [20th March 2026] =
 
 * Improved: Glory Slider widget Improved (Thanks to Roosevelt)

@@ -3,7 +3,9 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.3.0
+ * Version: 3.3.1
+ * Requires at least: 5.0
+ * Requires PHP: 7.4
  * Author: wowDevs
  * Author URI: https://wowdevs.com/
  * Text Domain: sky-elementor-addons
@@ -20,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.3.0' );
+define( 'SKY_ADDONS_VERSION', '3.3.1' );
 define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
@@ -73,6 +75,14 @@ function sky_addons_load_plugin() {
 
 	load_plugin_textdomain( 'sky-elementor-addons' );
 
+	// Core always boots: admin menu, dashboard REST API, custom scripts CPT.
+	require_once SKY_ADDONS_PATH . 'class-core.php';
+	\Sky_Addons\Core::instance();
+
+	// plugin.php is always loaded: it defines the class and helper functions.
+	// sky_elementor_addons() at the bottom of that file is guarded by did_action('elementor/loaded').
+	require_once SKY_ADDONS_PATH . 'plugin.php';
+
 	if ( ! did_action( 'elementor/loaded' ) ) {
 		add_action( 'admin_notices', 'sky_addons_fail_load' );
 		return;
@@ -83,10 +93,6 @@ function sky_addons_load_plugin() {
 		add_action( 'admin_notices', 'sky_addons_fail_load_out_of_date' );
 		return;
 	}
-
-	require_once SKY_ADDONS_PATH . 'plugin.php';
-	require_once SKY_ADDONS_PATH . 'class-core.php';
-	\Sky_Addons\Core::instance();
 }
 
 add_action( 'plugins_loaded', 'sky_addons_load_plugin' );

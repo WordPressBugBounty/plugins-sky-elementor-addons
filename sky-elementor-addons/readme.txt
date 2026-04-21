@@ -1,15 +1,15 @@
 === Sky Addons – Elementor Addons with Widgets & Templates ===
 Plugin Name: Sky Addons – Elementor Addons with Widgets & Templates
-Version: 3.3.0
+Version: 3.3.1
 Author: wowDevs
 Author URI: https://wowdevs.com/
-Contributors: wowdevs, bdkoder
+Contributors: wowdevs, bdkoder, mizan42047
 Tags: Elementor Addons, Essential Widgets, Elementor Templates, Theme Builder, Elementor Kit
 Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -221,6 +221,38 @@ You can ask any questions on the support forum of WordPress. We have a support t
 = How can I become a Contributor? =
 If you want to contribute, go to our [Sky Addons GitHub Repository](https://github.com/wowdevs-public/sky-elementor-addons) and see where you can help.
 
+== External Services ==
+
+This plugin connects to two external services under the conditions described below. No data is ever sent without a clear user action or explicit opt-in.
+
+= 1. Templates Library (skyaddons.com) =
+
+**What it does:** Loads the list and content of pre-designed Elementor templates so you can insert them into your pages.
+
+**When it connects:** Only when you open the **Templates Library** panel inside the Elementor editor. No request is made on the frontend or outside the editor.
+
+**Data sent:** Your site URL and the library request — no personal data.
+
+**Service:** Sky Addons Templates Library, operated by wowDevs.
+Service URL: https://skyaddons.com/
+API endpoint: https://skyaddons.com/wp-json/templates-library/v1/data/
+Privacy Policy: https://wowdevs.com/privacy-policy/
+Terms of Service: https://wowdevs.com/terms-and-conditions/
+
+= 2. Usage Analytics / Data Insights (dashboard.wowdevs.com) =
+
+**What it does:** Sends non-sensitive plugin usage data to help improve the plugin. This is part of the optional Data Insights program powered by the DCI SDK.
+
+**When it connects:** **Only if you explicitly opt in** when prompted. No data is ever sent without your consent. You can opt out at any time from the Sky Addons dashboard.
+
+**Data sent:** Plugin version, WordPress version, active theme, site language, and similar non-personal environment data. No passwords, user content, or personally identifiable information is transmitted.
+
+**Service:** wowDevs Data Insights, operated by wowDevs.
+Service URL: https://dashboard.wowdevs.com/
+API endpoint: https://dashboard.wowdevs.com/wp-json/dci/v1/data-insights
+Privacy Policy: https://wowdevs.com/privacy-policy/
+Terms of Service: https://wowdevs.com/terms-and-conditions/
+
 == Installation ==
 
 There are a few installation & set-up options for this plugin.
@@ -267,6 +299,9 @@ Development happens on GitHub:
 
 == Changelog ==
 
+= 3.3.1 [21th April 2026] =
+
+* Improved: System improved
 
 = 3.3.0 [20th March 2026] =
 

@@ -195,7 +195,7 @@ class Info_Box extends Widget_Base {
 					'bottom' => '    -webkit-align-self: flex-end; -ms-flex-item-align: end; align-self: flex-end;',
 				],
 				'condition' => [
-					'media_position' => ['left', 'right'],
+					'media_position' => [ 'left', 'right' ],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .sa-infobox-figure' => '{{VALUE}};',
