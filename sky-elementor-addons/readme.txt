@@ -1,6 +1,6 @@
 === Sky Addons – Elementor Addons with Widgets & Templates ===
 Plugin Name: Sky Addons – Elementor Addons with Widgets & Templates
-Version: 3.3.1
+Version: 3.3.2
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, mizan42047
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -298,6 +298,10 @@ Development happens on GitHub:
 20. Image Compare Widget
 
 == Changelog ==
+
+= 3.3.2 [29th April 2026] =
+
+* Improved: System improved
 
 = 3.3.1 [21th April 2026] =
 
