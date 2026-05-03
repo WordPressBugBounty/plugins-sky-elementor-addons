@@ -1,3 +1,7 @@
+= 3.3.3 [4th May 2026] =
+
+* Improved: Security improved (Thanks to Athiwat Tiprasaharn (Jitlada))
+
 = 3.3.2 [29th April 2026] =
 
 * Improved: System improved

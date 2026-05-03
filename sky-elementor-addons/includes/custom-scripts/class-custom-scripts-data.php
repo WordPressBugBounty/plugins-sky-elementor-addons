@@ -35,6 +35,14 @@ class Custom_Scripts_Data {
 	 * Filter data before inserting via REST API
 	 */
 	public function rest_pre_insert( $prepared_post, $request ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new \WP_Error(
+				'rest_forbidden',
+				__( 'You do not have permission to manage custom scripts.', 'sky-elementor-addons' ),
+				[ 'status' => 403 ]
+			);
+		}
+
 		// Get the meta data from request
 		$params = $request->get_params();
 
@@ -126,6 +134,20 @@ class Custom_Scripts_Data {
 			'rewrite'             => false,
 			'show_in_nav_menus'   => false,
 			'capability_type'     => 'post',
+			'map_meta_cap'        => true,
+			'capabilities'        => [
+				'create_posts'           => 'manage_options',
+				'edit_posts'             => 'manage_options',
+				'edit_others_posts'      => 'manage_options',
+				'publish_posts'          => 'manage_options',
+				'read_private_posts'     => 'manage_options',
+				'delete_posts'           => 'manage_options',
+				'delete_private_posts'   => 'manage_options',
+				'delete_published_posts' => 'manage_options',
+				'delete_others_posts'    => 'manage_options',
+				'edit_private_posts'     => 'manage_options',
+				'edit_published_posts'   => 'manage_options',
+			],
 			'show_in_rest'        => true,
 		];
 
@@ -139,52 +161,62 @@ class Custom_Scripts_Data {
 	 * Register all meta fields for custom scripts
 	 */
 	private function register_meta_fields() {
+		$admin_only = function () {
+			return current_user_can( 'manage_options' );
+		};
+
 		// Script type (css or js)
 		register_post_meta( 'sky-custom-scripts', 'sky_script_type', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => 'js',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => 'js',
+			'auth_callback' => $admin_only,
 		]);
 
 		// Script content
 		register_post_meta( 'sky-custom-scripts', 'sky_script_content', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => '',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => '',
+			'auth_callback' => $admin_only,
 		]);
 
 		// Script position (header or footer)
 		register_post_meta( 'sky-custom-scripts', 'sky_script_position', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => 'footer',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => 'footer',
+			'auth_callback' => $admin_only,
 		]);
 
 		// Script status (enabled or disabled)
 		register_post_meta( 'sky-custom-scripts', 'sky_script_status', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => 'enabled',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => 'enabled',
+			'auth_callback' => $admin_only,
 		]);
 
 		// Start date for scheduling
 		register_post_meta( 'sky-custom-scripts', 'sky_script_start_date', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => '',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => '',
+			'auth_callback' => $admin_only,
 		]);
 
 		// End date for scheduling
 		register_post_meta( 'sky-custom-scripts', 'sky_script_end_date', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string',
-			'default'      => '',
+			'show_in_rest'  => true,
+			'single'        => true,
+			'type'          => 'string',
+			'default'       => '',
+			'auth_callback' => $admin_only,
 		]);
 
 		// Array meta fields for conditional loading
@@ -202,15 +234,16 @@ class Custom_Scripts_Data {
 			register_post_meta( 'sky-custom-scripts', $meta_field, [
 				'show_in_rest' => [
 					'schema' => [
-						'type' => 'array',
+						'type'  => 'array',
 						'items' => [
 							'type' => 'string',
 						],
 					],
 				],
-				'single'  => true,
-				'type'    => 'array',
-				'default' => [],
+				'single'        => true,
+				'type'          => 'array',
+				'default'       => [],
+				'auth_callback' => $admin_only,
 			]);
 		}
 	}

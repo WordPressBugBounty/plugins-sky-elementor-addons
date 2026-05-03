@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.3.2
+ * Version: 3.3.3
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Author: wowDevs
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.3.2' );
+define( 'SKY_ADDONS_VERSION', '3.3.3' );
 define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
