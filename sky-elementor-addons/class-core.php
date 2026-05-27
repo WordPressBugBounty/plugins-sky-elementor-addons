@@ -107,8 +107,8 @@ final class Core {
 			return;
 		}
 		wp_enqueue_style( 'wp-components' );
-		wp_register_style( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.css', [], SKY_ADDONS_VERSION );
-		wp_enqueue_style( 'sky-addons' );
+		wp_register_style( 'sky-addons-admin', SKY_ADDONS_URL . 'build/admin/index.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-addons-admin' );
 	}
 
 	/**
@@ -128,9 +128,9 @@ final class Core {
 		}
 
 		$asset = include $asset_file;
-		wp_register_script( 'sky-addons', SKY_ADDONS_URL . 'build/admin/index.js', $asset['dependencies'], $asset['version'], true );
-		wp_enqueue_script( 'sky-addons' );
-		wp_localize_script( 'sky-addons', 'SkyAddonsConfig', $this->localize_config() );
+		wp_register_script( 'sky-addons-admin', SKY_ADDONS_URL . 'build/admin/index.js', $asset['dependencies'], $asset['version'], true );
+		wp_enqueue_script( 'sky-addons-admin' );
+		wp_localize_script( 'sky-addons-admin', 'SkyAddonsConfig', $this->localize_config() );
 	}
 
 	/**

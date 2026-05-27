@@ -7,7 +7,6 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Text_Shadow;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Widget_Base;
 
@@ -69,7 +68,7 @@ class WpForms extends Widget_Base {
 					'raw'             => sprintf(
 						__( 'Hello %2$s, looks like %1$s is missing in your site. Please click on the link below and install/activate %1$s. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=WPForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">WPForms</a>',
-						sky_addons_get_current_user_display_name()
+						esc_html( sky_addons_get_current_user_display_name() )
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -79,7 +78,7 @@ class WpForms extends Widget_Base {
 				'_wpforms_install',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=WPForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">Click to install or activate WPForms</a>',
+					'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=WPForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">' . __( 'Click to install or activate WPForms', 'sky-elementor-addons' ) . '</a>',
 				]
 			);
 
@@ -122,7 +121,7 @@ class WpForms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .wpforms-field:not(.wpforms-submit), .wpforms-field-required:not(.wpforms-submit)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpforms-field:not(.wpforms-submit), {{WRAPPER}} .wpforms-field-required:not(.wpforms-submit)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -182,6 +181,7 @@ class WpForms extends Widget_Base {
 				'label' => __( 'Field Placeholder Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
+					'{{WRAPPER}} ::placeholder'           => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-ms-input-placeholder' => 'color: {{VALUE}};',
@@ -273,7 +273,7 @@ class WpForms extends Widget_Base {
 	protected function __label_style_controls() {
 
 		$this->start_controls_section(
-			'wpf-form-label',
+			'wpf_form_label',
 			[
 				'label' => __( 'Form Labels', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -287,7 +287,7 @@ class WpForms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .wpforms-field-container label.wpforms-field-label' => 'display: inline-block; padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpforms-field-container label.wpforms-field-label' => 'display: inline-block; margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -498,9 +498,9 @@ class WpForms extends Widget_Base {
 				],
 				'desktop_default' => 'left',
 				'toggle'          => false,
-				'prefix_class'    => 'sky-form-btn--%s',
+				'prefix_class'    => 'sa-form-btn--%s',
 				'selectors'       => [
-					'{{WRAPPER}} .wpforms-submit-container' => 'text-align: {{Value}};',
+					'{{WRAPPER}} .wpforms-submit-container' => 'text-align: {{VALUE}};',
 				],
 			]
 		);
@@ -664,9 +664,9 @@ class WpForms extends Widget_Base {
 
 		if ( ! empty( $settings['form_id'] ) ) {
 			echo sky_addons_do_shortcode( 'wpforms', [
-				'id' => $settings['form_id'],
+				'id' => (int) $settings['form_id'],
 			] );
-		} else {
+		} elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			echo '<div class="elementor-alert elementor-alert-warning">' . esc_html__( 'Please select a WPForm from the widget settings.', 'sky-elementor-addons' ) . '</div>';
 		}
 	}

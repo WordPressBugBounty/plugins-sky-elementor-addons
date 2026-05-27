@@ -56,11 +56,12 @@ class Mate_Carousel extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-mate-carousel',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-mate-carousel' ];
 	}
 
 	public function get_query() {
@@ -178,7 +179,7 @@ class Mate_Carousel extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_query_builder',
 			[
-				'label' => __( 'Query', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Query', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -1027,7 +1028,7 @@ class Mate_Carousel extends Widget_Base {
 				<div>
 					<div class="sa-post-author-text">
 						<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
-							<?php echo get_the_author(); ?>
+							<?php echo esc_html( get_the_author() ); ?>
 						</a>
 					</div>
 					<?php $this->render_date(); ?>

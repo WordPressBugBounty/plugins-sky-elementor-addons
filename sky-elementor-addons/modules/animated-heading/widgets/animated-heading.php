@@ -34,9 +34,13 @@ class Animated_Heading extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'animated', 'heading' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-animated-heading' ];
+	}
+
 
 	public function get_script_depends() {
-		return [ 'typed', 'morphext' ];
+		return [ 'typed', 'morphext', 'sa-animated-heading' ];
 	}
 
 	public function has_widget_inner_wrapper(): bool {
@@ -55,12 +59,21 @@ class Animated_Heading extends Widget_Base {
 		$this->add_control(
 			'animate_style',
 			[
-				'label'   => esc_html__( 'Select Animate', 'sky-elementor-addons' ),
+				'label'   => esc_html__( 'Select Animate', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'animated',
 				'options' => [
-					'animated' => esc_html__( 'Animated', 'sky-elementor-addons' ),
-					'typed'    => esc_html__( 'Typed', 'sky-elementor-addons' ),
+					'animated'    => esc_html__( 'Animated', 'sky-elementor-addons' ),
+					'typed'       => esc_html__( 'Typed', 'sky-elementor-addons' ),
+					'highlight'   => esc_html__( 'Highlight', 'sky-elementor-addons' ),
+					'glitch'      => esc_html__( 'Glitch', 'sky-elementor-addons' ),
+					'reveal'      => esc_html__( 'Reveal', 'sky-elementor-addons' ),
+					'word-rotate' => esc_html__( 'Word Rotate', 'sky-elementor-addons' ),
+					'split-chars' => esc_html__( 'Split Chars', 'sky-elementor-addons' ),
+					'gravity'     => esc_html__( 'Gravity', 'sky-elementor-addons' ),
+					'flip-chars'  => esc_html__( 'Flip Chars', 'sky-elementor-addons' ),
+					'vortex'      => esc_html__( 'Vortex', 'sky-elementor-addons' ),
+					'wave-in'     => esc_html__( 'Wave In', 'sky-elementor-addons' ),
 				],
 			]
 		);
@@ -212,7 +225,7 @@ class Animated_Heading extends Widget_Base {
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 0,
 				'condition' => [
-					'typed_loop' => 'true',
+					'typed_loop' => 'yes',
 				],
 			]
 		);
@@ -268,6 +281,29 @@ class Animated_Heading extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'typed_show_cursor',
+			[
+				'label'        => esc_html__( 'Show Cursor', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'separator'    => 'before',
+			]
+		);
+
+		$this->add_control(
+			'typed_cursor_char',
+			[
+				'label'   => esc_html__( 'Cursor Character', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => '|',
+				'condition' => [
+					'typed_show_cursor' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -304,6 +340,37 @@ class Animated_Heading extends Widget_Base {
 					'px' => [
 						'min' => 500,
 						'max' => 5000,
+					],
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_custom_settings',
+			[
+				'label' => esc_html__( 'Animation Settings', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'animate_style' => [ 'highlight', 'glitch', 'reveal', 'word-rotate', 'split-chars', 'gravity', 'flip-chars', 'vortex', 'wave-in' ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'word_interval',
+			[
+				'label' => esc_html__( 'Word Interval (ms)', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 2000,
+				],
+				'range' => [
+					'px' => [
+						'min'  => 500,
+						'max'  => 10000,
+						'step' => 100,
 					],
 				],
 			]
@@ -384,12 +451,66 @@ class Animated_Heading extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_highlight_style',
+			[
+				'label' => esc_html__( 'Highlight', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'animate_style' => 'highlight',
+				],
+			]
+		);
+
+		$this->add_control(
+			'highlight_bg_color',
+			[
+				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-highlight-word::before' => 'background: {{VALUE}}; opacity: 1;',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'highlight_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-highlight-word::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_prefix_title_style',
 			[
 				'label' => esc_html__( 'Prefix', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'title_prefix!' => '',
+				],
+			]
+		);
+
+		$this->add_control(
+			'prefix_display',
+			[
+				'label'   => esc_html__( 'Display', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					''             => esc_html__( 'Default', 'sky-elementor-addons' ),
+					'inline-block' => esc_html__( 'Inline Block', 'sky-elementor-addons' ),
+					'block'        => esc_html__( 'Block', 'sky-elementor-addons' ),
+					'inline'       => esc_html__( 'Inline', 'sky-elementor-addons' ),
+				],
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .sa-prefix' => 'display: {{VALUE}};',
 				],
 			]
 		);
@@ -443,6 +564,24 @@ class Animated_Heading extends Widget_Base {
 		);
 
 		$this->add_control(
+			'suffix_display',
+			[
+				'label'   => esc_html__( 'Display', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					''             => esc_html__( 'Default', 'sky-elementor-addons' ),
+					'inline-block' => esc_html__( 'Inline Block', 'sky-elementor-addons' ),
+					'block'        => esc_html__( 'Block', 'sky-elementor-addons' ),
+					'inline'       => esc_html__( 'Inline', 'sky-elementor-addons' ),
+				],
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .sa-suffix' => 'display: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'suffix_title_color',
 			[
 				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
@@ -484,83 +623,77 @@ class Animated_Heading extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$id       = 'sa-animated-heading-' . $this->get_id();
 
-		// Early return if all title fields are empty
 		if ( empty( $settings['title'] ) && empty( $settings['title_prefix'] ) && empty( $settings['title_suffix'] ) ) {
 			return;
 		}
 
-		$main_title = explode( ',', esc_html( $settings['title'] ) );
+		$main_title    = explode( ',', esc_html( $settings['title'] ) );
+		$custom_styles = [ 'highlight', 'glitch', 'reveal', 'word-rotate', 'split-chars', 'gravity', 'flip-chars', 'vortex', 'wave-in' ];
 
-		$this->add_render_attribute( 'title', 'class', 'sa-animated-heading sa-mb-0' );
-		$this->add_render_attribute( 'title', 'data-id', $id );
+		$this->add_render_attribute( 'title', [
+			'class'      => 'sa-animated-heading sa-mb-0',
+			'data-id'    => $id,
+			'data-style' => $settings['animate_style'],
+		] );
 
-		// Animation settings
 		if ( 'typed' === $settings['animate_style'] ) {
-			$this->add_render_attribute( [
-				'title' => [
-					'data-settings' => [
-						wp_json_encode( array_filter( [
-							'style'      => $settings['animate_style'],
-							'strings'    => $main_title,
-							'typeSpeed'  => ! empty( $settings['typed_speed']['size'] ) ? $settings['typed_speed']['size'] : 60,
-							'loop'       => ( 'yes' === $settings['typed_loop'] ),
-							'loopCount'  => ( 'yes' === $settings['typed_loop'] && ! empty( $settings['typed_loop_count'] ) ) ? $settings['typed_loop_count'] : 0,
-							'startDelay' => ! empty( $settings['typed_start_delay']['size'] ) ? $settings['typed_start_delay']['size'] : 0,
-							'backSpeed'  => ! empty( $settings['typed_back_speed']['size'] ) ? $settings['typed_back_speed']['size'] : 60,
-							'backDelay'  => ! empty( $settings['typed_back_delay']['size'] ) ? $settings['typed_back_delay']['size'] : 700,
-						] ) ),
-					],
-				],
-			] );
+			$show_cursor = ( 'yes' === $settings['typed_show_cursor'] );
+			$this->add_render_attribute( 'title', 'data-settings', wp_json_encode( [
+				'style'      => $settings['animate_style'],
+				'strings'    => $main_title,
+				'typeSpeed'  => ! empty( $settings['typed_speed']['size'] ) ? (int) $settings['typed_speed']['size'] : 60,
+				'loop'       => ( 'yes' === $settings['typed_loop'] ),
+				'loopCount'  => ( 'yes' === $settings['typed_loop'] && isset( $settings['typed_loop_count'] ) ) ? (int) $settings['typed_loop_count'] : 0,
+				'startDelay' => ! empty( $settings['typed_start_delay']['size'] ) ? (int) $settings['typed_start_delay']['size'] : 0,
+				'backSpeed'  => ! empty( $settings['typed_back_speed']['size'] ) ? (int) $settings['typed_back_speed']['size'] : 60,
+				'backDelay'  => ! empty( $settings['typed_back_delay']['size'] ) ? (int) $settings['typed_back_delay']['size'] : 700,
+				'showCursor' => $show_cursor,
+				'cursorChar' => ( $show_cursor && ! empty( $settings['typed_cursor_char'] ) ) ? $settings['typed_cursor_char'] : '|',
+			] ) );
+		} elseif ( in_array( $settings['animate_style'], $custom_styles, true ) ) {
+			$this->add_render_attribute( 'title', 'data-settings', wp_json_encode( [
+				'style'    => $settings['animate_style'],
+				'strings'  => $main_title,
+				'interval' => ! empty( $settings['word_interval']['size'] ) ? (int) $settings['word_interval']['size'] : 2000,
+			] ) );
 		} else {
-			$this->add_render_attribute( [
-				'title' => [
-					'data-settings' => [
-						wp_json_encode( array_filter( [
-							'style'     => $settings['animate_style'],
-							'animation' => $settings['heading_animation'],
-							'separator' => ',',
-							'speed'     => ! empty( $settings['animated_speed']['size'] ) ? $settings['animated_speed']['size'] : 60,
-						] ) ),
-					],
-				],
-			] );
+			$this->add_render_attribute( 'title', 'data-settings', wp_json_encode( [
+				'style'     => $settings['animate_style'],
+				'animation' => $settings['heading_animation'],
+				'separator' => ',',
+				'speed'     => ! empty( $settings['animated_speed']['size'] ) ? (int) $settings['animated_speed']['size'] : 2000,
+			] ) );
 		}
 
-		// Build the title HTML
 		$title_html_parts = [];
 
-		// Prefix
 		if ( ! empty( $settings['title_prefix'] ) ) {
-			$title_html_parts[] = '<div class="sa-prefix" style="display:inline-block;">' . esc_html( $settings['title_prefix'] ) . '</div>';
+			$title_html_parts[] = '<div class="sa-prefix">' . esc_html( $settings['title_prefix'] ) . '</div>';
 		}
 
-		// Main title (empty for typed style)
-		if ( 'typed' === $settings['animate_style'] ) {
-			$main_title_html = '<div class="sa-main-heading" id="' . esc_attr( $id ) . '" style="display:inline-block;"></div>';
+		if ( 'typed' === $settings['animate_style'] || in_array( $settings['animate_style'], $custom_styles, true ) ) {
+			$main_title_html = '<div class="sa-main-heading" id="' . esc_attr( $id ) . '"></div>';
 		} elseif ( ! empty( $settings['title'] ) ) {
-			$main_title_html = '<div class="sa-main-heading" id="' . esc_attr( $id ) . '" style="display:inline-block;">' . esc_html( $settings['title'] ) . '</div>';
+			$main_title_html = '<div class="sa-main-heading" id="' . esc_attr( $id ) . '">' . esc_html( $settings['title'] ) . '</div>';
 		} else {
 			$main_title_html = '';
 		}
+
 		if ( $main_title_html ) {
 			$title_html_parts[] = $main_title_html;
 		}
 
-		// Suffix
 		if ( ! empty( $settings['title_suffix'] ) ) {
-			$title_html_parts[] = '<div class="sa-suffix" style="display:inline-block;">' . esc_html( $settings['title_suffix'] ) . '</div>';
+			$title_html_parts[] = '<div class="sa-suffix">' . esc_html( $settings['title_suffix'] ) . '</div>';
 		}
 
 		$title_html = implode( ' ', $title_html_parts );
 
-		// Wrap with link if set
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_link_attributes( 'url', $settings['link'] );
 			$title_html = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $title_html );
 		}
 
-		// Final output
 		$output = sprintf(
 			'<%1$s %2$s>%3$s</%1$s>',
 			Utils::validate_html_tag( $settings['header_size'] ),

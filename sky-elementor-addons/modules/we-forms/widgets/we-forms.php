@@ -67,7 +67,7 @@ class WeForms extends Widget_Base {
 					'raw'             => sprintf(
 						__( 'Hello %2$s, looks like %1$s is missing in your site. Please click on the link below and install/activate %1$s. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=weForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">weForms</a>',
-						sky_addons_get_current_user_display_name()
+						esc_html( sky_addons_get_current_user_display_name() )
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
@@ -77,7 +77,7 @@ class WeForms extends Widget_Base {
 				'_weforms_install',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=weForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">Click to install or activate weForms</a>',
+					'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=weForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">' . __( 'Click to install or activate weForms', 'sky-elementor-addons' ) . '</a>',
 				]
 			);
 
@@ -197,7 +197,7 @@ class WeForms extends Widget_Base {
 			[
 				'name'     => 'field_typography',
 				'label'    => __( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input:not(.weforms_submit_btn), .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields textarea',
+				'selector' => '{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields input:not(.weforms_submit_btn), {{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-fields textarea',
 				'global'   => [
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				],
@@ -221,6 +221,7 @@ class WeForms extends Widget_Base {
 				'label' => __( 'Field Placeholder Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
+					'{{WRAPPER}} ::placeholder'           => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-ms-input-placeholder' => 'color: {{VALUE}};',
@@ -310,7 +311,7 @@ class WeForms extends Widget_Base {
 	protected function __label_style_controls() {
 
 		$this->start_controls_section(
-			'we-form-label',
+			'we_form_label',
 			[
 				'label' => __( 'Form Field Labels', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -324,7 +325,7 @@ class WeForms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .wpuf-label label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpuf-label label' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -485,9 +486,9 @@ class WeForms extends Widget_Base {
 				],
 				'desktop_default' => 'left',
 				'toggle'          => false,
-				'prefix_class'    => 'ha-form-btn--%s',
+				'prefix_class'    => 'sa-form-btn--%s',
 				'selectors'       => [
-					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit' => 'text-align: {{Value}};',
+					'{{WRAPPER}} .wpuf-form-add.wpuf-style ul.wpuf-form .wpuf-submit' => 'text-align: {{VALUE}};',
 				],
 			]
 		);
@@ -739,12 +740,11 @@ class WeForms extends Widget_Base {
 
 		if ( ! empty( $settings['form_id'] ) ) {
 			echo sky_addons_do_shortcode( 'weforms', [
-				'id' => $settings['form_id'],
+				'id' => (int) $settings['form_id'],
 			] );
 		} elseif ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-			// Show a helpful message when no form is selected (only in editor)
 			echo '<div style="text-align: center; padding: 20px; background: #f9f9f9; border: 2px dashed #ddd; color: #666;">';
-			echo '<p>' . __( 'Please select a weForms form from the widget settings to display it here.', 'sky-elementor-addons' ) . '</p>';
+			echo '<p>' . esc_html__( 'Please select a weForms form from the widget settings to display it here.', 'sky-elementor-addons' ) . '</p>';
 			echo '</div>';
 		}
 	}

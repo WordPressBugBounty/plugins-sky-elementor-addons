@@ -21,32 +21,84 @@ final class Managers {
 	public static function get_inactive_extensions() {
 		return get_option( self::EXTENSIONS_DB_KEY, [] );
 	}
+
+	/**
+	 * Whether an extension is active.
+	 *
+	 * Memoized — the inactive list is fetched once per request and reused
+	 * for subsequent calls. Default behaviour: when the option is empty
+	 * (fresh install, never saved) all extensions are considered ACTIVE.
+	 *
+	 * @param string $slug Extension slug (e.g. 'equal-height', 'simple-parallax').
+	 * @return bool
+	 */
+	public static function is_extension_active( $slug ) {
+		static $inactive = null;
+		if ( null === $inactive ) {
+			$inactive = (array) self::get_inactive_extensions();
+		}
+		return ! in_array( $slug, $inactive, true );
+	}
+
+	/**
+	 * Whether a widget is active.
+	 *
+	 * Memoized — the inactive list is fetched once per request and reused
+	 * for subsequent calls. Default behaviour: when the option is empty
+	 * (fresh install, never saved) all widgets are considered ACTIVE.
+	 *
+	 * @param string $slug Widget slug (e.g. 'logo-carousel', 'logo-grid').
+	 * @return bool
+	 */
+	public static function is_widget_active( $slug ) {
+		static $inactive = null;
+		if ( null === $inactive ) {
+			$inactive = (array) self::get_inactive_widgets();
+		}
+		return ! in_array( $slug, $inactive, true );
+	}
+
 	private function is_module_active( $module_id ) {
 		$module_data      = $this->get_module_data( $module_id );
 		$inactive_widgets = self::get_inactive_widgets();
 
 		if ( ! $inactive_widgets ) {
-			return $module_data['default_activation'];
+			return $module_data['default_activation'] ?? true;
 		} elseif ( ! in_array( $module_id, $inactive_widgets ) ) {
-				return true;
+			return true;
 		} else {
 			return false;
 		}
 	}
 
 	private function has_module_style( $module_id ) {
-
 		$module_data = $this->get_module_data( $module_id );
+		return isset( $module_data['has_style'] ) ? (bool) $module_data['has_style'] : false;
+	}
 
-		if ( isset( $module_data['has_style'] ) ) {
-			return $module_data['has_style'];
-		} else {
-			return false;
-		}
+	private function has_module_script( $module_id ) {
+		$module_data = $this->get_module_data( $module_id );
+		return isset( $module_data['has_script'] ) ? (bool) $module_data['has_script'] : false;
 	}
 
 	private function get_module_data( $module_id ) {
 		return isset( $this->_modules[ $module_id ] ) ? $this->_modules[ $module_id ] : false;
+	}
+
+	private function is_extension( $module_id ) {
+		$extensions = [
+			'animated-gradient-bg',
+			'backdrop-filter',
+			'custom-clip-path',
+			'equal-height',
+			'floating-effects',
+			'gradient-text',
+			'reveal-effects',
+			'ripples-effect',
+			'simple-parallax',
+			'wrapper-link',
+		];
+		return in_array( $module_id, $extensions );
 	}
 
 	public function __construct() {
@@ -67,19 +119,21 @@ final class Managers {
 		$modules[] = 'logo-grid';
 		$modules[] = 'logo-carousel';
 		$modules[] = 'momentum-slider';
-		$modules[] = 'number';
 		$modules[] = 'panel-slider';
 		$modules[] = 'pdf-viewer';
 		$modules[] = 'portion-effect';
 		$modules[] = 'reading-progress';
-		$modules[] = 'review'; // carousel in pro version
+		$modules[] = 'review';
+		$modules[] = 'review-carousel';
 		$modules[] = 'slinky-menu';
 		$modules[] = 'social-icons';
 		$modules[] = 'stellar-slider';
 		$modules[] = 'step-flow';
 		$modules[] = 'table-of-contents';
 		$modules[] = 'team-member';
-		$modules[] = 'testimonial'; // carousel in pro version
+		$modules[] = 'team-member-carousel';
+		$modules[] = 'testimonial';
+		$modules[] = 'testimonial-carousel';
 		$modules[] = 'tidy-list';
 
 		/**
@@ -106,11 +160,6 @@ final class Managers {
 		 * All Post Modules of Theme Builder
 		 */
 
-		$modules[] = 'page-title';
-		$modules[] = 'post-title';
-		$modules[] = 'post-excerpt';
-		$modules[] = 'post-content';
-		$modules[] = 'post-featured-image';
 		$modules[] = 'post-comments';
 
 		/**
@@ -124,8 +173,8 @@ final class Managers {
 		$modules[] = 'wp-forms';
 
 		/**
-	 * All Extensions
-	 */
+		 * All Extensions
+		 */
 
 		if ( ! in_array( 'animated-gradient-bg', self::get_inactive_extensions() ) ) {
 			$modules[] = 'animated-gradient-bg';
@@ -160,10 +209,21 @@ final class Managers {
 
 		// Fetch all modules data
 		foreach ( $modules as $module ) {
-			$this->_modules[ $module ] = require SKY_ADDONS_MODULES_PATH . $module . '/module.info.php';
+			$module_info = SKY_ADDONS_MODULES_PATH . $module . '/module.info.php';
+
+			if ( ! file_exists( $module_info ) ) {
+				continue;
+			}
+
+			$this->_modules[ $module ] = require $module_info;
 		}
 
-		$direction_suffix = is_rtl() ? '-rtl' : '';
+		$direction_suffix = is_rtl() ? '.rtl' : '';
+
+		// Use virtual handles (aliases to sa-styles/sa-scripts) whenever Asset Manager is ON.
+		// Optimizer::enqueue_bundle() decides whether to serve Tier 1 (uploads) or Tier 2 (plugin combined).
+		$optimized = function_exists( 'sky_addons_is_asset_optimization_enabled' )
+			&& sky_addons_is_asset_optimization_enabled();
 
 		foreach ( $this->_modules as $module_id => $module_data ) {
 
@@ -175,8 +235,25 @@ final class Managers {
 			$class_name = str_replace( ' ', '', ucwords( $class_name ) );
 			$class_name = __NAMESPACE__ . '\\Modules\\' . $class_name . '\Module';
 
+			$sub_dir = $this->is_extension( $module_id ) ? 'extensions/' : 'modules/';
+
 			if ( $this->has_module_style( $module_id ) ) {
-				wp_register_style( 'sa-' . $module_id, SKY_ADDONS_URL . 'assets/css/sa-' . $module_id . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+				if ( $optimized ) {
+					// Asset Manager on: alias the per-widget handle to the merged bundle.
+					wp_register_style( 'sa-' . $module_id, false, [ 'sa-styles' ], SKY_ADDONS_VERSION );
+				} else {
+					wp_register_style( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'css/' . $sub_dir . 'sa-' . $module_id . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+				}
+			}
+
+			if ( $this->has_module_script( $module_id ) ) {
+				if ( $optimized ) {
+					// Asset Manager on: alias the per-widget handle to the merged bundle.
+					wp_register_script( 'sa-' . $module_id, false, [ 'jquery', 'elementor-frontend', 'sa-scripts' ], SKY_ADDONS_VERSION, true );
+				} else {
+					$script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+					wp_register_script( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'js/' . $sub_dir . 'sa-' . $module_id . $script_suffix . '.js', [ 'jquery', 'elementor-frontend', 'sky-addons' ], SKY_ADDONS_VERSION, true );
+				}
 			}
 
 			$class_name::instance();

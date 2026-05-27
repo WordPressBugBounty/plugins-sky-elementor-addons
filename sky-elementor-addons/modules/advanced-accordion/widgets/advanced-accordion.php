@@ -12,13 +12,35 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Repeater;
 use Elementor\Icons_Manager;
 use Elementor\Widget_Base;
-use Sky_Addons\Sky_Addons_Plugin;
+use Sky_Addons\Includes\Controls\GroupQuery\Group_Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Advanced_Accordion extends Widget_Base {
+
+	use Group_Control;
+
+	private $_query = null;
+
+	public function get_query() {
+		return $this->_query;
+	}
+
+	public function query_posts( $posts_per_page ) {
+		$settings = $this->get_settings();
+		$args     = [];
+
+		if ( $posts_per_page ) {
+			$args['posts_per_page'] = $posts_per_page;
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+		}
+
+		$default      = $this->getGroupControlQueryArgs();
+		$args         = array_merge( $default, $args );
+		$this->_query = new \WP_Query( $args );
+	}
 
 	public function get_name() {
 		return 'sky-advanced-accordion';
@@ -48,7 +70,7 @@ class Advanced_Accordion extends Widget_Base {
 	}
 
 	public function get_script_depends() {
-		return [ 'sa-accordion' ];
+		return [ 'sa-accordion', 'sa-advanced-accordion' ];
 	}
 
 	public function get_custom_help_url() {
@@ -66,6 +88,20 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'label' => esc_html__( 'Layout', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'content_type',
+			[
+				'label'   => esc_html__( 'Content Type', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'repeater',
+				'options' => [
+					'repeater' => esc_html__( 'Default (Repeater)', 'sky-elementor-addons' ),
+					'posts'    => esc_html__( 'Dynamic Posts', 'sky-elementor-addons' ),
+					'acf'      => esc_html__( 'ACF Fields', 'sky-elementor-addons' ),
+				],
 			]
 		);
 
@@ -164,6 +200,27 @@ class Advanced_Accordion extends Widget_Base {
 					],
 				],
 				'title_field' => '{{{ title }}}',
+				'condition'   => [ 'content_type' => 'repeater' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'columns',
+			[
+				'label'     => esc_html__( 'Grid Columns', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '1',
+				'options'   => [
+					'1' => '1',
+					'2' => '2',
+					'3' => '3',
+					'4' => '4',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sa-advanced-accordion' => 'display: grid; grid-template-columns: repeat({{VALUE}}, 1fr); align-items: start;',
+					'{{WRAPPER}} .sa-advanced-accordion .sa-ac-item' => 'margin-top: 0;',
+				],
+				'separator' => 'before',
 			]
 		);
 
@@ -181,8 +238,9 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'show_title_icon',
 			[
-				'label' => esc_html__( 'Show Title Icon?', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'     => esc_html__( 'Show Title Icon?', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'condition' => [ 'content_type' => 'repeater' ],
 			]
 		);
 
@@ -201,7 +259,7 @@ class Advanced_Accordion extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default'      => is_rtl() ? 'right' : 'left',
+				'default'      => is_rtl() ? 'left' : 'right',
 				'toggle'       => false,
 				'separator'    => 'before',
 				'prefix_class' => 'sa-icon-direction-',
@@ -214,7 +272,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'       => esc_html__( 'Icon', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::ICONS,
 				'default'     => [
-					'value'   => 'fas fa-plus',
+					'value'   => 'fas fa-chevron-down',
 					'library' => 'fa-solid',
 				],
 				'recommended' => [
@@ -241,7 +299,7 @@ class Advanced_Accordion extends Widget_Base {
 				'label'       => esc_html__( 'Active Icon', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::ICONS,
 				'default'     => [
-					'value'   => 'fas fa-minus',
+					'value'   => 'fas fa-chevron-up',
 					'library' => 'fa-solid',
 				],
 				'recommended' => [
@@ -262,6 +320,62 @@ class Advanced_Accordion extends Widget_Base {
 				'condition'   => [
 					'selected_icon[value]!' => '',
 				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_post_query_builder',
+			[
+				'label' => esc_html__( 'Query', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'content_type' => 'posts',
+				],
+			]
+		);
+
+		$this->register_query_builder_controls();
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_acf_settings',
+			[
+				'label' => esc_html__( 'ACF Settings', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+				'condition' => [
+					'content_type' => 'acf',
+				],
+			]
+		);
+
+		$this->add_control(
+			'acf_repeater_field',
+			[
+				'label'       => esc_html__( 'ACF Repeater Field', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter repeater field name', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Enter the name of the ACF repeater field.', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_title_field',
+			[
+				'label'       => esc_html__( 'Title Field Mapping', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for title', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_content_field',
+			[
+				'label'       => esc_html__( 'Content Field Mapping', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for content', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -317,6 +431,7 @@ class Advanced_Accordion extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'placeholder' => esc_html__( '1 or 1, 2, 3', 'sky-elementor-addons' ),
 				'dynamic'     => [ 'active' => true ],
+				'condition'   => [ 'content_type' => 'repeater' ],
 			]
 		);
 
@@ -340,19 +455,62 @@ class Advanced_Accordion extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'item_spacing',
 			[
-				'label' => esc_html__( 'Spacing', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SLIDER,
+				'label'      => esc_html__( 'Item Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'default' => [
+					'unit' => 'px',
+					'size' => 10,
+				],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+					'em' => [
+						'min'  => 0,
+						'max'  => 10,
+						'step' => 0.1,
+					],
+					'rem' => [
+						'min'  => 0,
+						'max'  => 10,
+						'step' => 0.1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-advanced-accordion .sa-ac-item' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'column_gap',
+			[
+				'label'      => esc_html__( 'Column Gap', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
 					],
+					'em' => [
+						'min'  => 0,
+						'max'  => 10,
+						'step' => 0.1,
+					],
+					'rem' => [
+						'min'  => 0,
+						'max'  => 10,
+						'step' => 0.1,
+					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} ' => '--sa-acc-item-spacing: {{SIZE}}px;',
+					'{{WRAPPER}} .sa-advanced-accordion' => 'column-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -480,7 +638,7 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'name'     => 'title_typography',
 				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--titler)',
+				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--title)',
 			]
 		);
 
@@ -489,7 +647,7 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'name'     => 'title_text_shadow',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--titler)',
+				'selector' => '{{WRAPPER}} .sa--title:not(.sa-ac-panel .sa--title)',
 			]
 		);
 
@@ -680,9 +838,23 @@ class Advanced_Accordion extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_icon_style',
 			[
-				'label'     => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => [ 'show_title_icon' => 'yes' ],
+				'label' => esc_html__( 'Title Icon', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'conditions' => [
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => 'content_type',
+							'operator' => '===',
+							'value'    => 'repeater',
+						],
+						[
+							'name'     => 'show_title_icon',
+							'operator' => '===',
+							'value'    => 'yes',
+						],
+					],
+				],
 			]
 		);
 
@@ -717,7 +889,6 @@ class Advanced_Accordion extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					// '{{WRAPPER}} .sa-title-icon.sa-icon-wrap' => '--sa-acc-icon-spacing: {{SIZE}}px;',
 					'{{WRAPPER}} .sa-ac-trigger' => 'gap: {{SIZE}}{{UNIT}};',
 				],
 			]
@@ -1248,14 +1419,10 @@ class Advanced_Accordion extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$columns  = max( 1, (int) ( $settings['columns'] ?? 1 ) );
 
-		// acc_open_default.
-		$acc_open = explode( ',', $settings['acc_open_default'] );
-
-		$open_init_arr = [];
-		foreach ( $acc_open as $open_init ) {
-			$open_init_arr[] = (int) $open_init - 1;
-		}
+		$acc_open      = explode( ',', $settings['acc_open_default'] ?? '' );
+		$open_init_arr = array_map( fn( $v ) => (int) $v - 1, $acc_open );
 
 		$this->add_render_attribute(
 			[
@@ -1263,21 +1430,19 @@ class Advanced_Accordion extends Widget_Base {
 					'id'    => 'sa-advanced-acc-' . $this->get_id(),
 					'class' => 'sa-advanced-accordion',
 					'data-settings' => [
-						wp_json_encode(
-							[
-								'id'           => 'sa-advanced-acc-' . $this->get_id(),
-								'duration'     => ( ! empty( $settings['acc_duration']['size'] ) ) ? $settings['acc_duration']['size'] : 400,
-								'collapse'     => ( isset( $settings['acc_collapse'] ) && ( 'yes' === $settings['acc_collapse'] ) ) ? true : false,
-								'showMultiple' => ( isset( $settings['acc_show_multiple'] ) && ( 'yes' === $settings['acc_show_multiple'] ) ) ? true : false,
-								'openOnInit'   => ( ! empty( $settings['acc_open_default'] ) ) ? $open_init_arr : [],
-							]
-						),
+						wp_json_encode( [
+							'id'           => 'sa-advanced-acc-' . $this->get_id(),
+							'duration'     => ! empty( $settings['acc_duration']['size'] ) ? (int) $settings['acc_duration']['size'] : 400,
+							'collapse'     => 'yes' === $settings['acc_collapse'],
+							'showMultiple' => 'yes' === $settings['acc_show_multiple'],
+							'openOnInit'   => ! empty( $settings['acc_open_default'] ) ? $open_init_arr : [],
+						] ),
 					],
 				],
 			]
 		);
 
-		$faq_schema = ( isset( $settings['faq_schema'] ) && 'yes' === $settings['faq_schema'] );
+		$faq_schema = isset( $settings['faq_schema'] ) && 'yes' === $settings['faq_schema'];
 
 		if ( $faq_schema ) {
 			$this->add_render_attribute( 'advanced-accordion', [
@@ -1286,79 +1451,182 @@ class Advanced_Accordion extends Widget_Base {
 			] );
 		}
 
+		if ( 'posts' === $settings['content_type'] ) {
+			$items     = $this->collect_post_items( $settings );
+			$empty_msg = esc_html__( 'No posts found.', 'sky-elementor-addons' );
+		} elseif ( 'acf' === $settings['content_type'] ) {
+			$items     = $this->collect_acf_items( $settings );
+			$empty_msg = esc_html__( 'No ACF rows found.', 'sky-elementor-addons' );
+		} else {
+			$items     = $settings['acc_list'] ?? [];
+			$empty_msg = '';
+		}
+
 		?>
-
 		<div <?php $this->print_render_attribute_string( 'advanced-accordion' ); ?>>
-
-			<?php foreach ( $settings['acc_list'] as $index => $item ) : ?>
-
-				<?php if ( $faq_schema ) : ?>
-				<div class="sa-ac-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-				<?php else : ?>
-				<div class="sa-ac-item">
+			<?php if ( empty( $items ) ) : ?>
+				<?php if ( $empty_msg ) : ?>
+					<p class="sa-no-posts"><?php echo esc_html( $empty_msg ); ?></p>
 				<?php endif; ?>
-					<div class="sa-ac-trigger">
-
-						<div class="sa-title-wrapper">
-							<?php if ( 'yes' === $settings['show_title_icon'] && ! empty( $item['title_icon']['value'] ) ) : ?>
-								<div class="sa-title-icon sa-icon-wrap sa-me-2">
-									<?php
-									Icons_Manager::render_icon( $item['title_icon'] );
-									?>
-								</div>
-							<?php endif; ?>
-							<?php
-							printf(
-								'<%1$s class="sa--title sa--text-title sa-ac-title sa-m-0 sa-p-0"%3$s> %2$s </%1$s>',
-								esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-								esc_html( $item['title'] ),
-								$faq_schema ? ' itemprop="name"' : ''
-							);
-							?>
-						</div>
-						<span class="sa-trigger-icon sa-icon-wrapper sa-ac-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>">
-							<span class="sa-ac-icon-closed sa-icon-wrap">
-								<?php
-								if ( ! empty( $settings['selected_icon']['value'] ) ) {
-									Icons_Manager::render_icon( $settings['selected_icon'] );
-								}
-								?>
-							</span>
-							<span class="sa-ac-icon-opened sa-icon-wrap">
-								<?php
-								if ( ! empty( $settings['selected_active_icon']['value'] ) ) {
-									Icons_Manager::render_icon( $settings['selected_active_icon'] );
-								}
-								?>
-							</span>
-						</span>
+			<?php elseif ( $columns > 1 ) : ?>
+				<?php
+				$chunks = array_chunk( $items, (int) ceil( count( $items ) / $columns ) );
+				foreach ( $chunks as $chunk ) :
+					?>
+					<div class="sa-acc-col">
+						<?php foreach ( $chunk as $item ) : ?>
+							<?php $this->render_item( $item, $settings, $faq_schema ); ?>
+						<?php endforeach; ?>
 					</div>
-					<?php if ( $faq_schema ) : ?>
-					<div class="sa-ac-panel" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-						<div class="sa-ac-content" itemprop="text">
-					<?php else : ?>
-					<div class="sa-ac-panel">
-						<div class="sa-ac-content">
-					<?php endif; ?>
-							<?php
-							if ( 'custom' === $item['content_source'] && ! empty( $item['content_source'] ) ) :
-								echo wp_kses_post( $this->parse_text_editor( $item['custom_content'] ) );
-							elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
-								sky_addons_display_el_tem_by_id( $item['template_id'] );
-							elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
-								sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
-							else :
-								esc_html_e( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
-							endif;
-							?>
-						</div>
-					</div>
-				</div>
-
-			<?php endforeach; ?>
-
+					<?php
+				endforeach;
+				?>
+			<?php else : ?>
+				<?php foreach ( $items as $item ) : ?>
+					<?php $this->render_item( $item, $settings, $faq_schema ); ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		</div>
+		<?php
+	}
 
+	protected function collect_post_items( $settings ) {
+		$posts_per_page = isset( $settings['posts_per_page'] ) ? (int) $settings['posts_per_page'] : 6;
+		$this->query_posts( $posts_per_page );
+		$query = $this->get_query();
+		$items = [];
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$items[] = [
+					'title'          => get_the_title(),
+					'custom_content' => wpautop( get_the_content() ),
+					'content_source' => 'custom',
+					'title_icon'     => [],
+					'_raw_content'   => true,
+				];
+			}
+			wp_reset_postdata();
+		}
+
+		return $items;
+	}
+
+	protected function collect_acf_items( $settings ) {
+		if ( ! function_exists( 'get_field' ) ) {
+			return [];
+		}
+
+		$repeater_field = sanitize_text_field( $settings['acf_repeater_field'] ?? '' );
+		if ( empty( $repeater_field ) ) {
+			return [];
+		}
+
+		// In Elementor/WordPress preview the preview_id param is the authoritative post ID.
+		// get_the_ID() may return a revision or 0 in preview context, so use preview_id directly.
+		if ( isset( $_GET['preview_id'] ) && isset( $_GET['preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$post_id = absint( $_GET['preview_id'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		} else {
+			$post_id   = get_the_ID();
+			$parent_id = wp_is_post_revision( $post_id );
+			if ( $parent_id ) {
+				$post_id = $parent_id;
+			}
+		}
+
+		if ( ! $post_id ) {
+			return [];
+		}
+
+		$rows = get_field( $repeater_field, $post_id );
+		if ( empty( $rows ) || ! is_array( $rows ) ) {
+			return [];
+		}
+
+		$title_key   = sanitize_text_field( $settings['acf_title_field'] ?? '' );
+		$content_key = sanitize_text_field( $settings['acf_content_field'] ?? '' );
+		$items       = [];
+
+		foreach ( $rows as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$items[] = [
+				'title'          => $row[ $title_key ] ?? '',
+				'custom_content' => $row[ $content_key ] ?? '',
+				'content_source' => 'custom',
+				'title_icon'     => [],
+				'_raw_content'   => true,
+			];
+		}
+
+		return $items;
+	}
+
+	protected function render_item( $item, $settings, $faq_schema ) {
+		?>
+		<?php if ( $faq_schema ) : ?>
+		<div class="sa-ac-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+		<?php else : ?>
+		<div class="sa-ac-item">
+		<?php endif; ?>
+			<div class="sa-ac-trigger">
+				<div class="sa-title-wrapper">
+					<?php if ( 'yes' === $settings['show_title_icon'] && ! empty( $item['title_icon']['value'] ) ) : ?>
+						<div class="sa-title-icon sa-icon-wrap sa-me-2">
+							<?php Icons_Manager::render_icon( $item['title_icon'] ); ?>
+						</div>
+					<?php endif; ?>
+					<?php
+					printf(
+						'<%1$s class="sa--title sa--text-title sa-ac-title sa-m-0 sa-p-0"%3$s> %2$s </%1$s>',
+						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
+						esc_html( $item['title'] ),
+						$faq_schema ? ' itemprop="name"' : ''
+					);
+					?>
+				</div>
+				<span class="sa-trigger-icon sa-icon-wrapper sa-ac-icon-<?php echo esc_attr( $settings['icon_align'] ); ?>">
+					<span class="sa-ac-icon-closed sa-icon-wrap">
+						<?php
+						if ( ! empty( $settings['selected_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $settings['selected_icon'] );
+						}
+						?>
+					</span>
+					<span class="sa-ac-icon-opened sa-icon-wrap">
+						<?php
+						if ( ! empty( $settings['selected_active_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $settings['selected_active_icon'] );
+						}
+						?>
+					</span>
+				</span>
+			</div>
+			<?php if ( $faq_schema ) : ?>
+			<div class="sa-ac-panel" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+				<div class="sa-ac-content" itemprop="text">
+			<?php else : ?>
+			<div class="sa-ac-panel">
+				<div class="sa-ac-content">
+			<?php endif; ?>
+					<?php
+					if ( 'custom' === $item['content_source'] ) :
+						if ( ! empty( $item['_raw_content'] ) ) :
+							echo wp_kses_post( $item['custom_content'] );
+						else :
+							echo wp_kses_post( $this->parse_text_editor( $item['custom_content'] ) );
+						endif;
+					elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
+						sky_addons_display_el_tem_by_id( $item['template_id'] );
+					elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
+						sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
+					endif;
+					?>
+				</div>
+			</div>
+		</div>
 		<?php
 	}
 }

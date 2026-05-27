@@ -37,6 +37,10 @@ class Dual_Button extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'dual', 'buttons' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-dual-button' ];
+	}
+
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/dual-button/';
@@ -94,10 +98,6 @@ class Dual_Button extends Widget_Base {
 						'min' => 25,
 						'max' => 100,
 					],
-				],
-				'default'    => [
-					'unit' => '%',
-					// 'size' => 50,
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-dual-button-container' => 'width: {{SIZE}}%;',
@@ -610,6 +610,10 @@ class Dual_Button extends Widget_Base {
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-btn-a:hover',
+				'fields_options' => [
+					'background' => [ 'default' => 'classic' ],
+					'color'      => [ 'default' => '#6a3385' ],
+				],
 			]
 		);
 
@@ -800,6 +804,10 @@ class Dual_Button extends Widget_Base {
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .sa-btn-b:hover',
+				'fields_options' => [
+					'background' => [ 'default' => 'classic' ],
+					'color'      => [ 'default' => '#c43da0' ],
+				],
 			]
 		);
 
@@ -882,12 +890,12 @@ class Dual_Button extends Widget_Base {
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [
 					'px' => [
-						'min' => 30,
-						'max' => 50,
+						'min' => 20,
+						'max' => 80,
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-separator' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-separator' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}; margin-left: calc(-{{SIZE}}{{UNIT}} / 2); margin-right: calc(-{{SIZE}}{{UNIT}} / 2); font-size: calc({{SIZE}}{{UNIT}} * 0.38);',
 				],
 			]
 		);
@@ -938,7 +946,7 @@ class Dual_Button extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-separator' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+					'{{WRAPPER}} .sa-separator' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -949,6 +957,41 @@ class Dual_Button extends Widget_Base {
 				'name'     => 'separator_box_shadow',
 				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-separator',
+			]
+		);
+
+		$this->add_control(
+			'separator_ring_width',
+			[
+				'label'      => esc_html__( 'Ring Width', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 20,
+					],
+				],
+				'default'    => [
+					'size' => 5,
+					'unit' => 'px',
+				],
+				'separator'  => 'before',
+				'selectors'  => [
+					'{{WRAPPER}} .sa-separator' => '--sa-sep-ring-w: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'separator_ring_color',
+			[
+				'label'   => esc_html__( 'Ring Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => 'rgba(255,255,255,0.3)',
+				'selectors' => [
+					'{{WRAPPER}} .sa-separator' => '--sa-sep-ring-color: {{VALUE}};',
+				],
 			]
 		);
 
@@ -1275,12 +1318,11 @@ class Dual_Button extends Widget_Base {
 		$this->end_controls_section();
 	}
 
-	protected function button_icon( $btn ) {
-		$settings = $this->get_settings_for_display();
+	protected function button_icon( string $icon_key, array $settings ): void {
 		?>
 		<div class="sa-icon-wrap sa-text-center">
 			<?php
-			Icons_Manager::render_icon( $settings[ $btn ], [
+			Icons_Manager::render_icon( $settings[ $icon_key ], [
 				'aria-hidden' => 'true',
 			] );
 			?>
@@ -1288,75 +1330,71 @@ class Dual_Button extends Widget_Base {
 		<?php
 	}
 
-	// sa-button-icon
+	private function render_button( string $btn, array $settings ): void {
+		$key          = 'button_' . $btn;
+		$icon_key     = $key . '_icon';
+		$text_key     = $key . '_text';
+		$position_key = $key . '_icon_position';
+
+		$this->add_link_attributes( $key, $settings[ $key . '_link' ] );
+
+		$icon_position_class = ! empty( $settings[ $icon_key ]['value'] )
+			? 'sa-flex-icon-' . $settings[ $position_key ]
+			: '';
+
+		$this->add_render_attribute( $key, 'class',
+			'sa-btn sa-btn-' . $btn . ' sa-d-flex sa-text-decoration-none sa-align-items-center sa-justify-content-center ' . $icon_position_class
+		);
+
+		if ( ! empty( $settings[ $text_key ] ) ) {
+			$this->add_render_attribute( $key, 'class', 'sa-button-icon-' . $settings[ $position_key ] );
+		}
+		?>
+		<a <?php $this->print_render_attribute_string( $key ); ?>>
+			<?php
+			if ( ! empty( $settings[ $icon_key ]['value'] ) ) {
+				$this->button_icon( $icon_key, $settings );
+			}
+			if ( ! empty( $settings[ $text_key ] ) ) {
+				printf( '<span class="sa-button-text">%s</span>', esc_html( $settings[ $text_key ] ) );
+			}
+			?>
+		</a>
+		<?php
+	}
+
+	private function render_separator( array $settings ): void {
+		if ( $settings['show_separator'] !== 'yes' ) {
+			return;
+		}
+
+		?>
+		<span class="sa-separator">
+			<span class="sa-separator-inner">
+				<?php
+				if ( $settings['separator_content_type'] === 'icon' ) {
+					Icons_Manager::render_icon( $settings['separator_content_icon'], [
+						'aria-hidden' => 'true',
+					] );
+				} else {
+					echo esc_html( $settings['separator_content_text'] );
+				}
+				?>
+			</span>
+		</span>
+		<?php
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
-		// button A
-		$this->add_link_attributes( 'button_a', $settings['button_a_link'] );
-		$icon_position_a = ! empty( $settings['button_a_icon']['value'] ) ? 'sa-flex-icon-' . $settings['button_a_icon_position'] : '';
-		$this->add_render_attribute( 'button_a', 'class', 'sa-btn sa-btn-a sa-d-flex sa-text-decoration-none sa-align-items-center sa-justify-content-center ' . $icon_position_a );
-
-		// button B
-		$this->add_link_attributes( 'button_b', $settings['button_b_link'] );
-		$icon_position_b = ! empty( $settings['button_b_icon']['value'] ) ? 'sa-flex-icon-' . $settings['button_b_icon_position'] : '';
-		$this->add_render_attribute( 'button_b', 'class', 'sa-btn sa-btn-b sa-d-flex sa-text-decoration-none sa-align-items-center sa-justify-content-center ' . $icon_position_b );
 		?>
 		<div class="sa-dual-button sa-d-flex sa-justify-content-center sa-align-items-center">
 			<div class="sa-dual-button-container sa-d-flex sa-align-items-center">
 				<?php
-				if ( ! empty( $settings['button_a_text'] ) ) :
-					$this->add_render_attribute( 'button_a', 'class', 'sa-button-icon-' . $settings['button_a_icon_position'] );
-				endif;
+				$this->render_button( 'a', $settings );
+				$this->render_button( 'b', $settings );
+				$this->render_separator( $settings );
 				?>
-				<a <?php $this->print_render_attribute_string( 'button_a' ); ?>>
-					<?php
-					if ( ! empty( $settings['button_a_icon']['value'] ) ) {
-						$this->button_icon( 'button_a_icon' );
-					}
-
-					if ( ! empty( $settings['button_a_text'] ) ) {
-						printf(
-							'<span class="sa-button-text">%1$s</span>',
-							esc_html( $settings['button_a_text'] )
-						);
-					}
-					?>
-				</a>
-
-				<?php
-				if ( ! empty( $settings['button_b_text'] ) ) :
-					$this->add_render_attribute( 'button_b', 'class', 'sa-button-icon-' . $settings['button_b_icon_position'] );
-				endif;
-				?>
-
-				<a <?php $this->print_render_attribute_string( 'button_b' ); ?>>
-					<?php
-					if ( ! empty( $settings['button_b_icon']['value'] ) ) {
-						$this->button_icon( 'button_b_icon' );
-					}
-					if ( ! empty( $settings['button_b_text'] ) ) {
-						printf(
-							'<span class="sa-button-text">%1$s</span>',
-							esc_html( $settings['button_b_text'] )
-						);
-					}
-					?>
-				</a>
-				<?php if ( $settings['show_separator'] === 'yes' ) : ?>
-					<span class="sa-separator">
-						<?php
-						if ( $settings['separator_content_type'] === 'icon' ) {
-							Icons_Manager::render_icon( $settings['separator_content_icon'], [
-								'aria-hidden' => 'true',
-								'class'       => 'sa--',
-							] );
-						} else {
-							echo esc_html( $settings['separator_content_text'] );
-						}
-						?>
-					</span>
-				<?php endif; ?>
 			</div>
 		</div>
 		<?php

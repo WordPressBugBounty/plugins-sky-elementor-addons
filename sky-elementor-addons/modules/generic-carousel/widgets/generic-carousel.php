@@ -56,11 +56,12 @@ class Generic_Carousel extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-generic-carousel',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-generic-carousel' ];
 	}
 
 	public function get_query() {

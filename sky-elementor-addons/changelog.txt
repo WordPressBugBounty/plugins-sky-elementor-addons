@@ -1,6 +1,33 @@
-= 3.3.3 [4th May 2026] =
-
-* Improved: Security improved (Thanks to Athiwat Tiprasaharn (Jitlada))
+= 3.8.0 [27th May 2026] =
+* Added: Assets Manager Added
+* Added: Theme Builder Completely Unlocked and Redesigned
+* Added: Custom Scripts Improved & Redesigned
+* Added: Review Carousel Unlock to free
+* Added: Testimonial Carousel Unlock to free
+* Added: Dynamic Content & ACF added in Accordion widget
+* Added: 11 modern styles and full control added in Audio Player
+* Added: Dynamic Content & ACF added in List Group & Tidy List
+* Added: New animation styles added in Animated Heading
+* Added: Brand Name, Lazy Loading, Effects added in Logo Grid & Carousel
+* Added: Targeted widget mode added in Equal Height
+* Added: Entrance Animations & Effects added in Portion Effect widget
+* Added: Header Bar, Badge added in PDF Viewer widget
+* Added: Styling added in Ninja, Fluent & Gravity Forms
+* Improved: Info Box & Card widgets
+* Improved: Updated documentation links and control labels plugin-wide
+* Improved: Social Icons — removed dead `.sa-anim-2` empty CSS rule from LESS file
+* Improved: Redesigned Changelog widget [View Demo](https://skyaddons.com/changelog/)
+* Improved: Backdrop Filter & Custom Clip path feature improved
+* Improved: All Form widgets
+* Improved: Post Comments widget
+* Improved: Reading Progress widget
+* Improved: Simple Parallax Extensions
+* Improved: Slinky Menu widget
+* Improved: Social Icons widget
+* Improved: Table Of Content completely redesigned
+* Improved: Team Member widget
+* Fixed: Accessibility violations, tooltip bugs, and CSS specificity issues
+* Removed: Number, Page Title, Post Title, Featured Image, Post Excerpt widget
 
 = 3.3.2 [29th April 2026] =
 

@@ -239,6 +239,31 @@ class Custom_Scripts_Loader {
 	}
 
 	/**
+	 * Strip a single outer wrapper tag if the snippet was pasted with one.
+	 *
+	 * Snippets are stored as RAW code — the loader adds the <style>/<script>
+	 * wrapper itself. If an author pastes the wrapper too, this removes it so
+	 * the output never double-wraps.
+	 *
+	 * @param string $content
+	 * @param string $tag     'style' or 'script'
+	 * @return string
+	 */
+	private function strip_wrapper_tags( $content, $tag ) {
+		$content = trim( $content );
+
+		if ( '' === $content ) {
+			return '';
+		}
+
+		if ( preg_match( '#^<' . $tag . '\b[^>]*>(.*)</' . $tag . '>$#is', $content, $matches ) ) {
+			$content = trim( $matches[1] );
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Load CSS
 	 *
 	 * @param string $handle
@@ -246,6 +271,12 @@ class Custom_Scripts_Loader {
 	 * @param string $position
 	 */
 	private function load_css( $handle, $content, $position ) {
+		$content = $this->strip_wrapper_tags( $content, 'style' );
+
+		if ( '' === $content ) {
+			return;
+		}
+
 		if ( $position === 'header' ) {
 			add_action( 'wp_head', function () use ( $content ) {
 				echo '<style type="text/css">' . "\n" . $content . "\n" . '</style>' . "\n";
@@ -265,6 +296,12 @@ class Custom_Scripts_Loader {
 	 * @param string $position
 	 */
 	private function load_js( $handle, $content, $position ) {
+		$content = $this->strip_wrapper_tags( $content, 'script' );
+
+		if ( '' === $content ) {
+			return;
+		}
+
 		if ( $position === 'header' ) {
 			add_action( 'wp_head', function () use ( $content ) {
 				echo '<script type="text/javascript">' . "\n" . $content . "\n" . '</script>' . "\n";

@@ -50,11 +50,11 @@ class Mate_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-mate-slider' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-mate-slider' ];
 	}
 
 	public function get_query() {
@@ -198,7 +198,7 @@ class Mate_Slider extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_query_builder',
 			[
-				'label' => __( 'Query', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Query', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -1257,7 +1257,7 @@ class Mate_Slider extends Widget_Base {
 		// }
 		?>
 		<div class="swiper-slide">
-			<?php $this->render_post_thumb_with_video( $post_id, $image_size = 'full' ); ?>
+			<?php $this->render_post_thumb_with_video( $post_id, 'full' ); ?>
 		</div>
 		<?php
 	}
@@ -1279,7 +1279,7 @@ class Mate_Slider extends Widget_Base {
 				<div>
 					<div class="sa-post-author-text">
 						<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
-							<?php echo get_the_author(); ?>
+							<?php echo esc_html( get_the_author() ); ?>
 						</a>
 					</div>
 					<?php $this->render_date(); ?>
@@ -1405,7 +1405,7 @@ class Mate_Slider extends Widget_Base {
 		$this->add_render_attribute(
 			[
 				'mate-slider' => [
-					'class' => 'sa-mate-slider sa-d-flex  sa-align-items-center',
+					'class' => 'sa-mate-slider sa-d-flex sa-align-items-center',
 					'id'    => $id,
 					'data-primary-settings' => [
 						wp_json_encode( array_filter( [
@@ -1465,7 +1465,7 @@ class Mate_Slider extends Widget_Base {
 				endif;
 				?>
 			</div>
-			<div class="sa-mate-secondary swiper sa-h-100X">
+			<div class="sa-mate-secondary swiper">
 				<div class="swiper-wrapper">
 					<?php
 					$this->render_mate_content( $wp_query );

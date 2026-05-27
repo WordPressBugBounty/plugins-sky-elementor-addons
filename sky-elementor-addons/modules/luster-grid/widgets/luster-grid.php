@@ -49,6 +49,7 @@ class Luster_Grid extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'elementor-icons-fa-solid',
+			'sa-luster-grid',
 		];
 	}
 
@@ -418,8 +419,8 @@ class Luster_Grid extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-img'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-post-img  ::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-img'        => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-img::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -870,8 +871,6 @@ class Luster_Grid extends Widget_Base {
 				$wp_query->the_post();
 
 				$thumbnail_size = $settings['primary_thumbnail_size'];
-
-				$this->get_posts_tags();
 
 				$this->render_item( get_the_ID(), $thumbnail_size, $settings['excerpt_length'] );
 

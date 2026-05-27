@@ -50,11 +50,12 @@ class Logo_Carousel extends Widget_Base {
 		return [
 			'swiper',
 			'tippy',
+			'sa-logo-carousel',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'popper', 'tippyjs', 'swiper' ];
+		return [ 'popper', 'tippyjs', 'swiper', 'sa-logo-carousel' ];
 	}
 
 	public function get_custom_help_url() {
@@ -206,6 +207,37 @@ class Logo_Carousel extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_brand_name',
+			[
+				'label'     => esc_html__( 'Show Brand Name', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'brand_name_tag',
+			[
+				'label'   => esc_html__( 'HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'span',
+				'options' => [
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				],
+				'condition' => [
+					'show_brand_name' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
 			'style_select',
 			[
 				'label'        => esc_html__( 'Select Style', 'sky-elementor-addons' ),
@@ -305,6 +337,15 @@ class Logo_Carousel extends Widget_Base {
 				'selectors'  => [
 					'{{WRAPPER}} .swiper' => 'height: {{SIZE}}{{UNIT}};',
 				],
+			]
+		);
+
+		$this->add_control(
+			'lazy_load',
+			[
+				'label'       => esc_html__( 'Lazy Load', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => esc_html__( 'Enables native lazy loading on logo images for better performance.', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -494,6 +535,22 @@ class Logo_Carousel extends Widget_Base {
 				// 'condition'  => [
 				// 'style_select' => 'box'
 				// ]
+			]
+		);
+
+		$this->add_control(
+			'grayscale_mode',
+			[
+				'label'        => esc_html__( 'Grayscale Effect', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'none',
+				'options'      => [
+					'none'          => esc_html__( 'None', 'sky-elementor-addons' ),
+					'gray-to-color' => esc_html__( 'Gray → Color on Hover', 'sky-elementor-addons' ),
+					'color-to-gray' => esc_html__( 'Color → Gray on Hover', 'sky-elementor-addons' ),
+				],
+				'prefix_class' => 'sa-logo-grayscale-',
+				'separator'    => 'before',
 			]
 		);
 
@@ -691,6 +748,67 @@ class Logo_Carousel extends Widget_Base {
 				'render_type' => 'template',
 				'condition'   => [
 					'img_width!' => '',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_brand_name_style',
+			[
+				'label' => esc_html__( 'Brand Name', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_brand_name' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'brand_name_typography',
+				'selector' => '{{WRAPPER}} .sa-brand-name',
+			]
+		);
+
+		$this->add_control(
+			'brand_name_color',
+			[
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-brand-name' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'brand_name_hover_color',
+			[
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-item:hover .sa-brand-name' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'brand_name_spacing',
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-brand-name' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -905,8 +1023,6 @@ class Logo_Carousel extends Widget_Base {
 	public function render_item() {
 		$settings = $this->get_settings_for_display();
 
-		?>
-		<?php
 		foreach ( $settings['logo_list'] as $index => $item ) :
 			$link_attr = 'link-attr-' . $index;
 			$image     = Group_Control_Image_Size::get_attachment_image_src( $item['logo']['id'], 'thumbnail', $settings );
@@ -915,10 +1031,13 @@ class Logo_Carousel extends Widget_Base {
 				$image = $item['logo']['url'];
 			}
 
-			$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] === 'yes' ) ? ' sa-tippy-tooltip' : '';
-			$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none ' . $tippy_class, true );
+			$has_tooltip    = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' );
+			$tippy_class    = $has_tooltip ? ' sa-tippy-tooltip' : '';
+			$flex_direction = ( 'yes' === $settings['show_brand_name'] ) ? ' sa-flex-column' : '';
 
-			if ( ! empty( $item['link']['url'] && 'custom' === $settings['link_to'] ) ) {
+			$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none' . $tippy_class . $flex_direction, true );
+
+			if ( ! empty( $item['link']['url'] ) && 'custom' === $settings['link_to'] ) {
 				$this->add_render_attribute( $link_attr, 'href', esc_url( $item['link']['url'] ), true );
 
 				if ( $item['link']['is_external'] ) {
@@ -929,8 +1048,7 @@ class Logo_Carousel extends Widget_Base {
 					$this->add_render_attribute( $link_attr, 'rel', 'nofollow', true );
 				}
 			} else {
-				$this->add_render_attribute( $link_attr, 'target', '_self', true );
-				$this->add_render_attribute( $link_attr, 'href', 'javascript:void(0);', true );
+				$this->add_render_attribute( $link_attr, 'href', '#', true );
 			}
 
 			/**
@@ -950,10 +1068,7 @@ class Logo_Carousel extends Widget_Base {
 			$alt_text = ! empty( $item['brand_text'] ) ? $alt_text . ' - ' . $item['brand_text'] : $alt_text;
 			$alt_text = $alt_text . Control_Media::get_image_alt( $item['logo'] );
 
-			// tooltip
-			if ( ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' ) ) :
-
-				$this->add_render_attribute( $link_attr, 'class', 'sa-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3 sa-logo-link sa-text-decoration-none sa-tippy-tooltip ' . $tippy_class, true );
+			if ( $has_tooltip ) :
 
 				$this->add_render_attribute( $link_attr, 'data-tippy', '', true );
 
@@ -985,31 +1100,45 @@ class Logo_Carousel extends Widget_Base {
 				}
 
 			endif;
+
+			$loading = ( 'yes' === $settings['lazy_load'] ) ? 'lazy' : 'eager';
 			?>
 			<div class="swiper-slide">
 				<a <?php $this->print_render_attribute_string( $link_attr ); ?>>
 					<figure class="sa-figure">
 						<?php
 						if ( $item['logo']['id'] ) :
-							print ( wp_get_attachment_image(
+							print( wp_get_attachment_image(
 								$item['logo']['id'],
 								$settings['thumbnail_size'],
 								false,
 								[
-									'class' => 'sa-img elementor-animation-' . esc_attr( $settings['hover_animation'] ),
-									'alt'   => $alt_text,
+									'class'   => 'sa-img elementor-animation-' . esc_attr( $settings['hover_animation'] ),
+									'alt'     => $alt_text,
+									'loading' => $loading,
 								]
 							) );
 						else :
 							printf(
-								'<img class="sa-img elementor-animation-%s" src="%s" alt="%s">',
+								'<img class="sa-img elementor-animation-%s" src="%s" alt="%s" loading="%s">',
 								esc_attr( $settings['hover_animation'] ),
 								esc_attr( Utils::get_placeholder_image_src() ),
-								esc_attr( $alt_text )
+								esc_attr( $alt_text ),
+								esc_attr( $loading )
 							);
 						endif;
 						?>
 					</figure>
+					<?php
+					if ( 'yes' === $settings['show_brand_name'] && ! empty( $item['brand_name'] ) ) :
+						$brand_tag = $settings['brand_name_tag'];
+						printf(
+							'<%1$s class="sa-brand-name">%2$s</%1$s>',
+							esc_attr( $brand_tag ),
+							esc_html( $item['brand_name'] )
+						);
+					endif;
+					?>
 				</a>
 			</div>
 			<?php

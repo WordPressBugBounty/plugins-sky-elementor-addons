@@ -45,6 +45,7 @@ class Info_Box extends Widget_Base {
 		return [
 			'elementor-icons-fa-solid',
 			'elementor-icons-fa-regular',
+			'sa-info-box',
 		];
 	}
 
@@ -190,7 +191,7 @@ class Info_Box extends Widget_Base {
 				'mobile_default'  => 'top',
 				'style_transfer'  => true,
 				'selectors_dictionary' => [
-					'top'    => '    -webkit-align-self: center; -ms-flex-item-align: center; align-self: flex-start;',
+					'top'    => '-webkit-align-self: flex-start; -ms-flex-item-align: start; align-self: flex-start;',
 					'center' => '    -webkit-align-self: center; -ms-flex-item-align: center; align-self: center;',
 					'bottom' => '    -webkit-align-self: flex-end; -ms-flex-item-align: end; align-self: flex-end;',
 				],
@@ -258,6 +259,16 @@ class Info_Box extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'clickable_card',
+			[
+				'label'       => esc_html__( 'Clickable Card', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => esc_html__( 'Makes the entire card clickable via the Link URL. Title and button display as text — no nested anchors.', 'sky-elementor-addons' ),
+				'separator'   => 'before',
 			]
 		);
 
@@ -916,6 +927,17 @@ class Info_Box extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'icon_hover_animation',
+			[
+				'label' => esc_html__( 'Hover Animation', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::HOVER_ANIMATION,
+				'condition' => [
+					'media_type' => 'icon',
+				],
+			]
+		);
+
 		$this->end_controls_tab();
 
 		$this->end_controls_tabs();
@@ -1330,6 +1352,10 @@ class Info_Box extends Widget_Base {
 			// $html .= '<figure class="elementor-image-box-img">' . $image_html . '</figure>';
 		}
 
+		if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] === 'icon' && ! empty( $settings['icon_hover_animation'] ) ) {
+			$this->add_render_attribute( 'icon-figure', 'class', 'elementor-animation-' . $settings['icon_hover_animation'] );
+		}
+
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'wrapper-link', 'href', esc_url( $settings['link']['url'] ) );
 
@@ -1343,9 +1369,16 @@ class Info_Box extends Widget_Base {
 		} else {
 			$this->add_render_attribute( 'wrapper-link', 'href', 'javascript:void(0);' );
 		}
+
+		$is_clickable_card = $settings['clickable_card'] === 'yes';
+		$card_tag          = $is_clickable_card ? 'a' : 'div';
 		?>
 
-		<div class="sa-info-box">
+		<<?php echo esc_attr( $card_tag ); ?> class="sa-info-box"
+					<?php
+					if ( $is_clickable_card ) :
+						?>
+						<?php $this->print_render_attribute_string( 'wrapper-link' ); ?><?php endif; ?>>
 			<?php if ( ! empty( $settings['image']['url'] ) && $settings['media_type'] === 'image' ) : ?>
 				<figure class="sa-infobox-figure sa-media-image">
 					<?php echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) ); ?>
@@ -1353,7 +1386,8 @@ class Info_Box extends Widget_Base {
 			<?php endif; ?>
 
 			<?php if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] === 'icon' ) : ?>
-				<figure class="sa-infobox-figure sa-icon-wrap sa-text-center">
+				<?php $this->add_render_attribute( 'icon-figure', 'class', 'sa-infobox-figure sa-icon-wrap sa-text-center' ); ?>
+				<figure <?php $this->print_render_attribute_string( 'icon-figure' ); ?>>
 					<?php
 					Icons_Manager::render_icon( $settings['icon'], [
 						'aria-hidden' => 'true',
@@ -1372,15 +1406,26 @@ class Info_Box extends Widget_Base {
 				if ( ! empty( $settings['title'] ) ) {
 					$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-fs-4' . $desc_exists );
 					$this->add_inline_editing_attributes( 'title', 'none' );
-					$this->add_link_attributes( 'link_title', $settings['link'] );
-					printf(
-						'<%1$s %2$s><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
-						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-						wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
-						wp_kses_post( $settings['title'] ),
-            // phpcs:ignore
-						$this->get_render_attribute_string( 'link_title' )
-					);
+
+					if ( $is_clickable_card ) {
+						printf(
+							'<%1$s %2$s><span class="sa-link sa-current-color">%3$s</span></%1$s>',
+							esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
+							wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
+							wp_kses_post( $settings['title'] )
+						);
+					} else {
+						// add_link_attributes yields href="" when URL is empty (intentional — differs from button's javascript:void(0) fallback).
+						$this->add_link_attributes( 'link_title', $settings['link'] );
+						printf(
+							'<%1$s %2$s><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
+							esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
+							wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
+							wp_kses_post( $settings['title'] ),
+							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							$this->get_render_attribute_string( 'link_title' )
+						);
+					}
 				}
 
 				if ( ! empty( $settings['desc'] ) ) {
@@ -1405,18 +1450,20 @@ class Info_Box extends Widget_Base {
 					$this->add_render_attribute( 'btn-link', 'class', 'sa-button sa-d-inline-flex sa-text-decoration-none sa-align-items-center' );
 					$this->add_render_attribute( 'btn-link', 'class', ( $settings['button_full_width'] === 'yes' ) ? ' sa-d-flex' : '' );
 
-					if ( ! empty( $settings['link']['url'] ) ) {
-						$this->add_render_attribute( 'btn-link', 'href', esc_url( $settings['link']['url'] ) );
+					if ( ! $is_clickable_card ) {
+						if ( ! empty( $settings['link']['url'] ) ) {
+							$this->add_render_attribute( 'btn-link', 'href', esc_url( $settings['link']['url'] ) );
 
-						if ( $settings['link']['is_external'] ) {
-							$this->add_render_attribute( 'btn-link', 'target', '_blank' );
-						}
+							if ( $settings['link']['is_external'] ) {
+								$this->add_render_attribute( 'btn-link', 'target', '_blank' );
+							}
 
-						if ( $settings['link']['nofollow'] ) {
-							$this->add_render_attribute( 'btn-link', 'rel', 'nofollow' );
+							if ( $settings['link']['nofollow'] ) {
+								$this->add_render_attribute( 'btn-link', 'rel', 'nofollow' );
+							}
+						} else {
+							$this->add_render_attribute( 'btn-link', 'href', 'javascript:void(0);' );
 						}
-					} else {
-						$this->add_render_attribute( 'btn-link', 'href', 'javascript:void(0);' );
 					}
 
 					if ( $settings['button_hover_animation'] ) {
@@ -1426,8 +1473,10 @@ class Info_Box extends Widget_Base {
 					if ( ! empty( $settings['button_text'] ) ) :
 						$this->add_render_attribute( 'btn-link', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
 					endif;
+
+					$btn_tag = $is_clickable_card ? 'span' : 'a';
 					?>
-					<a <?php $this->print_render_attribute_string( 'btn-link' ); ?>>
+					<<?php echo esc_attr( $btn_tag ); ?> <?php $this->print_render_attribute_string( 'btn-link' ); ?>>
 						<?php
 						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
@@ -1456,10 +1505,10 @@ class Info_Box extends Widget_Base {
 							echo '</span>';
 						}
 						?>
-					</a>
+					</<?php echo esc_attr( $btn_tag ); ?>>
 				<?php endif; ?>
 			</div>
-		</div>
+		</<?php echo esc_attr( $card_tag ); ?>>
 
 		<?php
 	}

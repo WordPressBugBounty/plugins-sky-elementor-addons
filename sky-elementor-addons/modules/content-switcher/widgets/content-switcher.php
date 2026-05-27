@@ -42,8 +42,13 @@ class Content_Switcher extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'elementor-icons-fa-solid',
+			'sa-content-switcher',
 		];
 	}
+	public function get_script_depends() {
+		return [ 'sa-content-switcher' ];
+	}
+
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/content-switcher/';
@@ -196,6 +201,16 @@ class Content_Switcher extends Widget_Base {
 			]
 		);
 
+		$repeater->add_control(
+			'item_slug',
+			[
+				'label'       => esc_html__( 'URL Slug', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'e.g. monthly-plan', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Deep link to this tab: page-url#your-slug', 'sky-elementor-addons' ),
+			]
+		);
+
 		$this->add_control(
 			'switcher_list',
 			[
@@ -254,6 +269,62 @@ class Content_Switcher extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .sa-switcher-container' => '{{VALUE}}',
 				],
+			]
+		);
+
+		$this->add_control(
+			'transition_effect',
+			[
+				'label'     => esc_html__( 'Content Transition', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'none',
+				'options'   => [
+					'none'     => esc_html__( 'None', 'sky-elementor-addons' ),
+					'fade'     => esc_html__( 'Fade', 'sky-elementor-addons' ),
+					'slide-up' => esc_html__( 'Slide Up', 'sky-elementor-addons' ),
+					'zoom-in'  => esc_html__( 'Zoom In', 'sky-elementor-addons' ),
+				],
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'transition_speed',
+			[
+				'label'   => esc_html__( 'Transition Speed (ms)', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::NUMBER,
+				'min'     => 100,
+				'max'     => 2000,
+				'step'    => 50,
+				'default' => 400,
+				'condition' => [
+					'transition_effect!' => 'none',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'tabs_orientation',
+			[
+				'label'        => esc_html__( 'Tabs Orientation', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => [
+					'horizontal' => [
+						'title' => esc_html__( 'Horizontal', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-ellipsis-h',
+					],
+					'vertical' => [
+						'title' => esc_html__( 'Vertical', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-ellipsis-v',
+					],
+				],
+				'default'      => 'horizontal',
+				'toggle'       => false,
+				'prefix_class' => 'sa-orientation%s-',
+				'condition'    => [
+					'switcher_type' => 'button',
+				],
+				'separator'    => 'before',
 			]
 		);
 
@@ -328,7 +399,8 @@ class Content_Switcher extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-switch-item, {{WRAPPER}} .sa-selector, {{WRAPPER}} .sa-switcher-tabs' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+					'{{WRAPPER}} .sa-switch-item, {{WRAPPER}} .sa-selector' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+					'{{WRAPPER}} .sa-switcher-tabs' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 				'condition'  => [
 					'switcher_type' => 'button',
@@ -453,11 +525,20 @@ class Content_Switcher extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .sa-switch-item.sa-active' => 'border-color: {{VALUE}};',
 				],
-				'condition' => [
-					'switcher_border_border!' => '',
-				],
-				'condition' => [
-					'switcher_type' => 'button',
+				'conditions' => [
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => 'switcher_type',
+							'operator' => '==',
+							'value'    => 'button',
+						],
+						[
+							'name'     => 'switcher_border_border',
+							'operator' => '!==',
+							'value'    => '',
+						],
+					],
 				],
 			]
 		);
@@ -789,209 +870,195 @@ class Content_Switcher extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$id       = 'sa-content-switcher-' . $this->get_id();
+		$settings          = $this->get_settings_for_display();
+		$id                = 'sa-content-switcher-' . $this->get_id();
+		$transition_effect = ! empty( $settings['transition_effect'] ) && 'none' !== $settings['transition_effect'] ? $settings['transition_effect'] : '';
+		$orientation       = ! empty( $settings['tabs_orientation'] ) ? $settings['tabs_orientation'] : 'horizontal';
+
+		$wrapper_classes = [ 'sa-content-switcher', 'sa-style-' . $settings['switcher_type'] ];
+		if ( $transition_effect ) {
+			$wrapper_classes[] = 'sa-transition-' . $transition_effect;
+		}
+
 		$this->add_render_attribute( 'content-switcher', [
-			'class' => [ 'sa-content-switcher', 'sa-style-' . $settings['switcher_type'] ],
+			'class' => $wrapper_classes,
 			'data-settings' => [
-				wp_json_encode( array_filter( [
-					'id'         => '#' . $id,
-					'checkbox'   => '#sa-checkbox-' . $id,
-					'type'       => $settings['switcher_type'],
-					'borderSize' => isset( $settings['switcher_border_width']['right'] ) ? (int) $settings['switcher_border_width']['right'] : false,
-				] ) ),
+				wp_json_encode( [
+					'id'              => '#' . $id,
+					'checkbox'        => '#sa-checkbox-' . $id,
+					'type'            => $settings['switcher_type'],
+					'borderSize'      => isset( $settings['switcher_border_width']['right'] ) ? (int) $settings['switcher_border_width']['right'] : 0,
+					'transitionSpeed' => ! empty( $settings['transition_speed'] ) ? (int) $settings['transition_speed'] : 400,
+					'orientation'     => $orientation,
+				] ),
 			],
 		] );
 
-		$primary   = ( isset( $settings['switcher_list'][0] ) ? $settings['switcher_list'][0] : false );
-		$secondary = ( isset( $settings['switcher_list'][1] ) ? $settings['switcher_list'][1] : false );
-
-		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_checked   = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
+		$primary   = $settings['switcher_list'][0] ?? false;
+		$secondary = $settings['switcher_list'][1] ?? false;
 
 		?>
 		<div <?php $this->print_render_attribute_string( 'content-switcher' ); ?>>
 			<div class="sa-switcher-container sa-d-flex sa-align-content-center sa-justify-content-center sa-mb-4">
 				<div class="sa-switcher-wrap sa-d-inline-flex sa-align-items-center">
-					<?php if ( $settings['switcher_type'] !== 'button' ) : ?>
-						<div
-							class="sa-switch-item sa-d-flex sa-align-items-center sa-me-5 sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>	sa-icon-position-<?php echo esc_html( $primary['icon_position'] ); ?>">
-
-							<?php
-							if ( ! empty( $primary['icon']['value'] ) ) :
-								?>
-								<div class="sa-icon-wrapper sa-d-flex">
-									<span class="sa-icon-wrap">
-										<?php
-										Icons_Manager::render_icon( $primary['icon'], [
-											'aria-hidden' => 'true',
-											'class'       => 'sa-button-icon',
-										] );
-										?>
-									</span>
-								</div>
-							<?php endif; ?>
-
-							<span>
-								<?php
-								if ( isset( $primary['title'] ) ) {
-									echo esc_html( $primary['title'] );
-								}
-								?>
-							</span>
-						</div>
-						<div class="sa-switcher-toggle">
-							<?php
-							printf(
-								'<input type="checkbox" id="sa-checkbox-%s"  %s>',
-								esc_attr( $id ),
-								esc_attr( $switcher_b_checked )
-							);
-							?>
-							<label class="sa-switcher-slider" for="sa-checkbox-<?php echo esc_attr( $id ); ?>"></label>
-						</div>
-						<div
-							class="sa-switch-item sa-d-flex sa-align-items-center sa-ms-5 sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?> sa-icon-position-<?php echo esc_html( $secondary['icon_position'] ); ?>">
-							<?php
-							if ( ! empty( $secondary['icon']['value'] ) ) :
-								?>
-								<div class="sa-icon-wrapper sa-d-flex">
-									<span class="sa-icon-wrap">
-										<?php
-										Icons_Manager::render_icon( $secondary['icon'], [
-											'aria-hidden' => 'true',
-											'class'       => 'sa-button-icon',
-										] );
-										?>
-									</span>
-								</div>
-							<?php endif; ?>
-							<span>
-								<?php
-								if ( isset( $secondary['title'] ) ) {
-									echo esc_html( $secondary['title'] );
-								}
-								?>
-							</span>
-						</div>
+					<?php if ( 'button' !== $settings['switcher_type'] ) : ?>
+						<?php $this->render_binary_switcher_bar( $settings, $primary, $secondary, $id ); ?>
 					<?php else : ?>
-						<div class="sa-switcher-tabs sa-d-inline-flex">
-							<div class="sa-selector"></div>
-							<?php
-							foreach ( $settings['switcher_list'] as $index => $item ) :
-								$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
-								$_item_id    = $this->get_id() . '-' . $item['_id'];
-
-								$this->add_render_attribute( 'switcher-item' . $index, [
-									'class'   => [
-										'sa-switch-item sa-d-inline-flex sa-text-decoration-none',
-										'sa-align-items-center',
-										esc_html( $active_item ),
-										'sa-icon-position-' . esc_html( $secondary['icon_position'] ),
-									],
-									'data-id' => esc_attr( $_item_id ),
-									'href'    => 'javascript:void(0);',
-								] );
-								?>
-								<a <?php $this->print_render_attribute_string( 'switcher-item' . $index ); ?>>
-									<?php
-									if ( ! empty( $item['icon']['value'] ) ) :
-										?>
-										<div class="sa-icon-wrapper">
-											<span class="sa-icon-wrap">
-												<?php
-												Icons_Manager::render_icon( $item['icon'], [
-													'aria-hidden' => 'true',
-													'class' => 'sa-button-icon',
-												] );
-												?>
-											</span>
-										</div>
-									<?php endif; ?>
-									<span>
-										<?php
-										if ( isset( $item['title'] ) ) {
-											echo esc_html( $item['title'] );
-										}
-										?>
-									</span>
-								</a>
-								<?php
-							endforeach;
-							?>
-						</div>
+						<?php $this->render_button_switcher_bar( $settings ); ?>
 					<?php endif; ?>
 				</div>
 			</div>
 			<div class="sa-content-container">
 				<div class="sa-content-wrapper">
-					<?php if ( $settings['switcher_type'] !== 'button' ) : ?>
-						<div class="sa-switch-content-item sa-text-center sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>">
-							<?php
-							if ( $primary['content_source'] === 'custom' && ! empty( $primary['content_source'] ) ) :
-								echo wp_kses_post( $this->parse_text_editor( $primary['custom_text'] ) );
-							elseif ( $primary['content_source'] === 'elementor' && ! empty( $primary['template_id'] ) ) :
-								sky_addons_display_el_tem_by_id( $primary['template_id'] );
-							elseif ( $primary['content_source'] === 'anywhere' && ! empty( $primary['anywhere_id'] ) ) :
-								sky_addons_display_el_tem_by_id( $primary['anywhere_id'] );
-							else :
-								echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
-							endif;
-							?>
-						</div>
-						<div class="sa-switch-content-item sa-text-center sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?>">
-							<?php
-							if ( $secondary !== false ) :
-								if ( $secondary['content_source'] === 'custom' && ! empty( $secondary['content_source'] ) ) :
-									echo wp_kses_post( $this->parse_text_editor( $secondary['custom_text'] ) );
-								elseif ( $secondary['content_source'] === 'elementor' && ! empty( $secondary['template_id'] ) ) :
-									sky_addons_display_el_tem_by_id( $secondary['template_id'] );
-								elseif ( $secondary['content_source'] === 'anywhere' && ! empty( $secondary['anywhere_id'] ) ) :
-									sky_addons_display_el_tem_by_id( $secondary['anywhere_id'] );
-								else :
-									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
-								endif;
-							endif;
-							?>
-						</div>
+					<?php if ( 'button' !== $settings['switcher_type'] ) : ?>
+						<?php $this->render_binary_content( $primary, $secondary ); ?>
 					<?php else : ?>
-						<?php
-						foreach ( $settings['switcher_list'] as $index => $item ) :
-							$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
-							$_item_id    = $this->get_id() . '-' . $item['_id'];
-
-							$this->add_render_attribute( 'content-item' . $index, [
-								'class' => [
-									'sa-switch-content-item sa-text-center',
-									esc_html( $active_item ),
-									'sa-icon-position-' . esc_html( $secondary['icon_position'] ),
-								],
-								'id'   => esc_attr( $_item_id ),
-								'href' => 'javascript:void(0);',
-							] );
-
-							?>
-							<div <?php $this->print_render_attribute_string( 'content-item' . $index ); ?>>
-								<?php
-								if ( $item['content_source'] === 'custom' && ! empty( $item['content_source'] ) ) :
-									echo wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
-								elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
-									sky_addons_display_el_tem_by_id( $item['template_id'] );
-								elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
-									sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
-								else :
-									echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
-								endif;
-								?>
-							</div>
-							<?php
-						endforeach;
-						?>
+						<?php $this->render_button_content( $settings ); ?>
 					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 		<?php
+	}
+
+	protected function render_binary_switcher_bar( $settings, $primary, $secondary, $id ) {
+		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_b_checked   = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
+		?>
+		<div
+			class="sa-switch-item sa-d-flex sa-align-items-center sa-me-5 sa-primary<?php echo esc_attr( $switcher_a_activated ); ?> sa-icon-position-<?php echo esc_html( $primary['icon_position'] ); ?>"
+			<?php
+			if ( ! empty( $primary['item_slug'] ) ) :
+				?>
+				data-slug="<?php echo esc_attr( $primary['item_slug'] ); ?>"<?php endif; ?>>
+			<?php $this->render_item_icon( $primary ); ?>
+			<span><?php echo esc_html( $primary['title'] ?? '' ); ?></span>
+		</div>
+
+		<div class="sa-switcher-toggle">
+			<?php printf( '<input type="checkbox" id="sa-checkbox-%s" %s>', esc_attr( $id ), esc_attr( $switcher_b_checked ) ); ?>
+			<label class="sa-switcher-slider" for="sa-checkbox-<?php echo esc_attr( $id ); ?>"></label>
+		</div>
+
+		<div
+			class="sa-switch-item sa-d-flex sa-align-items-center sa-ms-5 sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?> sa-icon-position-<?php echo esc_html( $secondary['icon_position'] ); ?>"
+			<?php
+			if ( ! empty( $secondary['item_slug'] ) ) :
+				?>
+				data-slug="<?php echo esc_attr( $secondary['item_slug'] ); ?>"<?php endif; ?>>
+			<?php $this->render_item_icon( $secondary ); ?>
+			<span><?php echo esc_html( $secondary['title'] ?? '' ); ?></span>
+		</div>
+		<?php
+	}
+
+	protected function render_button_switcher_bar( $settings ) {
+		?>
+		<div class="sa-switcher-tabs sa-d-inline-flex">
+			<div class="sa-selector"></div>
+			<?php
+			foreach ( $settings['switcher_list'] as $index => $item ) :
+				$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
+				$_item_id    = $this->get_id() . '-' . $item['_id'];
+
+				$this->add_render_attribute( 'switcher-item' . $index, [
+					'class'   => [
+						'sa-switch-item sa-d-inline-flex sa-text-decoration-none sa-align-items-center',
+						esc_html( $active_item ),
+						'sa-icon-position-' . esc_html( $item['icon_position'] ),
+					],
+					'data-id' => esc_attr( $_item_id ),
+					'href'    => 'javascript:void(0);',
+				] );
+
+				if ( ! empty( $item['item_slug'] ) ) {
+					$this->add_render_attribute( 'switcher-item' . $index, 'data-slug', esc_attr( $item['item_slug'] ) );
+				}
+				?>
+				<a <?php $this->print_render_attribute_string( 'switcher-item' . $index ); ?>>
+					<?php $this->render_item_icon( $item ); ?>
+					<span><?php echo esc_html( $item['title'] ?? '' ); ?></span>
+				</a>
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
+
+	protected function render_binary_content( $primary, $secondary ) {
+		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
+		?>
+		<div class="sa-switch-content-item sa-text-center sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>"
+			<?php
+			if ( ! empty( $primary['item_slug'] ) ) :
+				?>
+				data-slug="<?php echo esc_attr( $primary['item_slug'] ); ?>"<?php endif; ?>>
+			<?php $this->render_item_content( $primary ); ?>
+		</div>
+
+		<div class="sa-switch-content-item sa-text-center sa-secondary<?php echo esc_attr( $switcher_b_activated ); ?>"
+			<?php
+			if ( ! empty( $secondary['item_slug'] ) ) :
+				?>
+				data-slug="<?php echo esc_attr( $secondary['item_slug'] ); ?>"<?php endif; ?>>
+			<?php
+			if ( $secondary !== false ) {
+				$this->render_item_content( $secondary );
+			}
+			?>
+		</div>
+		<?php
+	}
+
+	protected function render_button_content( $settings ) {
+		foreach ( $settings['switcher_list'] as $index => $item ) :
+			$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
+			$_item_id    = $this->get_id() . '-' . $item['_id'];
+
+			$this->add_render_attribute( 'content-item' . $index, [
+				'class' => [ 'sa-switch-content-item sa-text-center', esc_html( $active_item ) ],
+				'id'    => esc_attr( $_item_id ),
+			] );
+
+			if ( ! empty( $item['item_slug'] ) ) {
+				$this->add_render_attribute( 'content-item' . $index, 'data-slug', esc_attr( $item['item_slug'] ) );
+			}
+			?>
+			<div <?php $this->print_render_attribute_string( 'content-item' . $index ); ?>>
+				<?php $this->render_item_content( $item ); ?>
+			</div>
+			<?php
+		endforeach;
+	}
+
+	protected function render_item_icon( $item ) {
+		if ( empty( $item['icon']['value'] ) ) {
+			return;
+		}
+		?>
+		<div class="sa-icon-wrapper sa-d-flex">
+			<span class="sa-icon-wrap">
+				<?php
+				Icons_Manager::render_icon( $item['icon'], [
+					'aria-hidden' => 'true',
+					'class'       => 'sa-button-icon',
+				] );
+				?>
+			</span>
+		</div>
+		<?php
+	}
+
+	protected function render_item_content( $item ) {
+		if ( 'custom' === $item['content_source'] ) {
+			echo wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
+		} elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) {
+			sky_addons_display_el_tem_by_id( $item['template_id'] );
+		} elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) {
+			sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
+		} else {
+			echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
+		}
 	}
 }

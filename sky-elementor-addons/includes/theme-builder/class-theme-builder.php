@@ -40,15 +40,12 @@ class Theme_Builder {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/default-support.php';
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/generatepress.php';
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/genesis.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/kadence.php';
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/neve.php';
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/oceanwp.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/storefront.php';
 
-		if ( apply_filters( 'sky_addons_pro_init', false ) && defined( 'SKY_ADDONS_PRO_INC_PATH' ) ) {
-			if ( file_exists( SKY_ADDONS_PRO_INC_PATH . 'theme-builder/support/custom-hooks.php' ) ) {
-				require_once SKY_ADDONS_PRO_INC_PATH . 'theme-builder/support/custom-hooks.php';
-				$this->get_custom_hooks();
-			}
-		}
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/support/custom-hooks.php';
 	}
 
 	public function hooks() {
@@ -97,6 +94,14 @@ class Theme_Builder {
 				new Themes_Hooks\Genesis( $template_ids );
 				break;
 
+			case 'kadence':
+				new Themes_Hooks\Kadence( $template_ids );
+				break;
+
+			case 'storefront':
+				new Themes_Hooks\Storefront( $template_ids );
+				break;
+
 			default:
 				new Themes_Hooks\Default_Support( $template_ids );
 				break;
@@ -108,10 +113,8 @@ class Theme_Builder {
 	 */
 	public function apply_conditions() {
 		$this->templates = $this->get_theme_templates();
-
-		// if ( ! is_admin() ) {
-		// }
 		$this->match_conditions();
+		$this->get_custom_hooks();
 	}
 
 	/**
@@ -168,103 +171,117 @@ class Theme_Builder {
 	}
 
 	/**
-	 * Determine if a template should be displayed
+	 * Determine if a template should be displayed.
+	 *
+	 * Three-step AND model:
+	 *   Step 1 — WHERE  : page/location must match at least one Display On condition.
+	 *   Step 2 — WHO    : if roles are set, current user must match (empty roles = no restriction).
+	 *   Step 3 — EXCEPT : Not Display On overrides everything — always wins.
+	 *
+	 * Meta values are stored as [{value:"..."}] objects; array_column(...,'value') extracts them.
+	 * Custom page IDs stored as strings from JS, so cast $post->ID to string for comparison.
+	 * Custom page checks guarded by is_singular() to prevent false matches on archive pages.
 	 */
 	private function should_display_template( $display_on, $not_display_on, $display_special, $not_display_special, $display_custom, $not_display_custom, $display_roles ) {
 		global $post;
 
-		$should_display = false;
+		// ── Step 1: WHERE ────────────────────────────────────────────────────────
+		// Must match at least one location — no match means skip this template entirely.
+		$display_on_values      = array_column( $display_on, 'value' );
+		$display_special_values = array_column( $display_special, 'value' );
+		$display_custom_values  = array_column( $display_custom, 'value' );
 
-		// ✅ Check Display Conditions
-		if ( in_array( 'entire_site', array_column( $display_on, 'value' ) ) ) {
-			$should_display = true;
+		$location_match = false;
+
+		if ( in_array( 'entire_site', $display_on_values ) ) {
+			$location_match = true;
+		} elseif ( is_page() && in_array( 'all_pages', $display_on_values ) ) {
+			$location_match = true;
+		} elseif ( is_single() && in_array( 'all_posts', $display_on_values ) ) {
+			// is_single() covers posts + all custom post type singles
+			$location_match = true;
+		} elseif ( is_front_page() && in_array( 'front_page', $display_special_values ) ) {
+			$location_match = true;
+		} elseif ( is_home() && in_array( 'blog_page', $display_special_values ) ) {
+			// is_home() = blog posts index; is_archive() does NOT include it
+			$location_match = true;
+		} elseif ( is_archive() && in_array( 'archive_page', $display_special_values ) ) {
+			// is_archive() covers category, tag, author, date, CPT archives
+			$location_match = true;
+		} elseif ( is_404() && in_array( '404_page', $display_special_values ) ) {
+			$location_match = true;
+		} elseif ( is_singular() && $post && in_array( (string) $post->ID, $display_custom_values ) ) {
+			// is_singular() guard prevents $post false-positives on archive pages
+			$location_match = true;
 		}
 
-		if ( is_page() && in_array( 'all_pages', array_column( $display_on, 'value' ) ) ) {
-			$should_display = true;
+		if ( ! $location_match ) {
+			return false;
 		}
 
-		if ( is_single() && in_array( 'all_posts', array_column( $display_on, 'value' ) ) ) {
-			$should_display = true;
-		}
+		// ── Step 2: WHO ──────────────────────────────────────────────────────────
+		// If roles configured and not all_users, current user must match.
+		// Empty roles or all_users = no restriction, skip this check entirely.
+		$user_role_values = array_column( $display_roles, 'value' );
 
-		// Special Pages
-		if ( is_front_page() && in_array( 'front_page', array_column( $display_special, 'value' ) ) ) {
-			$should_display = true;
-		}
+		if ( ! empty( $user_role_values ) && ! in_array( 'all_users', $user_role_values ) ) {
+			$role_match = false;
 
-		if ( is_home() && in_array( 'blog_page', array_column( $display_special, 'value' ) ) ) {
-			$should_display = true;
-		}
-
-		if ( is_archive() && in_array( 'archive_page', array_column( $display_special, 'value' ) ) ) {
-			$should_display = true;
-		}
-
-		if ( is_404() && in_array( '404_page', array_column( $display_special, 'value' ) ) ) {
-			$should_display = true;
-		}
-
-		// Custom Selected Pages
-		if ( $post && in_array( $post->ID, array_column( $display_custom, 'value' ) ) ) {
-			$should_display = true;
-		}
-
-		// ✅ User Role Checks (Properly Structured)
-		if ( is_user_logged_in() ) {
-			$user       = wp_get_current_user();
-			$user_roles = array_column( $display_roles, 'value' );
-
-			// Allow if user is in "logged_in" list or their role matches allowed roles
-			if ( in_array( 'logged_in', $user_roles ) || ! empty( array_intersect( $user->roles, $user_roles ) ) ) {
-				$should_display = true;
+			if ( is_user_logged_in() ) {
+				$user = wp_get_current_user();
+				// 'logged_in' matches any authenticated user; specific roles matched via intersect
+				if ( in_array( 'logged_in', $user_role_values ) || ! empty( array_intersect( $user->roles, $user_role_values ) ) ) {
+					$role_match = true;
+				}
+			} elseif ( in_array( 'logged_out', $user_role_values ) ) {
+				// logged_out only matches unauthenticated visitors
+				$role_match = true;
 			}
 
-			// 🚀 Fix: If "logged_out" is set, prevent display for logged-in users (including admins)
-			if ( in_array( 'logged_out', $user_roles ) ) {
-				$should_display = false;
+			if ( ! $role_match ) {
+				return false;
 			}
 		}
 
-		// ✅ If user is logged out and "logged_out" is set, allow display
-		if ( ! is_user_logged_in() && in_array( 'logged_out', array_column( $display_roles, 'value' ) ) ) {
-			$should_display = true;
-		}
+		// ── Step 3: EXCEPTIONS ───────────────────────────────────────────────────
+		// Not Display On overrides Steps 1 & 2 entirely — return false on any match.
+		$not_display_on_values      = array_column( $not_display_on, 'value' );
+		$not_display_special_values = array_column( $not_display_special, 'value' );
+		$not_display_custom_values  = array_column( $not_display_custom, 'value' );
 
-		// ❌ Check Not Display Conditions (Overrides Above)
-		if ( in_array( 'entire_site', array_column( $not_display_on, 'value' ) ) ) {
+		if ( in_array( 'entire_site', $not_display_on_values ) ) {
 			return false;
 		}
 
-		if ( is_page() && in_array( 'all_pages', array_column( $not_display_on, 'value' ) ) ) {
+		if ( is_page() && in_array( 'all_pages', $not_display_on_values ) ) {
 			return false;
 		}
 
-		if ( is_single() && in_array( 'all_posts', array_column( $not_display_on, 'value' ) ) ) {
+		if ( is_single() && in_array( 'all_posts', $not_display_on_values ) ) {
 			return false;
 		}
 
-		if ( is_front_page() && in_array( 'front_page', array_column( $not_display_special, 'value' ) ) ) {
+		if ( is_front_page() && in_array( 'front_page', $not_display_special_values ) ) {
 			return false;
 		}
 
-		if ( is_home() && in_array( 'blog_page', array_column( $not_display_special, 'value' ) ) ) {
+		if ( is_home() && in_array( 'blog_page', $not_display_special_values ) ) {
 			return false;
 		}
 
-		if ( is_archive() && in_array( 'archive_page', array_column( $not_display_special, 'value' ) ) ) {
+		if ( is_archive() && in_array( 'archive_page', $not_display_special_values ) ) {
 			return false;
 		}
 
-		if ( is_404() && in_array( '404_page', array_column( $not_display_special, 'value' ) ) ) {
+		if ( is_404() && in_array( '404_page', $not_display_special_values ) ) {
 			return false;
 		}
 
-		if ( $post && in_array( $post->ID, array_column( $not_display_custom, 'value' ) ) ) {
+		if ( is_singular() && $post && in_array( (string) $post->ID, $not_display_custom_values ) ) {
 			return false;
 		}
 
-		return $should_display;
+		return true;
 	}
 
 	/**
@@ -283,9 +300,7 @@ class Theme_Builder {
 				break;
 
 			case 'single':
-				if ( apply_filters( 'sky_addons_pro_init', false ) ) {
-					$this->single_template = $template->ID;
-				}
+				$this->single_template = $template->ID;
 				break;
 
 			case 'archive':
@@ -297,7 +312,7 @@ class Theme_Builder {
 				break;
 
 			case 'custom_hooks':
-				$this->custom_hooks = $template->ID;
+				$this->custom_hooks[] = $template->ID;
 				break;
 		}
 	}
@@ -328,15 +343,14 @@ class Theme_Builder {
 	}
 
 	public function is_edit_mode() {
-
 		if ( 'wowdevs-hooks' === get_post_type() ) {
 			return true;
 		}
-
-    // phpcs:ignore
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['wowdevs-hooks'] ) ) {
 			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -463,18 +477,17 @@ class Theme_Builder {
 	}
 
 	public function get_custom_hooks() {
-		if ( apply_filters( 'sky_addons_pro_init', false ) ) {
-			$templates = $this->get_theme_templates();
-			$hooks     = [];
-			foreach ( $templates as $template ) {
-				$meta        = get_post_meta( $template->ID );
-				$type        = $meta['wowdevs_theme_builder_type'][0];
-				$template_id = $template->ID;
-				if ( 'custom_hooks' === $type ) {
-					$hook_name     = $meta['wowdevs_theme_builder_hook'][0];
-					$hook_priority = $meta['wowdevs_theme_builder_hook_priority'][0];
-					new \Sky_Addons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
-				}
+		if ( empty( $this->templates ) ) {
+			return;
+		}
+		foreach ( $this->templates as $template ) {
+			$meta        = get_post_meta( $template->ID );
+			$type        = isset( $meta['wowdevs_theme_builder_type'][0] ) ? $meta['wowdevs_theme_builder_type'][0] : '';
+			$template_id = $template->ID;
+			if ( 'custom_hooks' === $type ) {
+				$hook_name     = isset( $meta['wowdevs_theme_builder_hook'][0] ) ? $meta['wowdevs_theme_builder_hook'][0] : '';
+				$hook_priority = isset( $meta['wowdevs_theme_builder_hook_priority'][0] ) ? $meta['wowdevs_theme_builder_hook_priority'][0] : 10;
+				new \Sky_Addons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
 			}
 		}
 	}

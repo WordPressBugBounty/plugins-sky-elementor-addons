@@ -60,10 +60,10 @@ class Menu {
 			'plugin_layout',
 		] );
 
-		// add_submenu_page( $parent_slug, esc_html__( 'API Data', 'sky-elementor-addons' ), esc_html__( 'API Data', 'sky-elementor-addons' ), $capability, $parent_slug . '#api', [
-		// $this,
-		// 'plugin_layout',
-		// ] );
+		add_submenu_page( $parent_slug, esc_html__( 'API Settings', 'sky-elementor-addons' ), esc_html__( 'API Settings', 'sky-elementor-addons' ), $capability, $parent_slug . '#api', [
+			$this,
+			'plugin_layout',
+		] );
 
 		add_submenu_page( $parent_slug, esc_html__( 'Theme Builder', 'sky-elementor-addons' ), esc_html__( 'Theme Builder', 'sky-elementor-addons' ), $capability, $parent_slug . '#theme_builder', [
 			$this,
@@ -71,6 +71,11 @@ class Menu {
 		] );
 
 		add_submenu_page( $parent_slug, esc_html__( 'Custom Scripts', 'sky-elementor-addons' ), esc_html__( 'Custom Scripts', 'sky-elementor-addons' ), $capability, $parent_slug . '#custom_scripts', [
+			$this,
+			'plugin_layout',
+		] );
+
+		add_submenu_page( $parent_slug, esc_html__( 'Others', 'sky-elementor-addons' ), esc_html__( 'Others', 'sky-elementor-addons' ), $capability, $parent_slug . '#others', [
 			$this,
 			'plugin_layout',
 		] );
@@ -88,6 +93,11 @@ class Menu {
 				'plugin_layout',
 			] );
 		}
+
+		add_submenu_page( $parent_slug, esc_html__( 'Help & Support', 'sky-elementor-addons' ), esc_html__( 'Help & Support', 'sky-elementor-addons' ), $capability, $parent_slug . '#faqs', [
+			$this,
+			'plugin_layout',
+		] );
 	}
 
 	/**
@@ -105,7 +115,11 @@ class Menu {
 	}
 
 	public static function get_b64_icon() {
-		return 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( SKY_ADDONS_ASSETS_PATH . 'images/sky-top-menu-logo.svg' ) );
+		static $icon = null;
+		if ( null === $icon ) {
+			$icon = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( SKY_ADDONS_ASSETS_PATH . 'images/sky-top-menu-logo.svg' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		}
+		return $icon;
 	}
 
 	/**

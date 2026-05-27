@@ -2,9 +2,6 @@
 
 namespace Sky_Addons\Modules\ReadingProgress\Skins;
 
-use Elementor\Widget_Base;
-use Elementor\Utils;
-use Elementor\Controls_Manager;
 use Elementor\Skin_Base as Elementor_Skin_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Skin_Fancy_Horizontal extends Elementor_Skin_Base {
-
 
 	public function get_id() {
 		return 'sky-skin-fancy-horizontal';
@@ -27,10 +23,13 @@ class Skin_Fancy_Horizontal extends Elementor_Skin_Base {
 	}
 
 	public function render() {
-		$settings = $this->parent->get_settings_for_display();
+		$settings  = $this->parent->get_settings_for_display();
+		$show_perc = 'yes' === ( $settings['show_percentage'] ?? 'yes' );
 		?>
 		<div class="sa-reading-progress sa-skin-fancy-horizontal">
+			<?php if ( $show_perc ) : ?>
 			<span></span>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

@@ -8,9 +8,9 @@
     transition: all 0.5s;
 }
 
-.sa-advanced-accordion .sa-ac-item:not(:first-child) {
+/* .sa-advanced-accordion .sa-ac-item:not(:first-child) {
     margin-top: var(--sa-acc-item-spacing, 10px);
-}
+} */
 
 .sa-ac-item .sa-ac-title {
     font-size: 1rem;

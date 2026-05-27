@@ -61,11 +61,12 @@ class Fellow_Slider extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-fellow-slider',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-fellow-slider' ];
 	}
 
 	public function has_widget_inner_wrapper(): bool {
@@ -338,9 +339,9 @@ class Fellow_Slider extends Widget_Base {
 		$this->add_control(
 			'loop',
 			[
-				'label' => esc_html__( 'Loop', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
-				// 'default' => 'yes',
+				'label'   => esc_html__( 'Loop', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 			]
 		);
 

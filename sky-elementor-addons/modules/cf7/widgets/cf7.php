@@ -49,7 +49,7 @@ class Cf7 extends Widget_Base {
 		$this->start_controls_section(
 			'section_cf7_form',
 			[
-				'label' => sky_addons_is_cf7_activated() ? __( 'Contact Form Settings', 'sky-elementor-addons' ) : __( 'Missing Notice', 'sky-elementor-addons' ),
+				'label' => sky_addons_is_cf7_activated() ? esc_html__( 'Contact Form Settings', 'sky-elementor-addons' ) : esc_html__( 'Missing Notice', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -61,44 +61,43 @@ class Cf7 extends Widget_Base {
 				[
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
-						__( 'Hello %2$s! It looks like %1$s is not installed or activated on your site. Please install and activate it to use this widget. Click the link below to install/activate %1$s, then refresh this page.', 'sky-elementor-addons' ),
-						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=Contact+Form+7&tab=search&type=term' ) )
-						. '" target="_blank" rel="noopener"><strong>Contact Form 7</strong></a>',
+						esc_html__( 'Hello %2$s! It looks like %1$s is not installed or activated on your site. Please install and activate it to use this widget. Click the link below to install/activate %1$s, then refresh this page.', 'sky-elementor-addons' ),
+						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=Contact+Form+7&tab=search&type=term' ) ) . '" target="_blank" rel="noopener"><strong>Contact Form 7</strong></a>',
 						sky_addons_get_current_user_display_name()
 					),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
 				]
 			);
 
-				$this->add_control(
-					'_cf7_install',
-					[
-						'type' => Controls_Manager::RAW_HTML,
-						'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=Contact+Form+7&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">Click to install or activate Contact Form 7</a>',
-					]
-				);
+			$this->add_control(
+				'_cf7_install',
+				[
+					'type' => Controls_Manager::RAW_HTML,
+					'raw'  => '<a href="' . esc_url( admin_url( 'plugin-install.php?s=Contact+Form+7&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">' . esc_html__( 'Click to install or activate Contact Form 7', 'sky-elementor-addons' ) . '</a>',
+				]
+			);
 
 		} else {
 
 			$this->add_control(
 				'form_id',
 				[
-					'label'       => __( 'Select Contact Form', 'sky-elementor-addons' ),
+					'label'       => esc_html__( 'Select Contact Form', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( 'Choose a form...', 'sky-elementor-addons' ) ] + \sky_addons_get_cf7_forms(),
-					'description' => __( 'Select the Contact Form 7 form you want to display.', 'sky-elementor-addons' ),
+					'options'     => [ '' => esc_html__( 'Choose a form...', 'sky-elementor-addons' ) ] + \sky_addons_get_cf7_forms(),
+					'description' => esc_html__( 'Select the Contact Form 7 form you want to display.', 'sky-elementor-addons' ),
 				]
 			);
 
 			$this->add_control(
 				'html_class',
 				[
-					'label'       => __( 'Custom CSS Class', 'sky-elementor-addons' ),
+					'label'       => esc_html__( 'Custom CSS Class', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::TEXT,
 					'label_block' => true,
-					'placeholder' => __( 'my-custom-class', 'sky-elementor-addons' ),
-					'description' => __( 'Add a custom CSS class to the form wrapper for additional styling.', 'sky-elementor-addons' ),
+					'placeholder' => esc_html__( 'my-custom-class', 'sky-elementor-addons' ),
+					'description' => esc_html__( 'Add a custom CSS class to the form wrapper for additional styling.', 'sky-elementor-addons' ),
 				]
 			);
 
@@ -106,10 +105,13 @@ class Cf7 extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/**
+		 * Style Tab: Input Fields
+		 */
 		$this->start_controls_section(
 			'_section_fields_style',
 			[
-				'label' => __( 'Input Fields', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Input Fields', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -117,29 +119,23 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_width',
 			[
-				'label'      => __( 'Field Width', 'sky-elementor-addons' ),
-				'type'       => Controls_Manager::SLIDER,
-				'default' => [
-					'unit' => '%',
-				],
-				'tablet_default' => [
-					'unit' => '%',
-				],
-				'mobile_default' => [
-					'unit' => '%',
-				],
-				'size_units' => [ '%', 'px' ],
-				'range' => [
+				'label'          => esc_html__( 'Field Width', 'sky-elementor-addons' ),
+				'type'           => Controls_Manager::SLIDER,
+				'default'        => [ 'unit' => '%' ],
+				'tablet_default' => [ 'unit' => '%' ],
+				'mobile_default' => [ 'unit' => '%' ],
+				'size_units'     => [ '%', 'px' ],
+				'range'          => [
 					'%'  => [
 						'min' => 1,
 						'max' => 100,
 					],
 					'px' => [
 						'min' => 1,
-						'max' => 500,
+						'max' => 800,
 					],
 				],
-				'selectors' => [
+				'selectors'      => [
 					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'width: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .sky-cf7-form label' => 'width: {{SIZE}}{{UNIT}};',
 				],
@@ -149,7 +145,7 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_margin',
 			[
-				'label'      => __( 'Field Spacing', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Field Spacing', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -167,17 +163,18 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_height',
 			[
-				'label'      => __( 'Field Height', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Field Height', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
 					'px' => [
 						'min' => 30,
-						'max' => 80,
+						'max' => 150,
 					],
 				],
+				// line-height matches height so single-line text stays vertically centered
 				'selectors'  => [
-					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-textarea)' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-textarea)' => 'height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
 				],
 				'separator'  => 'before',
 			]
@@ -186,9 +183,9 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_padding',
 			[
-				'label'      => __( 'Padding', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -198,7 +195,7 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'field_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -219,7 +216,7 @@ class Cf7 extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'field_typography',
-				'label'    => __( 'Typography', 'sky-elementor-addons' ),
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)',
 				'global'   => [
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
@@ -230,10 +227,10 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'field_color',
 			[
-				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -241,12 +238,13 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'field_placeholder_color',
 			[
-				'label' => __( 'Placeholder Text Color', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Placeholder Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-moz-placeholder'      => 'color: {{VALUE}};',
 					'{{WRAPPER}} ::-ms-input-placeholder' => 'color: {{VALUE}};',
+					'{{WRAPPER}} ::placeholder'           => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -256,7 +254,7 @@ class Cf7 extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_field_normal',
 			[
-				'label' => __( 'Normal', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -291,7 +289,7 @@ class Cf7 extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_field_focus',
 			[
-				'label' => __( 'Focus', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Focus', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -307,9 +305,7 @@ class Cf7 extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'field_focus_box_shadow',
-				'exclude'  => [
-					'box_shadow_position',
-				],
+				'exclude'  => [ 'box_shadow_position' ],
 				'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):focus',
 			]
 		);
@@ -329,10 +325,13 @@ class Cf7 extends Widget_Base {
 
 		$this->end_controls_section();
 
+		/**
+		 * Style Tab: Field Labels
+		 */
 		$this->start_controls_section(
 			'form_labels',
 			[
-				'label' => __( 'Field Labels', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Field Labels', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -340,7 +339,7 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'label_margin',
 			[
-				'label'      => __( 'Label Spacing', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Label Spacing', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -350,7 +349,7 @@ class Cf7 extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'margin-top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sky-cf7-form label' => 'margin-top: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -367,8 +366,8 @@ class Cf7 extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'label_typography',
-				'label'    => __( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} label',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sky-cf7-form label',
 				'global'   => [
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				],
@@ -378,28 +377,53 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'label_color',
 			[
-				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} label' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .sky-cf7-form label' => 'color: {{VALUE}};',
 				],
 			]
 		);
 
 		$this->end_controls_section();
 
+		/**
+		 * Style Tab: Submit Button
+		 */
 		$this->start_controls_section(
 			'submit',
 			[
-				'label' => __( 'Submit Button', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Submit Button', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'submit_width',
+			[
+				'label'      => esc_html__( 'Button Width', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min' => 50,
+						'max' => 500,
+					],
+					'%'  => [
+						'min' => 1,
+						'max' => 100,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wpcf7-submit' => 'width: {{SIZE}}{{UNIT}};',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
 			'submit_margin',
 			[
-				'label'      => __( 'Margin', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Margin', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -411,9 +435,9 @@ class Cf7 extends Widget_Base {
 		$this->add_responsive_control(
 			'submit_padding',
 			[
-				'label'      => __( 'Padding', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .wpcf7-submit' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -439,10 +463,10 @@ class Cf7 extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'submit_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -472,16 +496,15 @@ class Cf7 extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_button_normal',
 			[
-				'label' => __( 'Normal', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Normal', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'submit_color',
 			[
-				'label'   => __( 'Text Color', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::COLOR,
-				'default' => '',
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit' => 'color: {{VALUE}};',
 				],
@@ -503,14 +526,14 @@ class Cf7 extends Widget_Base {
 		$this->start_controls_tab(
 			'tab_button_hover',
 			[
-				'label' => __( 'Hover', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Hover', 'sky-elementor-addons' ),
 			]
 		);
 
 		$this->add_control(
 			'submit_hover_color',
 			[
-				'label' => __( 'Text Color', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'color: {{VALUE}};',
@@ -531,10 +554,201 @@ class Cf7 extends Widget_Base {
 		$this->add_control(
 			'submit_hover_border_color',
 			[
-				'label' => __( 'Border Color', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'submit_hover_box_shadow',
+				'selector' => '{{WRAPPER}} .wpcf7-submit:hover, {{WRAPPER}} .wpcf7-submit:focus',
+			]
+		);
+
+		$this->add_control(
+			'submit_hover_transition',
+			[
+				'label'      => esc_html__( 'Transition Duration', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 's', 'ms' ],
+				'default'    => [
+					'unit' => 's',
+					'size' => 0.3,
+				],
+				'range'      => [
+					's'  => [
+						'min'  => 0,
+						'max'  => 3,
+						'step' => 0.1,
+					],
+					'ms' => [
+						'min'  => 0,
+						'max'  => 3000,
+						'step' => 50,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .wpcf7-submit' => 'transition-duration: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		/**
+		 * Style Tab: Response Message
+		 */
+		$this->start_controls_section(
+			'section_response_style',
+			[
+				'label' => esc_html__( 'Response Message', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'response_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wpcf7-response-output' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'response_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wpcf7-response-output' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'response_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .wpcf7-response-output' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'response_typography',
+				'selector' => '{{WRAPPER}} .wpcf7-response-output',
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
+			]
+		);
+
+		$this->add_control(
+			'hr_response',
+			[
+				'type'  => Controls_Manager::DIVIDER,
+				'style' => 'thick',
+			]
+		);
+
+		$this->start_controls_tabs( 'tabs_response_state' );
+
+		$this->start_controls_tab(
+			'tab_response_success',
+			[
+				'label' => esc_html__( 'Success', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'response_success_color',
+			[
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.sent .wpcf7-response-output' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'response_success_bg_color',
+			[
+				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.sent .wpcf7-response-output' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'response_success_border_color',
+			[
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.sent .wpcf7-response-output' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_response_error',
+			[
+				'label' => esc_html__( 'Error', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'response_error_color',
+			[
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.invalid .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.spam .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.failed .wpcf7-response-output' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'response_error_bg_color',
+			[
+				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.invalid .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.spam .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.failed .wpcf7-response-output' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'response_error_border_color',
+			[
+				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .wpcf7-form.invalid .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.spam .wpcf7-response-output, {{WRAPPER}} .wpcf7-form.failed .wpcf7-response-output' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -547,16 +761,17 @@ class Cf7 extends Widget_Base {
 
 	protected function render() {
 		if ( ! sky_addons_is_cf7_activated() ) {
-			sky_addons_show_plugin_missing_alert( __( 'Contact Form 7', 'sky-elementor-addons' ) );
+			sky_addons_show_plugin_missing_alert( esc_html__( 'Contact Form 7', 'sky-elementor-addons' ) );
 			return;
 		}
 
 		$settings = $this->get_settings_for_display();
 
 		if ( empty( $settings['form_id'] ) ) {
-			echo '<div class="elementor-alert elementor-alert-warning">';
-			echo __( 'Please select a Contact Form 7 form from the widget settings.', 'sky-elementor-addons' );
-			echo '</div>';
+			printf(
+				'<div class="elementor-alert elementor-alert-warning">%s</div>',
+				esc_html__( 'Please select a Contact Form 7 form from the widget settings.', 'sky-elementor-addons' )
+			);
 			return;
 		}
 

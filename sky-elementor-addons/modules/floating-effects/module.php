@@ -651,6 +651,7 @@ class Module extends Module_Base {
 			$settings = $widget->get_settings_for_display();
 		if ( 'yes' === $settings['sa_floating_ef_enable'] ) {
 				wp_enqueue_script( 'anime' );
+				wp_enqueue_script( 'sa-floating-effects' );
 		}
 	}
 

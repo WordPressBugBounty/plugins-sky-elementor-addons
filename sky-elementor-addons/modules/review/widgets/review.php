@@ -39,9 +39,13 @@ class Review extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'card', 'review', 'testimonial', 'clients' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-review' ];
+	}
+
 
 	public function get_script_depends() {
-		return [ 'script-handle' ];
+		return [];
 	}
 
 	public function get_custom_help_url() {
@@ -111,12 +115,12 @@ class Review extends Widget_Base {
 				'prefix_class'    => 'sa-review-media-%s-',
 				'style_transfer'  => true,
 				'selectors' => [
-					'{{WRAPPER}} .sa-review' => '{{VALUE}};',
+					'{{WRAPPER}} .sa-review' => '{{VALUE}}',
 				],
 				'selectors_dictionary' => [
-					'left'  => 'display: flex; flex-direction: row; text-align: left;',
-					'top'   => 'text-align: left; display: block; flex-direction: unset; flex-flow: unset;',
-					'right' => 'display: flex; flex-direction: row-reverse; text-align: right;',
+					'left'  => 'display: flex; flex-direction: row; text-align: left; align-items: center;',
+					'top'   => 'display: block; text-align: left; flex-direction: unset; flex-flow: unset; align-items: unset;',
+					'right' => 'display: flex; flex-direction: row-reverse; text-align: right; align-items: center;',
 				],
 			]
 		);
@@ -1103,7 +1107,7 @@ class Review extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings();
+		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['image']['url'] ) ) {
 			$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
@@ -1114,8 +1118,6 @@ class Review extends Widget_Base {
 				$settings['hover_animation'] = $settings['img_hover_animation'];
 				$this->add_render_attribute( 'image', 'class', 'elementor-animation-' . $settings['hover_animation'] );
 			}
-
-			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' );
 		}
 
 		// star rating

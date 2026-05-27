@@ -40,6 +40,10 @@ class Card extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'card', 'box', 'informations', 'modern' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-card' ];
+	}
+
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/card/';
@@ -106,13 +110,13 @@ class Card extends Widget_Base {
 				'mobile_default'  => 'top',
 				'prefix_class'    => 'sa-card-%s-',
 				'style_transfer'  => true,
-				'selectors' => [
-					'{{WRAPPER}} .sa-card' => '{{VALUE}};',
-				],
 				'selectors_dictionary' => [
-					'left'  => 'display: flex; flex-direction: row; text-align: left;',
-					'top'   => 'text-align: left; display: block; flex-direction: unset; flex-flow: unset;',
-					'right' => 'display: flex; flex-direction: row-reverse; text-align: right;',
+					'left'  => 'display: flex; flex-direction: row; text-align: left; align-items: center; --sa-card-img-area-width: 50%; --sa-content-flex-basis: calc(100% - var(--sa-card-img-area-width) + (-1 * var(--sky-media-h-offset, 0px))); --sa-content-margin-left: var(--sky-media-h-offset, 0px); --sa-content-margin-right: 0px; --sa-content-margin-top: 0px;',
+					'top'   => 'display: block; text-align: left; flex-direction: unset; flex-flow: unset; align-items: unset; --sa-card-img-area-width: 100%; --sa-content-flex-basis: auto; --sa-content-margin-left: 0px; --sa-content-margin-right: 0px; --sa-content-margin-top: var(--sky-media-v-offset, 0px);',
+					'right' => 'display: flex; flex-direction: row-reverse; text-align: right; align-items: center; --sa-card-img-area-width: 50%; --sa-content-flex-basis: calc(100% - var(--sa-card-img-area-width) + var(--sky-media-h-offset, 0px)); --sa-content-margin-left: 0px; --sa-content-margin-right: calc(-1 * var(--sky-media-h-offset, 0px)); --sa-content-margin-top: 0px;',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sa-card' => '{{VALUE}}',
 				],
 			]
 		);
@@ -217,9 +221,9 @@ class Card extends Widget_Base {
 		$this->add_control(
 			'badge_position',
 			[
-				'label'   => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'top-left',
+				'label'     => esc_html__( 'Badge Position', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'top-left',
 				'options' => [
 					'top-left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
 					'top-center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
@@ -231,8 +235,20 @@ class Card extends Widget_Base {
 					'bottom-center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
 					'bottom-right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
 				],
-				'condition' => [
-					'show_badge' => 'yes',
+				'condition' => [ 'show_badge' => 'yes' ],
+				'selectors_dictionary' => [
+					'top-left'      => 'top: 15px; left: 15px; transform: translate(var(--sky-badge-h-offset, 0px), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+					'top-center'    => 'top: 15px; left: 50%; transform: translate(calc(-50% + var(--sky-badge-h-offset, 0px)), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+					'top-right'     => 'top: 15px; right: 15px; transform: translate(var(--sky-badge-h-offset, 0px), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+					'middle-left'   => 'top: 50%; left: 0; transform: translate(var(--sky-badge-h-offset, 0px), calc(-50% + var(--sky-badge-v-offset, 0px))) rotate(var(--sky-badge-rotate, 0deg));',
+					'middle-center' => 'top: 50%; left: 50%; transform: translate(calc(-50% + var(--sky-badge-h-offset, 0px)), calc(-50% + var(--sky-badge-v-offset, 0px))) rotate(var(--sky-badge-rotate, 0deg));',
+					'middle-right'  => 'top: 50%; right: 0; transform: translate(var(--sky-badge-h-offset, 0px), calc(-50% + var(--sky-badge-v-offset, 0px))) rotate(var(--sky-badge-rotate, 0deg));',
+					'bottom-left'   => 'bottom: 15px; left: 15px; transform: translate(var(--sky-badge-h-offset, 0px), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+					'bottom-center' => 'bottom: 15px; left: 50%; transform: translate(calc(-50% + var(--sky-badge-h-offset, 0px)), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+					'bottom-right'  => 'bottom: 15px; right: 15px; transform: translate(var(--sky-badge-h-offset, 0px), var(--sky-badge-v-offset, 0px)) rotate(var(--sky-badge-rotate, 0deg));',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sa-badge' => '{{VALUE}}',
 				],
 			]
 		);
@@ -645,6 +661,9 @@ class Card extends Widget_Base {
 				'description'  => esc_html__( 'Default Cover', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'sa-img-contain-',
+				'selectors'    => [
+					'{{WRAPPER}} .sa-img-area img' => 'object-fit: contain;',
+				],
 			]
 		);
 
@@ -1459,153 +1478,165 @@ class Card extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
-		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge sa-px-3 sa-py-2' );
-		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? 'sa-' . $settings['badge_position'] : '' );
-
-		if ( ! empty( $settings['image']['url'] ) ) {
-			$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
-			$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
-			$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
-
-			if ( $settings['img_hover_animation'] ) {
-				$settings['hover_animation'] = $settings['img_hover_animation'];
-				$this->add_render_attribute( 'image', 'class', 'elementor-animation-' . $settings['img_hover_animation'] );
-			}
-
-			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' );
-		}
 		?>
 		<div class="sa-card">
-
-			<?php if ( ! empty( $settings['image']['url'] ) ) : ?>
-				<figure class="sa-img-area">
-					<?php
-					if ( ! empty( $settings['link']['url'] ) ) {
-						$this->add_render_attribute( 'link', 'class', 'sa-text-decoration-none' );
-						$this->add_link_attributes( 'link', $settings['link'] );
-						printf(
-							'<a %1$s>%2$s</a>',
-							wp_kses_post( $this->get_render_attribute_string( 'link' ) ),
-							wp_kses_post( $image_html )
-						);
-					} else {
-						printf(
-							'<a %1$s>%2$s</a>',
-							wp_kses_post( $this->get_render_attribute_string( 'link' ) ),
-							wp_kses_post( $image_html )
-						);
-					}
-
-					if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) {
-						$this->add_inline_editing_attributes( 'badge_text', 'none' );
-
-						printf(
-							'<span %1$s>%2$s</span>',
-							wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
-							wp_kses_post( $settings['badge_text'] )
-						);
-					}
-
-					?>
-				</figure>
-			<?php endif; ?>
-
+			<?php $this->render_image( $settings ); ?>
 			<div class="sa-content-area">
 				<?php
-				if ( $settings['show_sub_title'] === 'yes' && ! empty( $settings['sub_title'] ) ) {
-					printf(
-						'<%1$s class="%2$s">%3$s</%1$s>',
-						esc_attr( Utils::validate_html_tag( $settings['sub_title_tag'] ) ),
-						'sa--text-sub-title sa--sub-title sa-sub-title sa-mt-0 sa-mb-1 sa-fs-6',
-						wp_kses_post( $settings['sub_title'] )
-					);
-				}
-
-				if ( ! empty( $settings['title'] ) ) {
-					$this->add_link_attributes( 'link_title', $settings['link'] );
-					printf(
-						'<%1$s class="%2$s"><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
-						esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-						'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-4',
-						wp_kses_post( $settings['title'] ),
-            // phpcs:ignore
-						$this->get_render_attribute_string( 'link_title' )
-					);
-				}
-
-				if ( ! empty( $settings['description'] ) ) {
-					printf(
-						'<div class="%1$s">%2$s</div>',
-						'sa-desc sa--text-info sa-mb-3 sa-fs-6',
-						wp_kses_post( $settings['description'] )
-					);
-				}
+				$this->render_sub_title( $settings );
+				$this->render_title( $settings );
+				$this->render_description( $settings );
+				$this->render_button( $settings );
 				?>
-
-				<?php
-				if ( $settings['show_button'] === 'yes' ) :
-
-					$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
-					$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] === 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
-
-					if ( ! empty( $settings['link']['url'] ) ) {
-						$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );
-
-						if ( $settings['link']['is_external'] ) {
-							$this->add_render_attribute( 'link_attr', 'target', '_blank' );
-						}
-
-						if ( $settings['link']['nofollow'] ) {
-							$this->add_render_attribute( 'link_attr', 'rel', 'nofollow' );
-						}
-					} else {
-						$this->add_render_attribute( 'link_attr', 'href', 'javascript:void(0);' );
-					}
-
-					if ( $settings['button_hover_animation'] ) {
-						$this->add_render_attribute( 'link_attr', 'class', 'elementor-animation-' . $settings['button_hover_animation'] );
-					}
-
-					if ( ! empty( $settings['button_text'] ) ) :
-						$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
-					endif;
-					?>
-					<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
-
-						<?php
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
-							echo '<span class="sa-icon-wrap sa-button-icon">';
-							Icons_Manager::render_icon( $settings['button_icon'], [
-								'aria-hidden' => 'true',
-							] );
-							echo '</span>';
-						}
-
-						if ( ! empty( $settings['button_text'] ) ) :
-							$this->add_render_attribute( 'button_text', 'class', 'sa-button-text' );
-							$this->add_inline_editing_attributes( 'button_text', 'none' );
-
-							printf(
-								'<span %1$s>%2$s</span>',
-								wp_kses_post( $this->get_render_attribute_string( 'button_text' ) ),
-								esc_html( $settings['button_text'] )
-							);
-
-						endif;
-
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
-							echo '<span class="sa-icon-wrap sa-button-icon">';
-							Icons_Manager::render_icon( $settings['button_icon'], [
-								'aria-hidden' => 'true',
-							] );
-							echo '</span>';
-						}
-						?>
-					</a>
-				<?php endif; ?>
 			</div>
 		</div>
+		<?php
+	}
+
+	private function render_image( $settings ) {
+		if ( empty( $settings['image']['url'] ) ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
+		$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
+		$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
+
+		if ( $settings['img_hover_animation'] ) {
+			$this->add_render_attribute( 'image', 'class', 'elementor-animation-' . $settings['img_hover_animation'] );
+		}
+
+		$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' );
+
+		if ( ! empty( $settings['link']['url'] ) ) {
+			$this->add_render_attribute( 'link', 'class', 'sa-text-decoration-none' );
+			$this->add_link_attributes( 'link', $settings['link'] );
+		}
+		?>
+		<figure class="sa-img-area">
+			<?php
+			printf(
+				'<a %1$s>%2$s</a>',
+				wp_kses_post( $this->get_render_attribute_string( 'link' ) ),
+				wp_kses_post( $image_html )
+			);
+			$this->render_badge( $settings );
+			?>
+		</figure>
+		<?php
+	}
+
+	private function render_badge( $settings ) {
+		if ( $settings['show_badge'] !== 'yes' || empty( $settings['badge_text'] ) ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge sa-px-3 sa-py-2' );
+		$this->add_inline_editing_attributes( 'badge_text', 'none' );
+
+		printf(
+			'<span %1$s>%2$s</span>',
+			wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
+			wp_kses_post( $settings['badge_text'] )
+		);
+	}
+
+	private function render_sub_title( $settings ) {
+		if ( $settings['show_sub_title'] !== 'yes' || empty( $settings['sub_title'] ) ) {
+			return;
+		}
+
+		printf(
+			'<%1$s class="%2$s">%3$s</%1$s>',
+			esc_attr( Utils::validate_html_tag( $settings['sub_title_tag'] ) ),
+			'sa--text-sub-title sa--sub-title sa-sub-title sa-mt-0 sa-mb-1 sa-fs-6',
+			wp_kses_post( $settings['sub_title'] )
+		);
+	}
+
+	private function render_title( $settings ) {
+		if ( empty( $settings['title'] ) ) {
+			return;
+		}
+
+		$this->add_link_attributes( 'link_title', $settings['link'] );
+		printf(
+			'<%1$s class="%2$s"><a class="sa-link sa-current-color" %4$s>%3$s</a></%1$s>',
+			esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
+			'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-4',
+			wp_kses_post( $settings['title'] ),
+			// phpcs:ignore
+			$this->get_render_attribute_string( 'link_title' )
+		);
+	}
+
+	private function render_description( $settings ) {
+		if ( empty( $settings['description'] ) ) {
+			return;
+		}
+
+		printf(
+			'<div class="%1$s">%2$s</div>',
+			'sa-desc sa--text-info sa-mb-3 sa-fs-6',
+			wp_kses_post( $settings['description'] )
+		);
+	}
+
+	private function render_button( $settings ) {
+		if ( $settings['show_button'] !== 'yes' ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
+		$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] === 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
+
+		if ( ! empty( $settings['link']['url'] ) ) {
+			$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );
+
+			if ( $settings['link']['is_external'] ) {
+				$this->add_render_attribute( 'link_attr', 'target', '_blank' );
+			}
+
+			if ( $settings['link']['nofollow'] ) {
+				$this->add_render_attribute( 'link_attr', 'rel', 'nofollow' );
+			}
+		} else {
+			$this->add_render_attribute( 'link_attr', 'href', 'javascript:void(0);' );
+		}
+
+		if ( $settings['button_hover_animation'] ) {
+			$this->add_render_attribute( 'link_attr', 'class', 'elementor-animation-' . $settings['button_hover_animation'] );
+		}
+
+		if ( ! empty( $settings['button_text'] ) ) {
+			$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
+		}
+		?>
+		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
+			<?php
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+				echo '<span class="sa-icon-wrap sa-button-icon">';
+				Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
+				echo '</span>';
+			}
+
+			if ( ! empty( $settings['button_text'] ) ) :
+				$this->add_render_attribute( 'button_text', 'class', 'sa-button-text' );
+				$this->add_inline_editing_attributes( 'button_text', 'none' );
+				printf(
+					'<span %1$s>%2$s</span>',
+					wp_kses_post( $this->get_render_attribute_string( 'button_text' ) ),
+					esc_html( $settings['button_text'] )
+				);
+			endif;
+
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+				echo '<span class="sa-icon-wrap sa-button-icon">';
+				Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
+				echo '</span>';
+			}
+			?>
+		</a>
 		<?php
 	}
 }

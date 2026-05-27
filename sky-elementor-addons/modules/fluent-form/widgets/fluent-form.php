@@ -103,10 +103,283 @@ class FluentForm extends Widget_Base {
 
 		$this->end_controls_section();
 
+		$this->__form_container_style_controls();
 		$this->__fields_style_controls();
 		$this->__fields_label_style_controls();
 		$this->__submit_btn_style_controls();
+		$this->__validation_error_style_controls();
+		$this->__success_message_style_controls();
 		$this->__break_style_controls();
+	}
+
+	protected function __form_container_style_controls() {
+
+		$this->start_controls_section(
+			'_section_form_container_style',
+			[
+				'label' => esc_html__( 'Form Container', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'form_container_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-default' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'form_container_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-default' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'form_container_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .ff-default',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'form_container_border',
+				'selector' => '{{WRAPPER}} .ff-default',
+			]
+		);
+
+		$this->add_responsive_control(
+			'form_container_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-default' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'form_container_box_shadow',
+				'selector' => '{{WRAPPER}} .ff-default',
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	protected function __validation_error_style_controls() {
+
+		$this->start_controls_section(
+			'_section_validation_error_style',
+			[
+				'label' => esc_html__( 'Validation Error', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'validation_error_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-el-is-error .ff-el-form-control' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'validation_error_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .ff-el-is-error .ff-el-form-control',
+			]
+		);
+
+		$this->add_responsive_control(
+			'validation_error_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-el-is-error .ff-el-form-control' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'validation_error_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .ff-el-is-error .ff-el-form-control',
+			]
+		);
+
+		$this->add_control(
+			'validation_error_text_color',
+			[
+				'label' => esc_html__( 'Error Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .ff-validator-error' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'validation_error_margin',
+			[
+				'label'      => esc_html__( 'Error Message Margin Top', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-validator-error' => 'margin-top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'validation_error_typography',
+				'label'    => esc_html__( 'Error Text Typography', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .ff-validator-error',
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
+				],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	protected function __success_message_style_controls() {
+
+		$this->start_controls_section(
+			'_section_success_message_style',
+			[
+				'label' => esc_html__( 'Success Message', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'success_message_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-success-message' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'success_message_margin',
+			[
+				'label'      => esc_html__( 'Margin', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-success-message' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'success_message_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .ff-success-message' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'success_message_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .ff-success-message',
+				'global'   => [
+					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'success_message_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .ff-success-message',
+			]
+		);
+
+		$this->add_control(
+			'success_message_text_color',
+			[
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .ff-success-message' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'success_message_border',
+				'selector' => '{{WRAPPER}} .ff-success-message',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'success_message_box_shadow',
+				'selector' => '{{WRAPPER}} .ff-success-message',
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	protected function __fields_style_controls() {

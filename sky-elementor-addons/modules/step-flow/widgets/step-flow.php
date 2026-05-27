@@ -37,6 +37,10 @@ class Step_Flow extends Widget_Base {
 	public function get_keywords() {
 		return [ 'card', 'sky', 'step', 'flow' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-step-flow' ];
+	}
+
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/step-flow/';
@@ -184,6 +188,25 @@ class Step_Flow extends Widget_Base {
 					'style-line'  => esc_html__( 'Line', 'sky-elementor-addons' ),
 				],
 				'prefix_class' => 'sa-direction-',
+				'condition'    => [
+					'show_direction' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'direction_hide_responsive',
+			[
+				'label'        => esc_html__( 'Hide Direction', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Hide', 'sky-elementor-addons' ),
+				'label_off'    => esc_html__( 'Show', 'sky-elementor-addons' ),
+				'return_value' => 'none',
+				'default'      => '',
+				'devices'      => [ 'tablet', 'mobile' ],
+				'selectors'    => [
+					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap .sa-step-arrow' => 'display: {{VALUE}};',
+				],
 				'condition'    => [
 					'show_direction' => 'yes',
 				],
@@ -524,7 +547,7 @@ class Step_Flow extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, svg' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, {{WRAPPER}} .sa-step-flow .sa-icon-wrap svg' => 'opacity: {{SIZE}};',
 				],
 			]
 		);
@@ -632,7 +655,7 @@ class Step_Flow extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .sa-step-flow:hover .sa-icon-wrap i, svg' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .sa-step-flow:hover .sa-icon-wrap i, {{WRAPPER}} .sa-step-flow:hover .sa-icon-wrap svg' => 'opacity: {{SIZE}};',
 				],
 			]
 		);
@@ -706,7 +729,7 @@ class Step_Flow extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, svg' => 'transition-duration: {{SIZE}}s',
+					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap i, {{WRAPPER}} .sa-step-flow .sa-icon-wrap svg' => 'transition-duration: {{SIZE}}s',
 				],
 			]
 		);
@@ -826,6 +849,9 @@ class Step_Flow extends Widget_Base {
 					],
 				],
 				'render_type' => 'ui',
+				'condition' => [
+					'badge_offset_popover' => 'yes',
+				],
 				'selectors' => [
 					'{{WRAPPER}} .sa-step-flow .sa-badge' => '--sky-step-flow-badge-rotate: {{SIZE}}deg;',
 				],
@@ -1180,6 +1206,9 @@ class Step_Flow extends Widget_Base {
 			[
 				'label'       => esc_html__( 'Offset Top', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 0,
+				],
 				'tablet_default' => [
 					'size' => 0,
 				],
@@ -1208,6 +1237,9 @@ class Step_Flow extends Widget_Base {
 			[
 				'label'       => esc_html__( 'Offset Left', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 0,
+				],
 				'tablet_default' => [
 					'size' => 0,
 				],
@@ -1271,17 +1303,12 @@ class Step_Flow extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge' );
-		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? $settings['badge_position'] : '' );
-		$this->add_inline_editing_attributes( 'badge_text', 'none' );
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-text-decoration-none' );
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );
-
 			if ( $settings['link']['is_external'] ) {
 				$this->add_render_attribute( 'link_attr', 'target', '_blank' );
 			}
-
 			if ( $settings['link']['nofollow'] ) {
 				$this->add_render_attribute( 'link_attr', 'rel', 'nofollow' );
 			}
@@ -1290,47 +1317,63 @@ class Step_Flow extends Widget_Base {
 		}
 		?>
 		<div class="sa-step-flow sa-text-center">
-			<?php if ( ! empty( $settings['icon']['value'] ) || ! empty( $settings['badge_text'] ) || $settings['show_direction'] === 'yes' ) : ?>
-				<div class="sa-icon-wrap">
-					<?php
-					if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) :
-						printf(
-							'<span %1$s>%2$s</span>',
-							wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
-							esc_html( $settings['badge_text'] )
-						);
-					endif;
+			<?php
+			$this->render_icon_wrap( $settings );
+			$this->render_content_area( $settings );
+			?>
+		</div>
+		<?php
+	}
 
-					if ( ! empty( $settings['icon']['value'] ) ) :
-						Icons_Manager::render_icon( $settings['icon'], [
-							'aria-hidden' => 'true',
-						] );
-					endif;
+	private function render_icon_wrap( array $settings ): void {
+		if ( empty( $settings['icon']['value'] ) && empty( $settings['badge_text'] ) && $settings['show_direction'] !== 'yes' ) {
+			return;
+		}
 
-					if ( $settings['show_direction'] === 'yes' ) :
-						?>
-						<span class="sa-step-arrow"></span>
-					<?php endif; ?>
+		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge' );
+		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? $settings['badge_position'] : '' );
+		$this->add_inline_editing_attributes( 'badge_text', 'none' );
+		?>
+		<div class="sa-icon-wrap">
+			<?php
+			if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) :
+				printf(
+					'<span %1$s>%2$s</span>',
+					wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
+					esc_html( $settings['badge_text'] )
+				);
+			endif;
 
-				</div>
+			if ( ! empty( $settings['icon']['value'] ) ) :
+				Icons_Manager::render_icon( $settings['icon'], [ 'aria-hidden' => 'true' ] );
+			endif;
+			if ( $settings['show_direction'] === 'yes' ) :
+				?>
+				<span class="sa-step-arrow"></span>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	private function render_content_area( array $settings ): void {
+		if ( empty( $settings['title'] ) && empty( $settings['desc'] ) ) {
+			return;
+		}
+		?>
+		<div class="sa-content-area">
+			<?php if ( ! empty( $settings['title'] ) ) : ?>
+				<<?php echo esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ); ?> class="sa-title sa--title sa--text-title sa-fs-4 sa-mt-0 sa-mb-3">
+					<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
+						<?php echo wp_kses_post( $settings['title'] ); ?>
+					</a>
+				</<?php echo esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ); ?>>
 			<?php endif; ?>
 
-			<div class="sa-content-area">
-				<?php if ( ! empty( $settings['title'] ) ) : ?>
-					<<?php echo esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ); ?> class="sa-title sa--title
-						sa--text-title sa-fs-4 sa-mt-0 sa-mb-3">
-						<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
-							<?php echo wp_kses_post( $settings['title'] ); ?>
-						</a>
-					</<?php echo esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ); ?>>
-				<?php endif; ?>
-
-				<?php if ( ! empty( $settings['desc'] ) ) : ?>
-					<div class="sa-desc sa--text sa--text-info">
-						<?php echo wp_kses_post( $settings['desc'] ); ?>
-					</div>
-				<?php endif; ?>
-			</div>
+			<?php if ( ! empty( $settings['desc'] ) ) : ?>
+				<div class="sa-desc sa--text sa--text-info">
+					<?php echo wp_kses_post( $settings['desc'] ); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

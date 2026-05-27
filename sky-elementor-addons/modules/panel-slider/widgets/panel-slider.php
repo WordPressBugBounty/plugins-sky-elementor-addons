@@ -49,11 +49,12 @@ class Panel_Slider extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'swiper',
+			'sa-panel-slider',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-panel-slider' ];
 	}
 
 	public function get_custom_help_url() {

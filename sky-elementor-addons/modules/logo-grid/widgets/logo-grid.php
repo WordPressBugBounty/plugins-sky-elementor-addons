@@ -43,11 +43,12 @@ class Logo_Grid extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'tippy',
+			'sa-logo-grid',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'popper', 'tippyjs' ];
+		return [ 'popper', 'tippyjs', 'sa-logo-grid' ];
 	}
 
 	public function get_custom_help_url() {
@@ -84,6 +85,9 @@ class Logo_Grid extends Widget_Base {
 				'tablet_default'  => 2,
 				'mobile_default'  => 2,
 				'prefix_class'    => 'sa-logo-grid--col-%s',
+				'selectors'       => [
+					'{{WRAPPER}} .sa-logo-grid' => 'grid-template-columns: repeat({{VALUE}}, 1fr);',
+				],
 				'style_transfer'  => true,
 				'render_type'     => 'template',
 			]
@@ -235,6 +239,62 @@ class Logo_Grid extends Widget_Base {
 					'border' => esc_html__( 'Border', 'sky-elementor-addons' ),
 					'magic'  => esc_html__( 'Magic Border', 'sky-elementor-addons' ),
 				],
+			]
+		);
+
+		$this->add_control(
+			'show_brand_name',
+			[
+				'label'     => esc_html__( 'Show Brand Name', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'brand_name_tag',
+			[
+				'label'   => esc_html__( 'Brand Name Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'span',
+				'options' => [
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				],
+				'condition' => [
+					'show_brand_name' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'grayscale_mode',
+			[
+				'label'        => esc_html__( 'Grayscale Effect', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'none',
+				'options'      => [
+					'none'          => esc_html__( 'None', 'sky-elementor-addons' ),
+					'gray-to-color' => esc_html__( 'Gray → Color on Hover', 'sky-elementor-addons' ),
+					'color-to-gray' => esc_html__( 'Color → Gray on Hover', 'sky-elementor-addons' ),
+				],
+				'prefix_class' => 'sa-logo-grayscale-',
+				'separator'    => 'before',
+			]
+		);
+
+		$this->add_control(
+			'lazy_load',
+			[
+				'label'     => esc_html__( 'Lazy Load', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'separator' => 'before',
 			]
 		);
 
@@ -836,6 +896,61 @@ class Logo_Grid extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_brand_name_style',
+			[
+				'label' => esc_html__( 'Brand Name', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_brand_name' => 'yes',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'brand_name_typography',
+				'selector' => '{{WRAPPER}} .sa-brand-name',
+			]
+		);
+
+		$this->add_control(
+			'brand_name_color',
+			[
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-brand-name' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'brand_name_hover_color',
+			[
+				'label' => esc_html__( 'Hover Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-logo-grid-item:hover .sa-brand-name' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'brand_name_spacing',
+			[
+				'label'      => esc_html__( 'Top Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-brand-name' => 'margin-top: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	protected function render() {
@@ -844,92 +959,87 @@ class Logo_Grid extends Widget_Base {
 
 		<div class="sa-logo-grid sa-<?php echo esc_attr( $settings['style_select'] ); ?>">
 			<?php
-			foreach ( $settings['logo_list'] as $item ) {
-				$image       = wp_get_attachment_image_url( $item['logo']['id'], $settings['thumbnail_size'] );
-				$tippy_class = ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] === 'yes' ) ? ' sa-tippy-tooltip' : '';
-				$this->add_render_attribute( 'link-attr', 'class', 'sa-logo-link sa-d-inline-block sa-text-decoration-none ' . $tippy_class, true );
+			foreach ( $settings['logo_list'] as $index => $item ) :
+				$link_key    = 'link-attr-' . $index;
+				$has_tooltip = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' );
+				$tippy_class = $has_tooltip ? ' sa-tippy-tooltip' : '';
+				$flex_dir    = ( 'yes' === $settings['show_brand_name'] ) ? ' sa-flex-column' : '';
+
+				$this->add_render_attribute( $link_key, 'class', 'sa-logo-link sa-d-flex sa-align-items-center sa-justify-content-center sa-text-decoration-none' . $tippy_class . $flex_dir );
 
 				if ( ! empty( $item['link']['url'] ) ) {
-					$this->add_render_attribute( 'link-attr', 'href', esc_url( $item['link']['url'] ), true );
-
+					$this->add_render_attribute( $link_key, 'href', esc_url( $item['link']['url'] ) );
 					if ( $item['link']['is_external'] ) {
-						$this->add_render_attribute( 'link-attr', 'target', '_blank', true );
+						$this->add_render_attribute( $link_key, 'target', '_blank' );
 					}
-
 					if ( $item['link']['nofollow'] ) {
-						$this->add_render_attribute( 'link-attr', 'rel', 'nofollow', true );
+						$this->add_render_attribute( $link_key, 'rel', 'nofollow' );
 					}
 				} else {
-					$this->add_render_attribute( 'link-attr', 'target', '_self', true );
-					$this->add_render_attribute( 'link-attr', 'href', 'javascript:void(0);', true );
+					$this->add_render_attribute( $link_key, 'href', '#' );
 				}
 
-				// perfect alt
-				$alt_text = ! empty( $item['brand_name'] ) ? esc_html( $item['brand_name'] ) : '';
-				$alt_text = ! empty( $item['brand_text'] ) ? $alt_text . ' ' . $item['brand_text'] : $alt_text;
-				$alt_text = empty( $item['brand_name'] ) && empty( $item['brand_text'] ) ? Control_Media::get_image_alt( $item['logo'] ) : $alt_text;
+				$alt_text  = ! empty( $item['brand_name'] ) ? $item['brand_name'] : '';
+				$alt_text .= ! empty( $item['brand_text'] ) ? ( $alt_text ? ' - ' : '' ) . $item['brand_text'] : '';
+				if ( empty( $alt_text ) ) {
+					$alt_text = Control_Media::get_image_alt( $item['logo'] );
+				}
 
-				// tooltip
-				if ( ! empty( $item['brand_name'] ) && ( $item['show_tooltip'] === 'yes' ) ) :
-					$this->add_render_attribute( 'tooltip-attr', 'class', 'sa-tippy-tooltip' );
-					$this->add_render_attribute( 'tooltip-attr', 'data-tippy', '', true );
-
-					$tooltip_content = '<span class="sa-tippy-title sa-d-block sa-fw-bold mb-1 sa-fw-5">' . wp_kses_post( $item['brand_name'] ) . '</span>' . wp_kses_post( $item['brand_text'] );
-					$this->add_render_attribute( 'tooltip-attr', 'data-tippy-content', $tooltip_content, true );
-
+				if ( $has_tooltip ) :
+					$title_html      = ! empty( $item['brand_name'] ) ? '<span class="sa-tippy-title sa-d-block sa-fw-bold mb-1 sa-fw-5">' . wp_kses_post( $item['brand_name'] ) . '</span>' : '';
+					$tooltip_content = $title_html . wp_kses_post( $item['brand_text'] );
+					$this->add_render_attribute( $link_key, 'data-tippy', '' );
+					$this->add_render_attribute( $link_key, 'data-tippy-content', $tooltip_content );
 					if ( $item['tooltip_placement'] ) {
-						$this->add_render_attribute( 'tooltip-attr', 'data-tippy-placement', esc_attr( $item['tooltip_placement'] ), true );
+						$this->add_render_attribute( $link_key, 'data-tippy-placement', esc_attr( $item['tooltip_placement'] ) );
 					}
-
 					if ( $settings['tooltip_animation'] ) {
-						$this->add_render_attribute( 'tooltip-attr', 'data-tippy-animation', esc_attr( $settings['tooltip_animation'] ), true );
+						$this->add_render_attribute( $link_key, 'data-tippy-animation', esc_attr( $settings['tooltip_animation'] ) );
 					}
-
 					if ( $settings['tooltip_offset_popover'] === 'yes' ) {
-						if ( $settings['tooltip_x_offset']['size'] or $settings['tooltip_y_offset']['size'] ) {
-							$this->add_render_attribute( 'tooltip-attr', 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']', true );
+						if ( $settings['tooltip_x_offset']['size'] || $settings['tooltip_y_offset']['size'] ) {
+							$this->add_render_attribute( $link_key, 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']' );
 						}
 					}
-
-					if ( $settings['tooltip_arrow'] === 'yes' ) {
-						$this->add_render_attribute( 'tooltip-attr', 'data-tippy-arrow', 'true', true );
-					} else {
-						$this->add_render_attribute( 'tooltip-attr', 'data-tippy-arrow', 'false', true );
-					}
-
+					$arrow = $settings['tooltip_arrow'] === 'yes' ? 'true' : 'false';
+					$this->add_render_attribute( $link_key, 'data-tippy-arrow', $arrow );
 					if ( $settings['tooltip_trigger_on_click'] === 'yes' ) {
-						$this->add_render_attribute( 'tooltip-attr', 'data-tippy-trigger', 'click', true );
+						$this->add_render_attribute( $link_key, 'data-tippy-trigger', 'click' );
 					}
-
 				endif;
+
+				$loading = ( 'yes' === $settings['lazy_load'] ) ? 'lazy' : 'eager';
 				?>
 				<div class="sa-logo-grid-item sa-d-flex sa-justify-content-center sa-align-items-center sa-rounded-1 sa-p-3">
-					<a <?php $this->print_render_attribute_string( 'link-attr' ); ?> 			<?php $this->print_render_attribute_string( 'tooltip-attr' ); ?>>
+					<a <?php $this->print_render_attribute_string( $link_key ); ?>>
 						<figure class="sa-logo-grid-figure">
 							<?php
-							if ( $image ) :
-								echo wp_get_attachment_image(
-									$item['logo']['id'],
-									$settings['thumbnail_size'],
-									false,
-									[
-										'class' => 'sa-logo-grid-img elementor-animation-' . esc_attr( $settings['hover_animation'] ),
-										'alt'   => $alt_text,
-									]
-								);
+							if ( $item['logo']['id'] ) :
+								print( wp_get_attachment_image( $item['logo']['id'], $settings['thumbnail_size'], false, [
+									'class'   => 'sa-logo-grid-img elementor-animation-' . esc_attr( $settings['hover_animation'] ),
+									'alt'     => $alt_text,
+									'loading' => $loading,
+								] ) );
 							else :
 								printf(
-									'<img class="sa-logo-grid-img elementor-animation-%s" src="%s" alt="%s">',
+									'<img class="sa-logo-grid-img elementor-animation-%s" src="%s" alt="%s" loading="%s">',
 									esc_attr( $settings['hover_animation'] ),
 									esc_url( Utils::get_placeholder_image_src() ),
-									esc_attr( $alt_text )
+									esc_attr( $alt_text ),
+									esc_attr( $loading )
 								);
 							endif;
 							?>
 						</figure>
+						<?php
+						if ( 'yes' === $settings['show_brand_name'] && ! empty( $item['brand_name'] ) ) :
+							$brand_tag = $settings['brand_name_tag'];
+							printf( '<%1$s class="sa-brand-name">%2$s</%1$s>', tag_escape( $brand_tag ), esc_html( $item['brand_name'] ) );
+						endif;
+						?>
 					</a>
 				</div>
-			<?php } ?>
+			<?php endforeach; ?>
 		</div>
 		<?php
 	}

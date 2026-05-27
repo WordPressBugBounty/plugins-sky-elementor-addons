@@ -8,6 +8,6 @@ return [
 	'title'              => esc_html__( 'PDF Viewer', 'sky-elementor-addons' ),
 	'required'           => true,
 	'default_activation' => true,
-// 'has_style'          => true,
-// 'has_script'       => true,
+	'has_style'          => true,
+	'has_script'         => true,
 ];

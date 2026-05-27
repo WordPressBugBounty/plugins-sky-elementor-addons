@@ -40,8 +40,12 @@ class PDF_Viewer extends Widget_Base {
 		return [ 'sky', 'pdf', 'pdf-viewer', 'reader', 'document', 'object' ];
 	}
 
+	public function get_style_depends() {
+		return [ 'sa-pdf-viewer' ];
+	}
+
 	public function get_script_depends() {
-		return [ 'pdfobject' ];
+		return [ 'pdfobject', 'sa-pdf-viewer' ];
 	}
 
 	public function get_custom_help_url() {
@@ -158,25 +162,33 @@ class PDF_Viewer extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-content' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .pdfobject'  => 'width: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'height',
 			[
 				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'vh' ],
 				'range'      => [
 					'px' => [
 						'min' => 0,
-						'max' => 1000,
+						'max' => 1200,
+					],
+					'vh' => [
+						'min' => 10,
+						'max' => 100,
 					],
 				],
 				'default'    => [
 					'unit' => 'px',
 					'size' => 600,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .pdfobject' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -219,6 +231,72 @@ class PDF_Viewer extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_pdf_badge',
+			[
+				'label'     => esc_html__( 'Show PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
+				'condition' => [
+					'show_title' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'badge_text',
+			[
+				'label'   => esc_html__( 'Badge Text', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'type'    => Controls_Manager::TEXT,
+				'default' => esc_html__( 'PDF', 'sky-elementor-addons' ),
+				'dynamic' => [ 'active' => true ],
+				'condition' => [
+					'show_pdf_badge' => 'yes',
+					'show_title'     => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'badge_icon',
+			[
+				'label' => esc_html__( 'Badge Icon', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'type'  => Controls_Manager::ICONS,
+				'condition' => [
+					'show_pdf_badge' => 'yes',
+					'show_title'     => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'badge_icon_position',
+			[
+				'label'          => esc_html__( 'Icon Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'type'           => Controls_Manager::CHOOSE,
+				'label_block'    => false,
+				'options'        => [
+					'before' => [
+						'title' => esc_html__( 'Before', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-h-align-left',
+					],
+					'after'  => [
+						'title' => esc_html__( 'After', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-h-align-right',
+					],
+				],
+				'default'        => 'before',
+				'toggle'         => false,
+				'condition'      => [
+					'show_pdf_badge'     => 'yes',
+					'show_title'         => 'yes',
+					'badge_icon[value]!' => '',
+				],
+				'style_transfer' => true,
+			]
+		);
+
+		$this->add_control(
 			'show_button',
 			[
 				'label'     => esc_html__( 'Show Download Button', 'sky-elementor-addons' ),
@@ -249,47 +327,6 @@ class PDF_Viewer extends Widget_Base {
 				'dynamic' => [ 'active' => true ],
 			]
 		);
-
-		// $this->add_control(
-		// 'button_full_width',
-		// [
-		// 'label'     => esc_html__('Full Width', 'sky-elementor-addons'),
-		// 'type'      => Controls_Manager::SWITCHER,
-		// 'separator' => 'before'
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'button_alignment',
-		// [
-		// 'label'     => esc_html__('Alignment', 'sky-elementor-addons'),
-		// 'type'      => Controls_Manager::CHOOSE,
-		// 'options'   => [
-		// 'left'    => [
-		// 'title' => esc_html__('Left', 'sky-elementor-addons'),
-		// 'icon'  => 'eicon-text-align-left',
-		// ],
-		// 'center'  => [
-		// 'title' => esc_html__('Center', 'sky-elementor-addons'),
-		// 'icon'  => 'eicon-text-align-center',
-		// ],
-		// 'right'   => [
-		// 'title' => esc_html__('Right', 'sky-elementor-addons'),
-		// 'icon'  => 'eicon-text-align-right',
-		// ],
-		// 'justify' => [
-		// 'title' => esc_html__('Justified', 'sky-elementor-addons'),
-		// 'icon'  => 'eicon-text-align-justify',
-		// ],
-		// ],
-		// 'condition' => [
-		// 'button_full_width' => 'yes'
-		// ],
-		// 'selectors' => [
-		// '{{WRAPPER}} .sa-card .sa-button' => 'text-align: {{VALUE}};',
-		// ],
-		// ]
-		// );
 
 		$this->add_control(
 			'button_icon',
@@ -341,7 +378,7 @@ class PDF_Viewer extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-button-icon-before .sa-button-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sa-button-icon-after .sa-button-icon' => 'margin-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-button-icon-after .sa-button-icon'  => 'margin-left: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -413,6 +450,83 @@ class PDF_Viewer extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_header_style',
+			[
+				'label' => esc_html__( 'Header Bar', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'conditions' => [
+					'relation' => 'or',
+					'terms'    => [
+						[
+							'name'     => 'show_title',
+							'operator' => '==',
+							'value'    => 'yes',
+						],
+						[
+							'name'     => 'show_button',
+							'operator' => '==',
+							'value'    => 'yes',
+						],
+					],
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'header_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'header_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-content',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'header_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-content',
+			]
+		);
+
+		$this->add_responsive_control(
+			'header_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'header_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-content',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_title_style',
 			[
 				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
@@ -462,6 +576,163 @@ class PDF_Viewer extends Widget_Base {
 				'name'     => 'title_typography',
 				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
 				'selector' => '{{WRAPPER}} .sa-title',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_badge_style',
+			[
+				'label' => esc_html__( 'PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_pdf_badge' => 'yes',
+					'show_title'     => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'badge_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-pdf-badge' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'badge_typography',
+				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-pdf-badge .sa-badge-text',
+			]
+		);
+
+		$this->add_control(
+			'badge_color',
+			[
+				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-pdf-badge' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'badge_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-pdf-badge',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'badge_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-pdf-badge',
+			]
+		);
+
+		$this->add_responsive_control(
+			'badge_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-pdf-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'badge_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-pdf-badge',
+			]
+		);
+
+		$this->add_control(
+			'badge_icon_heading',
+			[
+				'label'     => esc_html__( 'Icon', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'badge_icon[value]!' => '',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'badge_icon_size',
+			[
+				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [
+						'min' => 6,
+						'max' => 64,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-pdf-badge .sa-badge-icon'     => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-pdf-badge .sa-badge-icon svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'badge_icon[value]!' => '',
+				],
+			]
+		);
+
+		$this->add_control(
+			'badge_icon_color',
+			[
+				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sa-pdf-badge .sa-badge-icon'     => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-pdf-badge .sa-badge-icon svg' => 'fill: {{VALUE}};',
+				],
+				'condition' => [
+					'badge_icon[value]!' => '',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'badge_icon_spacing',
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 20,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-badge-icon-before .sa-badge-icon' => 'margin-right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-badge-icon-after .sa-badge-icon'  => 'margin-left: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [
+					'badge_icon[value]!' => '',
+				],
 			]
 		);
 
@@ -665,10 +936,129 @@ class PDF_Viewer extends Widget_Base {
 		<?php
 	}
 
+	private function render_badge( $settings ) {
+		if ( 'yes' !== $settings['show_pdf_badge'] ) {
+			return '';
+		}
+
+		$has_icon      = ! empty( $settings['badge_icon']['value'] );
+		$icon_position = $has_icon ? $settings['badge_icon_position'] : '';
+		$badge_classes = 'sa-pdf-badge' . ( $icon_position ? ' sa-badge-icon-' . $icon_position : '' );
+
+		ob_start();
+		echo '<span class="' . esc_attr( $badge_classes ) . '">';
+
+		if ( $has_icon && $icon_position === 'before' ) {
+			echo '<span class="sa-badge-icon">';
+			Icons_Manager::render_icon( $settings['badge_icon'], [ 'aria-hidden' => 'true' ] );
+			echo '</span>';
+		}
+
+		if ( ! empty( $settings['badge_text'] ) ) {
+			echo '<span class="sa-badge-text">' . esc_html( $settings['badge_text'] ) . '</span>';
+		}
+
+		if ( $has_icon && $icon_position === 'after' ) {
+			echo '<span class="sa-badge-icon">';
+			Icons_Manager::render_icon( $settings['badge_icon'], [ 'aria-hidden' => 'true' ] );
+			echo '</span>';
+		}
+
+		echo '</span>';
+		return (string) ob_get_clean();
+	}
+
+	private function render_title( $settings ) {
+		if ( 'yes' !== $settings['show_title'] || empty( $settings['title'] ) ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-5' );
+		$this->add_inline_editing_attributes( 'title', 'none' );
+
+		printf(
+			'<div><%1$s %2$s>%3$s%4$s</%1$s></div>',
+			esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
+			wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
+			$this->render_badge( $settings ),
+			wp_kses_post( $settings['title'] )
+		);
+	}
+
+	private function render_download_button( $settings, $pdf_url ) {
+		if ( 'yes' !== $settings['show_button'] ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-button-primary sa-d-inline-flex sa-align-items-center sa-text-decoration-none sa-p-3 sa-rounded' );
+		$this->add_render_attribute( 'link_attr', 'href', esc_url( $pdf_url ) );
+		$this->add_render_attribute( 'link_attr', 'download' );
+
+		if ( $settings['button_hover_animation'] ) {
+			$this->add_render_attribute( 'link_attr', 'class', 'elementor-animation-' . $settings['button_hover_animation'] );
+		}
+
+		if ( ! empty( $settings['button_text'] ) ) {
+			$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
+		}
+		?>
+		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
+			<?php
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+				echo '<span class="sa-icon-wrap sa-button-icon">';
+				Icons_Manager::render_icon( $settings['button_icon'], [
+					'aria-hidden' => 'true',
+					'class'       => 'sa-button-icon',
+				] );
+				echo '</span>';
+			}
+
+			if ( ! empty( $settings['button_text'] ) ) {
+				$this->add_render_attribute( 'button_text', 'class', 'sa-button-text' );
+				$this->add_inline_editing_attributes( 'button_text', 'none' );
+
+				printf(
+					'<span %1$s>%2$s</span>',
+					wp_kses_post( $this->get_render_attribute_string( 'button_text' ) ),
+					esc_html( $settings['button_text'] )
+				);
+			}
+
+			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+				echo '<span class="sa-icon-wrap sa-button-icon">';
+				Icons_Manager::render_icon( $settings['button_icon'], [
+					'aria-hidden' => 'true',
+					'class'       => 'sa-button-icon',
+				] );
+				echo '</span>';
+			}
+			?>
+		</a>
+		<?php
+	}
+
+	private function render_header( $settings, $pdf_url ) {
+		if ( 'yes' !== $settings['show_title'] && 'yes' !== $settings['show_button'] ) {
+			return;
+		}
+		?>
+		<div class="sa-content sa-d-flex sa-justify-content-between sa-my-2 sa-align-items-center">
+			<?php $this->render_title( $settings ); ?>
+			<div>
+				<?php $this->render_download_button( $settings, $pdf_url ); ?>
+			</div>
+		</div>
+		<?php
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$id       = 'sa-pdf-viewer' . $this->get_id();
-		$pdf_url  = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) ) ? $settings['hosted_url']['url'] : ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) ) ? $settings['remote_url']['url'] : false );
+		$pdf_url  = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) )
+			? $settings['hosted_url']['url']
+			: ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) )
+				? $settings['remote_url']['url']
+				: false );
 
 		if ( $pdf_url === false ) {
 			$this->empty_alert();
@@ -684,84 +1074,17 @@ class PDF_Viewer extends Widget_Base {
 				] ) ),
 			],
 			'data-pdf-settings' => [
-				wp_json_encode( array_filter( [
-					'width'  => ! empty( $settings['width']['size'] ) ? $settings['width']['size'] . $settings['width']['unit'] : '100%',
-					'height' => ! empty( $settings['height']['size'] ) ? $settings['height']['size'] . $settings['height']['unit'] : '600px',
-					'page'   => ! empty( $settings['opened_page'] ) ? $settings['opened_page'] : 1,
-				] ) ),
+				wp_json_encode( [
+					'width'            => ! empty( $settings['width']['size'] ) ? $settings['width']['size'] . $settings['width']['unit'] : '100%',
+					'height'           => ! empty( $settings['height']['size'] ) ? $settings['height']['size'] . $settings['height']['unit'] : '600px',
+					'page'             => ! empty( $settings['opened_page'] ) ? (int) $settings['opened_page'] : 1,
+					'omitInlineStyles' => true,
+				] ),
 			],
 		] );
 		?>
 		<div <?php $this->print_render_attribute_string( 'pdf-viewer' ); ?>>
-			<?php if ( 'yes' === $settings['show_title'] || 'yes' === $settings['show_button'] ) : ?>
-				<div class="sa-content sa-d-flex sa-justify-content-between sa-my-2 sa-align-items-center">
-					<?php
-					if ( 'yes' === $settings['show_title'] && ! empty( $settings['title'] ) ) {
-						$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-5' );
-						$this->add_inline_editing_attributes( 'title', 'none' );
-
-						printf(
-							'<div><%1$s %2$s>%3$s</%1$s></div>',
-							esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-							wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
-							wp_kses_post( $settings['title'] )
-						);
-					}
-					?>
-					<div>
-						<?php
-						if ( $settings['show_button'] === 'yes' ) :
-
-							$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-button-primary sa-d-inline-flex sa-align-items-center sa-text-decoration-none sa-p-3 sa-rounded' );
-
-							$this->add_render_attribute( 'link_attr', 'href', esc_url( $pdf_url ) );
-							$this->add_render_attribute( 'link_attr', 'download' );
-
-							if ( $settings['button_hover_animation'] ) {
-								$this->add_render_attribute( 'link_attr', 'class', 'elementor-animation-' . $settings['button_hover_animation'] );
-							}
-
-							if ( ! empty( $settings['button_text'] ) ) :
-								$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
-							endif;
-							?>
-							<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
-								<?php
-								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
-									echo '<span class="sa-icon-wrap sa-button-icon">';
-									Icons_Manager::render_icon( $settings['button_icon'], [
-										'aria-hidden' => 'true',
-										'class'       => 'sa-button-icon',
-									] );
-									echo '</span>';
-								}
-
-								if ( ! empty( $settings['button_text'] ) ) :
-									$this->add_render_attribute( 'button_text', 'class', 'sa-button-text' );
-									$this->add_inline_editing_attributes( 'button_text', 'none' );
-
-									printf(
-										'<span %1$s>%2$s</span>',
-										wp_kses_post( $this->get_render_attribute_string( 'button_text' ) ),
-										esc_html( $settings['button_text'] )
-									);
-
-								endif;
-								if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
-									echo '<span class="sa-icon-wrap sa-button-icon">';
-									Icons_Manager::render_icon( $settings['button_icon'], [
-										'aria-hidden' => 'true',
-										'class'       => 'sa-button-icon',
-									] );
-									echo '</span>';
-								}
-								?>
-							</a>
-						<?php endif; ?>
-					</div>
-				</div>
-			<?php endif; ?>
-
+			<?php $this->render_header( $settings, $pdf_url ); ?>
 			<div id="<?php echo esc_attr( $id ); ?>"></div>
 		</div>
 		<?php

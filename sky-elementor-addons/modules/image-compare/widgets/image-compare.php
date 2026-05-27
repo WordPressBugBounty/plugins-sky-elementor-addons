@@ -38,9 +38,13 @@ class Image_Compare extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'image', 'compare' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-image-compare' ];
+	}
+
 
 	public function get_script_depends() {
-		return [ 'sa-image-compare' ];
+		return [ 'image-compare-viewer', 'sa-image-compare' ];
 	}
 
 	public function get_custom_help_url() {
@@ -323,8 +327,9 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'vertical_mode',
 			[
-				'label' => esc_html__( 'Vertical Mode', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Vertical Mode', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Enable to show the slider handle vertically instead of horizontally.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
 			]
 		);
 
@@ -333,7 +338,7 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'ui_options_heading',
 			[
-				'label'     => esc_html__( 'UI Options', 'sky-elementor-addons' ),
+				'label'     => esc_html__( 'U I   O P T I O N S', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -342,33 +347,97 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'control_color',
 			[
-				'label' => esc_html__( 'Control Color', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
+				'label'       => esc_html__( 'Handle Color', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Set the color of the slider handle and arrows.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::COLOR,
 			]
 		);
 
 		$this->add_control(
 			'control_shadow',
 			[
-				'label'   => esc_html__( 'Control Shadow', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'label'       => esc_html__( 'Handle Shadow', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Add a drop shadow to the slider handle for better visibility.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
+			]
+		);
+
+		// Circle
+
+		$this->add_control(
+			'circle_heading',
+			[
+				'label'     => esc_html__( 'C I R C L E', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
 		$this->add_control(
 			'add_circle',
 			[
-				'label' => esc_html__( 'Add Circle', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Add Circle', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Show a circular ring around the slider handle.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'add_circle_blur',
 			[
-				'label' => esc_html__( 'Add Circle Blur', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Circle Blur', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Apply a blur effect to the circular ring for a soft glow appearance.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'condition'   => [
+					'add_circle' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'circle_size',
+			[
+				'label'       => esc_html__( 'Circle Size', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Adjust the diameter of the circular ring around the handle.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px' ],
+				'range'       => [
+					'px' => [
+						'min' => 20,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 50,
+				],
+				'condition' => [
+					'add_circle' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .icv__circle' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'circle_vertical_offset',
+			[
+				'label'       => esc_html__( 'Circle Vertical Offset', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Shift the circle ring up or down relative to the handle center.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px' ],
+				'range'       => [
+					'px' => [
+						'min' => -20,
+						'max' => 20,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 0,
+				],
 				'condition' => [
 					'add_circle' => 'yes',
 				],
@@ -380,7 +449,7 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'smoothing_option_heading',
 			[
-				'label'     => esc_html__( 'Smoothing', 'sky-elementor-addons' ),
+				'label'     => esc_html__( 'S M O O T H I N G', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -389,18 +458,20 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'smoothing',
 			[
-				'label'   => esc_html__( 'Smoothing', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SWITCHER,
-				'default' => 'yes',
+				'label'       => esc_html__( 'Smoothing', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Smooth the slider movement with a gradual easing transition.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'smoothing_amount',
 			[
-				'label' => esc_html__( 'Smoothing Amount', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SLIDER,
-				'range' => [
+				'label'       => esc_html__( 'Smoothing Amount', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Control how smooth the transition is. Higher values produce a slower, more gradual effect.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -416,12 +487,31 @@ class Image_Compare extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'smoothing_ease',
+			[
+				'label'       => esc_html__( 'Smoothing Curve', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'Choose the easing curve that controls the acceleration and deceleration of the slider.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => [
+					'ease-out'    => esc_html__( 'Ease Out', 'sky-elementor-addons' ),
+					'ease-in-out' => esc_html__( 'Ease In Out', 'sky-elementor-addons' ),
+					'linear'      => esc_html__( 'Linear', 'sky-elementor-addons' ),
+					'ease-in'     => esc_html__( 'Ease In', 'sky-elementor-addons' ),
+				],
+				'default'     => 'ease-out',
+				'condition' => [
+					'smoothing' => 'yes',
+				],
+			]
+		);
+
 		// Other options
 
 		$this->add_control(
 			'other_options_heading',
 			[
-				'label'     => esc_html__( 'Other Options', 'sky-elementor-addons' ),
+				'label'     => esc_html__( 'B E H A V I O R', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -430,17 +520,39 @@ class Image_Compare extends Widget_Base {
 		$this->add_control(
 			'hover_start',
 			[
-				'label' => esc_html__( 'Hover Start', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
+				'label'       => esc_html__( 'Activate Slider on Hover', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Start dragging the slider by hovering over the image instead of clicking first.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
 			]
 		);
 
 		$this->add_control(
 			'starting_point',
 			[
-				'label' => esc_html__( 'Starting Point', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SLIDER,
-				'range' => [
+				'label'       => esc_html__( 'Initial Slider Position', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Set where the slider handle starts as a percentage of the image width. 50 = centered.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 50,
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'mobile_starting_point',
+			[
+				'label'       => esc_html__( 'Mobile Slider Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'Override the initial slider position specifically on mobile devices.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
 					'px' => [
 						'min' => 0,
 						'max' => 100,
@@ -454,31 +566,11 @@ class Image_Compare extends Widget_Base {
 		);
 
 		$this->add_control(
-			'starting_point_note',
-			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'The percentage to show of the before image.', 'sky-elementor-addons' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-			]
-		);
-
-		$this->add_control(
 			'fluid_mode',
 			[
-				'label' => esc_html__( 'Fluid Mode', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::SWITCHER,
-			]
-		);
-
-		$this->add_control(
-			'fluid_mode_note',
-			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'While by default a viewers height is set by the image, you must set your own height when using fluid mode.', 'sky-elementor-addons' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => [
-					'fluid_mode' => 'yes',
-				],
+				'label'       => esc_html__( 'Fluid Mode', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Allow custom height instead of being fixed by the image height. Enable this to set your own height below.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
 			]
 		);
 
@@ -512,6 +604,40 @@ class Image_Compare extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'animate_on_load',
+			[
+				'label'       => esc_html__( 'Entry Animation', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'Animate the slider handle sliding in from the initial position on page load.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'entry_animation_duration',
+			[
+				'label'       => esc_html__( 'Animation Duration (ms)', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'How long the entry animation takes to complete in milliseconds.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'ms' ],
+				'range'       => [
+					'ms' => [
+						'min'  => 300,
+						'max'  => 3000,
+						'step' => 50,
+					],
+				],
+				'default' => [
+					'unit' => 'ms',
+					'size' => 800,
+				],
+				'condition' => [
+					'animate_on_load' => 'yes',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -541,6 +667,28 @@ class Image_Compare extends Widget_Base {
 				],
 				'condition' => [
 					'overlay' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_ic_image_style',
+			[
+				'label' => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'image_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .icv__img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -616,6 +764,68 @@ class Image_Compare extends Widget_Base {
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .icv__label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'label_opacity',
+			[
+				'label'       => esc_html__( 'Opacity', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'Set the transparency of the before/after labels. 1 = fully opaque, 0 = fully transparent.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'range'       => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1,
+						'step' => 0.05,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .icv__label' => 'opacity: {{SIZE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'label_fade_duration',
+			[
+				'label'       => esc_html__( 'Fade Animation Duration', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'How long the label takes to fade in when hovering over the image.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 's' ],
+				'range'       => [
+					's' => [
+						'min'  => 0.1,
+						'max'  => 1,
+						'step' => 0.05,
+					],
+				],
+				'default' => [
+					'unit' => 's',
+					'size' => 0.25,
+				],
+				'condition' => [
+					'label_options_on_hover' => 'yes',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'label_vertical_offset',
+			[
+				'label'       => esc_html__( 'Vertical Offset', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'description' => esc_html__( 'Shift the labels up or down from their default position.', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SLIDER,
+				'size_units'  => [ 'px' ],
+				'range'       => [
+					'px' => [
+						'min' => -30,
+						'max' => 30,
+					],
+				],
+				'selectors'   => [
+					'{{WRAPPER}} .icv__label:not(.vertical)' => 'bottom: calc(1rem + {{SIZE}}{{UNIT}});',
 				],
 			]
 		);
@@ -933,33 +1143,46 @@ class Image_Compare extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
+		$wrapper_class = 'sa-image-compare';
+		if ( 'yes' === $settings['animate_on_load'] ) {
+			$wrapper_class .= ' sa-animate-on-load';
+		}
+
 		$this->add_render_attribute(
 			[
 				'image-compare' => [
-					'id'    => 'image-compare-' . $this->get_id(),
-					'class' => 'sa-image-compare',
+					'id'    => 'sky-ic-' . $this->get_id(),
+					'class' => $wrapper_class,
 					'data-settings' => [
 						wp_json_encode(
 							[
-								'id'                  => 'image-compare-' . $this->get_id(),
+								'id'                     => 'sky-ic-' . $this->get_id(),
 								// Label Defaults
-								'showLabels'          => ( 'yes' === $settings['show_labels'] ) ? true : false,
-								'labelBefore'         => isset( $settings['before_text'] ) ? ( ! empty( $settings['before_text'] ) ? wp_kses_post( $settings['before_text'] ) : 'Before' ) : false,
-								'labelAfter'          => isset( $settings['after_text'] ) ? ( ! empty( $settings['after_text'] ) ? wp_kses_post( $settings['after_text'] ) : 'After' ) : false,
-								'labelOptionsonHover' => 'yes' === $settings['label_options_on_hover'] ? true : false,
+								'showLabels'             => ( 'yes' === $settings['show_labels'] ) ? true : false,
+								'labelBefore'            => isset( $settings['before_text'] ) ? ( ! empty( $settings['before_text'] ) ? wp_kses_post( $settings['before_text'] ) : 'Before' ) : false,
+								'labelAfter'             => isset( $settings['after_text'] ) ? ( ! empty( $settings['after_text'] ) ? wp_kses_post( $settings['after_text'] ) : 'After' ) : false,
+								'labelOptionsonHover'    => 'yes' === $settings['label_options_on_hover'] ? true : false,
+								'labelFadeDuration'      => ! empty( $settings['label_fade_duration']['size'] ) ? $settings['label_fade_duration']['size'] : 0.25,
+								'labelVerticalOffset'    => ! empty( $settings['label_vertical_offset']['size'] ) ? $settings['label_vertical_offset']['size'] : 0,
 								// UI Theme Defaults
-								'controlColor'        => ! empty( $settings['control_color'] ) ? $settings['control_color'] : '#FFFFFF',
-								'controlShadow'       => 'yes' === $settings['control_shadow'] ? true : false,
-								'addCircle'           => 'yes' === $settings['add_circle'] ? true : false,
-								'addCircleBlur'       => ( isset( $settings['add_circle_blur'] ) && 'yes' === $settings['add_circle_blur'] ) ? true : false,
+								'controlColor'           => ! empty( $settings['control_color'] ) ? $settings['control_color'] : '#FFFFFF',
+								'controlShadow'          => 'yes' === $settings['control_shadow'] ? true : false,
+								'addCircle'              => 'yes' === $settings['add_circle'] ? true : false,
+								'addCircleBlur'          => ( isset( $settings['add_circle_blur'] ) && 'yes' === $settings['add_circle_blur'] ) ? true : false,
+								'circleSize'             => ! empty( $settings['circle_size']['size'] ) ? $settings['circle_size']['size'] : 50,
+								'circleVerticalOffset'   => ! empty( $settings['circle_vertical_offset']['size'] ) ? $settings['circle_vertical_offset']['size'] : 0,
 								// Smoothing
-								'smoothing'           => ( 'yes' === $settings['smoothing'] ) ? true : false ,
-								'smoothingAmount'     => ( 'yes' === $settings['smoothing'] ) && ! empty( $settings['smoothing_amount']['size'] ) ? $settings['smoothing_amount']['size'] : 100,
+								'smoothing'              => ( 'yes' === $settings['smoothing'] ) ? true : false ,
+								'smoothingAmount'        => ( 'yes' === $settings['smoothing'] ) && ! empty( $settings['smoothing_amount']['size'] ) ? $settings['smoothing_amount']['size'] : 100,
+								'smoothingEase'          => ! empty( $settings['smoothing_ease'] ) ? $settings['smoothing_ease'] : 'ease-out',
 								// Other options
-								'hoverStart'          => 'yes' === $settings['hover_start'] ? true : false,
-								'verticalMode'        => 'yes' === $settings['vertical_mode'] ? true : false,
-								'startingPoint'       => ! empty( $settings['starting_point']['size'] ) ? $settings['starting_point']['size'] : 50,
-								'fluidMode'           => 'yes' === $settings['fluid_mode'] ? true : false,
+								'hoverStart'             => 'yes' === $settings['hover_start'] ? true : false,
+								'verticalMode'           => 'yes' === $settings['vertical_mode'] ? true : false,
+								'startingPoint'          => ! empty( $settings['starting_point']['size'] ) ? $settings['starting_point']['size'] : 50,
+								'mobileStartingPoint'    => ! empty( $settings['mobile_starting_point']['size'] ) ? $settings['mobile_starting_point']['size'] : 50,
+								'animateOnLoad'          => 'yes' === $settings['animate_on_load'] ? true : false,
+								'entryAnimationDuration' => ! empty( $settings['entry_animation_duration']['size'] ) ? $settings['entry_animation_duration']['size'] : 0.8,
+								'fluidMode'              => 'yes' === $settings['fluid_mode'] ? true : false,
 							]
 						),
 					],

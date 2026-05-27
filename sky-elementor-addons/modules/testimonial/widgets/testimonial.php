@@ -38,6 +38,10 @@ class Testimonial extends Widget_Base {
 	public function get_keywords() {
 		return [ 'sky', 'testimonial', 'review', 'clients', 'rating' ];
 	}
+	public function get_style_depends() {
+		return [ 'sa-testimonial' ];
+	}
+
 
 	public function get_custom_help_url() {
 		return 'https://skyaddons.com/docs/sky-addons/widgets/testimonial/';
@@ -77,15 +81,15 @@ class Testimonial extends Widget_Base {
 				'options'      => [
 					'left'   => [
 						'title' => esc_html__( 'Left', 'sky-elementor-addons' ),
-						'icon'  => 'eicon-text-align-left',
+						'icon'  => 'eicon-h-align-left',
 					],
 					'center' => [
 						'title' => esc_html__( 'Center', 'sky-elementor-addons' ),
-						'icon'  => 'eicon-text-align-center',
+						'icon'  => 'eicon-v-align-top',
 					],
 					'right'  => [
 						'title' => esc_html__( 'Right', 'sky-elementor-addons' ),
-						'icon'  => 'eicon-text-align-right',
+						'icon'  => 'eicon-h-align-right',
 					],
 				],
 				'prefix_class' => 'sa-testimonial-%s-',
@@ -295,6 +299,10 @@ class Testimonial extends Widget_Base {
 						'min' => 0,
 						'max' => 100,
 					],
+				],
+				'default'    => [
+					'size' => 65,
+					'unit' => 'px',
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-testimonial' => '--sky-media-size: {{SIZE}}{{UNIT}};',
@@ -526,8 +534,9 @@ class Testimonial extends Widget_Base {
 						$this->add_inline_editing_attributes( 'testimonial_name', 'none' );
 
 						if ( ! empty( $settings['link']['url'] ) ) :
+							$this->add_link_attributes( 'testimonial_name', $settings['link'] );
 							?>
-							<a <?php $this->print_render_attribute_string( 'testimonial_name' ) . ' ' . $this->get_render_attribute_string( 'link' ); ?>>
+							<a <?php $this->print_render_attribute_string( 'testimonial_name' ); ?>>
 								<?php echo wp_kses_post( $settings['testimonial_name'] ); ?>
 							</a>
 							<?php
@@ -547,8 +556,9 @@ class Testimonial extends Widget_Base {
 						$this->add_inline_editing_attributes( 'testimonial_job', 'none' );
 
 						if ( ! empty( $settings['link']['url'] ) ) :
+							$this->add_link_attributes( 'testimonial_job', $settings['link'] );
 							?>
-							<a <?php $this->print_render_attribute_string( 'testimonial_job' ) . ' ' . $this->get_render_attribute_string( 'link' ); ?>>
+							<a <?php $this->print_render_attribute_string( 'testimonial_job' ); ?>>
 								<?php echo esc_html( $settings['testimonial_job'] ); ?>
 							</a>
 							<?php

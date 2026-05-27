@@ -44,11 +44,12 @@ class Glory_Slider extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-glory-slider',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-glory-slider' ];
 	}
 
 	public function get_custom_help_url() {

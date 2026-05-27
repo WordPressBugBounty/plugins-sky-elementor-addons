@@ -52,6 +52,7 @@ class Generic_Grid extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'elementor-icons-fa-solid',
+			'sa-generic-grid',
 		];
 	}
 

@@ -51,6 +51,7 @@ class Post_List extends Widget_Base {
 	public function get_style_depends() {
 		return [
 			'elementor-icons-fa-solid',
+			'sa-post-list',
 		];
 	}
 
@@ -193,7 +194,7 @@ class Post_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_post_query_builder',
 			[
-				'label' => __( 'Query', 'sky-elementor-addons' ),
+				'label' => esc_html__( 'Query', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);

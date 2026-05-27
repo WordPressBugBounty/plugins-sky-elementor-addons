@@ -8,6 +8,6 @@ return [
 	'title'              => esc_html__( 'Ultra Carousel', 'sky-elementor-addons' ),
 	'required'           => true,
 	'default_activation' => true,
-// 'has_style'          => true,
-// 'has_script'       => true,
+	'has_style'          => true,
+	'has_script'         => true,
 ];

@@ -1,15 +1,15 @@
-=== Sky Addons – Elementor Addons with Widgets & Templates ===
-Plugin Name: Sky Addons – Elementor Addons with Widgets & Templates
-Version: 3.3.3
+=== Sky Addons for Elementor ===
+Plugin Name: Sky Addons for Elementor
+Version: 3.8.0
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, mizan42047
 Tags: Elementor Addons, Essential Widgets, Elementor Templates, Theme Builder, Elementor Kit
 Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.3.3
+Stable tag: 3.8.0
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -299,9 +299,37 @@ Development happens on GitHub:
 
 == Changelog ==
 
-= 3.3.3 [4th May 2026] =
+= 3.8.0 [27th May 2026] =
+* Added: Assets Manager Added
+* Added: Theme Builder Completely Unlocked and Redesigned
+* Added: Custom Scripts Improved & Redesigned
+* Added: Review Carousel Unlock to free
+* Added: Testimonial Carousel Unlock to free
+* Added: Dynamic Content & ACF added in Accordion widget
+* Added: 11 modern styles and full control added in Audio Player
+* Added: Dynamic Content & ACF added in List Group & Tidy List
+* Added: New animation styles added in Animated Heading
+* Added: Brand Name, Lazy Loading, Effects added in Logo Grid & Carousel
+* Added: Targeted widget mode added in Equal Height
+* Added: Entrance Animations & Effects added in Portion Effect widget
+* Added: Header Bar, Badge added in PDF Viewer widget
+* Added: Styling added in Ninja, Fluent & Gravity Forms
+* Improved: Info Box & Card widgets
+* Improved: Updated documentation links and control labels plugin-wide
+* Improved: Social Icons — removed dead `.sa-anim-2` empty CSS rule from LESS file
+* Improved: Redesigned Changelog widget [View Demo](https://skyaddons.com/changelog/)
+* Improved: Backdrop Filter & Custom Clip path feature improved
+* Improved: All Form widgets
+* Improved: Post Comments widget
+* Improved: Reading Progress widget
+* Improved: Simple Parallax Extensions
+* Improved: Slinky Menu widget
+* Improved: Social Icons widget
+* Improved: Table Of Content completely redesigned
+* Improved: Team Member widget
+* Fixed: Accessibility violations, tooltip bugs, and CSS specificity issues
+* Removed: Number, Page Title, Post Title, Featured Image, Post Excerpt widget
 
-* Improved: Security improved (Thanks to Athiwat Tiprasaharn (Jitlada))
 
 = 3.3.2 [29th April 2026] =
 
@@ -321,103 +349,5 @@ Development happens on GitHub:
 * Added: WPML Support added
 * Added: Custom Scripts (Global Features) added
 * Improved: Carousel Pagination improved
-
-= 3.2.3 [10th December 2025] =
-
-* Improved: System improved
-
-= 3.2.1 [16th August 2025] =
-
-* Improved: System improved
-
-= 3.2.0 [26th July 2025] =
-
-* Added: Contact Form 7 widget added
-* Added: Fluent Form widget added
-* Added: Gravity Forms widget added
-* Added: Ninja Forms widget added
-* Added: weForms widget added
-* Added: WP Forms widget added
-* Improved: Security improved
-
-= 3.1.4 [9th July 2025] =
-
-* Improved: Dashboard improved
-* Improved: Security improved
-
-= 3.1.3 [21th June 2025] =
-
-* Improved: Media Position in InfoBox widget
-* Improved: Logo Carousel widget
-* Improved: Social Icons in Team Member widget
-
-= 3.1.2 [4th June 2025] =
-
-* Improved: System improved
-
-= 3.1.1 [16th May 2025] =
-
-* Improved: System improved
-
-= 3.1.0 [12th May 2025] =
-
-* Added: Gradient Text Extensions added
-* Improved: Socail Icon widget improved
-* Improved: List Group widget improved
-* Improved: InfoBox widget improved
-* Improved: Card widget improved
-* Improved: System improved
-
-= 3.0.3 [16th April 2025] =
-
-* Improved: System improved
-* Fixed: Security issue fixed (Thanks to Darius Sveikauskas)
-
-= 3.0.2 [27th March 2025] =
-
-* Fixed: Ripples Effect fixed (Thanks to Lucas)
-
-= 3.0.1 [27th March 2025] =
-
-* Fixed: Slinky menu custom link fixed (Thanks to Lucas)
-
-= 3.0.0 [25th March 2025] =
-
-* Added: Theme Builder Added
-* Added: Simple Parallax Effects added
-* Added: Duplicator Feature Added
-* Added: SVG Support Feature Added
-* Added: Post Title widget added
-* Added: Page Title widget added
-* Added: Post Excerpt widget added
-* Added: Post Content widget added
-* Added: Post Featured Image widget added
-* Improved: System improved
-
-= 2.7.3 [11th March 2025] =
-
-* Improved: API Route improved
-
-= 2.7.2 [10th March 2025] =
-
-* Improved: System improved
-
-= 2.7.1 [6th March 2025] =
-
-* Fixed: API Route fixed for sub folders
-
-= 2.7.0 [5th March 2025] =
-
-* Added: Completely new admin UI added
-* Improved: System improved
-
-= 2.6.9 [18th January 2025] =
-
-* Fixed: Button Alignment isse fixed in Card widget (Thanks to Faye)
-* Improved: Templates Library improved
-
-= 2.6.8 [06th January 2025] =
-
-* Fixed: Ripple Effects Fixed (Thanks to Johnathan)
 
 For full update history and version details, 👉 [view the Changelog Here](https://skyaddons.com/changelog/).

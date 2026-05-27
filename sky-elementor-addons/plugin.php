@@ -118,6 +118,7 @@ class Sky_Addons_Plugin {
 		 */
 		require_once SKY_ADDONS_INC_PATH . 'controls/select-input/dynamic-input-module.php';
 		require_once SKY_ADDONS_INC_PATH . 'controls/select-input/dynamic-select.php';
+		require_once SKY_ADDONS_INC_PATH . 'controls/widget-list/widget-list.php';
 
 		/**
 		 * Templates Library
@@ -142,6 +143,12 @@ class Sky_Addons_Plugin {
 		 * WPML
 		 */
 		require_once SKY_ADDONS_INC_PATH . 'class-wpml-init.php';
+
+		/**
+		 * Asset Manager (optimizer)
+		 */
+		require_once SKY_ADDONS_INC_PATH . 'optimizer/class-optimizer.php';
+		\Sky_Addons\Optimizer\Optimizer::instance();
 	}
 
 	public function autoload( $_class ) {
@@ -192,67 +199,116 @@ class Sky_Addons_Plugin {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
 		wp_register_style(
-			'sky-elementor-addons',
+			'sky-addons',
 			SKY_ADDONS_URL . 'assets/css/sky-addons' . $direction_suffix . '.css',
 			[],
 			SKY_ADDONS_VERSION
 		);
 
-		wp_enqueue_style( 'sky-elementor-addons' );
+		wp_enqueue_style( 'sky-addons' );
 	}
 
 	public function enqueue_styles_backend() {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
 		wp_enqueue_style(
-			'sky-elementor-addons-icons',
+			'sky-addons-icons',
 			SKY_ADDONS_URL . 'assets/css/sky-editor' . $direction_suffix . '.css',
 			[],
 			SKY_ADDONS_VERSION
 		);
 	}
 
-	public function enqueue_scripts() {
+	public function register_main_script() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
+		// Shared helpers (skyAddonsObserver, widgetGlobalCarousel) — standalone
+		// so widgets, extensions, the optimizer bundle and the pro plugin can
+		// all depend on it without re-bundling the same code.
 		wp_register_script(
-			'sky-elementor-addons',
-			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
-			[
-				'jquery',
-				'elementor-frontend',
-			],
+			'sky-addons-common',
+			SKY_ADDONS_URL . 'assets/js/common' . $suffix . '.js',
+			[ 'jquery', 'elementor-frontend' ],
 			SKY_ADDONS_VERSION,
 			true
 		);
 
+		wp_register_script(
+			'sky-addons',
+			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
+			[
+				'jquery',
+				'elementor-frontend',
+				'sky-addons-common',
+			],
+			SKY_ADDONS_VERSION,
+			true
+		);
+	}
+
+	public function enqueue_scripts() {
 		if ( self::elementor()->preview->is_preview_mode() || self::elementor()->editor->is_edit_mode() ) {
-			// todo condition check
-			wp_enqueue_script( 'anime' );
-			wp_enqueue_script( 'tippyjs' );
-			wp_enqueue_script( 'equal-height' );
-			wp_enqueue_script( 'granim' );
-			wp_enqueue_script( 'ripples' );
-			wp_enqueue_script( 'revealFx' );
-			wp_enqueue_script( 'simple-parallax' );
+			// Always load shared helpers in the editor so dropped widgets can
+			// call skyAddonsObserver / widgetGlobalCarousel immediately.
+			wp_enqueue_script( 'sky-addons-common' );
+
+			// tippyjs — used by Logo Carousel + Logo Grid widgets.
+			if (
+				Managers::is_widget_active( 'logo-carousel' )
+				|| Managers::is_widget_active( 'logo-grid' )
+			) {
+				wp_enqueue_script( 'tippyjs' );
+			}
+
+			// anime — shared by Floating Effects + Reveal Effects extensions (revealFx depends on anime).
+			if (
+				Managers::is_extension_active( 'floating-effects' )
+				|| Managers::is_extension_active( 'reveal-effects' )
+			) {
+				wp_enqueue_script( 'anime' );
+			}
+
+			// Per-extension handlers + their dedicated vendors.
+			if ( Managers::is_extension_active( 'equal-height' ) ) {
+				wp_enqueue_script( 'equal-height' );
+				wp_enqueue_script( 'sa-equal-height' );
+			}
+			if ( Managers::is_extension_active( 'floating-effects' ) ) {
+				wp_enqueue_script( 'sa-floating-effects' );
+			}
+			if ( Managers::is_extension_active( 'reveal-effects' ) ) {
+				wp_enqueue_script( 'revealFx' );
+				wp_enqueue_script( 'sa-reveal-effects' );
+			}
+			if ( Managers::is_extension_active( 'ripples-effect' ) ) {
+				wp_enqueue_script( 'ripples' );
+				wp_enqueue_script( 'sa-ripples-effect' );
+			}
+			if ( Managers::is_extension_active( 'simple-parallax' ) ) {
+				wp_enqueue_script( 'simple-parallax' );
+				wp_enqueue_script( 'sa-simple-parallax' );
+			}
+			if ( Managers::is_extension_active( 'animated-gradient-bg' ) ) {
+				wp_enqueue_script( 'granim' );
+			}
 		}
 
 		wp_localize_script(
-			'sky-elementor-addons',
-			'Sky_AddonsFrontendConfig', // This is used in the js file to group all of your scripts together
+			'sky-addons',
+			'SkyAddonsFrontendConfig', // This is used in the js file to group all of your scripts together
 			[
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'sky-elementor-addons' ),
+				'nonce'   => wp_create_nonce( 'sky_addons_nonce' ),
 			]
 		);
 
-		wp_enqueue_script( 'sky-elementor-addons' );
+		wp_enqueue_script( 'sky-addons' );
 	}
 
 	public function register_site_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
-			'sa-image-compare',
+			'image-compare-viewer',
 			SKY_ADDONS_ASSETS_URL . 'vendor/js/image-compare-viewer' . $suffix . '.js',
 			[
 				'jquery',
@@ -262,15 +318,6 @@ class Sky_Addons_Plugin {
 			true
 		);
 		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider' . $suffix . '.js', [], '1.0.0', true );
-		wp_register_script(
-			'sa-reading-progress',
-			SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.reading-progress' . $suffix . '.js',
-			[
-				'jquery',
-			],
-			'1.0.0',
-			true
-		);
 		wp_register_script( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', [], '3.1.1', true );
 		/**
 		 * No need Suffix on Anime JS
@@ -295,11 +342,12 @@ class Sky_Addons_Plugin {
 		wp_register_script( 'granim', SKY_ADDONS_ASSETS_URL . 'vendor/js/granim' . $suffix . '.js', [], 'v2.0.0', true );
 		wp_register_script( 'ripples', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.ripples' . $suffix . '.js', [ 'jquery' ], 'v0.5.3', true );
 		wp_register_script( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/js/slinky' . $suffix . '.js', [ 'jquery' ], '1.0.0', true );
-		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx' . $suffix . '.js', [ 'jquery' ], '0.0.2', true );
+		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx' . $suffix . '.js', [ 'jquery', 'anime' ], '0.0.2', true );
 		wp_register_script( 'typed', SKY_ADDONS_ASSETS_URL . 'vendor/js/typed' . $suffix . '.js', [], 'v2.0.12', true );
 		wp_register_script( 'morphext', SKY_ADDONS_ASSETS_URL . 'vendor/js/morphext' . $suffix . '.js', [], 'v2.4.4', true );
 		wp_register_script( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/js/plyr' . $suffix . '.js', [], '3.7.2', true );
-		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', [], '5.6.2', true );
+		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', [], '6.3.3', true );
+		wp_register_script( 'tocbot', SKY_ADDONS_ASSETS_URL . 'vendor/js/tocbot.min.js', [], '4.21.1', true );
 	}
 
 	public function register_site_styles() {
@@ -362,7 +410,11 @@ class Sky_Addons_Plugin {
 			]
 		);
 
-		if ( class_exists( 'Sky_Addons\Templates\Init_Templates' ) ) {
+		if (
+			class_exists( 'Sky_Addons\Templates\Init_Templates' )
+			&& function_exists( 'sky_addons_is_templates_library_enabled' )
+			&& sky_addons_is_templates_library_enabled()
+		) {
 			\Sky_Addons\Templates\Import_Template::instance()->load();
 			\Sky_Addons\Templates\Library_Load::instance()->load();
 			\Sky_Addons\Templates\Init_Templates::instance()->init();
@@ -383,6 +435,7 @@ class Sky_Addons_Plugin {
 
 	protected function add_actions() {
 
+		add_action( 'elementor/init', [ $this, 'register_main_script' ], 0 );
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'register_site_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 998 );
@@ -412,7 +465,7 @@ require_once __DIR__ . '/includes/functions.php';
  * Initializes the main plugin.
  * Only runs when Elementor is confirmed loaded and meets the minimum version.
  */
-function sky_elementor_addons() {
+function sky_addons() {
 	if ( defined( 'SKY_ADDONS_TEST' ) ) {
 		return;
 	}
@@ -426,4 +479,4 @@ function sky_elementor_addons() {
 }
 
 // kick-off the plugin
-sky_elementor_addons();
+sky_addons();

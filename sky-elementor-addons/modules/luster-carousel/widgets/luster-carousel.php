@@ -54,11 +54,12 @@ class Luster_Carousel extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-luster-carousel',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-luster-carousel' ];
 	}
 
 	public function get_query() {
@@ -468,8 +469,8 @@ class Luster_Carousel extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-img'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-					'{{WRAPPER}} .sa-post-img  ::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-img'        => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-img::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -797,7 +798,7 @@ class Luster_Carousel extends Widget_Base {
 					<i class="eicon-user-circle-o"></i>
 				</div>
 				<span class="sa-post-author-text">
-					<?php echo get_the_author(); ?>
+					<?php echo esc_html( get_the_author() ); ?>
 				</span>
 			</a>
 		</div>
@@ -899,8 +900,6 @@ class Luster_Carousel extends Widget_Base {
 			$wp_query->the_post();
 
 			$thumbnail_size = $settings['primary_thumbnail_size'];
-
-			$this->get_posts_tags();
 
 			$this->render_item( get_the_ID(), $thumbnail_size, $settings['excerpt_length'] );
 

@@ -6,56 +6,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Custom Menu Walker Class
- */
 class Menu_Walker extends \Walker_Nav_Menu {
 
-	/**
-	 * Indicates if the current menu item has children.
-	 *
-	 * @var bool
-	 */
-	public $has_child = false;
+	/** Set by start_el when the item is an ancestor of the current page; read by the next start_lvl call. */
+	private $open_next_lvl = false;
 
-	/**
-	 * Starts the list before the child elements are added.
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int    $depth  Depth of menu item. Used for padding.
-	 * @param array  $args   An array of arguments.
-	 */
 	public function start_lvl( &$output, $depth = 0, $args = [] ) {
-		$output .= '<ul>';
+		$classes = apply_filters( 'nav_menu_submenu_css_class', [ 'sub-menu' ], $args, $depth );
+
+		if ( $this->open_next_lvl ) {
+			$classes[]           = 'active';
+			$this->open_next_lvl = false;
+		}
+
+		$class_attr = ! empty( $classes ) ? sprintf( ' class="%s"', esc_attr( implode( ' ', $classes ) ) ) : '';
+		$output    .= '<ul' . $class_attr . '>';
 	}
 
-	/**
-	 * Ends the list of after the child elements are added.
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int    $depth  Depth of menu item. Used for padding.
-	 * @param array  $args   An array of arguments.
-	 */
 	public function end_lvl( &$output, $depth = 0, $args = [] ) {
 		$output .= '</ul>';
 	}
 
-	/**
-	 * Starts the element output.
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param object $item   Menu item data object.
-	 * @param int    $depth  Depth of menu item. Used for padding.
-	 * @param array  $args   An array of arguments.
-	 * @param int    $id     Current item ID.
-	 */
 	public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
-		$data    = [];
-		$class   = '';
-		$classes = empty( $item->classes ) ? [] : (array) $item->classes;
+		$args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
 
-		// Filter and sanitize classes
-		$classes = array_map( 'sanitize_html_class', $classes );
+		$classes   = empty( $item->classes ) ? [] : (array) $item->classes;
+		$classes[] = 'menu-item-' . $item->ID;
 
 		if ( $args->walker->has_children ) {
 			$classes[] = 'has-arrow';
@@ -65,81 +41,75 @@ class Menu_Walker extends \Walker_Nav_Menu {
 			$classes[] = 'current-menu-item';
 		}
 
-		if ( $item->dropdown_child && $depth > 0 ) {
-			$classes[] = 'sub-dropdown';
+		if ( $item->current_item_ancestor ) {
+			$this->open_next_lvl = true;
 		}
 
-		$class = implode( ' ', $classes );
+		$class_names = implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
+		$item_id     = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
 
-		// Add data attributes
-		if ( in_array( 'current-menu-item', $classes ) || in_array( 'current_page_item', $classes ) ) {
-			$data['data-menu-active'] = 2;
-		} elseif ( preg_replace( '/#(.+)$/', '', $item->url ) === 'index.php' && ( is_home() || is_front_page() ) ) {
-			$data['data-menu-active'] = 2;
+		$li_atts = [
+			'id'    => ! empty( $item_id ) ? $item_id : '',
+			'class' => ! empty( $class_names ) ? $class_names : '',
+		];
+
+		if ( $item->current || $item->current_item_parent || $item->current_item_ancestor ) {
+			$li_atts['data-menu-active'] = '2';
+		} elseif (
+			! empty( $item->url ) &&
+			preg_replace( '/#(.+)$/', '', $item->url ) === 'index.php' &&
+			( is_home() || is_front_page() )
+		) {
+			$li_atts['data-menu-active'] = '2';
 		}
 
-		$attributes = '';
-		foreach ( $data as $name => $value ) {
-			$attributes .= sprintf( ' %s="%s"', esc_attr( $name ), esc_attr( $value ) );
-		}
-
-		$id_attr    = $id ? sprintf( ' id="%s"', esc_attr( $id ) ) : '';
-		$class_attr = $class ? sprintf( ' class="%s"', esc_attr( $class ) ) : '';
-
-		$output .= sprintf( '<li%s%s%s>', $id_attr, $attributes, $class_attr );
-
-		$link_attributes = '';
-		foreach ( [
-			'attr_title' => 'title',
-			'target'     => 'target',
-			'xfn'        => 'rel',
-			'url'        => 'href',
-		] as $var => $attr ) {
-			if ( ! empty( $item->$var ) ) {
-				$link_attributes .= sprintf( ' %s="%s"', esc_attr( $attr ), esc_url( $item->$var ) );
+		$li_attributes = '';
+		foreach ( $li_atts as $attr => $value ) {
+			if ( '' !== $value ) {
+				$li_attributes .= sprintf( ' %s="%s"', esc_attr( $attr ), esc_attr( $value ) );
 			}
 		}
 
-		$icon = isset( $item->icon ) ? sprintf( '<span class="sky-margin-small-right" sky-icon="icon: %s"></span>', esc_attr( $item->icon ) ) : '';
+		$output .= '<li' . $li_attributes . '>';
 
-		$item_output = sprintf(
-			'%s<a%s>%s%s%s</a>%s',
-			$args->before,
-			$link_attributes,
-			$icon,
-			$args->link_before,
-			apply_filters( 'the_title', $item->title, $item->ID ),
-			$args->link_after,
-			$args->after
-		);
+		$atts           = [];
+		$atts['target'] = ! empty( $item->target ) ? $item->target : '';
+		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
+
+		if ( '_blank' === $atts['target'] ) {
+			$atts['rel'] = trim( $atts['rel'] . ' noopener noreferrer' );
+		}
+
+		$atts['href']         = ! empty( $item->url ) ? $item->url : '';
+		$atts['aria-current'] = $item->current ? 'page' : '';
+
+		if ( ! empty( $item->attr_title ) ) {
+			$atts['title'] = $item->attr_title;
+		}
+
+		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
+
+		$link_attributes = '';
+		foreach ( $atts as $attr => $value ) {
+			if ( false !== $value && '' !== $value ) {
+				$value            = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+				$link_attributes .= ' ' . esc_attr( $attr ) . '="' . $value . '"';
+			}
+		}
+
+		$title = apply_filters( 'the_title', $item->title, $item->ID );
+		$title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
+
+		$item_output  = $args->before;
+		$item_output .= '<a' . $link_attributes . '>';
+		$item_output .= $args->link_before . $title . $args->link_after;
+		$item_output .= '</a>';
+		$item_output .= $args->after;
 
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 	}
 
-	/**
-	 * Ends the element output, if needed.
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param object $item   Page data object. Not used.
-	 * @param int    $depth  Depth of page. Not Used.
-	 * @param array  $args   An array of arguments.
-	 */
 	public function end_el( &$output, $item, $depth = 0, $args = [] ) {
 		$output .= '</li>';
-	}
-
-	/**
-	 * Displays an element and its children.
-	 *
-	 * @param object $element           Data object.
-	 * @param array  &$children_elements List of elements to continue traversing.
-	 * @param int    $max_depth         Max depth to traverse.
-	 * @param int    $depth             Depth of current element.
-	 * @param array  $args              Arguments.
-	 * @param string &$output           Passed by reference. Used to append additional content.
-	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
-		$element->hasChildren = isset( $children_elements[ $element->ID ] ) && ! empty( $children_elements[ $element->ID ] );
-		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
 	}
 }

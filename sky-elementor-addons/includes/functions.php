@@ -17,6 +17,38 @@ if ( ! function_exists( 'sky_addons_core' ) ) {
 	}
 }
 
+if ( ! function_exists( 'sky_addons_is_asset_optimization_enabled' ) ) {
+
+	/**
+	 * Whether the Asset Manager optimization is turned on.
+	 *
+	 * Defined in the global namespace so namespaced callers (modules-manager,
+	 * optimizer) resolve it via the standard function fallback.
+	 */
+	function sky_addons_is_asset_optimization_enabled() {
+		$settings = get_option( 'sky_addons_other_settings', [] );
+		// Default ON — if the option has never been saved, treat it as enabled.
+		$enabled  = ! isset( $settings['asset_manager'] ) || 'on' === $settings['asset_manager'];
+
+		return (bool) apply_filters( 'sky-addons/optimization/asset_manager', $enabled );
+	}
+}
+
+if ( ! function_exists( 'sky_addons_is_templates_library_enabled' ) ) {
+
+	/**
+	 * Whether the Sky Addons Templates Library is enabled in the dashboard
+	 * Others tab. When disabled, none of the library's PHP classes, AJAX
+	 * actions, or editor scripts/styles are loaded.
+	 */
+	function sky_addons_is_templates_library_enabled() {
+		$inactive = (array) get_option( 'sky_addons_inactive_extensions', [] );
+		$enabled  = ! in_array( 'templates-library', $inactive, true );
+
+		return (bool) apply_filters( 'sky-addons/features/templates_library', $enabled );
+	}
+}
+
 if ( ! function_exists( 'sky_addons_get_icon' ) ) {
 	function sky_addons_get_icon() {
 		return '<span class="sky-ctrl-section-icon-wrapper"><img src="' . sky_addons_core()->images . 'sky-logo-gradient.png" class="sky-ctrl-section-icon" alt="Sky Addons" title="Sky Addons"></span>';
@@ -35,6 +67,38 @@ if ( ! function_exists( 'sky_addons_control_indicator_pro' ) ) {
 		if ( sky_addons_init_pro() !== true ) {
 			return '<span class="sa-control-indicator-badge sa-pro-badge">' . esc_html( 'Pro', 'sky-elementor-addons' ) . '<span>';
 		}
+	}
+}
+
+if ( ! function_exists( 'sky_addons_label_badge' ) ) {
+	/**
+	 * Return a coloured badge span for appending to an Elementor control label.
+	 * Automatically disappears once the plugin reaches $until_version.
+	 *
+	 * Usage: 'label' => esc_html__( 'My Control', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' )
+	 *
+	 * @param string      $type          Badge type: 'new' | 'updated' | 'fixed' | 'beta'
+	 * @param string|null $until_version Plugin version at which the badge auto-expires (e.g. '3.5.0').
+	 * @return string Badge span HTML, or empty string when expired or type is unknown.
+	 */
+	function sky_addons_label_badge( $type = 'new', $until_version = null ) {
+		if ( $until_version && defined( 'SKY_ADDONS_VERSION' )
+			&& version_compare( SKY_ADDONS_VERSION, $until_version, '>=' ) ) {
+			return '';
+		}
+
+		$types = [
+			'new'     => 'New',
+			'updated' => 'Updated',
+			'fixed'   => 'Fixed',
+			'beta'    => 'Beta',
+		];
+
+		if ( ! isset( $types[ $type ] ) ) {
+			return '';
+		}
+
+		return ' <span class="sa-control-indicator-badge sa-badge--' . esc_attr( $type ) . '">' . esc_html( $types[ $type ] ) . '</span>';
 	}
 }
 

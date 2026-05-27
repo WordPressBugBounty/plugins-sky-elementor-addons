@@ -8,4 +8,6 @@ return [
 	'title'              => esc_html__( 'Changelog', 'sky-elementor-addons' ),
 	'required'           => true,
 	'default_activation' => true,
+	'has_style'          => true,
+	'has_script'         => true,
 ];

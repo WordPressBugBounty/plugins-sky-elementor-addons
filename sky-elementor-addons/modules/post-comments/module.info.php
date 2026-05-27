@@ -8,4 +8,5 @@ return [
 	'title'              => esc_html__( 'Post Comments', 'sky-elementor-addons' ),
 	'required'           => true,
 	'default_activation' => true,
+	'has_style'          => true,
 ];

@@ -17,12 +17,35 @@ use Elementor\Group_Control_Text_Stroke;
 use Elementor\Repeater;
 use Elementor\Widget_Base;
 use Sky_Addons\Sky_Addons_Plugin;
+use Sky_Addons\Includes\Controls\GroupQuery\Group_Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Advanced_Slider extends Widget_Base {
+
+	use Group_Control;
+
+	private $_query = null;
+
+	public function get_query() {
+		return $this->_query;
+	}
+
+	public function query_posts( $posts_per_page ) {
+		$settings = $this->get_settings();
+		$args     = [];
+
+		if ( $posts_per_page ) {
+			$args['posts_per_page'] = $posts_per_page;
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+		}
+
+		$default      = $this->getGroupControlQueryArgs();
+		$args         = array_merge( $default, $args );
+		$this->_query = new \WP_Query( $args );
+	}
 
 	public function get_name() {
 		return 'sky-advanced-slider';
@@ -45,11 +68,11 @@ class Advanced_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-advanced-slider' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-advanced-slider' ];
 	}
 
 	public function get_custom_help_url() {
@@ -149,6 +172,79 @@ class Advanced_Slider extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'slide_video_type',
+			[
+				'label'     => esc_html__( 'Background Video', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => [
+					''           => esc_html__( 'None', 'sky-elementor-addons' ),
+					'youtube'    => esc_html__( 'YouTube', 'sky-elementor-addons' ),
+					'vimeo'      => esc_html__( 'Vimeo', 'sky-elementor-addons' ),
+					'hosted'     => esc_html__( 'Self Hosted', 'sky-elementor-addons' ),
+					'remote_url' => esc_html__( 'Remote URL', 'sky-elementor-addons' ),
+				],
+				'separator' => 'before',
+				'condition' => [ 'content_source' => 'custom' ],
+			]
+		);
+
+		$repeater->add_control(
+			'slide_video_youtube',
+			[
+				'label'       => esc_html__( 'YouTube URL', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'placeholder' => 'https://www.youtube.com/watch?v=...',
+				'condition'   => [
+					'content_source'   => 'custom',
+					'slide_video_type' => 'youtube',
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'slide_video_vimeo',
+			[
+				'label'       => esc_html__( 'Vimeo URL', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'placeholder' => 'https://vimeo.com/...',
+				'condition'   => [
+					'content_source'   => 'custom',
+					'slide_video_type' => 'vimeo',
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'slide_video_hosted',
+			[
+				'label'      => esc_html__( 'Hosted Video', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::MEDIA,
+				'media_type' => 'video',
+				'condition'  => [
+					'content_source'   => 'custom',
+					'slide_video_type' => 'hosted',
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'slide_video_remote_url',
+			[
+				'label'       => esc_html__( 'Remote Video URL', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'placeholder' => 'https://example.com/video.mp4',
+				'condition'   => [
+					'content_source'   => 'custom',
+					'slide_video_type' => 'remote_url',
+				],
+			]
+		);
+
+		$repeater->add_control(
 			'template_id',
 			[
 				'label'       => esc_html__( 'Select Template', 'sky-elementor-addons' ),
@@ -173,27 +269,41 @@ class Advanced_Slider extends Widget_Base {
 		);
 
 		$this->add_control(
+			'content_type',
+			[
+				'label'   => esc_html__( 'Content Type', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'repeater',
+				'options' => [
+					'repeater' => esc_html__( 'Default (Repeater)', 'sky-elementor-addons' ),
+					'posts'    => esc_html__( 'Dynamic Posts', 'sky-elementor-addons' ),
+					'acf'      => esc_html__( 'ACF Fields', 'sky-elementor-addons' ),
+				],
+			]
+		);
+
+		$this->add_control(
 			'slider_list',
 			[
 				'label'       => '',
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
+				'condition'   => [ 'content_type' => 'repeater' ],
 				'default'     => [
 					[
-						'title'       => esc_html__( 'Slide Title #1', 'sky-elementor-addons' ),
-						'custom_text' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
+						'sub_title'   => esc_html__( 'Welcome to our story', 'sky-elementor-addons' ),
+						'title'       => esc_html__( 'Elevate Your Brand to New Heights', 'sky-elementor-addons' ),
+						'custom_text' => esc_html__( 'We craft exceptional digital experiences that connect your brand with the people who matter most. Ready to make your mark?', 'sky-elementor-addons' ),
 					],
 					[
-						'title'       => esc_html__( 'Slide Title #2', 'sky-elementor-addons' ),
-						'custom_text' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
+						'sub_title'   => esc_html__( 'Our expertise', 'sky-elementor-addons' ),
+						'title'       => esc_html__( 'Design That Speaks for Itself', 'sky-elementor-addons' ),
+						'custom_text' => esc_html__( 'Every pixel is intentional. Every interaction is thoughtful. Great design is not just what it looks like — it\'s how it works.', 'sky-elementor-addons' ),
 					],
 					[
-						'title'       => esc_html__( 'Slide Title #3', 'sky-elementor-addons' ),
-						'custom_text' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
-					],
-					[
-						'title'       => esc_html__( 'Slide Title #4', 'sky-elementor-addons' ),
-						'custom_text' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'sky-elementor-addons' ),
+						'sub_title'   => esc_html__( 'Start today', 'sky-elementor-addons' ),
+						'title'       => esc_html__( 'Build Something Truly Extraordinary', 'sky-elementor-addons' ),
+						'custom_text' => esc_html__( 'From concept to launch, we partner with ambitious teams who want to create products the world has never seen before.', 'sky-elementor-addons' ),
 					],
 				],
 				'title_field' => '{{{ title }}}',
@@ -206,6 +316,85 @@ class Advanced_Slider extends Widget_Base {
 				'name'      => 'thumbnail', // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `image_size` and `image_custom_dimension`.
 				'default'   => 'full',
 				'separator' => 'none',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_post_query_builder',
+			[
+				'label'     => esc_html__( 'Query', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'content_type' => 'posts' ],
+			]
+		);
+
+		$this->register_query_builder_controls();
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_acf_settings',
+			[
+				'label'     => esc_html__( 'ACF Settings', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'content_type' => 'acf' ],
+			]
+		);
+
+		$this->add_control(
+			'acf_repeater_field',
+			[
+				'label'       => esc_html__( 'ACF Repeater Field', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter repeater field name', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Enter the name of the ACF repeater field.', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_sub_title_field',
+			[
+				'label'       => esc_html__( 'Sub Title Field Mapping', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for sub title', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_title_field',
+			[
+				'label'       => esc_html__( 'Title Field Mapping', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for title', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_text_field',
+			[
+				'label'       => esc_html__( 'Text Field Mapping', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for body text', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_image_field',
+			[
+				'label'       => esc_html__( 'Image Field Mapping', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for image', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'acf_link_field',
+			[
+				'label'       => esc_html__( 'Link Field Mapping', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter sub-field name for link', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -237,7 +426,33 @@ class Advanced_Slider extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .swiper' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .swiper-vertical .swiper-slide' => 'height: {{SIZE}}{{UNIT}} !important;',
 				],
+				'condition'  => [
+					'slider_aspect_ratio' => '',
+				],
+			]
+		);
+
+		$this->add_control(
+			'slider_aspect_ratio',
+			[
+				'label'        => esc_html__( 'Aspect Ratio', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => '',
+				'options'      => [
+					''    => esc_html__( 'None', 'sky-elementor-addons' ),
+					'11'  => '1:1',
+					'21'  => '2:1',
+					'32'  => '3:2',
+					'43'  => '4:3',
+					'85'  => '8:5',
+					'169' => '16:9',
+					'219' => '21:9',
+					'916' => '9:16',
+				],
+				'prefix_class' => 'sa-as-ratio-yes sa-ratio-',
+				'render_type'  => 'template',
 			]
 		);
 
@@ -350,6 +565,7 @@ class Advanced_Slider extends Widget_Base {
 			[
 				'label'     => esc_html__( 'Show Sub Title', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
 				'separator' => 'before',
 			]
 		);
@@ -374,6 +590,54 @@ class Advanced_Slider extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'posts_text_source',
+			[
+				'label'   => esc_html__( 'Text Source', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'excerpt',
+				'options' => [
+					'excerpt' => esc_html__( 'Excerpt', 'sky-elementor-addons' ),
+					'content' => esc_html__( 'Full Content', 'sky-elementor-addons' ),
+				],
+				'condition' => [
+					'content_type' => 'posts',
+					'show_text'    => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'text_length',
+			[
+				'label'       => esc_html__( 'Text Word Limit', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::NUMBER,
+				'min'         => 0,
+				'max'         => 200,
+				'step'        => 1,
+				'placeholder' => esc_html__( '0 = no limit', 'sky-elementor-addons' ),
+				'condition'   => [
+					'show_text'    => 'yes',
+					'content_type' => [ 'posts', 'acf' ],
+				],
+			]
+		);
+
+		$this->add_control(
+			'read_more_text',
+			[
+				'label'       => esc_html__( 'Read More Text', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'placeholder' => esc_html__( 'Read More', 'sky-elementor-addons' ),
+				'condition'   => [
+					'show_text'    => 'yes',
+					'content_type' => [ 'posts', 'acf' ],
+					'text_length!' => [ '', '0' ],
+				],
 			]
 		);
 
@@ -418,13 +682,14 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'direction',
 			[
-				'label'   => esc_html__( 'Direction', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'horizontal',
-				'options' => [
+				'label'       => esc_html__( 'Direction', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'horizontal',
+				'options'     => [
 					'horizontal' => esc_html__( 'Horizontal', 'sky-elementor-addons' ),
 					'vertical'   => esc_html__( 'Vertical', 'sky-elementor-addons' ),
 				],
+				'render_type' => 'template',
 			]
 		);
 
@@ -575,6 +840,53 @@ class Advanced_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Hash Navigation', 'sky-elementor-addons' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_video_settings',
+			[
+				'label' => esc_html__( 'Video Background', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'video_autoplay',
+			[
+				'label'   => esc_html__( 'Autoplay', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'video_mute',
+			[
+				'label'   => esc_html__( 'Mute', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'video_loop',
+			[
+				'label'   => esc_html__( 'Loop', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'video_play_on_mobile',
+			[
+				'label'       => esc_html__( 'Play on Mobile', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => '',
+				'description' => esc_html__( 'Video is disabled on mobile by default to save bandwidth. Enable to force-play.', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -789,46 +1101,44 @@ class Advanced_Slider extends Widget_Base {
 						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
 						'default' => 'classic',
 					],
-					'color'      => [
-						'default' => '#8441A4',
+					'color' => [
+						'default' => '#0f172a',
 					],
 				],
 				'selector' => '{{WRAPPER}} .swiper-slide',
 			]
 		);
 
-		/**
-		 * Not able to delete, because used many times
-		 */
-		$this->add_control(
-			'sliders_bg_overlay',
-			[
-				'label' => esc_html__( 'Background Overlay', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .swiper-slide:before' => 'background: {{VALUE}}; z-index: 1;',
-					'{{WRAPPER}} .sa-advanced-slider .sa-slider-content-wrapper' => 'z-index: 2;',
-				],
-			]
-		);
-
-		/**
-		 * Added late
-		 */
-
 		$this->add_group_control(
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'sliders_adv_bg_overlay',
-				'label'    => esc_html__( 'Advanced Overlay', 'sky-elementor-addons' ),
+				'label'    => esc_html__( 'Background Overlay', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
 				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background' => [
-						'label' => esc_html__( 'Advanced Overlay', 'sky-elementor-addons' ),
+						'label'   => esc_html__( 'Background Overlay', 'sky-elementor-addons' ),
+						'default' => 'classic',
+					],
+					'color' => [
+						'default' => 'rgba(0,0,0,0.4)',
 					],
 				],
 				'selector' => '{{WRAPPER}} .swiper-slide:before',
+			]
+		);
+
+		// Deprecated — kept registered so saved values still render; hidden from UI.
+		$this->add_control(
+			'sliders_bg_overlay',
+			[
+				'label'   => esc_html__( 'Background Overlay (Legacy)', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::COLOR,
+				'classes' => 'elementor-hidden',
+				'selectors' => [
+					'{{WRAPPER}} .swiper-slide:before' => 'background: {{VALUE}};',
+				],
 			]
 		);
 
@@ -1568,8 +1878,9 @@ class Advanced_Slider extends Widget_Base {
 		$this->add_control(
 			'button_hover_animation',
 			[
-				'label' => esc_html__( 'Animation', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::HOVER_ANIMATION,
+				'label'   => esc_html__( 'Animation', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::HOVER_ANIMATION,
+				'default' => 'grow',
 			]
 		);
 
@@ -2004,217 +2315,6 @@ class Advanced_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
-		// $this->start_controls_section(
-		// 'section_pagination_style',
-		// [
-		// 'label'     => esc_html__('Pagination', 'sky-elementor-addons'),
-		// 'tab'       => Controls_Manager::TAB_STYLE,
-		// 'condition' => [
-		// 'show_pagination' => 'yes'
-		// ]
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'pagination_bottom_spacing',
-		// [
-		// 'label' => esc_html__('Bottom Spacing', 'sky-elementor-addons'),
-		// 'type'  => Controls_Manager::SLIDER,
-		// 'range' => [
-		// 'px' => [
-		// 'min' => 0,
-		// 'max' => 100,
-		// ],
-		// ],
-		// 'selectors'      => [
-		// '{{WRAPPER}} .swiper-pagination-fraction, .swiper-pagination-custom, {{WRAPPER}} .swiper-horizontal > .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}};'
-		// ],
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'bullet_size',
-		// [
-		// 'label'      => esc_html__('Bullet Size', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::SLIDER,
-		// 'size_units' => ['px', 'em'],
-		// 'range'      => [
-		// 'px' => [
-		// 'min'  => 8,
-		// 'max'  => 15,
-		// 'step' => .5,
-		// ],
-		// ],
-		// 'selectors'  => [
-		// '{{WRAPPER}}' => '--sa-pagination-bullet-size: {{SIZE}}{{UNIT}};',
-		// ],
-		// 'condition' => ['pagination_type' => 'bullets']
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'bullet_spacing',
-		// [
-		// 'label'      => esc_html__('Bullet Spacing', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::SLIDER,
-		// 'size_units' => ['px', 'em'],
-		// 'range'      => [
-		// 'px' => [
-		// 'min'  => 4,
-		// 'max'  => 20,
-		// 'step' => .5,
-		// ],
-		// ],
-		// 'selectors'  => [
-		// '{{WRAPPER}} .swiper-pagination-bullets .swiper-pagination-bullet' => 'margin: 0px {{SIZE}}{{UNIT}};',
-		// ],
-		// 'condition' => ['pagination_type' => 'bullets']
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'pagination_progress_size',
-		// [
-		// 'label'      => esc_html__('Progress Size', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::SLIDER,
-		// 'size_units' => ['px', 'em'],
-		// 'range'      => [
-		// 'px' => [
-		// 'min'  => 1,
-		// 'max'  => 10,
-		// 'step' => .5,
-		// ],
-		// ],
-		// 'selectors'  => [
-		// '{{WRAPPER}}' => '--sa-pagination-progress-size: {{SIZE}}{{UNIT}};',
-		// ],
-		// 'condition' => ['pagination_type' => 'progressbar']
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'bullet_radius',
-		// [
-		// 'label'      => esc_html__('Bullet Radius(%)', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::SLIDER,
-		// 'size_units' => ['%'],
-		// 'range'      => [
-		// '%' => [
-		// 'min' => 0,
-		// 'max' => 100,
-		// ],
-		// ],
-		// 'selectors'  => [
-		// '{{WRAPPER}}' => '--sa-pagination-bullet-radius: {{SIZE}}%;',
-		// ],
-		// 'condition' => ['pagination_type' => 'bullets']
-		// ]
-		// );
-
-		// $this->add_control(
-		// 'pagination_color',
-		// [
-		// 'label'     => esc_html__('Pagination Color', 'sky-elementor-addons'),
-		// 'type'      => Controls_Manager::COLOR,
-		// 'selectors' => [
-		// '{{WRAPPER}}' => '--sa-pagination-color: {{VALUE}}',
-		// ],
-		// ]
-		// );
-
-		// $this->add_control(
-		// 'pagination_active_color',
-		// [
-		// 'label'     => esc_html__('Pagination Active Color', 'sky-elementor-addons'),
-		// 'type'      => Controls_Manager::COLOR,
-		// 'selectors' => [
-		// '{{WRAPPER}}' => '--sa-pagination-active-color: {{VALUE}}',
-		// ],
-		// ]
-		// );
-
-		// $this->add_group_control(
-		// Group_Control_Typography::get_type(),
-		// [
-		// 'name'      => 'pagination_fraction_typography',
-		// 'label'     => esc_html__('Typography', 'sky-elementor-addons'),
-		// 'selector'  => '{{WRAPPER}} .swiper-pagination-fraction',
-		// 'condition' => ['pagination_type' => 'fraction']
-		// ]
-		// );
-
-		// $this->start_controls_tabs(
-		// 'style_pagination_tabs'
-		// );
-
-		// $this->start_controls_tab(
-		// 'style_pagination_normal_tab',
-		// [
-		// 'label' => esc_html__('Normal', 'sky-elementor-addons'),
-		// ]
-		// );
-
-		// $this->add_group_control(
-		// Group_Control_Border::get_type(),
-		// [
-		// 'name'      => 'pagination_border',
-		// 'label'     => esc_html__('Border', 'sky-elementor-addons'),
-		// 'selector'  => '{{WRAPPER}} .swiper-pagination-bullet',
-		// 'condition' => ['pagination_type' => 'bullets'],
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'pagination_border_radius',
-		// [
-		// 'label'      => esc_html__('Border Radius', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::DIMENSIONS,
-		// 'size_units' => ['px', 'em', '%'],
-		// 'selectors'  => [
-		// '{{WRAPPER}} .swiper-pagination-bullet' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		// ],
-		// 'condition' => ['pagination_type' => 'bullets'],
-		// ]
-		// );
-
-		// $this->end_controls_tab();
-
-		// $this->start_controls_tab(
-		// 'style_pagination_active_tab',
-		// [
-		// 'label' => esc_html__('Active', 'sky-elementor-addons'),
-		// ]
-		// );
-
-		// $this->add_group_control(
-		// Group_Control_Border::get_type(),
-		// [
-		// 'name'      => 'pagination_border_active',
-		// 'label'     => esc_html__('Border', 'sky-elementor-addons'),
-		// 'selector'  => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
-		// 'condition' => ['pagination_type' => 'bullets'],
-		// ]
-		// );
-
-		// $this->add_responsive_control(
-		// 'pagination_border_radius_active',
-		// [
-		// 'label'      => esc_html__('Border Radius', 'sky-elementor-addons'),
-		// 'type'       => Controls_Manager::DIMENSIONS,
-		// 'size_units' => ['px', 'em', '%'],
-		// 'selectors'  => [
-		// '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		// ],
-		// 'condition' => ['pagination_type' => 'bullets'],
-		// ]
-		// );
-
-		// $this->end_controls_tab();
-
-		// $this->end_controls_tabs();
-
-		// $this->end_controls_section();
-
 		$this->start_controls_section(
 			'section_pagination_style',
 			[
@@ -2483,24 +2583,6 @@ class Advanced_Slider extends Widget_Base {
 				'label'     => esc_html__( 'Border', 'sky-elementor-addons' ),
 				'selector'  => '{{WRAPPER}} .swiper-pagination-bullet.swiper-pagination-bullet-active',
 				'condition' => [ 'pagination_type' => 'bullets' ],
-				// 'fields_options' => [
-				// 'border' => [
-				// 'default' => 'solid',
-				// ],
-				// 'width' => [
-				// 'default' => [
-				// 'top'      => '6',
-				// 'right'    => '6',
-				// 'bottom'   => '6',
-				// 'left'     => '6',
-				// 'unit'     => 'px',
-				// 'isLinked' => false,
-				// ],
-				// ],
-				// 'color' => [
-				// 'default' => '#fff',
-				// ],
-				// ],
 			]
 		);
 
@@ -2526,17 +2608,17 @@ class Advanced_Slider extends Widget_Base {
 
 	protected function render_title( array $item ) {
 		$settings   = $this->get_settings_for_display();
-		$title_link = false;
-		if ( ! empty( $settings['link_on'] ) ) {
-			if ( in_array( 'title', $settings['link_on'] ) ) {
-				$title_link = true;
-			}
+		$title_link = ! empty( $settings['link_on'] ) && in_array( 'title', $settings['link_on'] );
+
+		// Auto-link titles for dynamic content (posts/ACF) — link URL is always the post permalink.
+		if ( ! $title_link && ! empty( $item['_raw_content'] ) && ! empty( $item['link']['url'] ) ) {
+			$title_link = true;
 		}
 
 		$title_tag     = Utils::validate_html_tag( $settings['title_tag'] );
 		$title_content = $item['title'];
 
-		if ( true === $title_link && isset( $item['link']['url'] ) && ! empty( $item['link']['url'] ) ) :
+		if ( true === $title_link && ! empty( $item['link']['url'] ) ) :
 			$this->add_render_attribute( 'title-link-attr', 'href', esc_url( $item['link']['url'] ), true );
 
 			if ( $item['link']['is_external'] ) {
@@ -2671,6 +2753,322 @@ class Advanced_Slider extends Widget_Base {
 		<?php
 	}
 
+	protected function collect_post_items( $settings ) {
+		$posts_per_page = isset( $settings['posts_per_page'] ) ? (int) $settings['posts_per_page'] : 6;
+		$this->query_posts( $posts_per_page );
+		$query = $this->get_query();
+		$items = [];
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$thumb_id    = get_post_thumbnail_id();
+				$thumb_url   = $thumb_id ? wp_get_attachment_url( $thumb_id ) : '';
+				$text_source = $settings['posts_text_source'] ?? 'excerpt';
+				$items[]     = [
+					'content_source' => 'custom',
+					'title'          => get_the_title(),
+					'sub_title'      => '',
+					'custom_text'    => 'content' === $text_source ? get_the_content() : get_the_excerpt(),
+					'slider_image'   => [
+						'id'  => $thumb_id,
+						'url' => $thumb_url,
+					],
+					'link'           => [
+						'url'         => get_permalink(),
+						'is_external' => false,
+						'nofollow'    => false,
+					],
+					'template_id'    => '',
+					'anywhere_id'    => '',
+					'_raw_content'   => true,
+				];
+			}
+			wp_reset_postdata();
+		}
+
+		return $items;
+	}
+
+	protected function collect_acf_items( $settings ) {
+		if ( ! function_exists( 'get_field' ) ) {
+			return [];
+		}
+
+		$repeater_field = sanitize_text_field( $settings['acf_repeater_field'] ?? '' );
+		if ( empty( $repeater_field ) ) {
+			return [];
+		}
+
+		if ( isset( $_GET['preview_id'] ) && isset( $_GET['preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$post_id = absint( $_GET['preview_id'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		} else {
+			$post_id   = get_the_ID();
+			$parent_id = wp_is_post_revision( $post_id );
+			if ( $parent_id ) {
+				$post_id = $parent_id;
+			}
+		}
+
+		if ( ! $post_id ) {
+			return [];
+		}
+
+		$rows = get_field( $repeater_field, $post_id );
+		if ( empty( $rows ) || ! is_array( $rows ) ) {
+			return [];
+		}
+
+		$sub_title_key = sanitize_text_field( $settings['acf_sub_title_field'] ?? '' );
+		$title_key     = sanitize_text_field( $settings['acf_title_field'] ?? '' );
+		$text_key      = sanitize_text_field( $settings['acf_text_field'] ?? '' );
+		$image_key     = sanitize_text_field( $settings['acf_image_field'] ?? '' );
+		$link_key      = sanitize_text_field( $settings['acf_link_field'] ?? '' );
+		$items         = [];
+
+		foreach ( $rows as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+
+			$image_val = $image_key ? ( $row[ $image_key ] ?? '' ) : '';
+			if ( is_numeric( $image_val ) && $image_val ) {
+				$img = [
+					'id'  => (int) $image_val,
+					'url' => wp_get_attachment_url( (int) $image_val ) ?: '',
+				];
+			} elseif ( is_array( $image_val ) ) {
+				$img = [
+					'id'  => $image_val['ID'] ?? 0,
+					'url' => $image_val['url'] ?? '',
+				];
+			} else {
+				$img = [
+					'id'  => 0,
+					'url' => esc_url( (string) $image_val ),
+				];
+			}
+
+			$link_val = $link_key ? ( $row[ $link_key ] ?? '' ) : '';
+			if ( is_array( $link_val ) ) {
+				$link = [
+					'url'         => esc_url( $link_val['url'] ?? '' ),
+					'is_external' => ! empty( $link_val['target'] ) && '_blank' === $link_val['target'],
+					'nofollow'    => false,
+				];
+			} else {
+				$link = [
+					'url'         => esc_url( (string) $link_val ),
+					'is_external' => false,
+					'nofollow'    => false,
+				];
+			}
+
+			$items[] = [
+				'content_source' => 'custom',
+				'title'          => $title_key ? ( $row[ $title_key ] ?? '' ) : '',
+				'sub_title'      => $sub_title_key ? ( $row[ $sub_title_key ] ?? '' ) : '',
+				'custom_text'    => $text_key ? ( $row[ $text_key ] ?? '' ) : '',
+				'slider_image'   => $img,
+				'link'           => $link,
+				'template_id'    => '',
+				'anywhere_id'    => '',
+				'_raw_content'   => true,
+			];
+		}
+
+		return $items;
+	}
+
+	protected function render_slide( $item, $index, $settings, $item_link_on ) {
+		$hash = null;
+		if ( 'yes' === $settings['hash_navigation'] ) {
+			$hash = 'data-hash="' . sanitize_title( $item['title'] ) . '-' . $this->get_id() . $index . '"';
+		}
+
+		$item_link = '';
+		if ( true === $item_link_on && ! empty( $item['link']['url'] ) ) {
+			$target    = $item['link']['is_external'] ? '_blank' : '_self';
+			$item_link = 'onclick="window.open(\'' . esc_url( $item['link']['url'] ) . '\', \'' . $target . '\')"';
+		}
+		?>
+		<!-- Slides -->
+		<div class="swiper-slide" <?php echo esc_html( $hash ) . ' ' . wp_kses_post( $item_link ); ?>>
+			<?php if ( 'custom' === $item['content_source'] ) : ?>
+
+				<?php
+				if ( ! empty( $item['slider_image']['url'] ) ) {
+					?>
+					<div class="sa-slider-img-wrapper">
+						<?php
+						print ( wp_get_attachment_image(
+							$item['slider_image']['id'],
+							$settings['thumbnail_size'],
+							false,
+							[
+								'class' => $settings['img_hover_animation'] ? 'elementor-animation-' . $settings['img_hover_animation'] : 'sa-',
+								'alt'   => ! empty( $item['title'] ) ? esc_html( $item['title'] ) : Control_Media::get_image_alt( $item['slider_image'] ),
+							]
+						) );
+						?>
+					</div>
+					<?php
+				}
+
+				if ( ! empty( $item['slide_video_type'] ) ) {
+					$this->render_slide_video( $item );
+				}
+				?>
+
+				<div class="sa-slider-content-wrapper">
+					<?php
+					if ( ( 'yes' === $settings['show_sub_title'] ) && ! empty( $item['sub_title'] ) ) :
+						$this->render_sub_title( [ 'sub_title' => $item['sub_title'] ] );
+					endif;
+
+					if ( ( 'yes' === $settings['show_title'] ) && ! empty( $item['title'] ) ) :
+						if ( ! empty( $item['link']['url'] ) ) :
+							$this->render_title( [
+								'title' => $item['title'],
+								'link'  => $item['link'],
+							] );
+						else :
+							$this->render_title( [ 'title' => $item['title'] ] );
+						endif;
+					endif;
+					?>
+
+					<?php
+					if ( ( 'yes' === $settings['show_text'] ) && ! empty( $item['custom_text'] ) ) :
+						$text_length = (int) ( $settings['text_length'] ?? 0 );
+						if ( $text_length > 0 && ! empty( $item['_raw_content'] ) ) {
+							$trimmed        = wp_trim_words( $item['custom_text'], $text_length, '' );
+							$read_more_text = sanitize_text_field( $settings['read_more_text'] ?? '' );
+							if ( $read_more_text && ! empty( $item['link']['url'] ) ) {
+								$content = $trimmed . '&hellip; <a class="sa-read-more" href="' . esc_url( $item['link']['url'] ) . '">' . esc_html( $read_more_text ) . '</a>';
+							} else {
+								$content = $trimmed . ( $trimmed ? '&hellip;' : '' );
+							}
+						} elseif ( ! empty( $item['_raw_content'] ) ) {
+							$content = wp_kses_post( $item['custom_text'] );
+						} else {
+							$content = wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
+						}
+						printf( '<div class="sa-content">%1$s</div>', $content );
+					endif;
+					?>
+
+					<?php if ( 'yes' === $settings['show_button'] ) : ?>
+						<div class="sa-link-wrapper">
+							<?php $this->render_button( $item['link'] ); ?>
+						</div>
+					<?php endif; ?>
+				</div>
+
+			<?php elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) : ?>
+				<?php sky_addons_display_el_tem_by_id( $item['template_id'] ); ?>
+			<?php elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) : ?>
+				<?php sky_addons_display_el_tem_by_id( $item['anywhere_id'] ); ?>
+			<?php else : ?>
+				<?php echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' ); ?>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	protected function render_slide_video( array $item ) {
+		$settings = $this->get_settings_for_display();
+		$type     = $item['slide_video_type'] ?? '';
+		$autoplay = 'yes' === ( $settings['video_autoplay'] ?? 'yes' );
+		$mute     = 'yes' === ( $settings['video_mute'] ?? 'yes' );
+		$loop     = 'yes' === ( $settings['video_loop'] ?? 'yes' );
+		$mobile   = 'yes' === ( $settings['video_play_on_mobile'] ?? '' );
+
+		$hide_class = ! $mobile ? ' sa-video-hide-mobile' : '';
+
+		if ( 'youtube' === $type ) {
+			$video_id = $this->get_youtube_id( $item['slide_video_youtube'] ?? '' );
+			if ( ! $video_id ) {
+				return;
+			}
+			$params = [
+				'autoplay'       => $autoplay ? 1 : 0,
+				'mute'           => $mute ? 1 : 0,
+				'loop'           => $loop ? 1 : 0,
+				'playlist'       => $loop ? $video_id : '',
+				'controls'       => 0,
+				'showinfo'       => 0,
+				'rel'            => 0,
+				'enablejsapi'    => 1,
+				'iv_load_policy' => 3,
+				'modestbranding' => 1,
+			];
+			$src    = 'https://www.youtube.com/embed/' . $video_id . '?' . http_build_query( $params );
+			?>
+			<div class="sa-slide-video-wrapper sa-slide-video-iframe<?php echo esc_attr( $hide_class ); ?>" data-video-type="youtube">
+				<iframe data-src="<?php echo esc_url( $src ); ?>" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+			</div>
+			<?php
+
+		} elseif ( 'vimeo' === $type ) {
+			$video_id = $this->get_vimeo_id( $item['slide_video_vimeo'] ?? '' );
+			if ( ! $video_id ) {
+				return;
+			}
+			$params = [
+				'autoplay'   => $autoplay ? 1 : 0,
+				'muted'      => $mute ? 1 : 0,
+				'loop'       => $loop ? 1 : 0,
+				'background' => 1,
+				'controls'   => 0,
+			];
+			$src    = 'https://player.vimeo.com/video/' . $video_id . '?' . http_build_query( $params );
+			?>
+			<div class="sa-slide-video-wrapper sa-slide-video-iframe<?php echo esc_attr( $hide_class ); ?>" data-video-type="vimeo">
+				<iframe data-src="<?php echo esc_url( $src ); ?>" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+			</div>
+			<?php
+
+		} elseif ( in_array( $type, [ 'hosted', 'remote_url' ], true ) ) {
+			$url = 'hosted' === $type
+				? ( ! empty( $item['slide_video_hosted']['url'] ) ? $item['slide_video_hosted']['url'] : '' )
+				: ( ! empty( $item['slide_video_remote_url'] ) ? $item['slide_video_remote_url'] : '' );
+			if ( ! $url ) {
+				return;
+			}
+			$attrs = [];
+			if ( $autoplay ) {
+				$attrs[] = 'autoplay';
+			}
+			if ( $mute ) {
+				$attrs[] = 'muted';
+			}
+			if ( $loop ) {
+				$attrs[] = 'loop';
+			}
+			$attrs[] = 'playsinline';
+			$attrs[] = 'disablepictureinpicture';
+			$attrs[] = 'disableremoteplayback';
+			?>
+			<div class="sa-slide-video-wrapper<?php echo esc_attr( $hide_class ); ?>" data-video-type="html5">
+				<video <?php echo implode( ' ', $attrs ); // phpcs:ignore WordPress.Security.EscapeOutput -- boolean HTML attributes ?>>
+					<source src="<?php echo esc_url( $url ); ?>">
+				</video>
+			</div>
+			<?php
+		}
+	}
+
+	private function get_youtube_id( string $url ): string {
+		preg_match( '/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/', $url, $m );
+		return $m[1] ?? '';
+	}
+
+	private function get_vimeo_id( string $url ): string {
+		preg_match( '/vimeo\.com\/(?:video\/)?(\d+)/', $url, $m );
+		return $m[1] ?? '';
+	}
+
 	protected function render_scrollbar() {
 		?>
 		<!-- If we need scrollbar -->
@@ -2747,11 +3145,18 @@ class Advanced_Slider extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$item_link_on = false;
-		if ( ! empty( $settings['link_on'] ) ) {
-			if ( in_array( 'item', $settings['link_on'] ) ) {
-				$item_link_on = true;
-				$this->add_render_attribute( '_wrapper', [ 'class' => 'sa-slider-item-link' ] );
-			}
+		if ( ! empty( $settings['link_on'] ) && in_array( 'item', $settings['link_on'] ) ) {
+			$item_link_on = true;
+			$this->add_render_attribute( '_wrapper', [ 'class' => 'sa-slider-item-link' ] );
+		}
+
+		$content_type = $settings['content_type'] ?? 'repeater';
+		if ( 'posts' === $content_type ) {
+			$items = $this->collect_post_items( $settings );
+		} elseif ( 'acf' === $content_type ) {
+			$items = $this->collect_acf_items( $settings );
+		} else {
+			$items = $settings['slider_list'] ?? [];
 		}
 
 		$this->render_header();
@@ -2759,92 +3164,9 @@ class Advanced_Slider extends Widget_Base {
 
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
-
-			<?php
-			foreach ( $settings['slider_list'] as $index => $item ) :
-				$hash = null;
-				if ( 'yes' === $settings['hash_navigation'] ) {
-					$hash = 'data-hash="' . sanitize_title( $item['title'] ) . '-' . $this->get_id() . $index . '"';
-				}
-
-				$item_link = '';
-				if ( true === $item_link_on && ! empty( $item['link']['url'] ) ) {
-					$target    = $item['link']['is_external'] ? '_blank' : '_self';
-					$item_link = 'onclick="window.open(\'' . esc_url( $item['link']['url'] ) . '\', \'' . $target . '\')"';
-				}
-				?>
-
-				<!-- Slides -->
-				<div class="swiper-slide" <?php echo esc_html( $hash ) . ' ' . wp_kses_post( $item_link ); ?>>
-					<?php if ( 'custom' === $item['content_source'] && ! empty( $item['content_source'] ) ) : ?>
-
-						<?php
-						if ( ! empty( $item['slider_image']['url'] ) ) {
-							?>
-							<div class="sa-slider-img-wrapper">
-								<?php
-								print ( wp_get_attachment_image(
-									$item['slider_image']['id'],
-									$settings['thumbnail_size'],
-									false,
-									[
-										'class' => $settings['img_hover_animation'] ? 'elementor-animation-' . $settings['img_hover_animation'] : 'sa-',
-										'alt'   => ! empty( $item['title'] ) ? esc_html( $item['title'] ) : Control_Media::get_image_alt( $item['slider_image'] ),
-									]
-								) );
-								?>
-							</div>
-							<?php
-						}
-						?>
-
-						<div class="sa-slider-content-wrapper">
-							<?php
-							if ( ( 'yes' === $settings['show_sub_title'] ) && ! empty( $item['sub_title'] ) ) :
-								$this->render_sub_title( [ 'sub_title' => $item['sub_title'] ] );
-							endif;
-
-							if ( ( 'yes' === $settings['show_title'] ) && ! empty( $item['title'] ) ) :
-								if ( ! empty( $item['link']['url'] ) ) :
-									$this->render_title( [
-										'title' => $item['title'],
-										'link'  => $item['link'],
-									] );
-								else :
-									$this->render_title( [ 'title' => $item['title'] ] );
-								endif;
-							endif;
-							?>
-
-							<?php
-							if ( ( 'yes' === $settings['show_text'] ) && ! empty( $item['custom_text'] ) ) :
-								printf(
-									'<div class="sa-content">%1$s</div>',
-									wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) )
-								);
-							endif;
-							?>
-
-
-							<?php if ( 'yes' === $settings['show_button'] ) : ?>
-								<div class="sa-link-wrapper">
-									<?php $this->render_button( $item['link'] ); ?>
-								</div>
-							<?php endif; ?>
-						</div>
-						<?php
-					elseif ( 'elementor' === $item['content_source'] && ! empty( $item['template_id'] ) ) :
-						sky_addons_display_el_tem_by_id( $item['template_id'] );
-					elseif ( 'anywhere' === $item['content_source'] && ! empty( $item['anywhere_id'] ) ) :
-						sky_addons_display_el_tem_by_id( $item['anywhere_id'] );
-					else :
-						echo esc_html__( 'Sorry, You are doing something wrong!', 'sky-elementor-addons' );
-					endif;
-					?>
-				</div>
-
+			<?php foreach ( $items as $index => $item ) : ?>
+				<?php $this->render_slide( $item, $index, $settings, $item_link_on ); ?>
 			<?php endforeach; ?>
-
 		</div>
 
 		<?php

@@ -44,6 +44,7 @@ class Social_Icons extends Widget_Base {
 			'elementor-icons-fa-solid',
 			'elementor-icons-fa-brands',
 			'widget-social-icons',
+			'sa-social-icons',
 		];
 	}
 
@@ -242,6 +243,20 @@ class Social_Icons extends Widget_Base {
 			]
 		);
 
+		$repeater->add_control(
+			'item_label_color',
+			[
+				'label' => esc_html__( 'Label Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}} .sa-social-label' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'enable_social_label' => 'yes',
+				],
+			]
+		);
+
 		$repeater->end_controls_tab();
 
 		$repeater->start_controls_tab(
@@ -280,7 +295,21 @@ class Social_Icons extends Widget_Base {
 				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'item_label_color_hover',
+			[
+				'label' => esc_html__( 'Label Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon{{CURRENT_ITEM}}:hover .sa-social-label' => 'color: {{VALUE}};',
+				],
+				'condition' => [
+					'enable_social_label' => 'yes',
 				],
 			]
 		);
@@ -344,11 +373,57 @@ class Social_Icons extends Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'social_icons_direction',
+			[
+				'label' => esc_html__( 'Direction', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::CHOOSE,
+				'options' => [
+					'row'    => [
+						'title' => esc_html__( 'Horizontal', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-arrow-right',
+					],
+					'column' => [
+						'title' => esc_html__( 'Vertical', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-arrow-down',
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sky-social-icons' => 'flex-direction: {{VALUE}};',
+				],
+			]
+		);
+
 		$this->add_control(
 			'hide_socials_name',
 			[
 				'label' => esc_html__( 'Hide Social Name', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::SWITCHER,
+			]
+		);
+
+		$this->add_responsive_control(
+			'social_label_position',
+			[
+				'label'   => esc_html__( 'Label Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'right',
+				'options' => [
+					'right' => esc_html__( 'Right', 'sky-elementor-addons' ),
+					'below' => esc_html__( 'Below', 'sky-elementor-addons' ),
+					'above' => esc_html__( 'Above', 'sky-elementor-addons' ),
+				],
+				'selectors_dictionary' => [
+					'right' => 'row',
+					'below' => 'column',
+					'above' => 'column-reverse',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sky-social-icons .sa-social-icon' => 'flex-direction: {{VALUE}};',
+				],
+				'condition' => [
+					'hide_socials_name!' => 'yes',
+				],
 			]
 		);
 
@@ -663,6 +738,37 @@ class Social_Icons extends Widget_Base {
 		);
 
 		$this->add_control(
+			'group_hover_dim',
+			[
+				'label' => esc_html__( 'Dim Others on Hover', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'  => Controls_Manager::SWITCHER,
+			]
+		);
+
+		$this->add_control(
+			'group_hover_dim_opacity',
+			[
+				'label'   => esc_html__( 'Dim Opacity', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SLIDER,
+				'range'   => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1,
+						'step' => 0.01,
+					],
+				],
+				'default' => [ 'size' => 0.4 ],
+				'selectors' => [
+					'{{WRAPPER}} .sky-social-icons:hover .sa-link'       => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .sky-social-icons:hover .sa-link:hover' => 'opacity: 1;',
+				],
+				'condition' => [
+					'group_hover_dim' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
 			'icons_hover_animation',
 			[
 				'label' => esc_html__( 'Hover Animation', 'sky-elementor-addons' ),
@@ -740,7 +846,7 @@ class Social_Icons extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-social-label' => 'margin-left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-social-label' => 'margin-inline-start: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -779,17 +885,29 @@ class Social_Icons extends Widget_Base {
 			]
 		);
 
+		$this->add_responsive_control(
+			'separator_spacing',
+			[
+				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-social-icon-separator' => 'margin-inline-end: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-
-		$class_animation = '';
-
-		if ( ! empty( $settings['icons_hover_animation'] ) ) {
-			$class_animation = ' elementor-animation-' . $settings['icons_hover_animation'];
-		}
 		?>
 		<div class="sky-social-icons sa-d-inline-flex sa-align-items-center sa-justify-content-center">
 			<?php
@@ -803,12 +921,15 @@ class Social_Icons extends Widget_Base {
 				}
 
 				$link_key = 'link_' . $index;
-				$this->add_render_attribute($link_key, 'class', [
+				$this->add_render_attribute( $link_key, 'class', [
 					'sa-link sa-social-icon sa-text-decoration-none',
-					'elementor-social-icon-' . $class_animation,
 					'elementor-repeater-item-' . $item['_id'],
 					'elementor-social-icon-' . $social,
-				]);
+				] );
+
+				if ( ! empty( $settings['icons_hover_animation'] ) ) {
+					$this->add_render_attribute( $link_key, 'class', 'elementor-animation-' . esc_attr( $settings['icons_hover_animation'] ) );
+				}
 
 				$this->add_link_attributes( $link_key, $item['link'] );
 				?>

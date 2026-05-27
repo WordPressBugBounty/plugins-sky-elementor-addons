@@ -54,11 +54,12 @@ class Ultra_Carousel extends Widget_Base {
 		return [
 			'swiper',
 			'elementor-icons-fa-solid',
+			'sa-ultra-carousel',
 		];
 	}
 
 	public function get_script_depends() {
-		return [ 'swiper' ];
+		return [ 'swiper', 'sa-ultra-carousel' ];
 	}
 
 	public function get_query() {
