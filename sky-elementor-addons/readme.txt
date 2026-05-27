@@ -1,6 +1,6 @@
 === Sky Addons for Elementor ===
 Plugin Name: Sky Addons for Elementor
-Version: 3.8.0
+Version: 3.8.2
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, mizan42047
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.8.0
+Stable tag: 3.8.2
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -299,7 +299,7 @@ Development happens on GitHub:
 
 == Changelog ==
 
-= 3.8.0 [27th May 2026] =
+= 3.8.2 [28th May 2026] =
 * Added: Assets Manager Added
 * Added: Theme Builder Completely Unlocked and Redesigned
 * Added: Custom Scripts Improved & Redesigned

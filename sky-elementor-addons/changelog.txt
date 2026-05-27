@@ -1,4 +1,4 @@
-= 3.8.0 [27th May 2026] =
+= 3.8.2 [27th May 2026] =
 * Added: Assets Manager Added
 * Added: Theme Builder Completely Unlocked and Redesigned
 * Added: Custom Scripts Improved & Redesigned
