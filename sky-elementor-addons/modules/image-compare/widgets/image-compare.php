@@ -39,11 +39,18 @@ class Image_Compare extends Widget_Base {
 		return [ 'sky', 'image', 'compare' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-image-compare' ];
 	}
 
-
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'image-compare-viewer', 'sky-addons-scripts' ];
+		}
+
 		return [ 'image-compare-viewer', 'sa-image-compare' ];
 	}
 

@@ -1,6 +1,7 @@
 <?php
 /**
- * Optimizer — frontend loading + regeneration hooks for the asset manager bundle.
+ * Optimizer — build/regeneration pipeline for the asset manager bundle.
+ * Frontend / editor enqueue lives in Sky_Addons_Plugin (plugin.php).
  *
  * @package Sky_Addons
  */
@@ -26,10 +27,8 @@ class Optimizer {
 	public function __construct() {
 		require_once __DIR__ . '/asset-manager.php';
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_bundle' ], 99999 );
-		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_bundle' ] );
-		add_action( 'elementor/preview/enqueue_scripts', [ $this, 'enqueue_bundle' ] );
-
+		// Frontend / editor enqueue lives in Sky_Addons_Plugin (plugin.php); this
+		// class owns only the bundle build/regeneration pipeline below.
 		add_action( 'elementor/core/files/clear_cache', [ $this, 'on_elementor_cache_clear' ] );
 		add_action( 'sky_addons_auto_regenerate', [ $this, 'auto_regenerate' ] );
 
@@ -52,6 +51,11 @@ class Optimizer {
 	}
 
 	public function auto_regenerate() {
+		// Only regenerate in 'generated' mode — 'full' uses the shipped bundle and
+		// doesn't maintain an uploads bundle; 'per-widget' has no bundle at all.
+		if ( function_exists( 'sky_addons_asset_mode' ) && 'generated' !== sky_addons_asset_mode() ) {
+			return;
+		}
 		$this->regenerate( 'auto_cron' );
 	}
 
@@ -109,89 +113,6 @@ class Optimizer {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Whether a usable uploads bundle exists on disk (Tier 1).
-	 *
-	 * The version option alone is not enough — if the uploads directory is wiped,
-	 * or the files were never written, we must fall back to the plugin-shipped
-	 * combined assets instead of enqueuing nothing.
-	 */
-	private function bundle_ready() {
-		if ( ! get_option( 'sky_addons_minified_asset_version', false ) ) {
-			return false;
-		}
-
-		$dir = Asset_Manager::get_upload_dir();
-		$css = $dir . 'css/sky-addons.css';
-		$js  = $dir . 'js/sky-addons.js';
-
-		return file_exists( $css ) && file_exists( $js );
-	}
-
-	/**
-	 * Enqueue assets on the frontend / Elementor preview.
-	 *
-	 * Tier 1 — uploads bundle (generated, active-widgets-only, minified).
-	 * Tier 2 — plugin combined file (shipped, all widgets, instant fallback).
-	 * Editor  — always Tier 2 (fast, always available regardless of optimizer state).
-	 */
-	public function enqueue_bundle() {
-		// Editor always gets the plugin combined file.
-		if ( in_array( current_action(), [ 'elementor/preview/enqueue_styles', 'elementor/preview/enqueue_scripts' ], true ) ) {
-			$this->enqueue_plugin_combined();
-			return;
-		}
-
-		if ( ! sky_addons_is_asset_optimization_enabled() ) {
-			return; // Asset Manager OFF — per-widget mode, nothing to enqueue here.
-		}
-
-		if ( $this->bundle_ready() ) {
-			$this->enqueue_uploads_bundle();
-		} else {
-			$this->enqueue_plugin_combined();
-		}
-	}
-
-	/**
-	 * Tier 1 — serve the minified bundle from the uploads directory.
-	 */
-	private function enqueue_uploads_bundle() {
-		$version  = get_option( 'sky_addons_minified_asset_version' );
-		$base_dir = Asset_Manager::get_upload_dir();
-		$base_url = Asset_Manager::get_upload_url();
-
-		$css_file = ( is_rtl() && file_exists( $base_dir . 'css/sky-addons.rtl.css' ) )
-			? 'css/sky-addons.rtl.css'
-			: 'css/sky-addons.css';
-
-		if ( file_exists( $base_dir . $css_file ) ) {
-			wp_enqueue_style( 'sa-styles', $base_url . $css_file, [], $version );
-		}
-
-		if ( file_exists( $base_dir . 'js/sky-addons.js' ) ) {
-			wp_enqueue_script( 'sa-scripts', $base_url . 'js/sky-addons.js', [ 'jquery', 'elementor-frontend', 'sky-addons-common' ], $version, true );
-		}
-	}
-
-	/**
-	 * Tier 2 — serve the combined file shipped with the plugin.
-	 */
-	private function enqueue_plugin_combined() {
-		$dir_suffix = is_rtl() && file_exists( SKY_ADDONS_ASSETS_PATH . 'css/sky-addons.rtl.css' ) ? '.rtl' : '';
-
-		if ( file_exists( SKY_ADDONS_ASSETS_PATH . 'css/sky-addons.css' ) ) {
-			wp_enqueue_style( 'sa-styles', SKY_ADDONS_ASSETS_URL . 'css/sky-addons' . $dir_suffix . '.css', [], SKY_ADDONS_VERSION );
-		}
-
-		$script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$js_path       = SKY_ADDONS_ASSETS_PATH . 'js/sky-addons' . $script_suffix . '.js';
-
-		if ( file_exists( $js_path ) ) {
-			wp_enqueue_script( 'sa-scripts', SKY_ADDONS_ASSETS_URL . 'js/sky-addons' . $script_suffix . '.js', [ 'jquery', 'elementor-frontend', 'sky-addons-common' ], SKY_ADDONS_VERSION, true );
-		}
 	}
 
 	/**
@@ -276,7 +197,9 @@ class Optimizer {
 
 		$trigger = isset( $current['trigger'] ) ? (string) $current['trigger'] : 'manual';
 
-		if ( ! sky_addons_is_asset_optimization_enabled() ) {
+		// Only 'generated' mode maintains an uploads bundle. 'full' uses the shipped
+		// plugin file and 'per-widget' has no bundle — bail in both those cases.
+		if ( function_exists( 'sky_addons_asset_mode' ) && 'generated' !== sky_addons_asset_mode() ) {
 			self::write_progress( 'idle', 0, 'idle', 'asset_manager_off', $trigger );
 			return;
 		}
@@ -382,6 +305,14 @@ class Optimizer {
 		}
 
 		$reason = isset( $status['reason'] ) ? (string) $status['reason'] : 'unknown';
+
+		// `no_files` is a benign state — the uploads bundle simply hasn't been
+		// generated yet, and the plugin-shipped combined assets serve fine as the
+		// Tier-2 fallback. It needs no admin action, so don't nag about it. Only
+		// the genuinely actionable failures below are surfaced.
+		if ( 'no_files' === $reason ) {
+			return;
+		}
 
 		$messages = [
 			'upload_unwritable' => __( 'The uploads directory is not writable, so the optimized bundle could not be generated. The plugin-shipped combined assets are being served as a safe fallback.', 'sky-elementor-addons' ),

@@ -40,12 +40,11 @@ class Social_Icons extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'elementor-icons-fa-solid',
-			'elementor-icons-fa-brands',
-			'widget-social-icons',
-			'sa-social-icons',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'widget-social-icons', 'sky-addons-styles' ];
+		}
+
+		return [ 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'widget-social-icons', 'sa-social-icons' ];
 	}
 
 	public function get_custom_help_url() {

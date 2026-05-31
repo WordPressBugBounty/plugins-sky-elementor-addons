@@ -35,11 +35,19 @@ class Animated_Heading extends Widget_Base {
 		return [ 'sky', 'animated', 'heading' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-animated-heading' ];
 	}
 
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'typed', 'morphext', 'sky-addons-scripts' ];
+		}
+
 		return [ 'typed', 'morphext', 'sa-animated-heading' ];
 	}
 

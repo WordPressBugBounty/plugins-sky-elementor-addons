@@ -220,10 +220,23 @@ final class Managers {
 
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		// Use virtual handles (aliases to sa-styles/sa-scripts) whenever Asset Manager is ON.
+		// Inside the Elementor editor/preview the Optimizer always enqueues the combined
+		// bundle (sa-scripts/sa-styles), so per-widget handles must alias to it — otherwise
+		// each widget's get_script_depends() pulls its individual sa-{id} file too, loading
+		// it twice and throwing init errors. Force virtual handles in that context.
+		$in_editor = false;
+		if ( class_exists( '\Elementor\Plugin' ) ) {
+			$elementor = \Elementor\Plugin::$instance;
+			$in_editor = ( isset( $elementor->editor ) && $elementor->editor->is_edit_mode() )
+				|| ( isset( $elementor->preview ) && $elementor->preview->is_preview_mode() );
+		}
+
+		// Use virtual handles (aliases to sa-styles/sa-scripts) whenever Asset Manager is ON
+		// or we are in the editor/preview.
 		// Optimizer::enqueue_bundle() decides whether to serve Tier 1 (uploads) or Tier 2 (plugin combined).
-		$optimized = function_exists( 'sky_addons_is_asset_optimization_enabled' )
-			&& sky_addons_is_asset_optimization_enabled();
+		$optimized = $in_editor
+			|| ( function_exists( 'sky_addons_is_asset_optimization_enabled' )
+				&& sky_addons_is_asset_optimization_enabled() );
 
 		foreach ( $this->_modules as $module_id => $module_data ) {
 
@@ -239,20 +252,18 @@ final class Managers {
 
 			if ( $this->has_module_style( $module_id ) ) {
 				if ( $optimized ) {
-					// Asset Manager on: alias the per-widget handle to the merged bundle.
-					wp_register_style( 'sa-' . $module_id, false, [ 'sa-styles' ], SKY_ADDONS_VERSION );
+					wp_register_style( 'sa-' . $module_id, false, [], SKY_ADDONS_VERSION );
 				} else {
-					wp_register_style( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'css/' . $sub_dir . 'sa-' . $module_id . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+					wp_register_style( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'css/' . $sub_dir . 'sa-' . $module_id . $direction_suffix . '.css', [ 'sky-addons-base' ], SKY_ADDONS_VERSION );
 				}
 			}
 
 			if ( $this->has_module_script( $module_id ) ) {
 				if ( $optimized ) {
-					// Asset Manager on: alias the per-widget handle to the merged bundle.
-					wp_register_script( 'sa-' . $module_id, false, [ 'jquery', 'elementor-frontend', 'sa-scripts' ], SKY_ADDONS_VERSION, true );
+					wp_register_script( 'sa-' . $module_id, false, [], SKY_ADDONS_VERSION, true );
 				} else {
 					$script_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-					wp_register_script( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'js/' . $sub_dir . 'sa-' . $module_id . $script_suffix . '.js', [ 'jquery', 'elementor-frontend', 'sky-addons' ], SKY_ADDONS_VERSION, true );
+					wp_register_script( 'sa-' . $module_id, SKY_ADDONS_ASSETS_URL . 'js/' . $sub_dir . 'sa-' . $module_id . $script_suffix . '.js', [ 'jquery', 'elementor-frontend', 'sky-addons-base' ], SKY_ADDONS_VERSION, true );
 				}
 			}
 

@@ -164,7 +164,19 @@ class Asset_Manager {
 	 * @param bool $rtl Whether to build the RTL bundle.
 	 */
 	public function minify_css( $rtl = false ) {
-		$files = $this->get_style_files( $rtl );
+		$files = [];
+
+		// Shared utility CSS (helpers, post/wc classes, keyframes) lives only in the
+		// combined base stylesheet, not in the per-widget files. Prepend it so the
+		// generated bundle is self-contained — mirrors how minify_js() prepends the
+		// combined widget script.
+		$base      = SKY_ADDONS_ASSETS_PATH . 'css/sky-addons-base';
+		$base_file = ( $rtl && file_exists( $base . '.rtl.css' ) ) ? $base . '.rtl.css' : $base . '.css';
+		if ( file_exists( $base_file ) ) {
+			$files[] = $base_file;
+		}
+
+		$files = array_merge( $files, $this->get_style_files( $rtl ) );
 
 		/**
 		 * Filter the stylesheet files merged into the bundle.
@@ -196,9 +208,12 @@ class Asset_Manager {
 	public function minify_js() {
 		$files = [];
 
-		$common = SKY_ADDONS_ASSETS_PATH . 'js/sky-addons.min.js';
-		if ( file_exists( $common ) ) {
-			$files[] = $common;
+		// Prepend shared JS helpers (observer, carousel) so per-widget files can
+		// call them. Use the standalone base handle, NOT sky-addons.min.js (which
+		// is the full combined bundle and would double-include every widget's code).
+		$base = SKY_ADDONS_ASSETS_PATH . 'js/sky-addons-base.min.js';
+		if ( file_exists( $base ) ) {
+			$files[] = $base;
 		}
 
 		$files = array_merge( $files, $this->get_script_files() );

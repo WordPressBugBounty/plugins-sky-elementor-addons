@@ -35,9 +35,17 @@ class Portion_Effect extends Widget_Base {
 		return [ 'sky', 'portion', 'effect', 'image', 'photo', 'portfolio' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-portion-effect' ];
 	}
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-scripts' ];
+		}
+
 		return [ 'sa-portion-effect' ];
 	}
 

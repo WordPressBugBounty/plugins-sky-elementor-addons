@@ -40,6 +40,10 @@ class Review extends Widget_Base {
 		return [ 'sky', 'card', 'review', 'testimonial', 'clients' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-review' ];
 	}
 

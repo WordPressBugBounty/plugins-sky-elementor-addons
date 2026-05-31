@@ -63,14 +63,19 @@ class Advanced_Accordion extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'sa-accordion',
-			'elementor-icons-fa-solid',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'wowdevs-accordion', 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'wowdevs-accordion', 'elementor-icons-fa-solid' ];
 	}
 
 	public function get_script_depends() {
-		return [ 'sa-accordion', 'sa-advanced-accordion' ];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'wowdevs-accordion', 'sky-addons-scripts' ];
+		}
+
+		return [ 'wowdevs-accordion', 'sa-advanced-accordion' ];
 	}
 
 	public function get_custom_help_url() {

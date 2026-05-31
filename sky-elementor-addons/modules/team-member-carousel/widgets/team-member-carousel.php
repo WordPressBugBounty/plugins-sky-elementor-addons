@@ -67,15 +67,18 @@ class Team_Member_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'elementor-icons-fa-solid',
-			'elementor-icons-fa-brands',
-			'swiper',
-			'sa-team-member',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'swiper', 'sky-addons-styles' ];
+		}
+
+		return [ 'elementor-icons-fa-solid', 'elementor-icons-fa-brands', 'swiper', 'sa-team-member' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'swiper', 'sa-team-member-carousel' ];
 	}
 

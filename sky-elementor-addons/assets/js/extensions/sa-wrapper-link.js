@@ -1,4 +1,4 @@
-jQuery('body').on('click', '.sa-element-link', function () {
+;jQuery('body').on('click', '.sa-element-link', function () {
     var timeout,
         $element = jQuery(this),
         data = $element.data('sa-element-link'),

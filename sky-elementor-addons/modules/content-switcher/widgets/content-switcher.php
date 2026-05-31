@@ -40,12 +40,18 @@ class Content_Switcher extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'elementor-icons-fa-solid',
-			'sa-content-switcher',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'elementor-icons-fa-solid', 'sa-content-switcher' ];
 	}
+
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-scripts' ];
+		}
+
 		return [ 'sa-content-switcher' ];
 	}
 

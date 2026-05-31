@@ -83,18 +83,16 @@ class Sky_Addons_Admin {
 	}
 
 	public function load_admin_scripts() {
-		wp_enqueue_script( 'sky-admin-js', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin.js', [
+		wp_register_script( 'sky-admin-js', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin.js', [
 			'jquery',
 		], SKY_ADDONS_VERSION, true );
 
+		wp_enqueue_script( 'sky-admin-js' );
+
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		// wp_enqueue_style( 'sky-admin-css', SKY_ADDONS_ASSETS_URL . 'admin/sky-admin' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
-		wp_enqueue_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
-	}
-
-	public static function modules_demo_server() {
-		return 'https://skyaddons.com/';
+		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-widget-icons' );
 	}
 
 	public static function get_inactive_widgets() {
@@ -111,12 +109,6 @@ class Sky_Addons_Admin {
 
 	public static function get_saved_api() {
 		return get_option( self::API_DB_KEY, [] );
-	}
-
-	public function admin_settings() {
-		// if ( is_readable( sky_addons_core()->templates_dir . 'admin/dashboard.php' ) ) {
-		// require_once sky_addons_core()->templates_dir . 'admin/dashboard.php';
-		// }
 	}
 
 	/**
@@ -344,10 +336,10 @@ class Sky_Addons_Admin {
 					'demo_url'     => 'https://skyaddons.com/elementor/diamond-gallery-widget/',
 				],
 				[
-					'name'         => 'data-table',
-					'label'        => esc_html__( 'Data Table', 'sky-elementor-addons' ),
+					'name'         => 'table',
+					'label'        => esc_html__( 'Table', 'sky-elementor-addons' ),
 					'type'         => 'checkbox',
-					'value'        => ! in_array( 'data-table', $inactive_widgets ) ? 'on' : 'off',
+					'value'        => ! in_array( 'table', $inactive_widgets ) ? 'on' : 'off',
 					'default'      => 'on',
 					'video_url'    => '#',
 					'content_type' => 'custom',
@@ -960,6 +952,17 @@ class Sky_Addons_Admin {
 					'demo_url'     => 'https://skyaddons.com/elementor/team-member-widget/',
 				],
 				[
+					'name'         => 'team-member-carousel',
+					'label'        => esc_html__( 'Team Member Carousel', 'sky-elementor-addons' ),
+					'type'         => 'checkbox',
+					'value'        => ! in_array( 'team-member-carousel', $inactive_widgets ) ? 'on' : 'off',
+					'default'      => 'on',
+					'video_url'    => '#',
+					'content_type' => 'custom',
+					'feature_type' => 'free',
+					'demo_url'     => 'https://skyaddons.com/elementor/team-member-carousel-widget/',
+				],
+				[
 					'name'         => 'testimonial',
 					'label'        => esc_html__( 'Testimonial', 'sky-elementor-addons' ),
 					'type'         => 'checkbox',
@@ -1426,17 +1429,6 @@ class Sky_Addons_Admin {
 					'demo_url'     => 'https://skyaddons.com/elementor/parallax-effects-extensions/',
 				],
 				[
-					'name'         => 'smooth-scroll',
-					'label'        => esc_html__( 'Smooth Scroll', 'sky-elementor-addons' ),
-					'type'         => 'checkbox',
-					'value'        => ! in_array( 'smooth-scroll', $inactive_extensions ) ? 'on' : 'off',
-					'default'      => 'on',
-					'video_url'    => '#',
-					'content_type' => 'custom',
-					'feature_type' => 'pro',
-					'demo_url'     => 'https://skyaddons.com/elementor/smooth-scroll-extensions/',
-				],
-				[
 					'name'         => 'display-conditions',
 					'label'        => esc_html__( 'Display Conditions', 'sky-elementor-addons' ),
 					'type'         => 'checkbox',
@@ -1608,8 +1600,14 @@ class Sky_Addons_Admin {
 							'type'    => 'select',
 							'default' => 'openrouter',
 							'options' => [
-								[ 'value' => 'openrouter', 'label' => 'OpenRouter' ],
-								[ 'value' => 'openai',     'label' => 'OpenAI' ],
+								[
+									'value' => 'openrouter',
+									'label' => 'OpenRouter',
+								],
+								[
+									'value' => 'openai',
+									'label' => 'OpenAI',
+								],
 							],
 							'value'   => ! empty( $saved_api['ai_provider'] ) ? $saved_api['ai_provider'] : 'openrouter',
 						],

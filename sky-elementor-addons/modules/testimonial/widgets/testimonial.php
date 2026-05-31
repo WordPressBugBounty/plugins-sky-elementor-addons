@@ -39,6 +39,10 @@ class Testimonial extends Widget_Base {
 		return [ 'sky', 'testimonial', 'review', 'clients', 'rating' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-testimonial' ];
 	}
 

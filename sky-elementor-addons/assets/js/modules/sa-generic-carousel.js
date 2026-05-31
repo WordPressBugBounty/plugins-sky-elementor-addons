@@ -1,4 +1,4 @@
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler

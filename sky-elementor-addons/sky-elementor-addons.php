@@ -3,7 +3,7 @@
  * Plugin Name: Sky Addons for Elementor
  * Plugin URI: https://skyaddons.com/
  * Description: <a href="https://skyaddons.com/">Sky Addons for Elementor</a> offers a range of advanced and engaging widgets for your website. With features like Free Elementor Templates Library, card, advanced accordion, advanced slider, advanced skill bars, dual button, image compare, info box, list group, logo grid, team member, floating effects  and many more, it's easy to find what you're looking for. Install it today to create a better web!
- * Version: 3.8.2
+ * Version: 3.8.3
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Author: wowDevs
@@ -13,7 +13,7 @@
  * License: GPLv3 or later
  * License URI: https://opensource.org/licenses/GPL-3.0
  * Elementor requires at least: 3.0.0
- * Elementor tested up to: 4.1.0
+ * Elementor tested up to: 4.1.1
  *
  * @package Sky_Addons
  */
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SKY_ADDONS_VERSION', '3.8.2' );
+define( 'SKY_ADDONS_VERSION', '3.8.3' );
 define( 'SKY_ADDONS_SLUG', 'sky-addons' );
 
 define( 'SKY_ADDONS__FILE__', __FILE__ );
@@ -75,13 +75,26 @@ function sky_addons_load_plugin() {
 
 	load_plugin_textdomain( 'sky-elementor-addons' );
 
+	/**
+	 * Helper functions — always available, no Elementor dependency at load time.
+	 */
+	require_once __DIR__ . '/includes/functions.php';
+
+	/**
+	 * Asset Manager mode helpers — must be available before modules-manager,
+	 * plugin.php and the optimizer class, so loaded here alongside functions.php.
+	 */
+	require_once __DIR__ . '/includes/optimizer/functions.php';
+
+	/**
+	 * Templates Library feature flag — must be available before plugin.php
+	 * and class-core.php which gate the library boot on this function.
+	 */
+	require_once __DIR__ . '/includes/templates/functions.php';
+
 	// Core always boots: admin menu, dashboard REST API, custom scripts CPT.
 	require_once SKY_ADDONS_PATH . 'class-core.php';
 	\Sky_Addons\Core::instance();
-
-	// plugin.php is always loaded: it defines the class and helper functions.
-	// sky_elementor_addons() at the bottom of that file is guarded by did_action('elementor/loaded').
-	require_once SKY_ADDONS_PATH . 'plugin.php';
 
 	if ( ! did_action( 'elementor/loaded' ) ) {
 		add_action( 'admin_notices', 'sky_addons_fail_load' );
@@ -93,6 +106,10 @@ function sky_addons_load_plugin() {
 		add_action( 'admin_notices', 'sky_addons_fail_load_out_of_date' );
 		return;
 	}
+
+	// plugin.php is always loaded: it defines the class and helper functions.
+	require_once SKY_ADDONS_PATH . 'plugin.php';
+	\Sky_Addons\Sky_Addons_Plugin::instance();
 }
 
 add_action( 'plugins_loaded', 'sky_addons_load_plugin' );

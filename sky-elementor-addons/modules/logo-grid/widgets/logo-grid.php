@@ -41,13 +41,18 @@ class Logo_Grid extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'tippy',
-			'sa-logo-grid',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'tippy', 'sky-addons-styles' ];
+		}
+
+		return [ 'tippy', 'sa-logo-grid' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'popper', 'tippyjs', 'sky-addons-scripts' ];
+		}
+
 		return [ 'popper', 'tippyjs', 'sa-logo-grid' ];
 	}
 

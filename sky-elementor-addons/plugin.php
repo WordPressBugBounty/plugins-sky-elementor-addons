@@ -105,11 +105,11 @@ class Sky_Addons_Plugin {
 		 */
 		require SKY_ADDONS_PATH . 'includes/utils.php';
 
-		require_once sky_addons_core()->includes_dir . 'custom-meta-box.php';
+		require_once SKY_ADDONS_INC_PATH . 'custom-meta-box.php';
 
-		require_once sky_addons_core()->traits_dir . 'global-swiper-controls.php';
-		require_once sky_addons_core()->traits_dir . 'global-widget-controls.php';
-		require_once sky_addons_core()->traits_dir . 'global-widget-functions.php';
+		require_once SKY_ADDONS_PATH . 'traits/global-swiper-controls.php';
+		require_once SKY_ADDONS_PATH . 'traits/global-widget-controls.php';
+		require_once SKY_ADDONS_PATH . 'traits/global-widget-functions.php';
 
 		/**
 		 * Select Control
@@ -123,10 +123,10 @@ class Sky_Addons_Plugin {
 		/**
 		 * Templates Library
 		 */
-		require_once sky_addons_core()->includes_dir . 'templates/Init_Templates.php';
-		require_once sky_addons_core()->includes_dir . 'templates/Import_Template.php';
-		require_once sky_addons_core()->includes_dir . 'templates/Library_Api.php';
-		require_once sky_addons_core()->includes_dir . 'templates/Load_Template.php';
+		require_once SKY_ADDONS_INC_PATH . 'templates/Init_Templates.php';
+		require_once SKY_ADDONS_INC_PATH . 'templates/Import_Template.php';
+		require_once SKY_ADDONS_INC_PATH . 'templates/Library_Api.php';
+		require_once SKY_ADDONS_INC_PATH . 'templates/Load_Template.php';
 
 		/**
 		 * Themes Builder
@@ -205,53 +205,39 @@ class Sky_Addons_Plugin {
 			SKY_ADDONS_VERSION
 		);
 
-		wp_enqueue_style( 'sky-addons' );
-	}
-
-	public function enqueue_styles_backend() {
-		$direction_suffix = is_rtl() ? '.rtl' : '';
-
-		wp_enqueue_style(
-			'sky-addons-icons',
-			SKY_ADDONS_URL . 'assets/css/sky-editor' . $direction_suffix . '.css',
+		// Shared utility CSS (margin/text helpers, post/wc classes, keyframes) compiled
+		// from src/less/utils/** alone. Standalone handle so each per-widget stylesheet
+		// can depend on it instead of re-bundling the utils. Same `sky-addons-base`
+		// name is reused on the script side (separate WP registry) for the shared JS.
+		wp_register_style(
+			'sky-addons-base',
+			SKY_ADDONS_URL . 'assets/css/sky-addons-base' . $direction_suffix . '.css',
 			[],
 			SKY_ADDONS_VERSION
 		);
+
+		// AM-on / editor: combined bundle carries utils + every widget's CSS.
+		// per-widget: no combined bundle; enqueue base utilities CSS directly so
+		// widgets with has_style=false still get global keyframes/helpers.
+		if ( 'per-widget' === sky_addons_asset_mode() && ! sky_addons_editor_mode() ) {
+			wp_enqueue_style( 'sky-addons-base' );
+		}
 	}
 
-	public function register_main_script() {
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	public function enqueue_editor_styles() {
+		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		// Shared helpers (skyAddonsObserver, widgetGlobalCarousel) — standalone
-		// so widgets, extensions, the optimizer bundle and the pro plugin can
-		// all depend on it without re-bundling the same code.
-		wp_register_script(
-			'sky-addons-common',
-			SKY_ADDONS_URL . 'assets/js/common' . $suffix . '.js',
-			[ 'jquery', 'elementor-frontend' ],
-			SKY_ADDONS_VERSION,
-			true
-		);
+		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-widget-icons' );
 
-		wp_register_script(
-			'sky-addons',
-			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
-			[
-				'jquery',
-				'elementor-frontend',
-				'sky-addons-common',
-			],
-			SKY_ADDONS_VERSION,
-			true
-		);
+		wp_register_style( 'sky-addons-editor', SKY_ADDONS_ASSETS_URL . 'css/sky-editor' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+
+		wp_enqueue_style( 'sky-addons-editor' );
 	}
 
 	public function enqueue_scripts() {
-		if ( self::elementor()->preview->is_preview_mode() || self::elementor()->editor->is_edit_mode() ) {
-			// Always load shared helpers in the editor so dropped widgets can
-			// call skyAddonsObserver / widgetGlobalCarousel immediately.
-			wp_enqueue_script( 'sky-addons-common' );
 
+		if ( self::elementor()->preview->is_preview_mode() || self::elementor()->editor->is_edit_mode() ) {
 			// tippyjs — used by Logo Carousel + Logo Grid widgets.
 			if (
 				Managers::is_widget_active( 'logo-carousel' )
@@ -271,30 +257,40 @@ class Sky_Addons_Plugin {
 			// Per-extension handlers + their dedicated vendors.
 			if ( Managers::is_extension_active( 'equal-height' ) ) {
 				wp_enqueue_script( 'equal-height' );
-				wp_enqueue_script( 'sa-equal-height' );
-			}
-			if ( Managers::is_extension_active( 'floating-effects' ) ) {
-				wp_enqueue_script( 'sa-floating-effects' );
 			}
 			if ( Managers::is_extension_active( 'reveal-effects' ) ) {
 				wp_enqueue_script( 'revealFx' );
-				wp_enqueue_script( 'sa-reveal-effects' );
 			}
 			if ( Managers::is_extension_active( 'ripples-effect' ) ) {
 				wp_enqueue_script( 'ripples' );
-				wp_enqueue_script( 'sa-ripples-effect' );
 			}
 			if ( Managers::is_extension_active( 'simple-parallax' ) ) {
 				wp_enqueue_script( 'simple-parallax' );
-				wp_enqueue_script( 'sa-simple-parallax' );
 			}
 			if ( Managers::is_extension_active( 'animated-gradient-bg' ) ) {
 				wp_enqueue_script( 'granim' );
 			}
 		}
 
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		// Shared JS helpers (skyAddonsObserver, widgetGlobalCarousel) — standalone
+		// `sky-addons-base` handle (built from src/js/common.js) so widgets, extensions,
+		// the optimizer bundle and the pro plugin can all depend on it without
+		// re-bundling the same code. Mirrors the `sky-addons-base` style handle above.
+		wp_register_script(
+			'sky-addons-base',
+			SKY_ADDONS_URL . 'assets/js/sky-addons-base' . $suffix . '.js',
+			[ 'jquery' ],
+			SKY_ADDONS_VERSION,
+			true
+		);
+
+		// Frontend config — attached to the shared `sky-addons-base` helper (a dependency
+		// of both `sky-addons` and the optimizer bundle `sky-addons-scripts`) so it is
+		// printed regardless of which delivery path loads on the page.
 		wp_localize_script(
-			'sky-addons',
+			'sky-addons-base',
 			'SkyAddonsFrontendConfig', // This is used in the js file to group all of your scripts together
 			[
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -302,10 +298,129 @@ class Sky_Addons_Plugin {
 			]
 		);
 
-		wp_enqueue_script( 'sky-addons' );
+		wp_register_script(
+			'sky-addons',
+			SKY_ADDONS_URL . 'assets/js/sky-addons' . $suffix . '.js',
+			[
+				'jquery',
+				'sky-addons-base',
+				'elementor-frontend',
+			],
+			SKY_ADDONS_VERSION,
+			true
+		);
+
+		// Single dispatch point for the widget/extension bundle.
+		// AM-on or editor/preview → load the optimizer's combined bundle (Tier 1 uploads
+		// / Tier 2 plugin combined), which carries every widget's JS + CSS.
+		// AM-off frontend → nothing global: each rendered widget's `sa-{id}` handle loads
+		// only its own file and pulls the shared `sky-addons-base` helpers via its
+		// dependency, so a page ships only the assets of the widgets actually on it.
+		// (`sky-addons` stays registered above for back-compat; it is no longer enqueued.)
+		if ( sky_addons_editor_mode() || sky_addons_is_asset_optimization_enabled() ) {
+			$this->enqueue_optimized_bundle();
+		}
 	}
 
-	public function register_site_scripts() {
+	/**
+	 * Asset Manager bundle — frontend / Elementor preview enqueue.
+	 *
+	 * Tier 1 — uploads bundle (generated, active-widgets-only, minified).
+	 * Tier 2 — plugin combined file (shipped, all widgets, instant fallback).
+	 * Editor  — always Tier 2 (fast, always available regardless of optimizer state).
+	 *
+	 * Registration + enqueue for every Sky Addons asset lives in this file; the
+	 * Optimizer class owns only the bundle build/regeneration pipeline.
+	 */
+	public function enqueue_optimized_bundle() {
+		if ( sky_addons_editor_mode() ) {
+			$this->register_and_enqueue_bundle( false );
+			return;
+		}
+
+		$mode = sky_addons_asset_mode();
+
+		switch ( $mode ) {
+			case 'per-widget':
+				return;
+
+			case 'full':
+				$this->register_and_enqueue_bundle( false );
+				return;
+
+			case 'generated':
+			default:
+				$this->register_and_enqueue_bundle( $this->is_uploads_bundle_ready() );
+				return;
+		}
+	}
+
+	/**
+	 * Whether a usable uploads bundle exists on disk (Tier 1).
+	 */
+	private function is_uploads_bundle_ready() {
+		if ( ! get_option( 'sky_addons_minified_asset_version', false ) ) {
+			return false;
+		}
+
+		$dir = \Sky_Addons\Optimizer\Asset_Manager::get_upload_dir();
+
+		return file_exists( $dir . 'css/sky-addons.css' ) && file_exists( $dir . 'js/sky-addons.js' );
+	}
+
+	/**
+	 * Register sky-addons-styles / sky-addons-scripts from the correct source,
+	 * then enqueue both by handle name.
+	 *
+	 * @param bool $use_uploads_bundle True → Tier 1 (uploads), False → Tier 2 (plugin).
+	 */
+	private function register_and_enqueue_bundle( $use_uploads_bundle ) {
+		if ( $use_uploads_bundle ) {
+			// Tier 1: uploads bundle is self-contained — minify_js() prepends sky-addons-base.min.js
+			// and minify_css() prepends sky-addons-base.css into the generated files.
+			// Do NOT dep on sky-addons-base: it is already baked in, loading it separately is duplicate.
+			$deps_js  = [ 'jquery', 'elementor-frontend' ];
+			$base_dir = \Sky_Addons\Optimizer\Asset_Manager::get_upload_dir();
+			$base_url = \Sky_Addons\Optimizer\Asset_Manager::get_upload_url();
+			$version  = get_option( 'sky_addons_minified_asset_version' );
+			$css_file = ( is_rtl() && file_exists( $base_dir . 'css/sky-addons.rtl.css' ) )
+				? 'css/sky-addons.rtl.css'
+				: 'css/sky-addons.css';
+			$css_url  = $base_url . $css_file;
+			$js_url   = $base_url . 'js/sky-addons.js';
+		} else {
+			// Tier 2: plugin bundle JS (sky-addons.min.js) contains widget handlers only —
+			// sky-addons-base helpers are NOT included, so the dep is required here.
+			$deps_js = [ 'jquery', 'elementor-frontend', 'sky-addons-base' ];
+			$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			$rtl     = is_rtl() && file_exists( SKY_ADDONS_ASSETS_PATH . 'css/sky-addons.rtl.css' );
+			$version = SKY_ADDONS_VERSION;
+			$css_url = SKY_ADDONS_ASSETS_URL . 'css/sky-addons' . ( $rtl ? '.rtl' : '' ) . '.css';
+			$js_url  = SKY_ADDONS_ASSETS_URL . 'js/sky-addons' . $suffix . '.js';
+		}
+
+		wp_register_style( 'sky-addons-styles', $css_url, [], $version );
+		wp_register_script( 'sky-addons-scripts', $js_url, $deps_js, $version, true );
+
+		// Tier 1: sky-addons-base won't load as a dep (content is baked in the bundle),
+		// so the frontend config that is normally localized on sky-addons-base won't print.
+		// Attach it here so it is always available when the bundle executes.
+		if ( $use_uploads_bundle ) {
+			wp_localize_script(
+				'sky-addons-scripts',
+				'SkyAddonsFrontendConfig',
+				[
+					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce( 'sky_addons_nonce' ),
+				]
+			);
+		}
+
+		wp_enqueue_style( 'sky-addons-styles' );
+		wp_enqueue_script( 'sky-addons-scripts' );
+	}
+
+	public function register_vendor_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
 			'image-compare-viewer',
@@ -318,7 +433,7 @@ class Sky_Addons_Plugin {
 			true
 		);
 		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider' . $suffix . '.js', [], '1.0.0', true );
-		wp_register_script( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', [], '3.1.1', true );
+		wp_register_script( 'wowdevs-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', [], '3.1.1', true );
 		/**
 		 * No need Suffix on Anime JS
 		 */
@@ -350,9 +465,9 @@ class Sky_Addons_Plugin {
 		wp_register_script( 'tocbot', SKY_ADDONS_ASSETS_URL . 'vendor/js/tocbot.min.js', [], '4.21.1', true );
 	}
 
-	public function register_site_styles() {
+	public function register_vendor_styles() {
 		$direction_suffix = is_rtl() ? '.rtl' : '.min';
-		wp_register_style( 'sa-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/css/accordion' . $direction_suffix . '.css', [], '3.1.1' );
+		wp_register_style( 'wowdevs-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/css/accordion' . $direction_suffix . '.css', [], '3.1.1' );
 		wp_register_style( 'tippy', SKY_ADDONS_ASSETS_URL . 'vendor/css/tippy-animation' . $direction_suffix . '.css', [], '6.3.1' );
 		wp_register_style( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/css/momentum-slider' . $direction_suffix . '.css', [], '1.0.0' );
 		wp_register_style( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/css/metis-menu' . $direction_suffix . '.css', [], '13.0.7' );
@@ -390,13 +505,15 @@ class Sky_Addons_Plugin {
 		wp_enqueue_script( 'sky-addons-editor' );
 	}
 
-	public function enqueue_editor_style() {
-		$direction_suffix = is_rtl() ? '.rtl' : '';
-		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
-		wp_enqueue_style( 'sky-widget-icons' );
-	}
 
 	public function elementor_init() {
+		// Register sky-addons-base handles before Managers::__construct() so every
+		// sa-{slug} handle can safely declare them as deps (WP 6.9.1 strict dep check).
+		$direction_suffix = is_rtl() ? '.rtl' : '';
+		$suffix           = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		wp_register_style( 'sky-addons-base', SKY_ADDONS_URL . 'assets/css/sky-addons-base' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_register_script( 'sky-addons-base', SKY_ADDONS_URL . 'assets/js/sky-addons-base' . $suffix . '.js', [ 'jquery' ], SKY_ADDONS_VERSION, true );
+
 		$this->_modules_manager = new Managers();
 
 		/**
@@ -433,19 +550,20 @@ class Sky_Addons_Plugin {
 		return trailingslashit( plugin_dir_path( self::sky_addons_file() ) );
 	}
 
+	/**
+	 * Dont touch this actions without Permisssion
+	 */
 	protected function add_actions() {
-
-		add_action( 'elementor/init', [ $this, 'register_main_script' ], 0 );
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'register_site_scripts' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 998 );
 
-		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_style' ] );
-		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_styles_backend' ], 991 );
+		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_styles' ], 991 );
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 
+		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_vendor_styles' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'register_vendor_scripts' ] );
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ], 998 );
 		add_action( 'elementor/frontend/before_enqueue_scripts', [ $this, 'enqueue_scripts' ], 998 );
-		add_action( 'elementor/frontend/before_register_styles', [ $this, 'register_site_styles' ] );
 	}
 
 	/**
@@ -455,28 +573,3 @@ class Sky_Addons_Plugin {
 		spl_autoload_register( [ $this, 'autoload' ] );
 	}
 }
-
-/**
- * Helper functions — always available, no Elementor dependency at load time.
- */
-require_once __DIR__ . '/includes/functions.php';
-
-/**
- * Initializes the main plugin.
- * Only runs when Elementor is confirmed loaded and meets the minimum version.
- */
-function sky_addons() {
-	if ( defined( 'SKY_ADDONS_TEST' ) ) {
-		return;
-	}
-	if ( ! did_action( 'elementor/loaded' ) ) {
-		return;
-	}
-	if ( ! defined( 'ELEMENTOR_VERSION' ) || ! version_compare( ELEMENTOR_VERSION, '3.0.0', '>=' ) ) {
-		return;
-	}
-	Sky_Addons_Plugin::instance();
-}
-
-// kick-off the plugin
-sky_addons();

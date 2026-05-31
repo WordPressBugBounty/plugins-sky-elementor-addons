@@ -38,6 +38,10 @@ class Dual_Button extends Widget_Base {
 		return [ 'sky', 'dual', 'buttons' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-dual-button' ];
 	}
 

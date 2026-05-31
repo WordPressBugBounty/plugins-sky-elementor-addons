@@ -32,7 +32,7 @@ class Widgets_Settings {
 	 * Feature toggles relocated from the Extensions tab to the Others tab.
 	 * They are still stored inside the EXTENSIONS_DB_KEY option.
 	 */
-	const OTHERS_FEATURES = [ 'svg-support', 'templates-library', 'blogs-video', 'duplicator' ];
+	const OTHERS_FEATURES = [ 'svg-support', 'templates-library', 'blogs-video', 'duplicator', 'smooth-scroll' ];
 
 	/**
 	 * All known API field names — whitelist for save_api_settings().
@@ -109,27 +109,52 @@ class Widgets_Settings {
 				$api = Sky_Addons_Admin::get_element_list()['sky_addons_api'] ?? [];
 				return wp_send_json_success( $api );
 
-			case 'others_settings':
-				$other    = get_option( 'sky_addons_other_settings', [] );
+			case 'advanced_settings':
 				$inactive = (array) get_option( self::EXTENSIONS_DB_KEY, [] );
+				$advanced = (array) get_option( 'sky_addons_advanced_settings', [] );
 
 				$features = [];
 				foreach ( self::OTHERS_FEATURES as $slug ) {
-					$features[ $slug ] = in_array( $slug, $inactive, true ) ? 'off' : 'on';
+					if ( 'smooth-scroll' === $slug ) {
+						// smooth-scroll lives in advanced_settings, defaults to off.
+						$features[ $slug ] = isset( $advanced['smooth_scroll'] ) && 'on' === $advanced['smooth_scroll'] ? 'on' : 'off';
+					} else {
+						$features[ $slug ] = in_array( $slug, $inactive, true ) ? 'off' : 'on';
+					}
 				}
 
-				$bundle = null;
-				$log    = [];
+				$bundle      = null;
+				$log         = [];
+				$full_bundle = null;
 				if ( class_exists( '\Sky_Addons\Optimizer\Asset_Manager' ) ) {
 					$bundle = ( new \Sky_Addons\Optimizer\Asset_Manager() )->get_bundle_info();
 					$log    = \Sky_Addons\Optimizer\Optimizer::get_log();
 				}
 
+				// Size of the plugin-shipped combined bundle (Full Bundle mode).
+				$full_css    = SKY_ADDONS_ASSETS_PATH . 'css/sky-addons.css';
+				$full_js     = SKY_ADDONS_ASSETS_PATH . 'js/sky-addons.min.js';
+				$full_bundle = [
+					'css_bytes' => file_exists( $full_css ) ? (int) filesize( $full_css ) : 0,
+					'js_bytes'  => file_exists( $full_js ) ? (int) filesize( $full_js ) : 0,
+				];
+
+				// Add pro combined bundle when active.
+				if ( defined( 'SKY_ADDONS_PRO_PATH' ) ) {
+					$pro_css = SKY_ADDONS_PRO_PATH . 'assets/css/sky-addons-pro.css';
+					$pro_js  = SKY_ADDONS_PRO_PATH . 'assets/js/sky-addons-pro.min.js';
+					$full_bundle['css_bytes'] += file_exists( $pro_css ) ? (int) filesize( $pro_css ) : 0;
+					$full_bundle['js_bytes']  += file_exists( $pro_js ) ? (int) filesize( $pro_js ) : 0;
+				}
+
+				$full_bundle['total_bytes'] = $full_bundle['css_bytes'] + $full_bundle['js_bytes'];
+
 				return wp_send_json_success(
 					[
-						'asset_manager'    => ( ! isset( $other['asset_manager'] ) || 'on' === $other['asset_manager'] ) ? 'on' : 'off',
+						'asset_manager'    => function_exists( 'sky_addons_asset_mode' ) ? sky_addons_asset_mode() : 'generated',
 						'features'         => $features,
 						'bundle'           => $bundle,
+						'full_bundle'      => $full_bundle,
 						'optimizer_log'    => $log,
 						'optimizer_status' => self::get_optimizer_status(),
 						'progress'         => class_exists( '\Sky_Addons\Optimizer\Optimizer' ) ? \Sky_Addons\Optimizer\Optimizer::get_progress() : null,
@@ -179,9 +204,9 @@ class Widgets_Settings {
 				wp_send_json_success( $_3rd_party );
 				break;
 
-			case 'other_settings':
+			case 'advanced_settings':
         // phpcs:ignore
-				wp_send_json_success( $this->save_other_settings( $_POST ) );
+				wp_send_json_success( $this->save_advanced_settings( $_POST ) );
 				break;
 
 			case 'regenerate_assets':
@@ -221,16 +246,22 @@ class Widgets_Settings {
 	 *
 	 * @param array $values Raw $_POST data.
 	 */
-	public function save_other_settings( $values ) {
+	public function save_advanced_settings( $values ) {
 		$post_value = is_array( $values ) ? $values : [];
 
-		$asset_manager = isset( $post_value['asset_manager'] ) && 'on' === $post_value['asset_manager'] ? 'on' : 'off';
+		$raw = isset( $post_value['asset_manager'] ) ? sanitize_text_field( wp_unslash( $post_value['asset_manager'] ) ) : 'generated';
+		// Normalise: accept legacy on/off as well as the 3 named modes.
+		if ( 'on' === $raw ) {
+			$raw = 'generated';
+		} elseif ( 'off' === $raw ) {
+			$raw = 'per-widget';
+		}
+		$mode = in_array( $raw, [ 'generated', 'full', 'per-widget' ], true ) ? $raw : 'generated';
 
-		$settings                  = get_option( 'sky_addons_other_settings', [] );
+		$settings                  = get_option( 'sky_addons_advanced_settings', get_option( 'sky_addons_other_settings', [] ) );
 		$settings                  = is_array( $settings ) ? $settings : [];
-		$settings['asset_manager'] = $asset_manager;
-
-		update_option( 'sky_addons_other_settings', $settings );
+		$settings['asset_manager'] = $mode;
+		update_option( 'sky_addons_advanced_settings', $settings );
 
 		$bundle      = null;
 		$write_error = false;
@@ -240,32 +271,39 @@ class Widgets_Settings {
 			$manager     = new \Sky_Addons\Optimizer\Asset_Manager();
 			$write_error = ! \Sky_Addons\Optimizer\Asset_Manager::is_upload_writable();
 
-			if ( 'on' === $asset_manager ) {
+			if ( 'generated' === $mode ) {
+				// Dispatch a background regenerate to build/refresh the uploads bundle.
 				if ( ! $write_error ) {
 					$progress = \Sky_Addons\Optimizer\Optimizer::dispatch_regenerate( 'manual' );
 				}
-			} else {
+			} elseif ( 'per-widget' === $mode ) {
+				// Clear the uploads bundle — nothing global is served in this mode.
 				$manager->clear();
 				\Sky_Addons\Optimizer\Optimizer::log_event( 'cleared', 'manual' );
 			}
+			// 'full' mode: keep any existing uploads bundle untouched; it is simply
+			// not used. No clear, no regenerate.
 
 			$bundle = $manager->get_bundle_info();
 		}
 
-		if ( 'on' === $asset_manager && $write_error ) {
+		if ( 'generated' === $mode && $write_error ) {
 			$status = 'warning';
 			$msg    = self::failure_message( 'upload_unwritable' );
-		} elseif ( 'on' === $asset_manager ) {
+		} elseif ( 'generated' === $mode ) {
+			$status = 'queued';
+			$msg    = esc_html__( 'Auto Optimize enabled. Custom bundle is being generated in the background.', 'sky-elementor-addons' );
+		} elseif ( 'full' === $mode ) {
 			$status = 'success';
-			$msg    = esc_html__( 'Asset Manager enabled. Bundle generation is running in the background.', 'sky-elementor-addons' );
+			$msg    = esc_html__( 'Plugin Bundle mode enabled. The plugin-shipped combined file is now active.', 'sky-elementor-addons' );
 		} else {
 			$status = 'success';
-			$msg    = esc_html__( 'Asset Manager disabled. The combined bundle has been removed.', 'sky-elementor-addons' );
+			$msg    = esc_html__( 'Per Widget mode enabled. Each widget loads its own files on demand.', 'sky-elementor-addons' );
 		}
 
 		return [
 			'status'           => $status,
-			'title'            => esc_html__( 'Successfully Updated.', 'sky-elementor-addons' ),
+			'title'            => esc_html__( 'Saved.', 'sky-elementor-addons' ),
 			'msg'              => $msg,
 			'bundle'           => $bundle,
 			'write_error'      => $write_error,
@@ -302,14 +340,13 @@ class Widgets_Settings {
 			];
 		}
 
-		// Use the canonical "is enabled" helper so the regenerate check matches
-		// the dashboard toggle's default-ON behaviour on fresh installs where
-		// the option has never been saved.
-		if ( ! sky_addons_is_asset_optimization_enabled() ) {
+		// Only 'generated' mode uses an uploads bundle — regenerating in 'full' or
+		// 'per-widget' mode would be a no-op or confusing.
+		if ( ! function_exists( 'sky_addons_asset_mode' ) || 'generated' !== sky_addons_asset_mode() ) {
 			return [
 				'status' => 'error',
-				'title'  => esc_html__( 'Asset Manager Off.', 'sky-elementor-addons' ),
-				'msg'    => esc_html__( 'Enable the Asset Manager before regenerating the bundle.', 'sky-elementor-addons' ),
+				'title'  => esc_html__( 'Wrong Mode.', 'sky-elementor-addons' ),
+				'msg'    => esc_html__( 'Switch to Auto Optimize mode to generate a custom bundle.', 'sky-elementor-addons' ),
 			];
 		}
 
@@ -435,15 +472,20 @@ class Widgets_Settings {
 			];
 		}
 
-		$inactive = (array) get_option( self::EXTENSIONS_DB_KEY, [] );
-
-		if ( 'off' === $value ) {
-			$inactive[] = $feature;
+		// smooth-scroll state lives in sky_addons_advanced_settings, not inactive_extensions.
+		if ( 'smooth-scroll' === $feature ) {
+			$advanced                 = (array) get_option( 'sky_addons_advanced_settings', [] );
+			$advanced['smooth_scroll'] = $value;
+			update_option( 'sky_addons_advanced_settings', $advanced );
 		} else {
-			$inactive = array_diff( $inactive, [ $feature ] );
+			$inactive = (array) get_option( self::EXTENSIONS_DB_KEY, [] );
+			if ( 'off' === $value ) {
+				$inactive[] = $feature;
+			} else {
+				$inactive = array_diff( $inactive, [ $feature ] );
+			}
+			update_option( self::EXTENSIONS_DB_KEY, array_values( array_unique( $inactive ) ) );
 		}
-
-		update_option( self::EXTENSIONS_DB_KEY, array_values( array_unique( $inactive ) ) );
 
 		return [
 			'status' => 'success',

@@ -37,10 +37,18 @@ class Changelog extends Widget_Base {
 		return [ 'sky', 'changelog' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-changelog' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-scripts' ];
+		}
+
 		return [ 'sa-changelog' ];
 	}
 

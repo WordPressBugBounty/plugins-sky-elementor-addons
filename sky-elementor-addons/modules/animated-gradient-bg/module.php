@@ -259,8 +259,12 @@ class Module extends Module_Base {
 
 	public function widget_before_render( $widget ) {
 		$settings = $widget->get_settings_for_display();
-		if ( 'yes' === $settings['sa_agbg_enable'] ) {
+		if ( isset( $settings['sa_agbg_enable'] ) && 'yes' === $settings['sa_agbg_enable'] ) {
 			wp_enqueue_script( 'granim' );
+			// Handler JS. With the Asset Manager OFF this is the real per-extension file;
+			// with it ON the handle resolves to the combined-bundle alias. Either way the
+			// gradient animation needs it — it is no longer carried by an always-on monolith.
+			wp_enqueue_script( 'sa-animated-gradient-bg' );
 		}
 	}
 

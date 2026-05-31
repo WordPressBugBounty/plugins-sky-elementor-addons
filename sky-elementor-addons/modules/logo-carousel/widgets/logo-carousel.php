@@ -47,14 +47,18 @@ class Logo_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'swiper',
-			'tippy',
-			'sa-logo-carousel',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'tippy', 'sky-addons-styles' ];
+		}
+
+		return [ 'swiper', 'tippy', 'sa-logo-carousel' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'popper', 'tippyjs', 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'popper', 'tippyjs', 'swiper', 'sa-logo-carousel' ];
 	}
 

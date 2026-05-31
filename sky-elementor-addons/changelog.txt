@@ -1,3 +1,6 @@
+= 3.8.3 [1st June 2026] =
+* Improved: Assets Manager (Thanks to Lucas)
+
 = 3.8.2 [27th May 2026] =
 * Added: Assets Manager Added
 * Added: Theme Builder Completely Unlocked and Redesigned

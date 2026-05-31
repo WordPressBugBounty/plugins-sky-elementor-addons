@@ -40,13 +40,18 @@ class Momentum_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'momentum',
-			'sa-momentum-slider',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'momentum', 'sky-addons-styles' ];
+		}
+
+		return [ 'momentum', 'sa-momentum-slider' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'momentum', 'sky-addons-scripts' ];
+		}
+
 		return [ 'momentum', 'sa-momentum-slider' ];
 	}
 

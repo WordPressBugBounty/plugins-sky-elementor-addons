@@ -87,9 +87,9 @@ final class Core {
 	 * @return void
 	 */
 	private function setup_hooks() {
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_theme_builder_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'theme_builder_scripts' ] );
 	}
 
 	// -------------------------------------------------------------------------
@@ -102,7 +102,7 @@ final class Core {
 	 * @param string $hook_suffix
 	 * @return void
 	 */
-	public function enqueue_admin_styles( $hook_suffix ) {
+	public function enqueue_styles( $hook_suffix ) {
 		if ( 'toplevel_page_sky-addons' !== $hook_suffix && 'sky-addons_page_sky-addons-pro' !== $hook_suffix ) {
 			return;
 		}
@@ -117,7 +117,7 @@ final class Core {
 	 * @param string $hook_suffix
 	 * @return void
 	 */
-	public function enqueue_admin_scripts( $hook_suffix ) {
+	public function enqueue_scripts( $hook_suffix ) {
 		if ( 'toplevel_page_sky-addons' !== $hook_suffix ) {
 			return;
 		}
@@ -139,7 +139,7 @@ final class Core {
 	 * @param string $hook
 	 * @return void
 	 */
-	public function enqueue_theme_builder_scripts( $hook ) {
+	public function theme_builder_scripts( $hook ) {
 		//phpcs:ignore WordPress.PHP.StrictInArray
 		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ] ) ) {
 			return;

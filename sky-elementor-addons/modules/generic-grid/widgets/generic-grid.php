@@ -50,10 +50,11 @@ class Generic_Grid extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'elementor-icons-fa-solid',
-			'sa-generic-grid',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'elementor-icons-fa-solid', 'sa-generic-grid' ];
 	}
 
 	public function get_query() {

@@ -41,6 +41,10 @@ class Card extends Widget_Base {
 		return [ 'sky', 'card', 'box', 'informations', 'modern' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-card' ];
 	}
 

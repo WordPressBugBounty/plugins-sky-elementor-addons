@@ -38,6 +38,10 @@ class Step_Flow extends Widget_Base {
 		return [ 'card', 'sky', 'step', 'flow' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-step-flow' ];
 	}
 

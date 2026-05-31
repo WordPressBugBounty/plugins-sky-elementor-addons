@@ -101,12 +101,10 @@ class Module extends Module_Base {
 				]
 			);
 
-			$sa_reveal_fx_easing_value = ( sky_addons_init_pro() === true || sky_addons_editor_mode() === true ) ? true : false;
-
 			$widget->add_control(
 				'sa_reveal_fx_easing',
 				[
-					'label'              => esc_html__( 'Easing', 'sky-elementor-addons' ) . sky_addons_control_indicator_pro(),
+					'label'              => esc_html__( 'Easing', 'sky-elementor-addons' ),
 					'description'        => esc_html__( 'Controls the acceleration curve of the reveal animation.', 'sky-elementor-addons' ),
 					'type'               => Controls_Manager::SELECT,
 					'default'            => '',
@@ -142,7 +140,7 @@ class Module extends Module_Base {
 						'easeOutInBounce' => esc_html__( 'easeOutInBounce', 'sky-elementor-addons' ),
 					],
 					'render_type'        => 'none',
-					'frontend_available' => $sa_reveal_fx_easing_value,
+					'frontend_available' => true,
 					'condition'          => [
 						'sa_reveal_fx_enable' => 'yes',
 					],
@@ -358,7 +356,7 @@ class Module extends Module_Base {
 
 	public function widget_reveal_fx_before_render( $widget ) {
 			$settings = $widget->get_settings_for_display();
-		if ( isset( $settings['sa_reveal_fx_enable'] ) && $settings['sa_reveal_fx_enable'] === 'yes' ) {
+		if ( isset( $settings['sa_reveal_fx_enable'] ) && 'yes' === $settings['sa_reveal_fx_enable'] ) {
 				wp_enqueue_script( 'anime' );
 				wp_enqueue_script( 'revealFx' );
 				wp_enqueue_script( 'sa-reveal-effects' );

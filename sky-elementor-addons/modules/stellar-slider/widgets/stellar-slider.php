@@ -54,14 +54,18 @@ class Stellar_Slider extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'swiper',
-			'elementor-icons-fa-solid',
-			'sa-stellar-slider',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'swiper', 'elementor-icons-fa-solid', 'sa-stellar-slider' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'swiper', 'sa-stellar-slider' ];
 	}
 

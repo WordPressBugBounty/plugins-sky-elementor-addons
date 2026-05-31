@@ -36,6 +36,10 @@ class Post_Comments extends Widget_Base {
 	}
 
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-post-comments' ];
 	}
 

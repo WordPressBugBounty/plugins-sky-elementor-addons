@@ -39,13 +39,18 @@ class Slinky_Menu extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'slinky',
-			'elementor-icons-fa-solid',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'slinky', 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'slinky', 'elementor-icons-fa-solid' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'slinky', 'sky-addons-scripts' ];
+		}
+
 		return [ 'slinky', 'sa-slinky-menu' ];
 	}
 
@@ -90,39 +95,26 @@ class Slinky_Menu extends Widget_Base {
 		$this->add_control(
 			'show_title',
 			[
-				'label'       => esc_html__( 'Show Title', 'sky-elementor-addons' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'render_type' => 'template',
+				'label' => esc_html__( 'Show Title', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SWITCHER,
 			]
 		);
 
 		$this->add_control(
 			'speed',
 			[
-				'label'       => esc_html__( 'Animate Speed (ms)', 'sky-elementor-addons' ),
-				'type'        => Controls_Manager::SLIDER,
-				'range'       => [
+				'label' => esc_html__( 'Animate Speed (ms)', 'sky-elementor-addons' ),
+				'type'  => Controls_Manager::SLIDER,
+				'range' => [
 					'px' => [
 						'min' => 100,
 						'max' => 5000,
 					],
 				],
-				'default'     => [
+				'default' => [
 					'unit' => 'px',
 					'size' => 300,
 				],
-				'render_type' => 'template',
-			]
-		);
-
-		$this->add_control(
-			'resize',
-			[
-				'label'       => esc_html__( 'Resize on Navigate', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'default'     => 'yes',
-				'description' => esc_html__( 'Resize menu height to match sub-menu content on navigation.', 'sky-elementor-addons' ),
-				'render_type' => 'template',
 			]
 		);
 
@@ -502,6 +494,26 @@ class Slinky_Menu extends Widget_Base {
 			]
 		);
 
+		// $this->add_control(
+		// 'arrow_font_weight',
+		// [
+		// 'label'   => esc_html__('Font Weight', 'sky-elementor-addons'),
+		// 'type'    => Controls_Manager::SELECT,
+		// 'options' => [
+		// ''       => esc_html__('Default', 'sky-elementor-addons'),
+		// 'normal' => esc_html__('Normal', 'sky-elementor-addons'),
+		// 'bold'   => esc_html__('Bold', 'sky-elementor-addons'),
+		// '300'    => esc_html__('300', 'sky-elementor-addons'),
+		// '400'    => esc_html__('400', 'sky-elementor-addons'),
+		// '600'    => esc_html__('600', 'sky-elementor-addons'),
+		// '700'    => esc_html__('700', 'sky-elementor-addons')
+		// ],
+		// 'selectors'  => [
+		// '{{WRAPPER}} .slinky-theme-default .next::after' => 'font-weight: {{VALUE}}',
+		// ],
+		// ]
+		// );
+
 		$this->end_controls_section();
 	}
 
@@ -541,12 +553,11 @@ class Slinky_Menu extends Widget_Base {
 			'class' => 'sa-slinky-menu slinky-theme-default sa-d-none',
 			'id'    => $id,
 			'data-settings' => [
-				wp_json_encode([
-					'id'     => '#' . $id,
-					'speed'  => ! empty( $settings['speed']['size'] ) ? $settings['speed']['size'] : 300,
-					'title'  => 'yes' === $settings['show_title'],
-					'resize' => 'yes' === $settings['resize'],
-				]),
+				wp_json_encode(array_filter([
+					'id'    => '#' . $id,
+					'speed' => ! empty( $settings['speed']['size'] ) ? $settings['speed']['size'] : 300,
+					'title' => ( 'yes' === $settings['show_title'] ) ? $settings['show_title'] : false,
+				])),
 			],
 		]);
 

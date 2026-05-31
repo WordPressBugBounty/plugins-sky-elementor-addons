@@ -1,4 +1,4 @@
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetMateSlider = function ($scope, $) {

@@ -37,10 +37,18 @@ class Table_Of_Contents extends Widget_Base {
 	}
 
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-table-of-contents' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'tocbot', 'sky-addons-scripts' ];
+		}
+
 		return [ 'tocbot', 'sa-table-of-contents' ];
 	}
 

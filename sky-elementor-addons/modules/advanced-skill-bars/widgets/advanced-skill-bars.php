@@ -38,9 +38,17 @@ class Advanced_Skill_Bars extends Widget_Base {
 		return [ 'sky', 'advanced', 'progress', 'bars', 'skills' ];
 	}
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-advanced-skill-bars' ];
 	}
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-scripts' ];
+		}
+
 		return [ 'sa-advanced-skill-bars' ];
 	}
 

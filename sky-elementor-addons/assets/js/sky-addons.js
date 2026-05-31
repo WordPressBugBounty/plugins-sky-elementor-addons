@@ -1,4 +1,4 @@
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetAdvancedAccordion = function ($scope, $) {
@@ -51,7 +51,7 @@ var widgetAdvancedAccordion = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetAdvancedSkillBars = function ($scope, $) {
@@ -108,7 +108,7 @@ var widgetAdvancedSkillBars = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetAdvancedSlider = function ($scope, $) {
@@ -201,7 +201,7 @@ var widgetAdvancedSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetAnimatedHeading = function ($scope, $) {
@@ -549,7 +549,7 @@ function saWaveIn(selector, settings, isRtl) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetAudioPlayer = function ($scope, $) {
@@ -624,7 +624,7 @@ function saFormatTime(seconds) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($) {
+;(function ($) {
     'use strict';
 
     var widgetChangelog = function ($scope) {
@@ -695,7 +695,7 @@ function saFormatTime(seconds) {
 
 }(jQuery));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetContentSwitcher = function ($scope, $) {
@@ -817,7 +817,7 @@ var widgetContentSwitcher = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -828,7 +828,7 @@ var widgetContentSwitcher = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetFellowSlider = function ($scope, $) {
@@ -870,7 +870,7 @@ var widgetFellowSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -881,7 +881,7 @@ var widgetFellowSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetGlorySlider = function ($scope, $) {
@@ -945,7 +945,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var widgetImageCompare = function ($scope, $) {
@@ -1006,7 +1006,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var widgetLogoCarousel = function ($scope, $) {
@@ -1066,7 +1066,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var widgetLogoGrid = function ($scope, $) {
@@ -1095,7 +1095,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1106,7 +1106,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1117,7 +1117,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1128,7 +1128,7 @@ var widgetGlorySlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetMateSlider = function ($scope, $) {
@@ -1170,7 +1170,7 @@ var widgetMateSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var widgetMomentumSlider = function ($scope, $) {
@@ -1272,7 +1272,7 @@ var widgetMateSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1283,7 +1283,7 @@ var widgetMateSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetNumber = function ($scope, $) {
@@ -1322,7 +1322,7 @@ var widgetNumber = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetPanelSlider = function ($scope, $) {
@@ -1395,7 +1395,7 @@ var widgetPanelSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetPdfViewer = function ($scope, $) {
@@ -1415,7 +1415,7 @@ var widgetPdfViewer = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetPortionEffect = function ($scope, $) {
@@ -1502,7 +1502,7 @@ var widgetPortionEffect = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var SaReadingProgress = {
@@ -1755,7 +1755,7 @@ var widgetPortionEffect = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1766,7 +1766,7 @@ var widgetPortionEffect = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -1777,35 +1777,35 @@ var widgetPortionEffect = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+; (function ($, elementor) {
     'use strict';
 
-var widgetSlinkyMenu = function ($scope, $) {
-    var $slinkyMenu = $scope.find('.sa-slinky-menu');
-    var $settings = $slinkyMenu.data('settings');
+    var widgetSlinkyMenu = function ($scope, $) {
+        var $slinkyMenu = $scope.find('.sa-slinky-menu');
+        var $settings = $slinkyMenu.data('settings');
 
-    if (!$slinkyMenu.length) {
-        return;
-    }
+        if (!$slinkyMenu.length) {
+            return;
+        }
 
-    $slinkyMenu.removeClass('sa-d-none');
+        $slinkyMenu.removeClass('sa-d-none');
 
-    var options = {
-        resize: $settings.resize !== false,
-        speed:  $settings.speed || 300,
-        title:  $settings.title === true
+        var options = {
+            resize: $settings.resize !== false,
+            speed: $settings.speed || 300,
+            title: $settings.title === true
+        };
+
+        $($settings.id).slinky(options);
+
     };
-
-    $($settings.id).slinky(options);
-
-};
     jQuery(window).on('elementor/frontend/init', function () {
         elementorFrontend.hooks.addAction('frontend/element_ready/' + 'sky-slinky-menu.default', widgetSlinkyMenu);
     });
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 var widgetStellarSlider = function ($scope, $) {
@@ -1840,7 +1840,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
     var SCROLL_DEBOUNCE_MS = 180;
@@ -2021,7 +2021,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -2032,7 +2032,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -2043,7 +2043,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -2054,7 +2054,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery, window.elementorFrontend));
 
-(function ($, elementor) {
+;(function ($, elementor) {
     'use strict';
 
 // This widget uses the global carousel handler
@@ -2784,7 +2784,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery));
 
-(function ($) {
+;(function ($) {
   var $window = $(window),
     debounce = function (func, wait, immediate) {
       var timeout;
@@ -3062,7 +3062,7 @@ var widgetStellarSlider = function ($scope, $) {
 
 }(jQuery));
 
-jQuery('body').on('click', '.sa-element-link', function () {
+;jQuery('body').on('click', '.sa-element-link', function () {
     var timeout,
         $element = jQuery(this),
         data = $element.data('sa-element-link'),

@@ -2,56 +2,22 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use Sky_Addons\Sky_Addons_Plugin;
-
 if ( ! function_exists( 'sky_addons_core' ) ) {
 
 	function sky_addons_core() {
 		$obj                = new \stdClass();
-		$obj->templates_dir = Sky_Addons_Plugin::sky_addons_dir() . 'includes/views/';
-		$obj->includes_dir  = Sky_Addons_Plugin::sky_addons_dir() . 'includes/';
-		$obj->controls_dir  = Sky_Addons_Plugin::sky_addons_dir() . 'controls/';
-		$obj->images        = Sky_Addons_Plugin::sky_addons_url() . 'assets/images/';
-		$obj->traits_dir    = Sky_Addons_Plugin::sky_addons_dir() . 'traits/';
+		$obj->templates_dir = \Sky_Addons\Sky_Addons_Plugin::sky_addons_dir() . 'includes/views/';
+		$obj->includes_dir  = \Sky_Addons\Sky_Addons_Plugin::sky_addons_dir() . 'includes/';
+		$obj->controls_dir  = \Sky_Addons\Sky_Addons_Plugin::sky_addons_dir() . 'controls/';
+		$obj->images        = \Sky_Addons\Sky_Addons_Plugin::sky_addons_url() . 'assets/images/';
+		$obj->traits_dir    = \Sky_Addons\Sky_Addons_Plugin::sky_addons_dir() . 'traits/';
 		return $obj;
-	}
-}
-
-if ( ! function_exists( 'sky_addons_is_asset_optimization_enabled' ) ) {
-
-	/**
-	 * Whether the Asset Manager optimization is turned on.
-	 *
-	 * Defined in the global namespace so namespaced callers (modules-manager,
-	 * optimizer) resolve it via the standard function fallback.
-	 */
-	function sky_addons_is_asset_optimization_enabled() {
-		$settings = get_option( 'sky_addons_other_settings', [] );
-		// Default ON — if the option has never been saved, treat it as enabled.
-		$enabled  = ! isset( $settings['asset_manager'] ) || 'on' === $settings['asset_manager'];
-
-		return (bool) apply_filters( 'sky-addons/optimization/asset_manager', $enabled );
-	}
-}
-
-if ( ! function_exists( 'sky_addons_is_templates_library_enabled' ) ) {
-
-	/**
-	 * Whether the Sky Addons Templates Library is enabled in the dashboard
-	 * Others tab. When disabled, none of the library's PHP classes, AJAX
-	 * actions, or editor scripts/styles are loaded.
-	 */
-	function sky_addons_is_templates_library_enabled() {
-		$inactive = (array) get_option( 'sky_addons_inactive_extensions', [] );
-		$enabled  = ! in_array( 'templates-library', $inactive, true );
-
-		return (bool) apply_filters( 'sky-addons/features/templates_library', $enabled );
 	}
 }
 
 if ( ! function_exists( 'sky_addons_get_icon' ) ) {
 	function sky_addons_get_icon() {
-		return '<span class="sky-ctrl-section-icon-wrapper"><img src="' . sky_addons_core()->images . 'sky-logo-gradient.png" class="sky-ctrl-section-icon" alt="Sky Addons" title="Sky Addons"></span>';
+		return '<span class="sky-ctrl-section-icon-wrapper"><img src="' . SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png" class="sky-ctrl-section-icon" alt="Sky Addons" title="Sky Addons"></span>';
 	}
 }
 
@@ -77,7 +43,7 @@ if ( ! function_exists( 'sky_addons_label_badge' ) ) {
 	 *
 	 * Usage: 'label' => esc_html__( 'My Control', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' )
 	 *
-	 * @param string      $type          Badge type: 'new' | 'updated' | 'fixed' | 'beta'
+	 * @param string      $type          Badge type: 'new' | 'updated' | 'fixed' | 'beta'.
 	 * @param string|null $until_version Plugin version at which the badge auto-expires (e.g. '3.5.0').
 	 * @return string Badge span HTML, or empty string when expired or type is unknown.
 	 */
@@ -132,7 +98,7 @@ if ( ! function_exists( 'sky_addons_title_tags' ) ) {
 
 if ( ! function_exists( 'sky_addons_editor_mode' ) ) {
 	function sky_addons_editor_mode() {
-		if ( Sky_Addons_Plugin::elementor()->preview->is_preview_mode() || Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
+		if ( \Sky_Addons\Sky_Addons_Plugin::elementor()->preview->is_preview_mode() || \Sky_Addons\Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
 			return true;
 		}
 		return false;
@@ -147,7 +113,7 @@ if ( ! function_exists( 'sky_addons_editor_mode' ) ) {
  */
 if ( ! function_exists( 'sky_addons_template_modify_link' ) ) {
 	function sky_addons_template_modify_link( $template_id ) {
-		if ( Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
+		if ( \Sky_Addons\Sky_Addons_Plugin::elementor()->editor->is_edit_mode() ) {
 
 			$final_url = add_query_arg( [ 'elementor' => '' ], get_permalink( $template_id ) );
 
@@ -164,7 +130,7 @@ if ( ! function_exists( 'sky_addons_template_modify_link' ) ) {
 if ( ! function_exists( 'sky_addons_elementor_template_settings' ) ) {
 	function sky_addons_elementor_template_settings() {
 
-		$templates = Sky_Addons_Plugin::elementor()->templates_manager->get_source( 'local' )->get_items();
+		$templates = \Sky_Addons\Sky_Addons_Plugin::elementor()->templates_manager->get_source( 'local' )->get_items();
 		$types     = [];
 
 		if ( empty( $templates ) ) {
@@ -445,7 +411,7 @@ if ( ! function_exists( 'sky_addons_display_el_tem_by_id' ) ) {
 
 		if ( ! empty( $posts ) && $posts[0]->ID === $template_id ) {
       //phpcs:ignore
-			echo Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $template_id );
+			echo \Sky_Addons\Sky_Addons_Plugin::elementor()->frontend->get_builder_content_for_display( $template_id );
 		} else {
 			echo esc_html__( 'The post is not published or does not exist.', 'sky-elementor-addons' );
 		}

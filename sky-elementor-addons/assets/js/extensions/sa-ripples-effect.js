@@ -1,4 +1,4 @@
-(function ($) {
+;(function ($) {
   var $window = $(window),
     debounce = function (func, wait, immediate) {
       var timeout;

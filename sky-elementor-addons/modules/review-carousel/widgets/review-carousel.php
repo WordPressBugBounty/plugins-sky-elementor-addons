@@ -45,11 +45,18 @@ class Review_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		// sa-review shared with sa-review-carousel widget
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-styles' ];
+		}
+
 		return [ 'swiper', 'sa-review' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'swiper', 'sa-review-carousel' ];
 	}
 

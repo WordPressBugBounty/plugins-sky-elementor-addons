@@ -41,10 +41,18 @@ class PDF_Viewer extends Widget_Base {
 	}
 
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-pdf-viewer' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'pdfobject', 'sky-addons-scripts' ];
+		}
+
 		return [ 'pdfobject', 'sa-pdf-viewer' ];
 	}
 

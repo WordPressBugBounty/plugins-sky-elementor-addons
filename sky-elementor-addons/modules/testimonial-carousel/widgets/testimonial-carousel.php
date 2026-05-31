@@ -45,10 +45,18 @@ class Testimonial_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-styles' ];
+		}
+
 		return [ 'swiper', 'sa-testimonial' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'swiper', 'sa-testimonial-carousel' ];
 	}
 

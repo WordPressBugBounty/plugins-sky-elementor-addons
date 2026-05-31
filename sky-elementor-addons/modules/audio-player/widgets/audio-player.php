@@ -39,10 +39,18 @@ class Audio_Player extends Widget_Base {
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'plyr', 'sky-addons-scripts' ];
+		}
+
 		return [ 'plyr', 'sa-audio-player' ];
 	}
 
 	public function get_style_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'sky-addons-styles' ];
+		}
+
 		return [ 'sa-audio-player' ];
 	}
 

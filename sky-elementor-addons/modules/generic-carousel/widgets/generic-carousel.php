@@ -53,14 +53,18 @@ class Generic_Carousel extends Widget_Base {
 	}
 
 	public function get_style_depends() {
-		return [
-			'swiper',
-			'elementor-icons-fa-solid',
-			'sa-generic-carousel',
-		];
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'elementor-icons-fa-solid', 'sky-addons-styles' ];
+		}
+
+		return [ 'swiper', 'elementor-icons-fa-solid', 'sa-generic-carousel' ];
 	}
 
 	public function get_script_depends() {
+		if ( sky_addons_editor_mode() ) {
+			return [ 'swiper', 'sky-addons-scripts' ];
+		}
+
 		return [ 'swiper', 'sa-generic-carousel' ];
 	}
 
