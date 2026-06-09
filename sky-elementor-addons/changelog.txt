@@ -1,3 +1,6 @@
+= 3.8.4 [10th June 2026] =
+* Fixed: Step Flow Widget (Thanks to Gary)
+
 = 3.8.3 [1st June 2026] =
 * Improved: Assets Manager (Thanks to Lucas)
 

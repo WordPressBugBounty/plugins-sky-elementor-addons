@@ -207,7 +207,7 @@ class Step_Flow extends Widget_Base {
 				'label_off'    => esc_html__( 'Show', 'sky-elementor-addons' ),
 				'return_value' => 'none',
 				'default'      => '',
-				'devices'      => [ 'tablet', 'mobile' ],
+				'devices'      => [ 'desktop', 'tablet', 'mobile' ],
 				'selectors'    => [
 					'{{WRAPPER}} .sa-step-flow .sa-icon-wrap .sa-step-arrow' => 'display: {{VALUE}};',
 				],
@@ -1330,17 +1330,17 @@ class Step_Flow extends Widget_Base {
 	}
 
 	private function render_icon_wrap( array $settings ): void {
-		if ( empty( $settings['icon']['value'] ) && empty( $settings['badge_text'] ) && $settings['show_direction'] !== 'yes' ) {
+		if ( empty( $settings['icon']['value'] ) && empty( $settings['badge_text'] ) && 'yes' !== $settings['show_direction'] ) {
 			return;
 		}
 
 		$this->add_render_attribute( 'badge_text', 'class', 'sa-badge' );
-		$this->add_render_attribute( 'badge_text', 'class', ( $settings['show_badge'] === 'yes' ) ? $settings['badge_position'] : '' );
+		$this->add_render_attribute( 'badge_text', 'class', ( 'yes' === $settings['show_badge'] ) ? $settings['badge_position'] : '' );
 		$this->add_inline_editing_attributes( 'badge_text', 'none' );
 		?>
 		<div class="sa-icon-wrap">
 			<?php
-			if ( $settings['show_badge'] === 'yes' && ! empty( $settings['badge_text'] ) ) :
+			if ( 'yes' === $settings['show_badge'] && ! empty( $settings['badge_text'] ) ) :
 				printf(
 					'<span %1$s>%2$s</span>',
 					wp_kses_post( $this->get_render_attribute_string( 'badge_text' ) ),
@@ -1351,7 +1351,7 @@ class Step_Flow extends Widget_Base {
 			if ( ! empty( $settings['icon']['value'] ) ) :
 				Icons_Manager::render_icon( $settings['icon'], [ 'aria-hidden' => 'true' ] );
 			endif;
-			if ( $settings['show_direction'] === 'yes' ) :
+			if ( 'yes' === $settings['show_direction'] ) :
 				?>
 				<span class="sa-step-arrow"></span>
 			<?php endif; ?>
