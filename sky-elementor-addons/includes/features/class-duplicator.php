@@ -94,17 +94,11 @@ class Duplicator {
 			) );
 
 			if ( is_array( $post_meta_infos ) ) {
-				$sql_query     = "INSERT INTO {$wpdb->postmeta} ( post_id, meta_key, meta_value ) VALUES ";
-				$sql_query_sel = [];
-
 				foreach ( $post_meta_infos as $meta_info ) {
-					$meta_value      = wp_slash( $meta_info->meta_value );
-					$sql_query_sel[] = "( $new_post_id, '{$meta_info->meta_key}', '{$meta_value}' )";
+					// Use the WordPress API so both meta_key and meta_value are
+					// properly escaped internally — no raw SQL interpolation.
+					add_post_meta( $new_post_id, $meta_info->meta_key, $meta_info->meta_value );
 				}
-
-				$sql_query .= implode( ', ', $sql_query_sel ) . ';';
-        // phpcs:ignore
-				$wpdb->query( $sql_query );
 
 				$source_type = get_post_meta( $post_id, '_elementor_template_type', true );
 				delete_post_meta( $new_post_id, '_elementor_template_type' );
