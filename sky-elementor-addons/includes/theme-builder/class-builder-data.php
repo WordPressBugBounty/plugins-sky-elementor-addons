@@ -23,6 +23,7 @@ class Builder_Data {
 		'wowdevs_theme_builder_display_custom_pages',
 		'wowdevs_theme_builder_not_display_custom_pages',
 		'wowdevs_theme_builder_display_roles',
+		'wowdevs_theme_builder_post_type',
 	];
 
 	/**
@@ -136,6 +137,10 @@ class Builder_Data {
 			'wowdevs_theme_builder_display_custom_pages',
 			'wowdevs_theme_builder_not_display_custom_pages',
 			'wowdevs_theme_builder_display_roles',
+			// Optional post-type target for single/archive templates. Absent
+			// meta means "no restriction", so templates saved before this key
+			// existed keep matching exactly as they did.
+			'wowdevs_theme_builder_post_type',
 		];
 
 		foreach ( $meta_fields as $meta_field ) {
@@ -213,12 +218,28 @@ class Builder_Data {
 				],
 			],
 		] );
+
+		register_rest_route( 'skyaddons/v1', '/restore-hook', [
+			'methods'             => \WP_REST_Server::CREATABLE,
+			'callback'            => [ $this, 'restore_hook' ],
+			'permission_callback' => function () {
+				return current_user_can( 'manage_options' );
+			},
+			'args'                => [
+				'id' => [
+					'required'          => true,
+					'sanitize_callback' => 'absint',
+				],
+			],
+		] );
 	}
 
 	/**
 	 * Duplicate a wowdevs-hooks template — its content, theme builder meta and
 	 * Elementor design — and return the new post in the REST edit-context shape
 	 * so the React list can use it directly.
+	 *
+	 * The copy starts as a draft, so it never goes live next to its source.
 	 *
 	 * @param \WP_REST_Request $request
 	 * @return \WP_REST_Response|\WP_Error
@@ -234,7 +255,7 @@ class Builder_Data {
 		$new_id = wp_insert_post( [
 			'post_type'    => 'wowdevs-hooks',
 			'post_title'   => $source->post_title . ' (Copy)',
-			'post_status'  => 'publish',
+			'post_status'  => 'draft',
 			'post_content' => $source->post_content,
 		], true );
 
@@ -264,12 +285,69 @@ class Builder_Data {
 			update_post_meta( $new_id, '_elementor_data', wp_slash( $elementor_data ) );
 		}
 
-		// Return the new post shaped exactly like /wp/v2/wowdevs-hooks?context=edit items.
+		return $this->prepare_edit_response( $new_id );
+	}
+
+	/**
+	 * Restore a trashed wowdevs-hooks template.
+	 *
+	 * Core REST has no untrash endpoint, and setting `status` through the posts
+	 * controller would skip wp_untrash_post() and leave the _wp_trash_meta_* rows
+	 * behind. The template goes back to the status it had when it was trashed, so
+	 * undoing an accidental trash of a live header makes it live again.
+	 *
+	 * @param \WP_REST_Request $request
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function restore_hook( $request ) {
+		$post_id = absint( $request->get_param( 'id' ) );
+		$post    = get_post( $post_id );
+
+		if ( ! $post || 'wowdevs-hooks' !== $post->post_type ) {
+			return new \WP_Error( 'sky_invalid_template', __( 'Template not found.', 'sky-elementor-addons' ), [ 'status' => 404 ] );
+		}
+
+		if ( ! current_user_can( 'delete_post', $post_id ) ) {
+			return new \WP_Error( 'rest_forbidden', __( 'Sorry, you are not allowed to restore this template.', 'sky-elementor-addons' ), [ 'status' => rest_authorization_required_code() ] );
+		}
+
+		if ( 'trash' !== $post->post_status ) {
+			return new \WP_Error( 'sky_not_trashed', __( 'This template is not in the Trash.', 'sky-elementor-addons' ), [ 'status' => 409 ] );
+		}
+
+		// WordPress 5.6+ restores to draft unless told otherwise. Older versions
+		// restore the previous status on their own and never apply this filter.
+		$use_previous = function_exists( 'wp_untrash_post_set_previous_status' );
+		if ( $use_previous ) {
+			add_filter( 'wp_untrash_post_status', 'wp_untrash_post_set_previous_status', 10, 3 );
+		}
+
+		$restored = wp_untrash_post( $post_id );
+
+		if ( $use_previous ) {
+			remove_filter( 'wp_untrash_post_status', 'wp_untrash_post_set_previous_status', 10 );
+		}
+
+		if ( ! $restored ) {
+			return new \WP_Error( 'sky_restore_failed', __( 'Could not restore the template.', 'sky-elementor-addons' ), [ 'status' => 500 ] );
+		}
+
+		return $this->prepare_edit_response( $post_id );
+	}
+
+	/**
+	 * A template shaped exactly like /wp/v2/wowdevs-hooks?context=edit items, so
+	 * the React list can drop it straight into state.
+	 *
+	 * @param int $post_id
+	 * @return \WP_REST_Response
+	 */
+	private function prepare_edit_response( $post_id ) {
 		$controller   = new \WP_REST_Posts_Controller( 'wowdevs-hooks' );
 		$item_request = new \WP_REST_Request( 'GET' );
 		$item_request->set_param( 'context', 'edit' );
 
-		return $controller->prepare_item_for_response( get_post( $new_id ), $item_request );
+		return $controller->prepare_item_for_response( get_post( $post_id ), $item_request );
 	}
 }
 

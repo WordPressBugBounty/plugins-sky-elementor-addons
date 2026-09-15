@@ -564,7 +564,7 @@ class Changelog extends Widget_Base {
 		}
 
 		if ( ! $response_data ) {
-			$response      = wp_remote_request( $api_url, [] );
+			$response      = wp_safe_remote_request( $api_url, [] );
 			$response_data = wp_remote_retrieve_body( $response );
 			$response_data = $this->parse_data( $response_data );
 
@@ -616,21 +616,25 @@ class Changelog extends Widget_Base {
 			'data-load-more-text' => $load_more_text,
 		] );
 
-		echo '<div ' . $this->get_render_attribute_string( 'changelog_wrapper' ) . '>';
+		echo '<div ';
+		$this->print_render_attribute_string( 'changelog_wrapper' );
+		echo '>';
 		echo wp_kses_post( $final_response_data );
 		echo '</div>';
 
 		if ( ! empty( $settings['support_url']['url'] ) ) {
-			$support_label = ! empty( $settings['support_label'] ) ? esc_html( $settings['support_label'] ) : esc_html__( 'Get Support', 'sky-elementor-addons' );
+			$support_label = ! empty( $settings['support_label'] ) ? $settings['support_label'] : __( 'Get Support', 'sky-elementor-addons' );
 			$this->add_render_attribute( 'support_link', [
 				'class'  => 'sa-changelog-support',
 				'href'   => esc_url( $settings['support_url']['url'] ),
 				'target' => '_blank',
 				'rel'    => 'noopener noreferrer',
 			] );
-			echo '<a ' . $this->get_render_attribute_string( 'support_link' ) . '>';
+			echo '<a ';
+			$this->print_render_attribute_string( 'support_link' );
+			echo '>';
 			echo '<span class="sa-cl-support-icon"></span>';
-			echo '<span class="sa-cl-support-text">' . $support_label . '</span>';
+			echo '<span class="sa-cl-support-text">' . esc_html( $support_label ) . '</span>';
 			echo '<span class="sa-cl-support-arrow"></span>';
 			echo '</a>';
 		}

@@ -8,6 +8,20 @@
             // Reject CSS vars, HSL, and anything Granim won't accept
             return /^#[0-9a-fA-F]{3,6}$|^rgba?\([\d.,\s]+\)$/.test(c) ? c : null;
         },
+        // Repeater colors picked from the Global palette save as '' with the palette id in
+        // __globals__ — resolve the id to its --e-global-color-{id} CSS variable, otherwise
+        // every global-colored item is skipped and the canvas silently never renders.
+        resolveItemColor = function (item, key, context) {
+            var value = item[key];
+            if (!value && item.__globals__ && item.__globals__[key]) {
+                var match = item.__globals__[key].match(/id=([^&]+)/);
+                if (match) {
+                    value = getComputedStyle(context && context.length ? context[0] : document.body)
+                        .getPropertyValue('--e-global-color-' + match[1]).trim();
+                }
+            }
+            return toGranimColor(value);
+        },
         debounce = function (func, wait, immediate) {
             // 'private' variable for instance
             // The returned function will be able to reference this due to closure.
@@ -110,13 +124,13 @@
                 var gradients = [];
 
                 $color_list.forEach(function (item) {
-                    var start = toGranimColor(item.sa_agbg_start_color);
-                    var end = toGranimColor(item.sa_agbg_end_color);
+                    var start = resolveItemColor(item, 'sa_agbg_start_color', elementContainer);
+                    var end = resolveItemColor(item, 'sa_agbg_end_color', elementContainer);
                     if (!start || !end) {
                         return;
                     }
                     var stops = [start];
-                    var mid = toGranimColor(item.sa_agbg_mid_color);
+                    var mid = resolveItemColor(item, 'sa_agbg_mid_color', elementContainer);
                     if (mid) {
                         stops.push(mid);
                     }

@@ -105,11 +105,10 @@ class Sky_Addons_Plugin {
 		 */
 		require SKY_ADDONS_PATH . 'includes/utils.php';
 
-		require_once SKY_ADDONS_INC_PATH . 'custom-meta-box.php';
-
 		require_once SKY_ADDONS_PATH . 'traits/global-swiper-controls.php';
 		require_once SKY_ADDONS_PATH . 'traits/global-widget-controls.php';
 		require_once SKY_ADDONS_PATH . 'traits/global-widget-functions.php';
+		require_once SKY_ADDONS_PATH . 'traits/theme-builder-context.php';
 
 		/**
 		 * Select Control
@@ -121,12 +120,19 @@ class Sky_Addons_Plugin {
 		require_once SKY_ADDONS_INC_PATH . 'controls/widget-list/widget-list.php';
 
 		/**
+		 * Dynamic Content Tags
+		 */
+		if ( Managers::is_advanced_feature_active( 'dynamic-tags' ) ) {
+			require_once SKY_ADDONS_INC_PATH . 'dynamic-tags/utils.php';
+			require_once SKY_ADDONS_INC_PATH . 'dynamic-tags/index.php';
+		}
+
+		/**
 		 * Templates Library
 		 */
-		require_once SKY_ADDONS_INC_PATH . 'templates/Init_Templates.php';
-		require_once SKY_ADDONS_INC_PATH . 'templates/Import_Template.php';
-		require_once SKY_ADDONS_INC_PATH . 'templates/Library_Api.php';
-		require_once SKY_ADDONS_INC_PATH . 'templates/Load_Template.php';
+		if ( Managers::is_advanced_feature_active( 'templates-library' ) ) {
+			require_once SKY_ADDONS_INC_PATH . 'templates/index.php';
+		}
 
 		/**
 		 * Themes Builder
@@ -134,8 +140,8 @@ class Sky_Addons_Plugin {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-theme-builder.php';
 
 		/**
-			 * Features
-			 */
+		 * Features
+		 */
 		require_once SKY_ADDONS_INC_PATH . 'features/class-init.php';
 		\Sky_Addons\Features\Init::get_instance();
 
@@ -145,9 +151,10 @@ class Sky_Addons_Plugin {
 		require_once SKY_ADDONS_INC_PATH . 'class-wpml-init.php';
 
 		/**
-		 * Asset Manager (optimizer)
+		 * Asset Manager (optimizer) — class + helpers already loaded early via
+		 * includes/optimizer/index.php (bootstrap). Only activate the engine
+		 * here, where Elementor is guaranteed active.
 		 */
-		require_once SKY_ADDONS_INC_PATH . 'optimizer/class-optimizer.php';
 		\Sky_Addons\Optimizer\Optimizer::instance();
 	}
 
@@ -227,8 +234,8 @@ class Sky_Addons_Plugin {
 	public function enqueue_editor_styles() {
 		$direction_suffix = is_rtl() ? '.rtl' : '';
 
-		wp_register_style( 'sky-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
-		wp_enqueue_style( 'sky-widget-icons' );
+		wp_register_style( 'sky-addons-widget-icons', SKY_ADDONS_ASSETS_URL . 'css/sky-widget-icons' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
+		wp_enqueue_style( 'sky-addons-widget-icons' );
 
 		wp_register_style( 'sky-addons-editor', SKY_ADDONS_ASSETS_URL . 'css/sky-editor' . $direction_suffix . '.css', [], SKY_ADDONS_VERSION );
 
@@ -420,11 +427,17 @@ class Sky_Addons_Plugin {
 		wp_enqueue_script( 'sky-addons-scripts' );
 	}
 
+	/**
+	 * Third-party libraries ship minified only — the un-minified sources were removed
+	 * from `src/vendor/js` to cut ~666 KB from the plugin. Do not reintroduce a
+	 * SCRIPT_DEBUG suffix here: the plain `.js` files no longer exist and every handle
+	 * below would 404 on any site with SCRIPT_DEBUG on. `$suffix` still applies to our
+	 * own bundles (`sky-addons-base`, `sa-{slug}`), which do ship both builds.
+	 */
 	public function register_vendor_scripts() {
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
 			'image-compare-viewer',
-			SKY_ADDONS_ASSETS_URL . 'vendor/js/image-compare-viewer' . $suffix . '.js',
+			SKY_ADDONS_ASSETS_URL . 'vendor/js/image-compare-viewer.min.js',
 			[
 				'jquery',
 				'elementor-frontend',
@@ -432,11 +445,8 @@ class Sky_Addons_Plugin {
 			'1.0.0',
 			true
 		);
-		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider' . $suffix . '.js', [], '1.0.0', true );
-		wp_register_script( 'wowdevs-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion' . $suffix . '.js', [], '3.1.1', true );
-		/**
-		 * No need Suffix on Anime JS
-		 */
+		wp_register_script( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/js/momentum-slider.min.js', [], '1.0.0', true );
+		wp_register_script( 'wowdevs-accordion', SKY_ADDONS_ASSETS_URL . 'vendor/js/accordion.min.js', [], '3.1.1', true );
 		wp_register_script(
 			'anime',
 			SKY_ADDONS_ASSETS_URL . 'vendor/js/anime.min.js',
@@ -446,22 +456,31 @@ class Sky_Addons_Plugin {
 			'3.2.1',
 			true
 		);
-		wp_register_script( 'popper', SKY_ADDONS_ASSETS_URL . 'vendor/js/popper' . $suffix . '.js', [], '2.10.1', true );
-		wp_register_script( 'tippyjs', SKY_ADDONS_ASSETS_URL . 'vendor/js/tippy-bundle.umd' . $suffix . '.js', [], '6.3.1', true );
+		wp_register_script( 'popper', SKY_ADDONS_ASSETS_URL . 'vendor/js/popper.min.js', [], '2.10.1', true );
+		wp_register_script( 'tippyjs', SKY_ADDONS_ASSETS_URL . 'vendor/js/tippy-bundle.umd.min.js', [], '6.3.1', true );
 
-		wp_register_script( 'countUp', SKY_ADDONS_ASSETS_URL . 'vendor/js/countUp' . $suffix . '.js', [], '2.0.4', true );
-		wp_register_script( 'sweetalert2', SKY_ADDONS_ASSETS_URL . 'vendor/js/sweetalert2' . $suffix . '.js', [], '2.0.0', true );
-		wp_register_script( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/js/metis-menu' . $suffix . '.js', [ 'jquery' ], '3.0.7', true );
-		wp_register_script( 'equal-height', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.matchHeight' . $suffix . '.js', [ 'jquery' ], '0.7.2', true );
-		wp_register_script( 'pdfobject', SKY_ADDONS_ASSETS_URL . 'vendor/js/pdfobject' . $suffix . '.js', [ 'jquery' ], 'v2.2.7', true );
-		wp_register_script( 'granim', SKY_ADDONS_ASSETS_URL . 'vendor/js/granim' . $suffix . '.js', [], 'v2.0.0', true );
-		wp_register_script( 'ripples', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.ripples' . $suffix . '.js', [ 'jquery' ], 'v0.5.3', true );
-		wp_register_script( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/js/slinky' . $suffix . '.js', [ 'jquery' ], '1.0.0', true );
-		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx' . $suffix . '.js', [ 'jquery', 'anime' ], '0.0.2', true );
-		wp_register_script( 'typed', SKY_ADDONS_ASSETS_URL . 'vendor/js/typed' . $suffix . '.js', [], 'v2.0.12', true );
-		wp_register_script( 'morphext', SKY_ADDONS_ASSETS_URL . 'vendor/js/morphext' . $suffix . '.js', [], 'v2.4.4', true );
-		wp_register_script( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/js/plyr' . $suffix . '.js', [], '3.7.2', true );
-		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', [], '6.3.3', true );
+		wp_register_script( 'countUp', SKY_ADDONS_ASSETS_URL . 'vendor/js/countUp.min.js', [], '2.0.4', true );
+		wp_register_script( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/js/metis-menu.min.js', [ 'jquery' ], '3.0.7', true );
+		wp_register_script( 'equal-height', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.matchHeight.min.js', [ 'jquery' ], '0.7.2', true );
+		wp_register_script( 'pdfobject', SKY_ADDONS_ASSETS_URL . 'vendor/js/pdfobject.min.js', [ 'jquery' ], 'v2.2.7', true );
+		wp_register_script( 'granim', SKY_ADDONS_ASSETS_URL . 'vendor/js/granim.min.js', [], 'v2.0.0', true );
+		wp_register_script( 'ripples', SKY_ADDONS_ASSETS_URL . 'vendor/js/jquery.ripples.min.js', [ 'jquery' ], 'v0.5.3', true );
+		wp_register_script( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/js/slinky.min.js', [ 'jquery' ], '1.0.0', true );
+		wp_register_script( 'revealFx', SKY_ADDONS_ASSETS_URL . 'vendor/js/revealFx.min.js', [ 'jquery', 'anime' ], '0.0.2', true );
+		wp_register_script( 'typed', SKY_ADDONS_ASSETS_URL . 'vendor/js/typed.min.js', [], 'v2.0.12', true );
+		wp_register_script( 'morphext', SKY_ADDONS_ASSETS_URL . 'vendor/js/morphext.min.js', [], 'v2.4.4', true );
+		wp_register_script( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/js/plyr.min.js', [], '3.8.4', true );
+
+		/**
+		 * Plyr defaults to cdn.plyr.io for its icon sprite and blank video. Both are
+		 * shipped locally instead — every handler passes these two URLs into `new Plyr()`
+		 * so no page ever makes a third-party request.
+		 */
+		wp_localize_script( 'plyr', 'skyAddonsPlyr', [
+			'iconUrl'    => SKY_ADDONS_ASSETS_URL . 'vendor/svg/plyr.svg',
+			'blankVideo' => SKY_ADDONS_ASSETS_URL . 'others/blank.mp4',
+		] );
+		wp_register_script( 'simple-parallax', SKY_ADDONS_ASSETS_URL . 'vendor/js/simpleParallax.min.js', [], '7.0.0', true );
 		wp_register_script( 'tocbot', SKY_ADDONS_ASSETS_URL . 'vendor/js/tocbot.min.js', [], '4.21.1', true );
 	}
 
@@ -472,7 +491,7 @@ class Sky_Addons_Plugin {
 		wp_register_style( 'momentum', SKY_ADDONS_ASSETS_URL . 'vendor/css/momentum-slider' . $direction_suffix . '.css', [], '1.0.0' );
 		wp_register_style( 'metis-menu', SKY_ADDONS_ASSETS_URL . 'vendor/css/metis-menu' . $direction_suffix . '.css', [], '13.0.7' );
 		wp_register_style( 'slinky', SKY_ADDONS_ASSETS_URL . 'vendor/css/slinky' . $direction_suffix . '.css', [], '1.0.0' );
-		wp_register_style( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/css/plyr' . $direction_suffix . '.css', [], '6.3.1' );
+		wp_register_style( 'plyr', SKY_ADDONS_ASSETS_URL . 'vendor/css/plyr' . $direction_suffix . '.css', [], '3.8.4' );
 	}
 
 	public function enqueue_editor_scripts() {
@@ -505,7 +524,6 @@ class Sky_Addons_Plugin {
 		wp_enqueue_script( 'sky-addons-editor' );
 	}
 
-
 	public function elementor_init() {
 		// Register sky-addons-base handles before Managers::__construct() so every
 		// sa-{slug} handle can safely declare them as deps (WP 6.9.1 strict dep check).
@@ -522,20 +540,54 @@ class Sky_Addons_Plugin {
 		Plugin::instance()->elements_manager->add_category(
 			'sky-elementor-addons',
 			[
-				'title' => esc_html__( 'Sky Addons', 'sky-elementor-addons' ),
+				// Sky Addons Pro's White Label can rename it (Pro includes/white-label/hooks/class-elementor-categories.php).
+				'title' => apply_filters( 'sky_addons/white_label/category_title', esc_html__( 'Sky Addons', 'sky-elementor-addons' ), 'sky-elementor-addons' ),
 				'icon'  => 'font',
 			]
 		);
 
 		if (
 			class_exists( 'Sky_Addons\Templates\Init_Templates' )
-			&& function_exists( 'sky_addons_is_templates_library_enabled' )
-			&& sky_addons_is_templates_library_enabled()
+			&& Managers::is_advanced_feature_active( 'templates-library' )
 		) {
 			\Sky_Addons\Templates\Import_Template::instance()->load();
 			\Sky_Addons\Templates\Library_Load::instance()->load();
 			\Sky_Addons\Templates\Init_Templates::instance()->init();
 		}
+	}
+
+	/**
+	 * Show the Sky Addons and Sky Addons Pro panel categories right after Elementor's "Basic".
+	 *
+	 * They are added at `elementor/init`, after Elementor has already appended "WordPress", so
+	 * they would sit at the bottom of the panel. Elementor has no API to reorder categories, so
+	 * this moves the two keys inside the private Elements_Manager::$categories. If Elementor ever
+	 * renames that property this does nothing and the categories stay at the bottom.
+	 */
+	public function order_panel_categories() {
+		$move = function () {
+			if ( ! isset( $this->categories ) || ! is_array( $this->categories ) ) {
+				return;
+			}
+
+			$after = isset( $this->categories['basic'] ) ? 'basic' : 'general';
+			$ours  = array_intersect_key( $this->categories, array_flip( [ 'sky-elementor-addons', 'sky-elementor-addons-pro' ] ) );
+
+			if ( empty( $ours ) || ! isset( $this->categories[ $after ] ) ) {
+				return;
+			}
+
+			$rest     = array_diff_key( $this->categories, $ours );
+			$position = array_search( $after, array_keys( $rest ), true ) + 1;
+
+			$this->categories = array_merge(
+				array_slice( $rest, 0, $position, true ),
+				$ours,
+				array_slice( $rest, $position, null, true )
+			);
+		};
+
+		\Closure::bind( $move, Plugin::instance()->elements_manager, Elements_Manager::class )();
 	}
 
 	public static function sky_addons_file() {
@@ -555,6 +607,8 @@ class Sky_Addons_Plugin {
 	 */
 	protected function add_actions() {
 		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
+		// Late, so it runs after Core and Pro add their categories and after other addons reorder theirs.
+		add_action( 'elementor/init', [ $this, 'order_panel_categories' ], 9999 );
 
 		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'enqueue_editor_styles' ], 991 );
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );

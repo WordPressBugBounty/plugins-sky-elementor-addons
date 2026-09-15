@@ -204,6 +204,150 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->end_controls_section();
 
+		$this->start_controls_section(
+			'section_motion',
+			[
+				'label' => esc_html__( 'Motion', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'image_animation',
+			[
+				'label'        => esc_html__( 'Image Animation', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'none',
+				'options' => [
+					'none'     => esc_html__( 'None', 'sky-elementor-addons' ),
+					'zoom-in'  => esc_html__( 'Ken Burns — Zoom In', 'sky-elementor-addons' ),
+					'zoom-out' => esc_html__( 'Ken Burns — Zoom Out', 'sky-elementor-addons' ),
+				],
+				'prefix_class' => 'sa-ss-img-',
+				'render_type'  => 'template',
+			]
+		);
+
+		$this->add_control(
+			'image_animation_duration',
+			[
+				'label'     => esc_html__( 'Image Animation Duration (sec)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range' => [
+					'px' => [
+						'min'  => 3,
+						'max'  => 25,
+						'step' => .5,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 8,
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-ss-img-duration: {{SIZE}}s;',
+				],
+				'condition' => [ 'image_animation!' => 'none' ],
+			]
+		);
+
+		$this->add_control(
+			'content_animation',
+			[
+				'label'        => esc_html__( 'Content Animation', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SELECT,
+				'default'      => 'none',
+				'separator'    => 'before',
+				'options' => [
+					'none'     => esc_html__( 'None', 'sky-elementor-addons' ),
+					'fade-up'  => esc_html__( 'Fade Up', 'sky-elementor-addons' ),
+					'slide-up' => esc_html__( 'Slide Up', 'sky-elementor-addons' ),
+				],
+				'description'  => esc_html__( 'Replaces the built-in parallax motion with a staggered entrance on the active slide.', 'sky-elementor-addons' ),
+				'prefix_class' => 'sa-ss-anim-',
+				'render_type'  => 'template',
+			]
+		);
+
+		$this->add_control(
+			'content_animation_duration',
+			[
+				'label'     => esc_html__( 'Animation Duration (sec)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'min'  => .2,
+						'max'  => 3,
+						'step' => .1,
+					],
+				],
+				'default'   => [
+					'unit' => 'px',
+					'size' => .8,
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-ss-anim-duration: {{SIZE}}s;',
+				],
+				'condition' => [ 'content_animation!' => 'none' ],
+			]
+		);
+
+		$this->add_control(
+			'content_animation_stagger',
+			[
+				'label'     => esc_html__( 'Stagger Delay (ms)', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 500,
+						'step' => 10,
+					],
+				],
+				'default'   => [
+					'unit' => 'px',
+					'size' => 120,
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-ss-anim-stagger: {{SIZE}}ms;',
+				],
+				'condition' => [ 'content_animation!' => 'none' ],
+			]
+		);
+
+		$this->add_control(
+			'content_animation_easing',
+			[
+				'label'     => esc_html__( 'Easing', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'cubic-bezier(.16,1,.3,1)',
+				'options'   => [
+					'cubic-bezier(.16,1,.3,1)'      => esc_html__( 'Smooth (Expo Out)', 'sky-elementor-addons' ),
+					'cubic-bezier(.25,.46,.45,.94)' => esc_html__( 'Gentle', 'sky-elementor-addons' ),
+					'cubic-bezier(.34,1.56,.64,1)'  => esc_html__( 'Overshoot', 'sky-elementor-addons' ),
+					'ease-out'                      => esc_html__( 'Ease Out', 'sky-elementor-addons' ),
+					'linear'                        => esc_html__( 'Linear', 'sky-elementor-addons' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-ss-anim-ease: {{VALUE}};',
+				],
+				'condition' => [ 'content_animation!' => 'none' ],
+			]
+		);
+
+		$this->add_control(
+			'parallax_effect',
+			[
+				'label'     => esc_html__( 'Parallax Content', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'default'   => 'yes',
+				'separator' => 'before',
+				'condition' => [ 'content_animation' => 'none' ],
+			]
+		);
+
+		$this->end_controls_section();
+
 		/**
 		 * Global Query Builder Settings
 		 */
@@ -478,34 +622,6 @@ class Stellar_Slider extends Widget_Base {
 
 		$this->register_post_date_controls();
 
-		$this->add_control(
-			'show_video',
-			[
-				'label'     => esc_html__( 'Show Video', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
-				'separator' => 'before',
-			]
-		);
-
-		$this->end_controls_section();
-
-		$this->start_controls_section(
-			'section_post_video_settings',
-			[
-				'label' => esc_html__( 'Video Settings', 'sky-elementor-addons' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-				'condition' => [
-					'show_video' => 'yes',
-				],
-			]
-		);
-
-		/**
-		 * Global Video Lightbox Control
-		 */
-		$this->video_lightbox_controls();
-
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -522,9 +638,18 @@ class Stellar_Slider extends Widget_Base {
 				'label'   => esc_html__( 'Transition Effect', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'fade',
+				// coverflow / flip / cube restored. `coverflow_rotate` (conditioned on
+				// 'coverflow') and `slide_shadows` (on 'coverflow', 'flip', 'cube') were both
+				// already registered below but could never appear, because this list had lost
+				// the values they key off. Additive: existing widgets keep their saved
+				// slide/fade value, and Swiper ignores an effect's config unless `effect`
+				// selects it.
 				'options' => [
-					'slide' => esc_html__( 'Slide', 'sky-elementor-addons' ),
-					'fade'  => esc_html__( 'Fade', 'sky-elementor-addons' ),
+					'slide'     => esc_html__( 'Slide', 'sky-elementor-addons' ),
+					'fade'      => esc_html__( 'Fade', 'sky-elementor-addons' ),
+					'coverflow' => esc_html__( 'Coverflow', 'sky-elementor-addons' ),
+					'flip'      => esc_html__( 'Flip', 'sky-elementor-addons' ),
+					'cube'      => esc_html__( 'Cube', 'sky-elementor-addons' ),
 				],
 			]
 		);
@@ -700,6 +825,15 @@ class Stellar_Slider extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'navigation_hover_animation',
+			[
+				'label'     => esc_html__( 'Hover Animation', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'      => Controls_Manager::HOVER_ANIMATION,
+				'separator' => 'before',
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -757,6 +891,8 @@ class Stellar_Slider extends Widget_Base {
 		$this->add_control(
 			'button_icon',
 			[
+				// The button renders this icon twice — one copy waits off-canvas at the left,
+				// the other sits at the right and exits on hover.
 				'label'              => esc_html__( 'Read More Icon', 'sky-elementor-addons' ),
 				'type'               => Controls_Manager::ICONS,
 				'default' => [
@@ -770,12 +906,11 @@ class Stellar_Slider extends Widget_Base {
 		);
 
 		$this->add_control(
-			'play_button_text',
+			'button_hover_animation',
 			[
-				'label'   => esc_html__( 'Play Button Text', 'sky-elementor-addons' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => esc_html__( 'PLAY', 'sky-elementor-addons' ),
-				'dynamic' => [ 'active' => true ],
+				'label'     => esc_html__( 'Hover Animation', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'      => Controls_Manager::HOVER_ANIMATION,
+				'separator' => 'before',
 			]
 		);
 
@@ -888,6 +1023,102 @@ class Stellar_Slider extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_content_box_style',
+			[
+				'label' => esc_html__( 'Content Box', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_responsive_control(
+			'content_position',
+			[
+				'label'       => esc_html__( 'Vertical Position', 'sky-elementor-addons' ),
+				'type'        => Controls_Manager::CHOOSE,
+				'label_block' => false,
+				'options'     => [
+					'flex-start' => [
+						'title' => esc_html__( 'Top', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-v-align-top',
+					],
+					'center'     => [
+						'title' => esc_html__( 'Middle', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-v-align-middle',
+					],
+					'flex-end'   => [
+						'title' => esc_html__( 'Bottom', 'sky-elementor-addons' ),
+						'icon'  => 'eicon-v-align-bottom',
+					],
+				],
+				'default'     => 'center',
+				'selectors' => [
+					'{{WRAPPER}} .sa-content-wrapper' => 'align-items: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'content_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
+				'selector' => '{{WRAPPER}} .sa-content-container',
+			]
+		);
+
+		$this->add_responsive_control(
+			'content_blur',
+			[
+				'label'      => esc_html__( 'Background Blur', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 40,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-content-container' => '-webkit-backdrop-filter: blur({{SIZE}}px); backdrop-filter: blur({{SIZE}}px);',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'content_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-content-container',
+			]
+		);
+
+		$this->add_responsive_control(
+			'content_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-content-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'content_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-content-container',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_title_style',
 			[
 				'label' => esc_html__( 'Title', 'sky-elementor-addons' ),
@@ -958,6 +1189,103 @@ class Stellar_Slider extends Widget_Base {
 			[
 				'name'     => 'title_text_stroke',
 				'selector' => '{{WRAPPER}} .sa-post-title',
+			]
+		);
+
+		$this->add_control(
+			'title_divider',
+			[
+				'label'        => esc_html__( 'Divider', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'separator'    => 'before',
+				'prefix_class' => 'sa-ss-divider-',
+				'render_type'  => 'template',
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_divider_width',
+			[
+				'label'      => esc_html__( 'Divider Width', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range'      => [
+					'px' => [
+						'min' => 10,
+						'max' => 600,
+					],
+					'%'  => [
+						'min' => 5,
+						'max' => 100,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 64,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title-wrapper:after' => 'width: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [ 'title_divider' => 'yes' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_divider_height',
+			[
+				'label'      => esc_html__( 'Divider Thickness', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 1,
+						'max' => 20,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 2,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title-wrapper:after' => 'height: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [ 'title_divider' => 'yes' ],
+			]
+		);
+
+		$this->add_control(
+			'title_divider_color',
+			[
+				'label'     => esc_html__( 'Divider Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .sa-post-title-wrapper:after' => 'background: {{VALUE}};',
+				],
+				'condition' => [ 'title_divider' => 'yes' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'title_divider_spacing',
+			[
+				'label'      => esc_html__( 'Divider Spacing', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 20,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-title-wrapper:after' => 'margin-top: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [ 'title_divider' => 'yes' ],
 			]
 		);
 
@@ -1269,6 +1597,32 @@ class Stellar_Slider extends Widget_Base {
 		);
 
 		$this->add_responsive_control(
+			'button_icon_spacing',
+			[
+				// Both icons are absolutely positioned, so this is their inset from the
+				// button edge — the resting position of the right icon, and where the left
+				// one lands on hover. 16px matches the padding-to-icon gap of the old
+				// flex layout at the default padding.
+				'label'      => esc_html__( 'Icon Spacing', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 16,
+				],
+				'selectors'  => [
+					'{{WRAPPER}}' => '--sa-ss-btn-icon-inset: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
 			'button_padding',
 			[
 				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
@@ -1359,6 +1713,20 @@ class Stellar_Slider extends Widget_Base {
 		);
 
 		$this->add_control(
+			'button_fill_color',
+			[
+				// The circle cannot use `currentColor`: on hover the label flips to the hover
+				// text colour while the circle has to stay the accent, so it needs its own value.
+				'label'   => esc_html__( 'Fill Color', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'    => Controls_Manager::COLOR,
+				'default' => '#e0528d',
+				'selectors' => [
+					'{{WRAPPER}} .sa-read-more' => '--sa-ss-btn-fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'button_border_color_override',
 			[
 				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
@@ -1384,7 +1752,9 @@ class Stellar_Slider extends Widget_Base {
 				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-read-more:hover' => 'color: {{VALUE}}',
+					// Writes the variable as well as the property: the LESS hover ink rule
+					// ties this on specificity, so the var is what guarantees the control wins.
+					'{{WRAPPER}} .sa-read-more:hover' => 'color: {{VALUE}}; --sa-ss-btn-ink: {{VALUE}};',
 				],
 			]
 		);
@@ -1410,87 +1780,16 @@ class Stellar_Slider extends Widget_Base {
 			]
 		);
 
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'tab_buttons_play',
+		$this->add_responsive_control(
+			'button_border_radius_hover',
 			[
-				'label' => esc_html__( 'Play Button', 'sky-elementor-addons' ),
-				'condition' => [
-					'show_video' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'play_button_color',
-			[
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .sa-play-button, {{WRAPPER}} .sa-play-button:focus' => 'color: {{VALUE}}',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Background::get_type(),
-			[
-				'name'     => 'play_button_background',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-play-button, {{WRAPPER}} .sa-play-button:focus',
-			]
-		);
-
-		$this->add_control(
-			'play_button_border_color',
-			[
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .sa-play-button' => 'border-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'play_button_hover',
-			[
-				'label'     => esc_html__( 'H O V E R', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::HEADING,
-				'separator' => 'before',
-			]
-		);
-
-		$this->add_control(
-			'play_button_color_hover',
-			[
-				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .sa-play-button:hover' => 'color: {{VALUE}}',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Background::get_type(),
-			[
-				'name'     => 'play_button_background_hover',
-				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
-				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .sa-play-button:hover',
-			]
-		);
-
-		$this->add_control(
-			'play_button_border_color_hover',
-			[
-				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
-				'type'  => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .sa-play-button:hover' => 'border-color: {{VALUE}};',
+				// The pill tightening into a rounded rectangle is half the effect, so the
+				// hover radius is a control rather than the hardcoded 12px of the original.
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-read-more:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1508,6 +1807,76 @@ class Stellar_Slider extends Widget_Base {
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_navigation' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'navigation_cluster_heading',
+			[
+				'label' => esc_html__( 'Cluster', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'  => Controls_Manager::HEADING,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'     => 'navigation_cluster_background',
+				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
+				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
+				'selector' => '{{WRAPPER}} .sa-navigation-wrapper',
+			]
+		);
+
+		$this->add_responsive_control(
+			'navigation_cluster_blur',
+			[
+				'label'      => esc_html__( 'Background Blur', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min' => 0,
+						'max' => 40,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-navigation-wrapper' => '-webkit-backdrop-filter: blur({{SIZE}}px); backdrop-filter: blur({{SIZE}}px);',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'navigation_cluster_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-navigation-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'navigation_cluster_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ),
+				'selector' => '{{WRAPPER}} .sa-navigation-wrapper',
+			]
+		);
+
+		$this->add_responsive_control(
+			'navigation_cluster_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-navigation-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1555,10 +1924,41 @@ class Stellar_Slider extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'navigation_buttons_heading',
+			[
+				'label'     => esc_html__( 'Buttons', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_responsive_control(
+			'navigation_button_size',
+			[
+				'label'      => esc_html__( 'Button Size', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em' ],
+				'range'      => [
+					'px' => [
+						'min' => 20,
+						'max' => 100,
+					],
+				],
+				'default'    => [
+					'unit' => 'px',
+					'size' => 38,
+				],
+				'selectors'  => [
+					'{{WRAPPER}}' => '--sa-nav-button-size: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
 		$this->add_responsive_control(
 			'navigation_size',
 			[
-				'label'      => esc_html__( 'Size', 'sky-elementor-addons' ),
+				'label'      => esc_html__( 'Icon Size', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em' ],
 				'range'      => [
@@ -1727,6 +2127,7 @@ class Stellar_Slider extends Widget_Base {
 				'name'     => 'navigation_bg_hover',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
 				'fields_options' => [
 					'background' => [
 						'label'   => esc_html__( 'Background', 'sky-elementor-addons' ),
@@ -1736,7 +2137,19 @@ class Stellar_Slider extends Widget_Base {
 						'default' => '#e0528d',
 					],
 				],
-				'selector' => '{{WRAPPER}} .sa-swiper-button-prev:hover, {{WRAPPER}} .sa-swiper-button-next:hover',
+			]
+		);
+
+		$this->add_control(
+			'navigation_hover_fill',
+			[
+				'label'       => esc_html__( 'Hover Fill', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'        => Controls_Manager::COLOR,
+				'default'     => 'rgba(255, 255, 255, 0.18)',
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-nav-sweep-color: {{VALUE}};',
+				],
+				'description' => esc_html__( 'Colour of the circle that sweeps out from the centre on hover.', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -1813,7 +2226,11 @@ class Stellar_Slider extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .swiper-pagination-fraction, .swiper-pagination-custom, {{WRAPPER}} .swiper-horizontal > .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}};',
+					// Every pagination type carries `.swiper-pagination`; the per-type list this
+					// replaced existed only to out-specify Swiper's own two-class
+					// `.swiper-horizontal > .swiper-pagination-bullets` (0,2,0). Going through
+					// `.swiper` makes this (0,3,0), which beats it with one clause.
+					'{{WRAPPER}} .swiper .swiper-pagination' => 'bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -2495,7 +2912,9 @@ class Stellar_Slider extends Widget_Base {
 		?>
 		<div class="sa-post-date-wrapper sa-d-flex sa-align-items-center">
 			<div class="sa-icon-wrap sa-me-1">
-				<i class="eicon-calendar"></i>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" aria-hidden="true">
+					<path d="M917 246V883C917 933 875 971 829 971H171C125 967 83 929 83 879V246C83 196 125 158 171 158H258V62C263 50 271 42 283 42H358C371 42 379 50 379 62V158H617V62C617 50 625 42 638 42H713C725 42 733 50 733 62V158H821C875 158 917 196 917 246ZM829 871V329H171V867C171 871 175 879 183 879H817C821 879 829 875 829 871ZM358 504H283C271 504 263 496 263 483V408C263 396 271 387 283 387H358C371 387 379 396 379 408V479C379 492 371 504 358 504ZM558 483C558 496 550 504 538 504H463C450 504 442 496 442 483V408C442 396 450 387 463 387H538C550 387 558 396 558 408V483ZM738 483C738 496 729 504 717 504H642C629 504 621 496 621 483V408C621 396 629 387 642 387H717C729 387 738 396 738 408V483ZM558 642C558 654 550 662 538 662H463C450 662 442 654 442 642V571C442 558 450 550 463 550H538C550 550 558 558 558 571V642ZM379 642C379 654 371 662 358 662H283C271 662 263 654 263 642V571C263 558 271 550 283 550H358C371 550 379 558 379 571V642ZM738 642C738 654 729 662 717 662H642C629 662 621 654 621 642V571C621 558 629 550 642 550H717C729 550 738 558 738 571V642ZM558 800C558 812 550 821 538 821H463C450 821 442 812 442 800V729C442 717 450 708 463 708H538C550 708 558 717 558 729V800ZM379 800C379 812 371 821 358 821H283C271 821 263 812 263 800V729C263 717 271 708 283 708H358C371 708 379 717 379 729V800ZM738 800C738 812 729 821 717 821H642C629 821 621 812 621 800V729C621 717 629 708 642 708H717C729 708 738 717 738 729V800Z"></path>
+				</svg>
 			</div>
 			<?php
 			$this->render_post_date();
@@ -2531,40 +2950,34 @@ class Stellar_Slider extends Widget_Base {
 		<?php
 	}
 
-	protected function render_video_button( $settings, $post_id ) {
-		/**
-		 * Video Feature enabled
-		 */
-
-		$video_url = get_post_meta( $post_id, 'sky_video_link_meta', true );
-
-		if ( ( 'yes' === $settings['show_video'] ) && ! empty( $video_url ) ) :
-			$tag = 'div';
-			$id  = $this->get_id() . '-' . $post_id;
-
-			/**
-			 * Lightbox
-			 */
-
-			$this->render_post_video_lightbox( $video_url, $id );
-
-			if ( $settings['video_open'] === 'file' ) {
-				$tag = 'a';
-			}
-			$this->add_render_attribute( 'lightbox-attr-' . $id, [
-				'class' => 'sa-play-button sa-button sa-text-decoration-none sa-rounded',
-			] );
-
-			?>
-			<<?php echo esc_attr( $tag ); ?>
-				<?php $this->print_render_attribute_string( 'lightbox-attr-' . $id ); ?>>
-				<span class="sa-button-text">
-					<?php echo esc_html( $settings['play_button_text'] ); ?>
-				</span>
-				<i class="fas fa-play sa-ms-3"></i>
-			</<?php echo esc_attr( $tag ); ?>>
+	/**
+	 * One of the button's two icon slots. Clearing the Icon control falls back to a plain
+	 * arrow rather than an empty slot, because the effect needs something to slide.
+	 */
+	private function render_button_icon( $settings, $slot_class ) {
+		?>
+		<span class="sa-button-icon sa-icon-wrap <?php echo esc_attr( $slot_class ); ?>" aria-hidden="true">
 			<?php
-		endif;
+			if ( ! empty( $settings['button_icon']['value'] ) ) :
+				Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
+			else :
+				// Plugin-chosen mark, so it is a literal SVG — routing it through Icons_Manager
+				// would pull the whole Font Awesome stylesheet in for one arrow.
+				?>
+				<svg class="sa-ss-btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" />
+				</svg>
+				<?php
+			endif;
+			?>
+		</span>
+		<?php
+	}
+
+	protected function get_button_animation_class() {
+		$animation = $this->get_settings_for_display( 'button_hover_animation' );
+
+		return empty( $animation ) ? '' : 'elementor-animation-' . $animation;
 	}
 
 	protected function render_item( $post_id, $image_size, $excerpt_length ) {
@@ -2588,13 +3001,14 @@ class Stellar_Slider extends Widget_Base {
 						<?php
 						if ( 'yes' === $settings['show_category'] ) :
 							$cat_attr = [
-								'class'                => 'sa-post-category sa-post-category-style-1 sa-mb-4',
+								'class'                => 'sa-post-category sa-post-category-style-1 sa-mb-4 sa-ss-anim-item',
+								'style'                => '--sa-ss-i: 0;',
 								'data-swiper-parallax' => -220,
 							];
 							$this->render_post_category_attr( 'cat' . $_title_id, $cat_attr );
 						endif;
 						?>
-						<div class="sa-post-title-wrapper sa-mb-4" data-swiper-parallax="-200">
+						<div class="sa-post-title-wrapper sa-mb-4 sa-ss-anim-item" style="--sa-ss-i: 1;" data-swiper-parallax="-200">
 							<?php
 							printf(
 								'<%1$s class="%2$s">%3$s</%1$s>',
@@ -2604,32 +3018,33 @@ class Stellar_Slider extends Widget_Base {
 							);
 							?>
 						</div>
-						<div class="sa-post-meta sa-d-flex sa-mb-4">
+						<div class="sa-post-meta sa-d-flex sa-mb-4 sa-ss-anim-item" style="--sa-ss-i: 2;">
 
 							<?php $this->render_author_thumb(); ?>
 
 						</div>
 						<?php if ( 'yes' === $settings['show_excerpt'] ) : ?>
-						<div class="sa-mb-5" data-swiper-parallax="-150">
+						<div class="sa-mb-5 sa-ss-anim-item" style="--sa-ss-i: 3;" data-swiper-parallax="-150">
 							<?php $this->render_post_excerpt( $excerpt_length ); ?>
 						</div>
 						<?php endif; ?>
 
-						<div class="sa-buttons-wrapper sa-d-flex" data-swiper-parallax="-100">
+						<div class="sa-buttons-wrapper sa-d-flex sa-ss-anim-item" style="--sa-ss-i: 4;" data-swiper-parallax="-100">
+							<?php
+							// Lead icon → label → fill circle → trailing icon. Both icon slots are
+							// occupied by design, so the icon has no configurable side. `sa-rounded`
+							// (0.25rem in base.less) is deliberately dropped: the pill radius is now
+							// a LESS default that the Border Radius control overrides.
+							?>
 							<a href="<?php echo esc_url( get_permalink() ); ?>"
-								class="sa-read-more sa-button a-text-decoration-none sa-rounded">
+								class="sa-read-more sa-button sa-text-decoration-none <?php echo esc_attr( $this->get_button_animation_class() ); ?>">
+								<?php $this->render_button_icon( $settings, 'sa-icon-lead' ); ?>
 								<span class="sa-button-text">
 									<?php echo esc_html( $settings['button_text'] ); ?>
 								</span>
-								<?php if ( ! empty( $settings['button_icon']['value'] ) ) : ?>
-								<span class="sa-button-icon sa-icon-wrap">
-									<?php Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ); ?>
-								</span>
-								<?php endif; ?>
+								<span class="sa-ss-btn-fill" aria-hidden="true"></span>
+								<?php $this->render_button_icon( $settings, 'sa-icon-after' ); ?>
 							</a>
-							<?php
-							$this->render_video_button( $settings, $post_id );
-							?>
 						</div>
 
 					</div>
@@ -2642,9 +3057,11 @@ class Stellar_Slider extends Widget_Base {
 
 	protected function render_navigation() {
 		$settings = $this->get_settings_for_display();
+
+		$nav_animation = empty( $settings['navigation_hover_animation'] ) ? '' : 'elementor-animation-' . $settings['navigation_hover_animation'];
 		?>
 		<!-- If we need navigation buttons -->
-		<div class="sa-swiper-button-prev sa-slider-navigation sa-icon-wrap">
+		<div class="sa-swiper-button-prev sa-slider-navigation sa-icon-wrap <?php echo esc_attr( $nav_animation ); ?>">
 			<?php
 			if ( ! empty( $settings['prev_icon']['value'] ) ) :
 				Icons_Manager::render_icon( $settings['prev_icon'], [
@@ -2653,15 +3070,15 @@ class Stellar_Slider extends Widget_Base {
 				] );
 			else :
 				?>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
-					<path d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z" />
+				<svg class="sa-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 				<?php
 			endif;
 			?>
 
 		</div>
-		<div class="sa-swiper-button-next sa-slider-navigation sa-icon-wrap">
+		<div class="sa-swiper-button-next sa-slider-navigation sa-icon-wrap <?php echo esc_attr( $nav_animation ); ?>">
 			<?php
 			if ( ! empty( $settings['next_icon']['value'] ) ) :
 				Icons_Manager::render_icon( $settings['next_icon'], [
@@ -2670,8 +3087,8 @@ class Stellar_Slider extends Widget_Base {
 				] );
 			else :
 				?>
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
-					<path d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z" />
+				<svg class="sa-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 				<?php
 			endif;
@@ -2690,6 +3107,24 @@ class Stellar_Slider extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$id       = 'sa-stellar-slider' . $this->get_id();
 
+		$this->query_posts( $settings['posts_per_page'] );
+		$wp_query = $this->get_query();
+
+		if ( ! $wp_query->found_posts ) {
+			return;
+		}
+
+		$pagination_type = $settings['pagination_type'];
+
+		if ( 'none' === $pagination_type ) {
+			$pagination_type = false;
+		}
+
+		// Parallax and the content entrance animation both drive `transform` on the same
+		// elements, so only one can own them. A saved widget has `content_animation` = none
+		// and keeps parallax exactly as before.
+		$use_parallax = ( 'none' === $settings['content_animation'] ) && ( 'yes' === $settings['parallax_effect'] );
+
 		$this->add_render_attribute(
 			[
 				'slider' => [
@@ -2699,14 +3134,28 @@ class Stellar_Slider extends Widget_Base {
 						wp_json_encode( array_filter( [
 							'effect'       => $settings['transition_effect'],
 							'fadeEffect'   => ( isset( $settings['cross_fade'] ) && 'yes' === $settings['cross_fade'] ) ? [ 'crossFade' => true ] : false,
-							'autoplay'     => $settings['autoplay'] === 'yes' ? [
+							// The Rotate and Slide Shadows controls existed but nothing consumed
+							// them — only `effect` and `fadeEffect` were emitted, so both were dead
+							// even once their effect values were selectable. Swiper reads an effect
+							// block only when `effect` names it, so these are inert otherwise.
+							'coverflowEffect' => ( 'coverflow' === $settings['transition_effect'] ) ? [
+								'rotate'       => ( ! empty( $settings['coverflow_rotate']['size'] ) || 0 === $settings['coverflow_rotate']['size'] ) ? $settings['coverflow_rotate']['size'] : 30,
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ),
+							] : false,
+							'flipEffect'   => ( 'flip' === $settings['transition_effect'] ) ? [
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ),
+							] : false,
+							'cubeEffect'   => ( 'cube' === $settings['transition_effect'] ) ? [
+								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ),
+							] : false,
+							'autoplay'     => 'yes' === $settings['autoplay'] ? [
 								'delay' => $settings['autoplay_speed']['size'] * 1000,
 							] : false,
-							'loop'         => ( $settings['loop'] === 'yes' ) ? true : false,
+							'loop'         => ( 'yes' === $settings['loop'] ) ? true : false,
 							'speed'        => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] * 1000 : 2000,
 							'pauseOnHover' => ( 'yes' === $settings['autoplay'] && 'yes' === $settings['pause_on_hover'] ) ? true : false,
-							'observer'     => $settings['observer'] === 'yes' ? true : false,
-							'parallax'     => true,
+							'observer'     => 'yes' === $settings['observer'] ? true : false,
+							'parallax'     => $use_parallax,
 							'navigation'   => [
 								'nextEl' => "#$id .sa-swiper-button-next",
 								'prevEl' => "#$id .sa-swiper-button-prev",
@@ -2714,8 +3163,8 @@ class Stellar_Slider extends Widget_Base {
 							'pagination'   => [
 								'el'             => "#$id .swiper-pagination",
 								'clickable'      => true,
-								'type'           => $settings['pagination_type'] !== 'none' ? $settings['pagination_type'] : false,
-								'dynamicBullets' => ( isset( $settings['dynamic_bullets'] ) && ( $settings['dynamic_bullets'] === 'yes' ) ) ? true : false,
+								'type'           => $pagination_type,
+								'dynamicBullets' => ( 'bullets' === $settings['pagination_type'] && isset( $settings['dynamic_bullets'] ) && ( 'yes' === $settings['dynamic_bullets'] ) ) ? true : false,
 							],
 
 						] ) ),
@@ -2723,13 +3172,6 @@ class Stellar_Slider extends Widget_Base {
 				],
 			]
 		);
-
-		$this->query_posts( $settings['posts_per_page'] );
-		$wp_query = $this->get_query();
-
-		if ( ! $wp_query->found_posts ) {
-			return;
-		}
 
 		?>
 		<div <?php $this->print_render_attribute_string( 'slider' ); ?>>
@@ -2751,15 +3193,15 @@ class Stellar_Slider extends Widget_Base {
 					?>
 				</div>
 				<?php
-				if ( $settings['show_social_icons'] === 'yes' ) :
+				if ( 'yes' === $settings['show_social_icons'] ) :
 					$this->render_social_icons();
 				endif;
 
-				if ( $settings['show_pagination'] === 'yes' ) :
+				if ( 'yes' === $settings['show_pagination'] ) :
 					$this->render_pagination();
 				endif;
 
-				if ( $settings['show_navigation'] === 'yes' ) :
+				if ( 'yes' === $settings['show_navigation'] ) :
 					?>
 					<div class="sa-navigation-wrapper sa-position-absolute sa-d-flex">
 						<?php $this->render_navigation(); ?>

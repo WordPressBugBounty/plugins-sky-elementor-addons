@@ -38,7 +38,7 @@ class Info_Box extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'card', 'informations', 'box', 'sky' ];
+		return [ 'info', 'box', 'card', 'information', 'icon', 'sky' ];
 	}
 
 	public function get_style_depends() {
@@ -1334,7 +1334,7 @@ class Info_Box extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['image']['url'] ) ) {
-			$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
+			$this->add_render_attribute( 'image', 'src', esc_url( $settings['image']['url'] ) );
 			$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
 			$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
 
@@ -1352,7 +1352,7 @@ class Info_Box extends Widget_Base {
 			// $html .= '<figure class="elementor-image-box-img">' . $image_html . '</figure>';
 		}
 
-		if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] === 'icon' && ! empty( $settings['icon_hover_animation'] ) ) {
+		if ( ! empty( $settings['icon']['value'] ) && 'icon' === $settings['media_type'] && ! empty( $settings['icon_hover_animation'] ) ) {
 			$this->add_render_attribute( 'icon-figure', 'class', 'elementor-animation-' . $settings['icon_hover_animation'] );
 		}
 
@@ -1370,7 +1370,7 @@ class Info_Box extends Widget_Base {
 			$this->add_render_attribute( 'wrapper-link', 'href', 'javascript:void(0);' );
 		}
 
-		$is_clickable_card = $settings['clickable_card'] === 'yes';
+		$is_clickable_card = 'yes' === $settings['clickable_card'];
 		$card_tag          = $is_clickable_card ? 'a' : 'div';
 		?>
 
@@ -1379,13 +1379,13 @@ class Info_Box extends Widget_Base {
 					if ( $is_clickable_card ) :
 						?>
 						<?php $this->print_render_attribute_string( 'wrapper-link' ); ?><?php endif; ?>>
-			<?php if ( ! empty( $settings['image']['url'] ) && $settings['media_type'] === 'image' ) : ?>
+			<?php if ( ! empty( $settings['image']['url'] ) && 'image' === $settings['media_type'] ) : ?>
 				<figure class="sa-infobox-figure sa-media-image">
 					<?php echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) ); ?>
 				</figure>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $settings['icon']['value'] ) && $settings['media_type'] === 'icon' ) : ?>
+			<?php if ( ! empty( $settings['icon']['value'] ) && 'icon' === $settings['media_type'] ) : ?>
 				<?php $this->add_render_attribute( 'icon-figure', 'class', 'sa-infobox-figure sa-icon-wrap sa-text-center' ); ?>
 				<figure <?php $this->print_render_attribute_string( 'icon-figure' ); ?>>
 					<?php
@@ -1430,7 +1430,7 @@ class Info_Box extends Widget_Base {
 
 				if ( ! empty( $settings['desc'] ) ) {
 					$this->add_render_attribute( 'desc', 'class', 'sa-desc sa--text sa--text-info sa-fs-6' );
-					if ( $settings['show_button'] === 'yes' ) {
+					if ( 'yes' === $settings['show_button'] ) {
 						$this->add_render_attribute( 'desc', 'class', 'sa-mb-4 sa-button-exists' );
 					}
 
@@ -1445,10 +1445,10 @@ class Info_Box extends Widget_Base {
 				?>
 
 				<?php
-				if ( $settings['show_button'] === 'yes' ) :
+				if ( 'yes' === $settings['show_button'] ) :
 
 					$this->add_render_attribute( 'btn-link', 'class', 'sa-button sa-d-inline-flex sa-text-decoration-none sa-align-items-center' );
-					$this->add_render_attribute( 'btn-link', 'class', ( $settings['button_full_width'] === 'yes' ) ? ' sa-d-flex' : '' );
+					$this->add_render_attribute( 'btn-link', 'class', ( 'yes' === $settings['button_full_width'] ) ? ' sa-d-flex' : '' );
 
 					if ( ! $is_clickable_card ) {
 						if ( ! empty( $settings['link']['url'] ) ) {
@@ -1478,7 +1478,7 @@ class Info_Box extends Widget_Base {
 					?>
 					<<?php echo esc_attr( $btn_tag ); ?> <?php $this->print_render_attribute_string( 'btn-link' ); ?>>
 						<?php
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && 'before' === $settings['button_icon_position'] ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',
@@ -1497,7 +1497,7 @@ class Info_Box extends Widget_Base {
 							);
 
 						endif;
-						if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+						if ( ! empty( $settings['button_icon']['value'] ) && 'after' === $settings['button_icon_position'] ) {
 							echo '<span class="sa-icon-wrap sa-button-icon">';
 							Icons_Manager::render_icon( $settings['button_icon'], [
 								'aria-hidden' => 'true',

@@ -262,23 +262,84 @@ class Team_Member_Carousel extends Widget_Base {
 		);
 
 		$this->add_control(
+			'image_heading',
+			[
+				'label'     => esc_html__( 'Image', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			[
+				'name'           => 'thumbnail',
+				'default'        => 'large',
+				'separator'      => 'none',
+				'fields_options' => [
+					'size' => [
+						'label' => esc_html__( 'Image Resolution', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_alter_image',
+			[
+				'label'        => esc_html__( 'Alternative Image', 'sky-elementor-addons' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'sa-alter-img-',
+				'render_type'  => 'template',
+				'condition'    => [
+					'content_type' => 'repeater',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Image_Size::get_type(),
+			[
+				'name'           => 'alter_thumbnail',
+				'default'        => 'large',
+				'separator'      => 'none',
+				'fields_options' => [
+					'size' => [
+						'label' => esc_html__( 'Alternative Image Resolution', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+					],
+				],
+				'condition'      => [
+					'content_type'     => 'repeater',
+					'show_alter_image' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'elements_heading',
+			[
+				'label'     => esc_html__( 'Elements', 'sky-elementor-addons' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
 			'name_tag',
 			[
-				'label'     => esc_html__( 'Name HTML Tag', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h3',
-				'options'   => sky_addons_title_tags(),
-				'separator' => 'before',
+				'label'   => esc_html__( 'Name HTML Tag', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'h3',
+				'options' => sky_addons_title_tags(),
 			]
 		);
 
 		$this->add_control(
 			'show_job_title',
 			[
-				'label'     => esc_html__( 'Show Job Title', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
-				'separator' => 'before',
+				'label'   => esc_html__( 'Show Job Title', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 			]
 		);
 
@@ -296,26 +357,11 @@ class Team_Member_Carousel extends Widget_Base {
 		);
 
 		$this->add_control(
-			'show_alter_image',
-			[
-				'label'        => esc_html__( 'Alternative Image', 'sky-elementor-addons' ),
-				'type'         => Controls_Manager::SWITCHER,
-				'prefix_class' => 'sa-alter-img-',
-				'separator'    => 'before',
-				'render_type'  => 'template',
-				'condition'    => [
-					'content_type' => 'repeater',
-				],
-			]
-		);
-
-		$this->add_control(
 			'show_socials',
 			[
-				'label'     => esc_html__( 'Show Social Icons', 'sky-elementor-addons' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'default'   => 'yes',
-				'separator' => 'before',
+				'label'   => esc_html__( 'Show Social Icons', 'sky-elementor-addons' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'yes',
 			]
 		);
 
@@ -378,15 +424,6 @@ class Team_Member_Carousel extends Widget_Base {
 			]
 		);
 
-		$repeater->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			[
-				'name'      => 'thumbnail',
-				'default'   => 'large',
-				'separator' => 'none',
-			]
-		);
-
 		$repeater->add_control(
 			'alter_image',
 			[
@@ -397,15 +434,6 @@ class Team_Member_Carousel extends Widget_Base {
 				],
 				'dynamic'     => [ 'active' => true ],
 				'description' => esc_html__( 'Shown on hover when "Alternative Image" is enabled in the Layout section.', 'sky-elementor-addons' ),
-			]
-		);
-
-		$repeater->add_group_control(
-			Group_Control_Image_Size::get_type(),
-			[
-				'name'      => 'alter_thumbnail',
-				'default'   => 'large',
-				'separator' => 'none',
 			]
 		);
 
@@ -1030,9 +1058,24 @@ class Team_Member_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-team-member .sa-content-area' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_content_padding',
+			[
+				'label'      => esc_html__( 'Overlay Content Padding', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-team-member .sa-overlay-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition'  => [
+					'style_select' => [ 'folk', 'folker', 'slide' ],
 				],
 			]
 		);
@@ -1199,15 +1242,69 @@ class Team_Member_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
+				'size_units' => [ 'px', 'em', 'vh' ],
 				'range'      => [
 					'px' => [
 						'min' => 150,
 						'max' => 800,
 					],
+					'vh' => [
+						'min' => 10,
+						'max' => 100,
+					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-img-area' => 'height: {{SIZE}}{{UNIT}};',
+					// Goes through the variable, not `height` — `.sa-team-member-carousel
+					// .sa-team-member .sa-img-area` in team-member.less is the same specificity
+					// as this selector, so a direct `height` here lost on source order and the
+					// image kept the default 400px box (object-fit never re-cropped).
+					'{{WRAPPER}}' => '--sa-team-member-img-height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_object_fit',
+			[
+				'label'     => esc_html__( 'Image Fit', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => [
+					''        => esc_html__( 'Default (Cover)', 'sky-elementor-addons' ),
+					'cover'   => esc_html__( 'Cover', 'sky-elementor-addons' ),
+					'contain' => esc_html__( 'Contain', 'sky-elementor-addons' ),
+					'fill'    => esc_html__( 'Fill', 'sky-elementor-addons' ),
+					'none'    => esc_html__( 'None', 'sky-elementor-addons' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-team-member-img-fit: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_object_position',
+			[
+				'label'     => esc_html__( 'Image Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => [
+					''              => esc_html__( 'Default (Top Center)', 'sky-elementor-addons' ),
+					'center center' => esc_html__( 'Center Center', 'sky-elementor-addons' ),
+					'center left'   => esc_html__( 'Center Left', 'sky-elementor-addons' ),
+					'center right'  => esc_html__( 'Center Right', 'sky-elementor-addons' ),
+					'top center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
+					'top left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
+					'top right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
+					'bottom center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
+					'bottom left'   => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
+					'bottom right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-team-member-img-position: {{VALUE}};',
+				],
+				'condition' => [
+					'img_object_fit!' => [ 'fill', 'none' ],
 				],
 			]
 		);
@@ -1471,7 +1568,12 @@ class Team_Member_Carousel extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-name' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					// `:not(:last-child)` on every Bottom Spacing control in this widget —
+					// with the job title, text, socials and button all optional, an
+					// unconditional margin-bottom left dead space under whichever element
+					// happened to end the card. team-member.less zeroes the utility classes'
+					// own trailing margin the same way.
+					'{{WRAPPER}} .sa-name:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1580,7 +1682,7 @@ class Team_Member_Carousel extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-job-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-job-title:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1686,7 +1788,7 @@ class Team_Member_Carousel extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-text:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1765,7 +1867,7 @@ class Team_Member_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
+				'size_units' => [ 'px', 'em', 'rem' ],
 				'range'      => [
 					'px' => [
 						'min' => 0,
@@ -1773,8 +1875,10 @@ class Team_Member_Carousel extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link'     => 'margin-right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'margin-right: {{SIZE}}{{UNIT}};',
+					// Feeds the list's `gap`. It used to write `margin-right` on the link AND
+					// on the svg — the svg margin sat inside the link's own padding/background,
+					// so the icon was pushed off-centre inside its coloured box.
+					'{{WRAPPER}} .sky-social-icons-wrapper' => '--sa-social-icons-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1793,7 +1897,11 @@ class Team_Member_Carousel extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link'     => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
+					// Square box, not `width: auto` — Elementor's icon SVGs carry per-glyph
+					// viewBoxes (facebook-f is 320x512, twitter 512x512), so `auto` gave every
+					// platform a different width and the padded pills came out uneven. The
+					// glyph still keeps its ratio inside the box via preserveAspectRatio.
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -2185,6 +2293,12 @@ class Team_Member_Carousel extends Widget_Base {
 		$has_link  = ! empty( $item['link']['url'] );
 		$has_alter = 'yes' === $settings['show_alter_image'] && ! empty( $item['alter_image']['url'] );
 
+		// Image resolution lives on the widget (Layout section), not per member.
+		foreach ( [ 'thumbnail', 'alter_thumbnail' ] as $size_key ) {
+			$item[ $size_key . '_size' ]             = isset( $settings[ $size_key . '_size' ] ) ? $settings[ $size_key . '_size' ] : 'large';
+			$item[ $size_key . '_custom_dimension' ] = isset( $settings[ $size_key . '_custom_dimension' ] ) ? $settings[ $size_key . '_custom_dimension' ] : '';
+		}
+
 		// Both images stay direct siblings (inside a single <a> when linked) so the
 		// `.sa-img-area img:nth-child(2)` rule reliably targets the alternative image.
 		if ( $has_link ) {
@@ -2313,7 +2427,7 @@ class Team_Member_Carousel extends Widget_Base {
 		}
 		?>
 		<div class="sky-social-icons-wrapper">
-			<ul class="sa-m-0 sa-p-0 sa-d-inline">
+			<ul class="sa-m-0 sa-p-0">
 				<?php
 				foreach ( $platforms as $platform_key => $platform ) :
 					$link = isset( $item[ $platform_key ] ) ? $item[ $platform_key ] : [];
@@ -2322,7 +2436,7 @@ class Team_Member_Carousel extends Widget_Base {
 					}
 
 					$key = 'social_' . $index . '_' . $platform_key;
-					$this->add_render_attribute( $key, 'class', [ 'sa-link', 'sa-text-decoration-none', 'sa-me-2' ] );
+					$this->add_render_attribute( $key, 'class', [ 'sa-link', 'sa-text-decoration-none' ] );
 					$this->add_render_attribute( $key, 'href', esc_url( $link['url'] ) );
 
 					if ( ! empty( $link['is_external'] ) ) {
@@ -2333,7 +2447,7 @@ class Team_Member_Carousel extends Widget_Base {
 						$this->add_render_attribute( $key, 'rel', 'nofollow' );
 					}
 					?>
-					<li class="sa-d-inline-block">
+					<li>
 						<a <?php $this->print_render_attribute_string( $key ); ?>>
 							<?php
 							Icons_Manager::render_icon( $platform['icon'], [
@@ -2516,7 +2630,6 @@ class Team_Member_Carousel extends Widget_Base {
 					'id'  => $thumb_id ? $thumb_id : '',
 					'url' => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'full' ) : '',
 				],
-				'thumbnail_size' => 'large',
 				'link'           => [
 					'url'         => get_permalink( $post_id ),
 					'is_external' => '',
@@ -2600,7 +2713,7 @@ class Team_Member_Carousel extends Widget_Base {
 			]
 		);
 		?>
-		<div <?php echo $this->get_render_attribute_string( 'carousel' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'carousel' ); ?>>
 			<div class="swiper">
 				<div class="swiper-wrapper">
 		<?php

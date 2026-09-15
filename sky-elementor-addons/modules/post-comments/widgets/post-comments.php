@@ -104,7 +104,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_wrapper_style',
 			[
-				'label' => esc_html__( 'Wrapper', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Wrapper', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -113,7 +113,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'wrapper_background',
-				'selector' => '{{WRAPPER}} .sa-post-comments',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_)',
 			]
 		);
 
@@ -124,7 +124,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -133,7 +133,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Border::get_type(),
 			[
 				'name'     => 'wrapper_border',
-				'selector' => '{{WRAPPER}} .sa-post-comments',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_)',
 			]
 		);
 
@@ -144,7 +144,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -153,7 +153,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'wrapper_box_shadow',
-				'selector' => '{{WRAPPER}} .sa-post-comments',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_)',
 			]
 		);
 
@@ -164,7 +164,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label' => esc_html__( 'Comments Title', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Comments Title', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -175,7 +175,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comments-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comments-title' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -184,7 +184,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comments-title',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comments-title',
 			]
 		);
 
@@ -201,7 +201,7 @@ class Post_Comments extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comments-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comments-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -212,7 +212,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Divider Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comments-title' => 'border-bottom-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comments-title' => 'border-bottom-color: {{VALUE}};',
 				],
 			]
 		);
@@ -223,7 +223,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Accent Line Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comments-title::after' => 'background: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comments-title::after' => 'background: {{VALUE}};',
 				],
 			]
 		);
@@ -235,7 +235,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_comment_item_style',
 			[
-				'label' => esc_html__( 'Comment Item', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Comment Item', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -244,7 +244,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name'     => 'item_background',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-body',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body',
 			]
 		);
 
@@ -255,7 +255,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -273,7 +273,7 @@ class Post_Comments extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-body' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -282,7 +282,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Border::get_type(),
 			[
 				'name'     => 'item_border',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-body',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body',
 			]
 		);
 
@@ -293,7 +293,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-body' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -302,7 +302,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'item_box_shadow',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-body',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-body',
 			]
 		);
 
@@ -313,7 +313,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_author_style',
 			[
-				'label' => esc_html__( 'Author', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Author', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -331,7 +331,7 @@ class Post_Comments extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-author .avatar' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .avatar' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -353,7 +353,7 @@ class Post_Comments extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-author .avatar' => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .avatar' => 'border-radius: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -364,7 +364,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Avatar Border Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-author .avatar' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .avatar' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -374,7 +374,7 @@ class Post_Comments extends Widget_Base {
 			[
 				'name'     => 'author_name_typography',
 				'label'    => esc_html__( 'Name Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-author .fn a',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .fn a',
 			]
 		);
 
@@ -391,7 +391,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Name Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-author .fn a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .fn a' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -409,7 +409,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Name Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-author .fn a:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-author .fn a:hover' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -425,7 +425,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_meta_style',
 			[
-				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -434,7 +434,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'meta_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-metadata a',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-metadata a',
 			]
 		);
 
@@ -451,7 +451,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-metadata a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-metadata a' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -469,7 +469,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-metadata a:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-metadata a:hover' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -485,7 +485,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_content_style',
 			[
-				'label' => esc_html__( 'Comment Content', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Comment Content', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -496,7 +496,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-content' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-content' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -505,7 +505,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'content_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-content',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-content',
 			]
 		);
 
@@ -516,7 +516,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_reply_link_style',
 			[
-				'label' => esc_html__( 'Reply Link', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Reply Link', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -525,7 +525,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'reply_link_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-reply-link',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link',
 			]
 		);
 
@@ -536,7 +536,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -548,7 +548,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -566,7 +566,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -577,7 +577,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -595,7 +595,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link:hover' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -606,7 +606,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-link:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-link:hover' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -622,7 +622,7 @@ class Post_Comments extends Widget_Base {
 		$this->start_controls_section(
 			'section_form_style',
 			[
-				'label' => esc_html__( 'Comment Form', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Comment Form', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -632,7 +632,7 @@ class Post_Comments extends Widget_Base {
 			[
 				'name'     => 'form_background',
 				'label'    => esc_html__( 'Form Background', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-respond',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-respond',
 			]
 		);
 
@@ -643,7 +643,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-respond' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-respond' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -655,7 +655,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-respond' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-respond' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -675,7 +675,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-reply-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-title' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -684,7 +684,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'form_title_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-reply-title',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-reply-title',
 			]
 		);
 
@@ -703,7 +703,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments .comment-form textarea#comment' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form textarea#comment' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -714,7 +714,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Background Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments .comment-form textarea#comment' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form textarea#comment' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -725,7 +725,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Border Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments .comment-form textarea#comment' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form textarea#comment' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -736,7 +736,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Focus Border Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="text"]:focus, {{WRAPPER}} .sa-post-comments .comment-form input[type="email"]:focus, {{WRAPPER}} .sa-post-comments .comment-form input[type="url"]:focus, {{WRAPPER}} .sa-post-comments .comment-form textarea#comment:focus' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="text"]:focus, {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="email"]:focus, {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="url"]:focus, {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form textarea#comment:focus' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -748,7 +748,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments .comment-form textarea#comment' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="text"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="email"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="url"], {{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form textarea#comment' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -766,7 +766,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'submit_typography',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]',
 			]
 		);
 
@@ -777,7 +777,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -789,7 +789,7 @@ class Post_Comments extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -807,7 +807,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -818,7 +818,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -836,7 +836,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Text Color', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]:hover' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -847,7 +847,7 @@ class Post_Comments extends Widget_Base {
 				'label' => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]:hover' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -856,7 +856,7 @@ class Post_Comments extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'submit_box_shadow_hover',
-				'selector' => '{{WRAPPER}} .sa-post-comments .comment-form input[type="submit"]:hover',
+				'selector' => '{{WRAPPER}} .sa-post-comments:not(#_):not(#_) .comment-form input[type="submit"]:hover',
 			]
 		);
 

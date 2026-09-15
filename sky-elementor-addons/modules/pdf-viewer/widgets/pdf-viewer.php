@@ -241,7 +241,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'show_pdf_badge',
 			[
-				'label'     => esc_html__( 'Show PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label'     => esc_html__( 'Show PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'separator' => 'before',
@@ -254,7 +254,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'badge_text',
 			[
-				'label'   => esc_html__( 'Badge Text', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label'   => esc_html__( 'Badge Text', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => esc_html__( 'PDF', 'sky-elementor-addons' ),
 				'dynamic' => [ 'active' => true ],
@@ -268,7 +268,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'badge_icon',
 			[
-				'label' => esc_html__( 'Badge Icon', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Badge Icon', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'  => Controls_Manager::ICONS,
 				'condition' => [
 					'show_pdf_badge' => 'yes',
@@ -280,7 +280,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_control(
 			'badge_icon_position',
 			[
-				'label'          => esc_html__( 'Icon Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label'          => esc_html__( 'Icon Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'           => Controls_Manager::CHOOSE,
 				'label_block'    => false,
 				'options'        => [
@@ -460,7 +460,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->start_controls_section(
 			'section_header_style',
 			[
-				'label' => esc_html__( 'Header Bar', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'Header Bar', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'conditions' => [
 					'relation' => 'or',
@@ -592,7 +592,7 @@ class PDF_Viewer extends Widget_Base {
 		$this->start_controls_section(
 			'section_badge_style',
 			[
-				'label' => esc_html__( 'PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label' => esc_html__( 'PDF Badge', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_pdf_badge' => 'yes',
@@ -946,17 +946,16 @@ class PDF_Viewer extends Widget_Base {
 
 	private function render_badge( $settings ) {
 		if ( 'yes' !== $settings['show_pdf_badge'] ) {
-			return '';
+			return;
 		}
 
 		$has_icon      = ! empty( $settings['badge_icon']['value'] );
 		$icon_position = $has_icon ? $settings['badge_icon_position'] : '';
 		$badge_classes = 'sa-pdf-badge' . ( $icon_position ? ' sa-badge-icon-' . $icon_position : '' );
 
-		ob_start();
 		echo '<span class="' . esc_attr( $badge_classes ) . '">';
 
-		if ( $has_icon && $icon_position === 'before' ) {
+		if ( $has_icon && 'before' === $icon_position ) {
 			echo '<span class="sa-badge-icon">';
 			Icons_Manager::render_icon( $settings['badge_icon'], [ 'aria-hidden' => 'true' ] );
 			echo '</span>';
@@ -966,14 +965,13 @@ class PDF_Viewer extends Widget_Base {
 			echo '<span class="sa-badge-text">' . esc_html( $settings['badge_text'] ) . '</span>';
 		}
 
-		if ( $has_icon && $icon_position === 'after' ) {
+		if ( $has_icon && 'after' === $icon_position ) {
 			echo '<span class="sa-badge-icon">';
 			Icons_Manager::render_icon( $settings['badge_icon'], [ 'aria-hidden' => 'true' ] );
 			echo '</span>';
 		}
 
 		echo '</span>';
-		return (string) ob_get_clean();
 	}
 
 	private function render_title( $settings ) {
@@ -984,13 +982,13 @@ class PDF_Viewer extends Widget_Base {
 		$this->add_render_attribute( 'title', 'class', 'sa-title sa--title sa--text-title sa-mt-0 sa-mb-1 sa-fs-5' );
 		$this->add_inline_editing_attributes( 'title', 'none' );
 
-		printf(
-			'<div><%1$s %2$s>%3$s%4$s</%1$s></div>',
-			esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
-			wp_kses_post( $this->get_render_attribute_string( 'title' ) ),
-			$this->render_badge( $settings ),
-			wp_kses_post( $settings['title'] )
-		);
+		$title_tag = Utils::validate_html_tag( $settings['title_tag'] );
+
+		// Badge prints directly — its SVG icon wouldn't survive wp_kses_post().
+		printf( '<div><%1$s %2$s>', esc_attr( $title_tag ), wp_kses_post( $this->get_render_attribute_string( 'title' ) ) );
+		$this->render_badge( $settings );
+		echo wp_kses_post( $settings['title'] );
+		printf( '</%1$s></div>', esc_attr( $title_tag ) );
 	}
 
 	private function render_download_button( $settings, $pdf_url ) {
@@ -1012,7 +1010,7 @@ class PDF_Viewer extends Widget_Base {
 		?>
 		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'before' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1032,7 +1030,7 @@ class PDF_Viewer extends Widget_Base {
 				);
 			}
 
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'after' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1062,13 +1060,13 @@ class PDF_Viewer extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$id       = 'sa-pdf-viewer' . $this->get_id();
-		$pdf_url  = ( $settings['source_type'] === 'hosted_url' && ! empty( $settings['hosted_url']['url'] ) )
+		$pdf_url  = ( 'hosted_url' === $settings['source_type'] && ! empty( $settings['hosted_url']['url'] ) )
 			? $settings['hosted_url']['url']
 			: ( ( isset( $settings['remote_url'] ) && ! empty( $settings['remote_url']['url'] ) )
 				? $settings['remote_url']['url']
 				: false );
 
-		if ( $pdf_url === false ) {
+		if ( false === $pdf_url ) {
 			$this->empty_alert();
 			return;
 		}
@@ -1078,7 +1076,7 @@ class PDF_Viewer extends Widget_Base {
 			'data-settings' => [
 				wp_json_encode( array_filter( [
 					'id'     => '#' . $id,
-					'pdfUrl' => $pdf_url,
+					'pdfUrl' => esc_url_raw( $pdf_url ),
 				] ) ),
 			],
 			'data-pdf-settings' => [

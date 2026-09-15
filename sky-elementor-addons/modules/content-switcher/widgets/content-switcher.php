@@ -928,9 +928,9 @@ class Content_Switcher extends Widget_Base {
 	}
 
 	protected function render_binary_switcher_bar( $settings, $primary, $secondary, $id ) {
-		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_checked   = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? 'checked' : '';
+		$switcher_a_activated = 'yes' === $primary['item_active'] ? ' sa-active' : '';
+		$switcher_b_activated = isset( $secondary['item_active'] ) && 'yes' === $secondary['item_active'] ? ' sa-active' : '';
+		$switcher_b_checked   = isset( $secondary['item_active'] ) && 'yes' === $secondary['item_active'] ? 'checked' : '';
 		?>
 		<div
 			class="sa-switch-item sa-d-flex sa-align-items-center sa-me-5 sa-primary<?php echo esc_attr( $switcher_a_activated ); ?> sa-icon-position-<?php echo esc_html( $primary['icon_position'] ); ?>"
@@ -965,7 +965,7 @@ class Content_Switcher extends Widget_Base {
 			<div class="sa-selector"></div>
 			<?php
 			foreach ( $settings['switcher_list'] as $index => $item ) :
-				$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
+				$active_item = 'yes' === $item['item_active'] ? ' sa-active' : '';
 				$_item_id    = $this->get_id() . '-' . $item['_id'];
 
 				$this->add_render_attribute( 'switcher-item' . $index, [
@@ -992,8 +992,8 @@ class Content_Switcher extends Widget_Base {
 	}
 
 	protected function render_binary_content( $primary, $secondary ) {
-		$switcher_a_activated = $primary['item_active'] === 'yes' ? ' sa-active' : '';
-		$switcher_b_activated = isset( $secondary['item_active'] ) && $secondary['item_active'] === 'yes' ? ' sa-active' : '';
+		$switcher_a_activated = 'yes' === $primary['item_active'] ? ' sa-active' : '';
+		$switcher_b_activated = isset( $secondary['item_active'] ) && 'yes' === $secondary['item_active'] ? ' sa-active' : '';
 		?>
 		<div class="sa-switch-content-item sa-text-center sa-primary<?php echo esc_attr( $switcher_a_activated ); ?>"
 			<?php
@@ -1009,7 +1009,7 @@ class Content_Switcher extends Widget_Base {
 				?>
 				data-slug="<?php echo esc_attr( $secondary['item_slug'] ); ?>"<?php endif; ?>>
 			<?php
-			if ( $secondary !== false ) {
+			if ( false !== $secondary ) {
 				$this->render_item_content( $secondary );
 			}
 			?>
@@ -1019,7 +1019,7 @@ class Content_Switcher extends Widget_Base {
 
 	protected function render_button_content( $settings ) {
 		foreach ( $settings['switcher_list'] as $index => $item ) :
-			$active_item = $item['item_active'] === 'yes' ? ' sa-active' : '';
+			$active_item = 'yes' === $item['item_active'] ? ' sa-active' : '';
 			$_item_id    = $this->get_id() . '-' . $item['_id'];
 
 			$this->add_render_attribute( 'content-item' . $index, [

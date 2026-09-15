@@ -62,7 +62,7 @@ final class Core {
 		 * Admin REST API + settings handlers.
 		 * Not wrapped in is_admin() — REST requests bypass the admin flag.
 		 */
-		require_once SKY_ADDONS_INC_PATH . 'admin.php';
+		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-sky-addons-admin.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-dashboard.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/Classes/class-widgets-settings.php';
 		require_once SKY_ADDONS_INC_PATH . 'admin/class-menu.php';
@@ -160,7 +160,7 @@ final class Core {
 	 * @return array
 	 */
 	public function localize_config() {
-		return [
+		$config = [
 			'web_url'     => esc_url( home_url() ),
 			'ajax_url'    => esc_url( admin_url( 'admin-ajax.php' ) ),
 			'rest_url'    => esc_url( rest_url() ),
@@ -171,15 +171,102 @@ final class Core {
 			'pro_version' => defined( 'SKY_ADDONS_PRO_VERSION' ) ? SKY_ADDONS_PRO_VERSION : '',
 			'nonce'       => wp_create_nonce( 'sky_addons_nonce' ),
 			'assets_url'  => SKY_ADDONS_ASSETS_URL,
-			'logo'        => SKY_ADDONS_ASSETS_URL . 'images/sky-logo-gradient.png',
+			'logo'        => SKY_ADDONS_ASSETS_URL . 'images/logo-animated.svg',
 			'root_url'    => SKY_ADDONS_URL,
 			'pro_init'    => apply_filters( 'sky_addons_pro_init', false ),
+			'system_info' => $this->get_system_info(),
 			'current_user' => [
 				'domain'       => esc_url( home_url() ),
 				'display_name' => wp_get_current_user()->display_name,
 				'email'        => wp_get_current_user()->user_email,
 				'id'           => wp_get_current_user()->ID,
 				'avatar'       => get_avatar_url( wp_get_current_user()->ID ),
+			],
+		];
+
+		/**
+		 * Filters the config shared with the admin React apps (Sky Addons Pro's White Label changes name/logo here).
+		 *
+		 * @param array $config
+		 */
+		return apply_filters( 'sky_addons/admin/config', $config );
+	}
+
+	/**
+	 * Server / environment info for the Help & Support page.
+	 *
+	 * Each row: label, value (display string), type (text|bool), status (ok|warn|off)
+	 * so the dashboard can colour it. Read-only — nothing here changes state.
+	 *
+	 * @return array
+	 */
+	public function get_system_info() {
+		$upload_dir       = wp_upload_dir();
+		$uploads_writable = ! empty( $upload_dir['basedir'] ) && wp_is_writable( $upload_dir['basedir'] );
+		$gzip             = function_exists( 'gzencode' );
+		$debug            = defined( 'WP_DEBUG' ) && WP_DEBUG;
+		$php_ok           = version_compare( PHP_VERSION, '7.4', '>=' );
+
+		return [
+			[
+				'label'  => esc_html__( 'PHP Version', 'sky-elementor-addons' ),
+				'value'  => PHP_VERSION,
+				'type'   => 'text',
+				'status' => $php_ok ? 'ok' : 'warn',
+			],
+			[
+				'label'  => esc_html__( 'WordPress Version', 'sky-elementor-addons' ),
+				'value'  => get_bloginfo( 'version' ),
+				'type'   => 'text',
+				'status' => 'ok',
+			],
+			[
+				'label'  => esc_html__( 'Max Execution Time', 'sky-elementor-addons' ),
+				'value'  => ini_get( 'max_execution_time' ) . 's',
+				'type'   => 'text',
+				'status' => (int) ini_get( 'max_execution_time' ) >= 30 || 0 === (int) ini_get( 'max_execution_time' ) ? 'ok' : 'warn',
+			],
+			[
+				'label'  => esc_html__( 'Memory Limit', 'sky-elementor-addons' ),
+				'value'  => ini_get( 'memory_limit' ),
+				'type'   => 'text',
+				'status' => 'ok',
+			],
+			[
+				'label'  => esc_html__( 'Max Post Limit', 'sky-elementor-addons' ),
+				'value'  => ini_get( 'post_max_size' ),
+				'type'   => 'text',
+				'status' => 'ok',
+			],
+			[
+				'label'  => esc_html__( 'Max Upload Size', 'sky-elementor-addons' ),
+				'value'  => ini_get( 'upload_max_filesize' ),
+				'type'   => 'text',
+				'status' => 'ok',
+			],
+			[
+				'label'  => esc_html__( 'Uploads Folder Writable', 'sky-elementor-addons' ),
+				'value'  => $uploads_writable,
+				'type'   => 'bool',
+				'status' => $uploads_writable ? 'ok' : 'warn',
+			],
+			[
+				'label'  => esc_html__( 'MultiSite', 'sky-elementor-addons' ),
+				'value'  => is_multisite() ? esc_html__( 'Multisite', 'sky-elementor-addons' ) : esc_html__( 'Single Site', 'sky-elementor-addons' ),
+				'type'   => 'text',
+				'status' => 'ok',
+			],
+			[
+				'label'  => esc_html__( 'GZip Enabled', 'sky-elementor-addons' ),
+				'value'  => $gzip,
+				'type'   => 'bool',
+				'status' => $gzip ? 'ok' : 'off',
+			],
+			[
+				'label'  => esc_html__( 'Debug Mode', 'sky-elementor-addons' ),
+				'value'  => $debug ? esc_html__( 'Turned On', 'sky-elementor-addons' ) : esc_html__( 'Turned Off', 'sky-elementor-addons' ),
+				'type'   => 'text',
+				'status' => $debug ? 'warn' : 'ok',
 			],
 		];
 	}

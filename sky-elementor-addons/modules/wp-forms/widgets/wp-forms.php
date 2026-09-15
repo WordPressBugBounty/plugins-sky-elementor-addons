@@ -66,6 +66,7 @@ class WpForms extends Widget_Base {
 				[
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
+						/* translators: %1$s: plugin name linked to its install page, %2$s: current user's display name. */
 						__( 'Hello %2$s, looks like %1$s is missing in your site. Please click on the link below and install/activate %1$s. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=WPForms&tab=search&type=term' ) ) . '" target="_blank" rel="noopener">WPForms</a>',
 						esc_html( sky_addons_get_current_user_display_name() )
@@ -353,7 +354,7 @@ class WpForms extends Widget_Base {
 			[
 				'label'        => __( 'Colors', 'sky-elementor-addons' ),
 				'type'         => Controls_Manager::POPOVER_TOGGLE,
-				'label_off'    => __( '', 'sky-elementor-addons' ),
+				'label_off'    => '',
 				'label_on'     => __( 'Custom', 'sky-elementor-addons' ),
 				'return_value' => 'yes',
 			]
@@ -663,6 +664,7 @@ class WpForms extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['form_id'] ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form markup from WPForms' shortcode, escaped by that plugin; wp_kses_post() would strip the form fields.
 			echo sky_addons_do_shortcode( 'wpforms', [
 				'id' => (int) $settings['form_id'],
 			] );

@@ -38,7 +38,7 @@
             }
 
             // Label Fade Duration
-            if ($settings.labelOptionsonHover && $settings.labelFadeDuration && $settings.labelFadeDuration !== 0.25) {
+            if ($settings.labelOptions && $settings.labelOptions.onHover && $settings.labelFadeDuration && $settings.labelFadeDuration !== 0.25) {
                 $(element).find('.icv__label.on-hover').css('transition-duration', $settings.labelFadeDuration + 's');
             }
 

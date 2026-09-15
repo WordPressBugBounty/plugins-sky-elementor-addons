@@ -545,7 +545,14 @@ class Mate_Slider extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-img-wrapper' => 'min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
+					// `height` as well as min/max — without it the box is sized but the percentage
+					// inside it is not. `.sa-post-img-wrapper img` is `height: 100%` (base.less), and a
+					// percentage height resolves against the containing block's `height` property. With
+					// only min/max-height set, `height` stays `auto`, the percentage is indeterminate and
+					// collapses to `auto` — so the image kept its natural ratio inside a taller box,
+					// leaving dead space, and `object-fit: cover` never engaged. min/max are kept so the
+					// box is still pinned if anything else tries to stretch it.
+					'{{WRAPPER}} .sa-post-img-wrapper' => 'height: {{SIZE}}{{UNIT}}; min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1265,7 +1272,10 @@ class Mate_Slider extends Widget_Base {
 		// }
 		?>
 		<div class="swiper-slide">
-			<?php $this->render_post_thumb_with_video( $post_id, 'full' ); ?>
+			<?php // Not 'full' — the caller resolves $image_size from the Image Size control
+					// (primary_thumbnail_size, default 'large'). Hardcoding it here meant the
+					// control had no effect at all and every slide loaded the full-size file. ?>
+			<?php $this->render_post_thumb_with_video( $post_id, $image_size ); ?>
 		</div>
 		<?php
 	}
@@ -1305,7 +1315,9 @@ class Mate_Slider extends Widget_Base {
 		?>
 		<div class="sa-post-date-wrapper sa-d-flex sa-align-items-center">
 			<div class="sa-icon-wrap sa-me-1">
-				<i class="eicon-calendar"></i>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" aria-hidden="true">
+					<path d="M917 246V883C917 933 875 971 829 971H171C125 967 83 929 83 879V246C83 196 125 158 171 158H258V62C263 50 271 42 283 42H358C371 42 379 50 379 62V158H617V62C617 50 625 42 638 42H713C725 42 733 50 733 62V158H821C875 158 917 196 917 246ZM829 871V329H171V867C171 871 175 879 183 879H817C821 879 829 875 829 871ZM358 504H283C271 504 263 496 263 483V408C263 396 271 387 283 387H358C371 387 379 396 379 408V479C379 492 371 504 358 504ZM558 483C558 496 550 504 538 504H463C450 504 442 496 442 483V408C442 396 450 387 463 387H538C550 387 558 396 558 408V483ZM738 483C738 496 729 504 717 504H642C629 504 621 496 621 483V408C621 396 629 387 642 387H717C729 387 738 396 738 408V483ZM558 642C558 654 550 662 538 662H463C450 662 442 654 442 642V571C442 558 450 550 463 550H538C550 550 558 558 558 571V642ZM379 642C379 654 371 662 358 662H283C271 662 263 654 263 642V571C263 558 271 550 283 550H358C371 550 379 558 379 571V642ZM738 642C738 654 729 662 717 662H642C629 662 621 654 621 642V571C621 558 629 550 642 550H717C729 550 738 558 738 571V642ZM558 800C558 812 550 821 538 821H463C450 821 442 812 442 800V729C442 717 450 708 463 708H538C550 708 558 717 558 729V800ZM379 800C379 812 371 821 358 821H283C271 821 263 812 263 800V729C263 717 271 708 283 708H358C371 708 379 717 379 729V800ZM738 800C738 812 729 821 717 821H642C629 821 621 812 621 800V729C621 717 629 708 642 708H717C729 708 738 717 738 729V800Z"></path>
+				</svg>
 			</div>
 			<?php
 			$this->render_post_date();
@@ -1419,10 +1431,10 @@ class Mate_Slider extends Widget_Base {
 						wp_json_encode( array_filter( [
 							// 'autoHeight'    => true,
 							'direction'     => 'horizontal',
-							'loop'          => ( $settings['loop'] === 'yes' ) ? true : false,
-							'autoplay'      => $settings['autoplay'] === 'yes' ? [ 'delay' => $settings['autoplay_speed']['size'] ] : false,
+							'loop'          => ( 'yes' === $settings['loop'] ) ? true : false,
+							'autoplay'      => 'yes' === $settings['autoplay'] ? [ 'delay' => $settings['autoplay_speed']['size'] ] : false,
 							'speed'         => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1500,
-							'pauseOnHover'  => ( $settings['autoplay'] === 'yes' && $settings['pause_on_hover'] === 'yes' ) ? true : false,
+							'pauseOnHover'  => ( 'yes' === $settings['autoplay'] && 'yes' === $settings['pause_on_hover'] ) ? true : false,
 							'effect'        => 'slide',
 							'slidesPerView' => 1,
 							'loopedSlides'  => 4,
@@ -1437,7 +1449,7 @@ class Mate_Slider extends Widget_Base {
 						wp_json_encode( array_filter( [
 							// 'autoHeight'            => true,
 							'direction'             => 'horizontal',
-							'loop'                  => ( $settings['loop'] === 'yes' ) ? true : false,
+							'loop'                  => ( 'yes' === $settings['loop'] ) ? true : false,
 							'speed'                 => ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1500,
 							'slidesPerView'         => 1,
 							'loopedSlides'          => 4,
@@ -1468,7 +1480,7 @@ class Mate_Slider extends Widget_Base {
 					?>
 				</div>
 				<?php
-				if ( $settings['show_navigation'] === 'yes' ) :
+				if ( 'yes' === $settings['show_navigation'] ) :
 					$this->render_navigation();
 				endif;
 				?>

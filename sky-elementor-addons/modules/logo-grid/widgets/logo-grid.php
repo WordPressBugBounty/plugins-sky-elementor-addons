@@ -966,7 +966,7 @@ class Logo_Grid extends Widget_Base {
 			<?php
 			foreach ( $settings['logo_list'] as $index => $item ) :
 				$link_key    = 'link-attr-' . $index;
-				$has_tooltip = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' );
+				$has_tooltip = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( 'yes' === $item['show_tooltip'] );
 				$tippy_class = $has_tooltip ? ' sa-tippy-tooltip' : '';
 				$flex_dir    = ( 'yes' === $settings['show_brand_name'] ) ? ' sa-flex-column' : '';
 
@@ -994,21 +994,23 @@ class Logo_Grid extends Widget_Base {
 					$title_html      = ! empty( $item['brand_name'] ) ? '<span class="sa-tippy-title sa-d-block sa-fw-bold mb-1 sa-fw-5">' . wp_kses_post( $item['brand_name'] ) . '</span>' : '';
 					$tooltip_content = $title_html . wp_kses_post( $item['brand_text'] );
 					$this->add_render_attribute( $link_key, 'data-tippy', '' );
-					$this->add_render_attribute( $link_key, 'data-tippy-content', $tooltip_content );
+					// Tippy reads this attribute decoded and injects it as HTML (allowHTML). esc_attr() won't double-encode,
+					// so an entity-encoded payload would survive wp_kses_post() — encode once more here.
+					$this->add_render_attribute( $link_key, 'data-tippy-content', htmlspecialchars( $tooltip_content, ENT_QUOTES, 'UTF-8', true ) );
 					if ( $item['tooltip_placement'] ) {
 						$this->add_render_attribute( $link_key, 'data-tippy-placement', esc_attr( $item['tooltip_placement'] ) );
 					}
 					if ( $settings['tooltip_animation'] ) {
 						$this->add_render_attribute( $link_key, 'data-tippy-animation', esc_attr( $settings['tooltip_animation'] ) );
 					}
-					if ( $settings['tooltip_offset_popover'] === 'yes' ) {
+					if ( 'yes' === $settings['tooltip_offset_popover'] ) {
 						if ( $settings['tooltip_x_offset']['size'] || $settings['tooltip_y_offset']['size'] ) {
 							$this->add_render_attribute( $link_key, 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']' );
 						}
 					}
-					$arrow = $settings['tooltip_arrow'] === 'yes' ? 'true' : 'false';
+					$arrow = 'yes' === $settings['tooltip_arrow'] ? 'true' : 'false';
 					$this->add_render_attribute( $link_key, 'data-tippy-arrow', $arrow );
-					if ( $settings['tooltip_trigger_on_click'] === 'yes' ) {
+					if ( 'yes' === $settings['tooltip_trigger_on_click'] ) {
 						$this->add_render_attribute( $link_key, 'data-tippy-trigger', 'click' );
 					}
 				endif;
@@ -1038,7 +1040,7 @@ class Logo_Grid extends Widget_Base {
 						</figure>
 						<?php
 						if ( 'yes' === $settings['show_brand_name'] && ! empty( $item['brand_name'] ) ) :
-							$brand_tag = $settings['brand_name_tag'];
+							$brand_tag = Utils::validate_html_tag( $settings['brand_name_tag'] );
 							printf( '<%1$s class="sa-brand-name">%2$s</%1$s>', tag_escape( $brand_tag ), esc_html( $item['brand_name'] ) );
 						endif;
 						?>

@@ -34,6 +34,14 @@ class Theme_Builder {
 
 	public function includes() {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-builder-data.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-builder-context.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-template-router.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-preview-manager.php';
+		require_once SKY_ADDONS_INC_PATH . 'theme-builder/class-live-preview.php';
+
+		Builder_Context::instance();
+		Preview_Manager::instance();
+		Live_Preview::instance();
 
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/astra.php';
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/themes/bbtheme.php';
@@ -48,7 +56,35 @@ class Theme_Builder {
 		require_once SKY_ADDONS_INC_PATH . 'theme-builder/support/custom-hooks.php';
 	}
 
+	/**
+	 * Requests that can never render a Theme Builder template.
+	 *
+	 * Feeds, robots.txt, sitemaps, favicon, trackbacks and oEmbed responses all
+	 * run past the `wp` action and then exit at `template_redirect`, before
+	 * `template_include` is ever reached — so every template query, meta prime
+	 * and theme-support class built for them is pure waste. On a crawled site
+	 * these are a meaningful share of all requests.
+	 *
+	 * REST, admin-ajax and cron never reach `wp` at all, so they need no guard.
+	 * 404 deliberately is NOT listed — a 404 template is a supported type.
+	 *
+	 * @return bool
+	 */
+	private function is_ignorable_request() {
+		return is_feed() || is_robots() || is_favicon() || is_trackback() || is_embed();
+	}
+
 	public function hooks() {
+		if ( $this->is_ignorable_request() ) {
+			return;
+		}
+
+		// A live preview renders the template alone on Elementor's Canvas. Injecting
+		// the site's assigned header, footer or Custom Hooks around it would bury the
+		// design being previewed inside unrelated chrome.
+		if ( Live_Preview::instance()->is_preview_request() ) {
+			return;
+		}
 
 		$this->current_template = basename( get_page_template_slug() );
 
@@ -112,6 +148,17 @@ class Theme_Builder {
 	 * Apply Conditions for Header, Footer, Single, Archive, 404
 	 */
 	public function apply_conditions() {
+		if ( $this->is_ignorable_request() ) {
+			return;
+		}
+
+		// A live preview renders the template alone on Elementor's Canvas. Injecting
+		// the site's assigned header, footer or Custom Hooks around it would bury the
+		// design being previewed inside unrelated chrome.
+		if ( Live_Preview::instance()->is_preview_request() ) {
+			return;
+		}
+
 		$this->templates = $this->get_theme_templates();
 		$this->match_conditions();
 		$this->get_custom_hooks();
@@ -208,6 +255,9 @@ class Theme_Builder {
 		} elseif ( is_archive() && in_array( 'archive_page', $display_special_values ) ) {
 			// is_archive() covers category, tag, author, date, CPT archives
 			$location_match = true;
+		} elseif ( is_search() && in_array( 'search_page', $display_special_values ) ) {
+			// is_search() is NOT covered by is_archive() — search needs its own option
+			$location_match = true;
 		} elseif ( is_404() && in_array( '404_page', $display_special_values ) ) {
 			$location_match = true;
 		} elseif ( is_singular() && $post && in_array( (string) $post->ID, $display_custom_values ) ) {
@@ -273,6 +323,10 @@ class Theme_Builder {
 			return false;
 		}
 
+		if ( is_search() && in_array( 'search_page', $not_display_special_values ) ) {
+			return false;
+		}
+
 		if ( is_404() && in_array( '404_page', $not_display_special_values ) ) {
 			return false;
 		}
@@ -319,16 +373,68 @@ class Theme_Builder {
 
 	/**
 	 * Get All Templates IDs
+	 *
+	 * The archive-family keys (category / tag / author / date / home / search)
+	 * are aliases of the resolved `archive` template. There is deliberately no
+	 * separate template type for each: one Archive template covers every
+	 * archive screen, and narrowing is done with display conditions. The alias
+	 * keys exist so the per-screen template files stay meaningful override
+	 * points for theme authors.
 	 */
 	public static function template_ids() {
 		$instance = self::instance();
+		$archive  = $instance->archive_template;
+
 		return [
-			'header'  => $instance->header_template,
-			'footer'  => $instance->footer_template,
-			'single'  => $instance->single_template,
-			'archive' => $instance->archive_template,
-			'404'     => $instance->not_found_template,
+			'header'   => $instance->header_template,
+			'footer'   => $instance->footer_template,
+			'single'   => $instance->single_template,
+			'archive'  => $archive,
+			'404'      => $instance->not_found_template,
+			'category' => $archive,
+			'tag'      => $archive,
+			'author'   => $archive,
+			'date'     => $archive,
+			'home'     => $archive,
+			'search'   => $archive,
 		];
+	}
+
+	/**
+	 * Render a resolved Theme Builder template.
+	 *
+	 * Every template file in templates/ calls this, so the Elementor guard, the
+	 * before/after hooks and the postdata reset live in exactly one place.
+	 *
+	 * The Elementor content is printed *outside* the loop on purpose: widgets
+	 * resolve their post through Builder_Context (queried object), and archive
+	 * widgets read the untouched main query. Opening the loop here would leave
+	 * the global pointer on the last post of the archive.
+	 *
+	 * @param string $type Template type key from template_ids().
+	 */
+	public static function render_template( $type ) {
+		$templates = self::template_ids();
+
+		/**
+		 * Fires inside a Theme Builder template, before the Elementor content.
+		 *
+		 * @param string $type Template type being rendered.
+		 */
+		do_action( 'wowdevs_themes_builder_template_before_main_content', $type );
+
+		if ( ! empty( $templates[ $type ] ) && class_exists( '\Elementor\Plugin' ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor-rendered builder content.
+			echo wowdevs_render_elementor_content( $templates[ $type ] );
+			wp_reset_postdata();
+		}
+
+		/**
+		 * Fires inside a Theme Builder template, after the Elementor content.
+		 *
+		 * @param string $type Template type being rendered.
+		 */
+		do_action( 'wowdevs_themes_builder_template_after_main_content', $type );
 	}
 
 	/**
@@ -353,25 +459,6 @@ class Theme_Builder {
 		return false;
 	}
 
-	/**
-	 * Get Template Path
-	 *
-	 * @param $slug
-	 * @param $default_path
-	 *
-	 * @return mixed|string|void
-	 */
-	protected function get_template_path( $slug, $default_path = '' ) {
-		$phpSlug = "{$slug}.php";
-
-		$template = $this->get_plugin_template_path( $phpSlug );
-		if ( $template ) {
-			return $template;
-		}
-
-		return $default_path;
-	}
-
 	protected function set_edit_template( $template ) {
 		return $template;
 	}
@@ -386,86 +473,13 @@ class Theme_Builder {
 			}
 		}
 
-		// single posts
-		if ( is_single() && 'post' === get_post_type() ) {
-			$custom_template = $this->get_template_id( 'single', 'post' );
-			if ( $custom_template ) {
-				$this->current_template = $custom_template;
-				return $this->get_template_path( 'posts/single', $template );
-			}
-		}
-
-		// archive page
-		if ( ( is_archive() || is_home() ) && get_post_type( get_the_ID() ) === 'post' ) {
-			if ( is_category() ) {
-				$custom_template = $this->get_template_id( 'category', 'post' );
-				if ( $custom_template ) {
-					$this->current_template = $custom_template;
-					return $this->get_template_path( 'posts/category', $template );
-				}
-			} elseif ( is_tag() ) {
-				$custom_template = $this->get_template_id( 'tag', 'post' );
-				if ( $custom_template ) {
-					$this->current_template = $custom_template;
-					return $this->get_template_path( 'posts/tag', $template );
-				}
-			} elseif ( is_author() ) {
-				$custom_template = $this->get_template_id( 'author', 'post' );
-				if ( $custom_template ) {
-					$this->current_template = $custom_template;
-					return $this->get_template_path( 'posts/author', $template );
-				}
-			} elseif ( is_date() ) {
-				$custom_template = $this->get_template_id( 'date', 'post' );
-				if ( $custom_template ) {
-					$this->current_template = $custom_template;
-					return $this->get_template_path( 'posts/date', $template );
-				}
-			} else {
-				$custom_template = $this->get_template_id( 'archive', 'post' );
-				if ( $custom_template ) {
-					$this->current_template = $custom_template;
-					return $this->get_template_path( 'posts/archive', $template );
-				}
-			}
-		}
-
-		// Pages
-		if ( is_page() && is_page_template() && 'page' === get_post_type() ) {
-			$custom_template = $this->get_template_id( 'single', 'page' );
-			if ( $custom_template ) {
-				$this->current_template = $custom_template;
-				return $this->get_template_path( 'pages/single', $template );
-			}
-		}
-
-		// 404 page
-		if ( is_404() ) {
-			$custom_template = $this->get_template_id( '404', 'page' );
-			if ( $custom_template ) {
-				$this->current_template = $custom_template;
-				return $this->get_template_path( 'pages/404', $template );
-			}
-		}
-
-		// search page
-		if ( is_search() ) {
-			$custom_template = $this->get_template_id( 'search', 'page' );
-			if ( $custom_template ) {
-				$this->current_template = $custom_template;
-				return $this->get_template_path( 'pages/search', $template );
-			}
-		}
-
-		return $template;
-	}
-
-	protected function get_template_id( $type, $post_type ) {
-		$template_ids = self::template_ids();
-		if ( isset( $template_ids[ $type ] ) ) {
-			return $template_ids[ $type ];
-		}
-		return false;
+		// $this->current_template is deliberately NOT written here. On the `wp`
+		// action hooks() stores a page-template *slug* in it and compares that
+		// slug to 'elementor_canvas'. Writing a template post ID into the same
+		// property would leave it holding two unrelated types, and nothing reads
+		// it after this point. Template_Router::get_matched_template_id() is the
+		// accessor if the resolved ID is ever needed.
+		return Template_Router::instance()->resolve( $template );
 	}
 
 	public function get_plugin_template_path( $slug ) {
@@ -476,19 +490,35 @@ class Theme_Builder {
 		}
 	}
 
+	/**
+	 * Register the Custom Hooks templates that matched the current page.
+	 *
+	 * Reads $this->custom_hooks — the list assign_template() builds from
+	 * condition-matched templates only.
+	 *
+	 * Before 4.5.0 this method re-walked $this->templates (every *enabled*
+	 * template, matched or not), so a Custom Hook restricted to, say, the front
+	 * page still rendered its full Elementor document on every page of the site:
+	 * the Display On / Exclude From settings were collected correctly and then
+	 * ignored. That also made unmatched hooks the single largest per-request
+	 * cost in the theme builder.
+	 */
 	public function get_custom_hooks() {
-		if ( empty( $this->templates ) ) {
+		if ( empty( $this->custom_hooks ) ) {
 			return;
 		}
-		foreach ( $this->templates as $template ) {
-			$meta        = get_post_meta( $template->ID );
-			$type        = isset( $meta['wowdevs_theme_builder_type'][0] ) ? $meta['wowdevs_theme_builder_type'][0] : '';
-			$template_id = $template->ID;
-			if ( 'custom_hooks' === $type ) {
-				$hook_name     = isset( $meta['wowdevs_theme_builder_hook'][0] ) ? $meta['wowdevs_theme_builder_hook'][0] : '';
-				$hook_priority = isset( $meta['wowdevs_theme_builder_hook_priority'][0] ) ? $meta['wowdevs_theme_builder_hook_priority'][0] : 10;
-				new \Sky_Addons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
+
+		foreach ( $this->custom_hooks as $template_id ) {
+			$hook_name = get_post_meta( $template_id, 'wowdevs_theme_builder_hook', true );
+
+			if ( empty( $hook_name ) ) {
+				continue;
 			}
+
+			$hook_priority = get_post_meta( $template_id, 'wowdevs_theme_builder_hook_priority', true );
+			$hook_priority = ( '' === $hook_priority || null === $hook_priority ) ? 10 : (int) $hook_priority;
+
+			new \Sky_Addons\ThemeBuilder\Custom_Hooks( $hook_name, $hook_priority, $template_id );
 		}
 	}
 

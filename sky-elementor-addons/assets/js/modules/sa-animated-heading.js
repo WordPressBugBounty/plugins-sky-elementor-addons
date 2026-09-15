@@ -21,7 +21,11 @@ var widgetAnimatedHeading = function ($scope, $) {
         if ('typed' === style) {
             new Typed('#' + selector, $settings);
         } else if ('animated' === style) {
-            $('#' + selector).Morphext($settings);
+            // Morphext reads .text() (entities decoded) and writes innerHTML — feed it the
+            // escaped markup so a title like <img onerror> renders as text, not HTML.
+            var $morph = $('#' + selector);
+            $morph.text($morph.html());
+            $morph.Morphext($settings);
         } else if ('highlight' === style) {
             saHighlight('#' + selector, $settings);
         } else if ('glitch' === style) {
@@ -162,6 +166,23 @@ function saCharWord(selector, settings, isRtl, cls, makeSpan) {
     setInterval(showWord, interval);
 }
 
+// Throw distance for the char-flight styles, in px-per-em of the heading itself.
+// Hardcoded px cannot work at both ends: 70px is twice the box of a single short word
+// (its chars land outside the widget, ghosting over whatever sits next to it) and barely
+// a nudge on a 120px display heading.
+function saEm($el) {
+    return parseFloat($el.css('font-size')) || 16;
+}
+
+// Builds one character span. Whitespace gets an extra class because the char
+// spans are display:inline-block, and a lone collapsible space inside an
+// inline-block renders at zero width — `.sa-char-space` restores it.
+function saCharSpan(cls, ch) {
+    var $char = $('<span>').addClass(cls).text(ch);
+    if (/\s/.test(ch)) { $char.addClass('sa-char-space'); }
+    return $char;
+}
+
 function saSplitChars(selector, settings, isRtl) {
     var $el = $(selector);
     var words = settings.strings || [];
@@ -172,12 +193,17 @@ function saSplitChars(selector, settings, isRtl) {
 
     function decodeHtml(html) { return $('<span>').html(html).text(); }
 
+    function throwDistance() {
+        return saEm($el) * 0.9;
+    }
+
     function makeWordSpan(word) {
         var $wrap = $('<span class="sa-split-word">');
+        var d = throwDistance();
         if (isRtl) { $wrap.attr('dir', 'rtl'); }
         decodeHtml(word).split('').forEach(function (ch, idx) {
-            var tx = (Math.random() * 140 - 70), ty = (Math.random() * 140 - 70), rot = (Math.random() * 300 - 150);
-            var $char = $('<span class="sa-split-char">').text(ch === ' ' ? ' ' : ch);
+            var tx = (Math.random() * 2 - 1) * d, ty = (Math.random() * 2 - 1) * d, rot = (Math.random() * 300 - 150);
+            var $char = saCharSpan('sa-split-char', ch);
             $char.css({ transform: 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg)', opacity: 0 });
             $wrap.append($char);
             setTimeout(function () {
@@ -191,8 +217,9 @@ function saSplitChars(selector, settings, isRtl) {
         var $old = $el.find('.sa-split-word');
         if ($old.length) {
             $old.css({ position: 'absolute', left: 0, top: 0 });
+            var d = throwDistance();
             $old.find('.sa-split-char').each(function (idx) {
-                var $c = $(this), tx = (Math.random() * 140 - 70), ty = (Math.random() * 140 - 70), rot = (Math.random() * 300 - 150);
+                var $c = $(this), tx = (Math.random() * 2 - 1) * d, ty = (Math.random() * 2 - 1) * d, rot = (Math.random() * 300 - 150);
                 setTimeout(function () {
                     $c.css({ transform: 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg)', opacity: 0, transition: 'transform 0.35s ease, opacity 0.28s ease' });
                 }, idx * 25);
@@ -220,7 +247,7 @@ function saGravity(selector, settings, isRtl) {
         var $wrap = $('<span class="sa-gravity-word">');
         if (isRtl) { $wrap.attr('dir', 'rtl'); }
         decodeHtml(word).split('').forEach(function (ch, idx) {
-            $wrap.append($('<span class="sa-gravity-char">').text(ch === ' ' ? ' ' : ch).css('animation-delay', (idx * 40) + 'ms'));
+            $wrap.append(saCharSpan('sa-gravity-char', ch).css('animation-delay', (idx * 40) + 'ms'));
         });
         return $wrap;
     }
@@ -252,7 +279,7 @@ function saFlipChars(selector, settings, isRtl) {
         var $wrap = $('<span class="sa-flip-word">');
         if (isRtl) { $wrap.attr('dir', 'rtl'); }
         decodeHtml(word).split('').forEach(function (ch, idx) {
-            $wrap.append($('<span class="sa-flip-char">').text(ch === ' ' ? ' ' : ch).css('animation-delay', (idx * 50) + 'ms'));
+            $wrap.append(saCharSpan('sa-flip-char', ch).css('animation-delay', (idx * 50) + 'ms'));
         });
         return $wrap;
     }
@@ -282,12 +309,13 @@ function saVortex(selector, settings, isRtl) {
 
     function makeWordSpan(word) {
         var $wrap = $('<span class="sa-vortex-word">');
+        var step = saEm($el) * 0.8;
         if (isRtl) { $wrap.attr('dir', 'rtl'); }
         var chars = decodeHtml(word).split('');
         chars.forEach(function (ch, idx) {
-            var cx = (idx - (chars.length - 1) / 2), rot = (Math.random() * 360 - 180);
-            var $char = $('<span class="sa-vortex-char">').text(ch === ' ' ? ' ' : ch);
-            $char.css({ transform: 'translateX(' + (-cx * 28) + 'px) rotate(' + rot + 'deg) scale(0)', opacity: 0 });
+            var cx = (idx - (chars.length - 1) / 2) * step, rot = (Math.random() * 360 - 180);
+            var $char = saCharSpan('sa-vortex-char', ch);
+            $char.css({ transform: 'translateX(' + (-cx) + 'px) rotate(' + rot + 'deg) scale(0)', opacity: 0 });
             $wrap.append($char);
             setTimeout(function () {
                 $char.css({ transform: 'translateX(0) rotate(0deg) scale(1)', opacity: 1, transition: 'transform 0.6s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease' });
@@ -301,10 +329,11 @@ function saVortex(selector, settings, isRtl) {
         if ($old.length) {
             $old.css({ position: 'absolute', left: 0, top: 0 });
             var total = $old.find('.sa-vortex-char').length;
+            var step = saEm($el) * 0.8;
             $old.find('.sa-vortex-char').each(function (idx) {
-                var $c = $(this), cx = (idx - (total - 1) / 2), rot = (Math.random() * 360 - 180);
+                var $c = $(this), cx = (idx - (total - 1) / 2) * step, rot = (Math.random() * 360 - 180);
                 setTimeout(function () {
-                    $c.css({ transform: 'translateX(' + (-cx * 28) + 'px) rotate(' + rot + 'deg) scale(0)', opacity: 0, transition: 'transform 0.35s ease, opacity 0.28s ease' });
+                    $c.css({ transform: 'translateX(' + (-cx) + 'px) rotate(' + rot + 'deg) scale(0)', opacity: 0, transition: 'transform 0.35s ease, opacity 0.28s ease' });
                 }, idx * 30);
             });
             setTimeout(function () { $old.remove(); }, 550);
@@ -331,7 +360,7 @@ function saWaveIn(selector, settings, isRtl) {
         var $wrap = $('<span>');
         if (isRtl) { $wrap.attr('dir', 'rtl'); }
         decodeHtml(words[i++ % words.length]).split('').forEach(function (ch, idx) {
-            $wrap.append($('<span class="sa-wave-char">').text(ch === ' ' ? ' ' : ch).css('animation-delay', (idx * 55) + 'ms'));
+            $wrap.append(saCharSpan('sa-wave-char', ch).css('animation-delay', (idx * 55) + 'ms'));
         });
         $el.append($wrap);
     }

@@ -61,6 +61,7 @@ class Cf7 extends Widget_Base {
 				[
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
+						/* translators: %1$s: plugin name linked to its install page, %2$s: current user's display name. */
 						esc_html__( 'Hello %2$s! It looks like %1$s is not installed or activated on your site. Please install and activate it to use this widget. Click the link below to install/activate %1$s, then refresh this page.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=Contact+Form+7&tab=search&type=term' ) ) . '" target="_blank" rel="noopener"><strong>Contact Form 7</strong></a>',
 						sky_addons_get_current_user_display_name()
@@ -775,6 +776,7 @@ class Cf7 extends Widget_Base {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form markup from Contact Form 7's shortcode, escaped by that plugin; wp_kses_post() would strip the form fields.
 		echo sky_addons_do_shortcode( 'contact-form-7', [
 			'id'         => $settings['form_id'],
 			'html_class' => 'sky-cf7-form ' . sky_addons_sanitize_html_class_param( $settings['html_class'] ),

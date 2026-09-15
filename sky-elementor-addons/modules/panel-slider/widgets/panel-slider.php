@@ -17,6 +17,7 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Widget_Base;
 
 use Sky_Addons\Traits\Global_Swiper_Controls;
+use Sky_Addons\Includes\Controls\GroupQuery\Group_Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,6 +26,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Panel_Slider extends Widget_Base {
 
 	use Global_Swiper_Controls;
+	use Group_Control;
+
+	private $_query = null;
+
+	public function get_query() {
+		return $this->_query;
+	}
+
+	public function query_posts( $posts_per_page ) {
+		$default = $this->getGroupControlQueryArgs();
+		$args    = [];
+
+		if ( $posts_per_page ) {
+			$args['posts_per_page'] = $posts_per_page;
+			$args['paged']          = max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+		}
+
+		$args         = array_merge( $default, $args );
+		$this->_query = new \WP_Query( $args );
+	}
 
 	public function get_name() {
 		return 'sky-panel-slider';
@@ -97,6 +118,20 @@ class Panel_Slider extends Widget_Base {
 				'tablet_default' => 2,
 				'mobile_default' => 1,
 				'render_type'    => 'template',
+			]
+		);
+
+		$this->add_control(
+			'content_source',
+			[
+				'label'       => esc_html__( 'Source', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'repeater',
+				'options'     => [
+					'repeater'      => esc_html__( 'Default Repeater', 'sky-elementor-addons' ),
+					'dynamic_posts' => esc_html__( 'Dynamic Posts', 'sky-elementor-addons' ),
+				],
+				'description' => esc_html__( 'Default Repeater: build slides by hand. Dynamic Posts: pull slides from a post query (set it in the Query tab). The slide title shows the post title, the text shows the trimmed excerpt, the image is the featured image and the link points to the post.', 'sky-elementor-addons' ),
 			]
 		);
 
@@ -185,6 +220,19 @@ class Panel_Slider extends Widget_Base {
 					],
 				],
 				'title_field' => '{{{ title }}}',
+				'condition'   => [ 'content_source' => 'repeater' ],
+			]
+		);
+
+		$this->add_control(
+			'content_length',
+			[
+				'label'       => esc_html__( 'Content Length (words)', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::NUMBER,
+				'min'         => 0,
+				'default'     => 18,
+				'description' => esc_html__( 'Trim the post excerpt to this many words. 0 means no limit.', 'sky-elementor-addons' ),
+				'condition'   => [ 'content_source' => 'dynamic_posts' ],
 			]
 		);
 
@@ -205,6 +253,26 @@ class Panel_Slider extends Widget_Base {
 				'name'      => 'thumbnail',
 				'default'   => 'full',
 				'separator' => 'none',
+			]
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_post_query_builder',
+			[
+				'label'     => esc_html__( 'Query', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => [ 'content_source' => 'dynamic_posts' ],
+			]
+		);
+
+		$this->register_query_builder_controls();
+
+		$this->update_control(
+			'posts_per_page',
+			[
+				'default' => 6,
 			]
 		);
 
@@ -466,8 +534,12 @@ class Panel_Slider extends Widget_Base {
 						'max' => 1000,
 					],
 				],
+				// Targets the wrapper, NOT `.swiper`. The height that actually defines this
+				// widget's box lives on `.sa-panel-slider` (640px, 400px on mobile) and
+				// `.swiper` only fills it at 100%. Sizing `.swiper` alone shrank the slides
+				// while the wrapper kept its 640px, leaving dead space under the carousel.
 				'selectors'  => [
-					'{{WRAPPER}} .swiper' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-panel-slider' => 'height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -564,6 +636,12 @@ class Panel_Slider extends Widget_Base {
 				'name'     => 'slider_overlay',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
+					],
+				],
 				'selector' => '{{WRAPPER}} .sa-img-wrapper::after',
 			]
 		);
@@ -583,8 +661,10 @@ class Panel_Slider extends Widget_Base {
 				'name'     => 'slider_overlay_hover',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
 				'fields_options' => [
 					'background'   => [
+						'label'   => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
 						'default' => 'gradient',
 					],
 					'color'        => [
@@ -619,6 +699,12 @@ class Panel_Slider extends Widget_Base {
 				'name'     => 'slider_overlay_active',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
+				'exclude'  => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Image Overlay', 'sky-elementor-addons' ),
+					],
+				],
 				'selector' => '{{WRAPPER}} .swiper-slide-active .sa-img-wrapper::after',
 			]
 		);
@@ -995,7 +1081,7 @@ class Panel_Slider extends Widget_Base {
 		?>
 		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'before' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1012,7 +1098,7 @@ class Panel_Slider extends Widget_Base {
 				esc_html( $settings['button_text'] )
 			);
 
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'after' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [
 					'aria-hidden' => 'true',
@@ -1072,65 +1158,148 @@ class Panel_Slider extends Widget_Base {
 		<?php
 	}
 
-	protected function render_item() {
-		$settings = $this->get_settings_for_display();
-		$id       = 'sa-panel-slider-' . $this->get_id();
-
-		$item_link_on = false;
-		if ( ! empty( $settings['link_on'] ) ) {
-			if ( in_array( 'item', $settings['link_on'] ) ) {
-				$item_link_on = true;
-			}
+	/**
+	 * Resolve slides for the active source.
+	 *
+	 * Both sources return the same item shape (title, text, image, link) so the
+	 * render loop stays source-agnostic.
+	 *
+	 * @param array $settings Widget settings.
+	 * @return array
+	 */
+	protected function get_slider_items( $settings ) {
+		if ( 'dynamic_posts' === $settings['content_source'] ) {
+			return $this->get_post_items( $settings );
 		}
 
-		foreach ( $settings['slider_list'] as $index => $item ) :
+		return ! empty( $settings['slider_list'] ) ? $settings['slider_list'] : [];
+	}
+
+	/**
+	 * Build slides from a dynamic post query.
+	 *
+	 * Title = post title, text = excerpt trimmed to the Content Length words,
+	 * image = featured image, link = permalink.
+	 *
+	 * @param array $settings Widget settings.
+	 * @return array
+	 */
+	protected function get_post_items( $settings ) {
+		$posts_per_page = isset( $settings['posts_per_page'] ) ? (int) $settings['posts_per_page'] : 6;
+		$this->query_posts( $posts_per_page );
+		$query = $this->get_query();
+
+		$items = [];
+
+		if ( $query && $query->have_posts() ) {
+			$content_length = isset( $settings['content_length'] ) ? (int) $settings['content_length'] : 0;
+
+			while ( $query->have_posts() ) {
+				$query->the_post();
+
+				$post_id   = get_the_ID();
+				$thumb_id  = get_post_thumbnail_id( $post_id );
+				$image_url = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'full' ) : Utils::get_placeholder_image_src();
+
+				$excerpt = get_the_excerpt();
+				if ( $content_length > 0 ) {
+					$excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), $content_length, '&hellip;' );
+				}
+
+				$items[] = [
+					'title' => get_the_title(),
+					'text'  => $excerpt,
+					'image' => [
+						'id'  => $thumb_id ? $thumb_id : '',
+						'url' => $image_url,
+					],
+					'link'  => [
+						'url'         => get_permalink( $post_id ),
+						'is_external' => false,
+						'nofollow'    => false,
+					],
+				];
+			}
+			wp_reset_postdata();
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Output the full-item overlay link when "Item" is selected in Link On.
+	 *
+	 * @param array $item  Slide item.
+	 * @param int   $index Loop index (keeps the render-attribute key per-item).
+	 */
+	protected function render_item_link( $item, $index ) {
+		$settings = $this->get_settings_for_display();
+
+		$item_link_on = ! empty( $settings['link_on'] ) && in_array( 'item', $settings['link_on'], true );
+
+		if ( ! $item_link_on || empty( $item['link']['url'] ) ) {
+			return;
+		}
+
+		$this->add_render_attribute( 'link_attr' . $index, 'class', 'sa-link sa-link-item', true );
+		$this->add_render_attribute( 'link_attr' . $index, 'href', esc_url( $item['link']['url'] ), true );
+
+		if ( $item['link']['is_external'] ) {
+			$this->add_render_attribute( 'link_attr' . $index, 'target', '_blank', true );
+		}
+
+		if ( $item['link']['nofollow'] ) {
+			$this->add_render_attribute( 'link_attr' . $index, 'rel', 'nofollow', true );
+		}
+		?>
+		<a <?php $this->print_render_attribute_string( 'link_attr' . $index ); ?>></a>
+		<?php
+	}
+
+	/**
+	 * Output the slide image (attachment image, falling back to placeholder).
+	 *
+	 * @param array $item Slide item.
+	 */
+	protected function render_image( $item ) {
+		if ( empty( $item['image']['url'] ) ) {
+			return;
+		}
+
+		$settings  = $this->get_settings_for_display();
+		$image_url = Group_Control_Image_Size::get_attachment_image_src( $item['image']['id'], 'thumbnail', $settings );
+		?>
+		<div class="sa-img-wrapper" data-swiper-parallax="-100">
+			<?php
+			if ( ! $image_url ) {
+				printf( '<img src="%1$s" alt="%2$s" class="%3$s">', esc_url( $item['image']['url'] ), esc_html( $item['title'] ), 'sa-cover' );
+			} else {
+				print ( wp_get_attachment_image(
+					$item['image']['id'],
+					$settings['thumbnail_size'],
+					false,
+					[
+						'class' => ( 'yes' === $settings['img_cover'] ) ? 'sa-cover' : 'sa-',
+						'alt'   => ! empty( $item['title'] ) ? esc_html( $item['title'] ) : Control_Media::get_image_alt( $item['image'] ),
+					]
+				) );
+			}
+			?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render every slide.
+	 *
+	 * @param array $items Resolved slide items.
+	 */
+	protected function render_items( $items ) {
+		foreach ( $items as $index => $item ) :
 			?>
 			<div class="swiper-slide">
-				<?php
-				if ( $item_link_on === true ) {
-					if ( ! empty( $item['link']['url'] ) ) {
-						$this->add_render_attribute( 'link_attr' . $index, 'class', 'sa-link sa-link-item', true );
-						$this->add_render_attribute( 'link_attr' . $index, 'href', esc_url( $item['link']['url'] ), true );
-
-						if ( $item['link']['is_external'] ) {
-							$this->add_render_attribute( 'link_attr' . $index, 'target', '_blank', true );
-						}
-
-						if ( $item['link']['nofollow'] ) {
-							$this->add_render_attribute( 'link_attr' . $index, 'rel', 'nofollow', true );
-						}
-						?>
-						<a <?php $this->print_render_attribute_string( 'link_attr' . $index ); ?>></a>
-						<?php
-					}
-				}
-				?>
-				<?php
-				if ( ! empty( $item['image']['url'] ) ) :
-					?>
-					<div class="sa-img-wrapper" data-swiper-parallax="-100">
-						<?php
-
-						$placeholder_image_src = Utils::get_placeholder_image_src();
-						$image_url             = Group_Control_Image_Size::get_attachment_image_src( $item['image']['id'], 'thumbnail', $settings );
-
-						if ( ! $image_url ) {
-							printf( '<img src="%1$s" alt="%2$s" class="%3$s">', esc_url( $placeholder_image_src ), esc_html( $item['title'] ), 'sa-cover' );
-						} else {
-							print ( wp_get_attachment_image(
-								$item['image']['id'],
-								$settings['thumbnail_size'],
-								false,
-								[
-									'class' => ( 'yes' === $settings['img_cover'] ) ? 'sa-cover' : 'sa-',
-									'alt'   => ! empty( $item['title'] ) ? esc_html( $item['title'] ) : Control_Media::get_image_alt( $item['image'] ),
-								]
-							) );
-						}
-
-						?>
-					</div>
-				<?php endif; ?>
+				<?php $this->render_item_link( $item, $index ); ?>
+				<?php $this->render_image( $item ); ?>
 				<div class="sa-slide-wrapper sa-w-100 sa-h-100">
 					<div class="sa-content sa-w-100">
 						<?php $this->render_title( $item, $index ); ?>
@@ -1145,13 +1314,14 @@ class Panel_Slider extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
+		$items    = $this->get_slider_items( $settings );
 
 		$this->render_header();
 
-		$this->render_item();
+		$this->render_items( $items );
 
 		/**
-		 * global function
+		 * Global function
 		 */
 		$this->render_footer();
 	}
@@ -1161,7 +1331,7 @@ class Panel_Slider extends Widget_Base {
 		$id       = 'sa-panel-slider-' . $this->get_id();
 
 		/**
-		 * global function
+		 * Global function
 		 */
 		$this->render_header_attributes( 'panel-slider' );
 

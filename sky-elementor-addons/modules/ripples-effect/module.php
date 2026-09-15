@@ -125,7 +125,7 @@ class Module extends Module_Base {
 
 	public function widget_rf_before_render( $widget ) {
 		$settings = $widget->get_settings_for_display();
-		if ( isset( $settings['sa_rf_enable'] ) && $settings['sa_rf_enable'] === 'yes' ) {
+		if ( isset( $settings['sa_rf_enable'] ) && 'yes' === $settings['sa_rf_enable'] ) {
 			wp_enqueue_script( 'ripples' );
 			wp_enqueue_script( 'sa-ripples-effect' );
 		}

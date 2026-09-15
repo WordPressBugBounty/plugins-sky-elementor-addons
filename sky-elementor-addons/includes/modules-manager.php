@@ -14,12 +14,27 @@ final class Managers {
 
 	const WIDGETS_DB_KEY    = 'sky_addons_inactive_widgets';
 	const EXTENSIONS_DB_KEY = 'sky_addons_inactive_extensions';
+	const ADVANCED_DB_KEY   = 'sky_addons_advanced_settings';
 
 	public static function get_inactive_widgets() {
 		return get_option( self::WIDGETS_DB_KEY, [] );
 	}
 	public static function get_inactive_extensions() {
 		return get_option( self::EXTENSIONS_DB_KEY, [] );
+	}
+
+	/**
+	 * Inactive advanced-feature slugs.
+	 *
+	 * Advanced features live inside the `sky_addons_advanced_settings` option
+	 * under the `inactive` sub-key (asset_manager mode is a sibling key in the
+	 * same option). Absent = active by default.
+	 *
+	 * @return string[]
+	 */
+	public static function get_inactive_advanced_features() {
+		$settings = get_option( self::ADVANCED_DB_KEY, [] );
+		return (array) ( $settings['inactive'] ?? [] );
 	}
 
 	/**
@@ -36,6 +51,23 @@ final class Managers {
 		static $inactive = null;
 		if ( null === $inactive ) {
 			$inactive = (array) self::get_inactive_extensions();
+		}
+		return ! in_array( $slug, $inactive, true );
+	}
+
+	/**
+	 * Whether an advanced feature is active.
+	 *
+	 * Memoized — the inactive list is fetched once per request. Default
+	 * behaviour: when no slug is stored, the feature is considered ACTIVE.
+	 *
+	 * @param string $slug Advanced feature slug (e.g. 'dynamic-tags', 'templates-library').
+	 * @return bool
+	 */
+	public static function is_advanced_feature_active( $slug ) {
+		static $inactive = null;
+		if ( null === $inactive ) {
+			$inactive = (array) self::get_inactive_advanced_features();
 		}
 		return ! in_array( $slug, $inactive, true );
 	}
@@ -89,13 +121,17 @@ final class Managers {
 		$extensions = [
 			'animated-gradient-bg',
 			'backdrop-filter',
+			'button-effects',
 			'custom-clip-path',
 			'equal-height',
 			'floating-effects',
 			'gradient-text',
+			'grid-canvas',
 			'reveal-effects',
 			'ripples-effect',
 			'simple-parallax',
+			'sticky',
+			'tilt-effect',
 			'wrapper-link',
 		];
 		return in_array( $module_id, $extensions );
@@ -129,17 +165,21 @@ final class Managers {
 		$modules[] = 'social-icons';
 		$modules[] = 'stellar-slider';
 		$modules[] = 'step-flow';
+		$modules[] = 'table';
 		$modules[] = 'table-of-contents';
 		$modules[] = 'team-member';
 		$modules[] = 'team-member-carousel';
 		$modules[] = 'testimonial';
 		$modules[] = 'testimonial-carousel';
 		$modules[] = 'tidy-list';
+		$modules[] = 'video-player';
+		$modules[] = 'whatsapp-button';
 
 		/**
 		 * All Post Widgets
 		 */
 
+		$modules[] = 'fancy-testimonial';
 		$modules[] = 'fellow-slider';
 		$modules[] = 'generic-grid';
 		$modules[] = 'generic-carousel';
@@ -182,6 +222,9 @@ final class Managers {
 		if ( ! in_array( 'backdrop-filter', self::get_inactive_extensions() ) ) {
 			$modules[] = 'backdrop-filter';
 		}
+		if ( ! in_array( 'button-effects', self::get_inactive_extensions() ) ) {
+			$modules[] = 'button-effects';
+		}
 		if ( ! in_array( 'custom-clip-path', self::get_inactive_extensions() ) ) {
 			$modules[] = 'custom-clip-path';
 		}
@@ -194,6 +237,9 @@ final class Managers {
 		if ( ! in_array( 'gradient-text', self::get_inactive_extensions() ) ) {
 			$modules[] = 'gradient-text';
 		}
+		if ( ! in_array( 'grid-canvas', self::get_inactive_extensions() ) ) {
+			$modules[] = 'grid-canvas';
+		}
 		if ( ! in_array( 'reveal-effects', self::get_inactive_extensions() ) ) {
 			$modules[] = 'reveal-effects';
 		}
@@ -202,6 +248,12 @@ final class Managers {
 		}
 		if ( ! in_array( 'simple-parallax', self::get_inactive_extensions() ) ) {
 			$modules[] = 'simple-parallax';
+		}
+		if ( ! in_array( 'sticky', self::get_inactive_extensions() ) ) {
+			$modules[] = 'sticky';
+		}
+		if ( ! in_array( 'tilt-effect', self::get_inactive_extensions() ) ) {
+			$modules[] = 'tilt-effect';
 		}
 		if ( ! in_array( 'wrapper-link', self::get_inactive_extensions() ) ) {
 			$modules[] = 'wrapper-link';

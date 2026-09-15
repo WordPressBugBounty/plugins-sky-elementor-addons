@@ -1061,9 +1061,9 @@ class Tidy_List extends Widget_Base {
 	}
 
 	protected function render_media( array $item, array $settings ): void {
-		$has_media = ( $item['media_type'] === 'icon' && ! empty( $item['list_icon']['value'] ) )
-					|| ( $item['media_type'] === 'image' && ! empty( $item['list_image']['url'] ) && $settings['show_image'] === 'yes' )
-					|| ( $item['media_type'] === 'number' && ! empty( $item['list_number'] ) );
+		$has_media = ( 'icon' === $item['media_type'] && ! empty( $item['list_icon']['value'] ) )
+					|| ( 'image' === $item['media_type'] && ! empty( $item['list_image']['url'] ) && 'yes' === $settings['show_image'] )
+					|| ( 'number' === $item['media_type'] && ! empty( $item['list_number'] ) );
 
 		if ( ! $has_media ) {
 			return;
@@ -1071,13 +1071,13 @@ class Tidy_List extends Widget_Base {
 		?>
 		<div class="sa-media-wrapper">
 
-			<?php if ( $item['media_type'] === 'icon' ) : ?>
+			<?php if ( 'icon' === $item['media_type'] ) : ?>
 
 				<div class="sa-icon-wrap sa-text-center sa-d-flex sa-align-items-center">
 					<?php Icons_Manager::render_icon( $item['list_icon'], [ 'aria-hidden' => 'true' ] ); ?>
 				</div>
 
-			<?php elseif ( $item['media_type'] === 'image' ) : ?>
+			<?php elseif ( 'image' === $item['media_type'] ) : ?>
 
 				<div class="sa-img-wrap sa-d-inline-block">
 					<?php
@@ -1094,7 +1094,7 @@ class Tidy_List extends Widget_Base {
 					?>
 				</div>
 
-			<?php elseif ( $item['media_type'] === 'number' ) : ?>
+			<?php elseif ( 'number' === $item['media_type'] ) : ?>
 
 				<span class="sa-number">
 					<?php echo esc_html( $item['list_number'] ); ?>
@@ -1120,7 +1120,7 @@ class Tidy_List extends Widget_Base {
 	}
 
 	protected function render_text( array $item, array $settings ): void {
-		if ( empty( $item['list_text'] ) || $settings['show_text'] !== 'yes' ) {
+		if ( empty( $item['list_text'] ) || 'yes' !== $settings['show_text'] ) {
 			return;
 		}
 		$is_repeater = ( $settings['content_type'] ?? 'repeater' ) === 'repeater';

@@ -8,12 +8,12 @@ var widgetAudioPlayer = function ($scope, $) {
 
     if (!$el.length || !$audio) { return; }
 
-    var player = new Plyr($audio, {
+    var player = new Plyr($audio, skyAddonsPlyrOptions({
         controls:    [],
         autoplay:    settings.autoplay || false,
         loop:        { active: settings.loop || false },
         clickToPlay: false,
-    });
+    }));
 
     var isVinyl   = $el.hasClass('sa-style-vinyl'),
         vinylFill = isVinyl ? $el.find('.sa-vinyl-fill')[0] : null,
@@ -36,9 +36,20 @@ var widgetAudioPlayer = function ($scope, $) {
         }, 50);
     });
 
-    $el.find('.sa-volume-slider').on('input', function () {
-        player.volume = parseFloat($(this).val());
+    var $volume = $el.find('.sa-volume-slider');
+
+    $volume.on('input', function () {
+        player.volume = parseFloat(this.value);
     });
+
+    var syncVolume = function () {
+        if (!$volume.length) { return; }
+        var vol = player.muted ? 0 : player.volume;
+        $volume.val(vol);
+        $volume[0].style.setProperty('--sa-volume', (vol * 100) + '%');
+    };
+
+    player.on('ready volumechange', syncVolume);
 
     player.on('timeupdate', function () {
         if (!player.duration) { return; }

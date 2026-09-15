@@ -25,7 +25,7 @@ var widgetMateSlider = function ($scope, $) {
         secondary.controller.control = primary;
 
         if ($primarySettings.pauseOnHover) {
-            $($fellowContainer).hover(function () {
+            $($primaryContainer).hover(function () {
                 (this).swiper.autoplay.stop();
             }, function () {
                 (this).swiper.autoplay.start();

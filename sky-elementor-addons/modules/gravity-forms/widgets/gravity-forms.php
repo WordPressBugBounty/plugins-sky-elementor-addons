@@ -66,6 +66,7 @@ class GravityForms extends Widget_Base {
 				[
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
+						/* translators: %1$s: current user's display name. */
 						__( 'Hello %1$s, looks like Gravity Forms is missing in your site. Please install/activate Gravity Forms. Make sure to refresh this page after installation or activation.', 'sky-elementor-addons' ),
 						sky_addons_get_current_user_display_name()
 					),
@@ -81,7 +82,7 @@ class GravityForms extends Widget_Base {
 					'label'       => esc_html__( 'Form Selection', 'sky-elementor-addons' ),
 					'type'        => Controls_Manager::SELECT,
 					'label_block' => true,
-					'options'     => [ '' => __( '', 'sky-elementor-addons' ) ] + \sky_addons_get_gravity_forms(),
+					'options'     => [ '' => '' ] + \sky_addons_get_gravity_forms(),
 				]
 			);
 
@@ -1507,6 +1508,7 @@ class GravityForms extends Widget_Base {
 			<?php
 			ob_start();
 			gravity_form( $settings['form_id'], $settings['form_title_show'], true, false, null, $ajax );
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form markup from Gravity Forms, escaped by that plugin; wp_kses_post() would strip the form fields.
 			echo ob_get_clean();
 			?>
 		</div>

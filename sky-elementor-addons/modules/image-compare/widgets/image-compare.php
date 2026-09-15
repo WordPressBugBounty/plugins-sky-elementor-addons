@@ -1166,13 +1166,17 @@ class Image_Compare extends Widget_Base {
 								'id'                     => 'sky-ic-' . $this->get_id(),
 								// Label Defaults
 								'showLabels'             => ( 'yes' === $settings['show_labels'] ) ? true : false,
-								'labelBefore'            => isset( $settings['before_text'] ) ? ( ! empty( $settings['before_text'] ) ? wp_kses_post( $settings['before_text'] ) : 'Before' ) : false,
-								'labelAfter'             => isset( $settings['after_text'] ) ? ( ! empty( $settings['after_text'] ) ? wp_kses_post( $settings['after_text'] ) : 'After' ) : false,
-								'labelOptionsonHover'    => 'yes' === $settings['label_options_on_hover'] ? true : false,
+								// The library reads these nested under labelOptions and merges shallowly, so flat keys never reach it.
+								'labelOptions'           => [
+									'before'  => ! empty( $settings['before_text'] ) ? wp_kses_post( $settings['before_text'] ) : 'Before',
+									'after'   => ! empty( $settings['after_text'] ) ? wp_kses_post( $settings['after_text'] ) : 'After',
+									'onHover' => 'yes' === $settings['label_options_on_hover'] ? true : false,
+								],
 								'labelFadeDuration'      => ! empty( $settings['label_fade_duration']['size'] ) ? $settings['label_fade_duration']['size'] : 0.25,
 								'labelVerticalOffset'    => ! empty( $settings['label_vertical_offset']['size'] ) ? $settings['label_vertical_offset']['size'] : 0,
 								// UI Theme Defaults
-								'controlColor'           => ! empty( $settings['control_color'] ) ? $settings['control_color'] : '#FFFFFF',
+								// The library concatenates this into SVG markup via innerHTML — keep only colour-syntax characters.
+								'controlColor'           => ! empty( $settings['control_color'] ) ? preg_replace( '/[^#a-zA-Z0-9(),.%\s-]/', '', $settings['control_color'] ) : '#FFFFFF',
 								'controlShadow'          => 'yes' === $settings['control_shadow'] ? true : false,
 								'addCircle'              => 'yes' === $settings['add_circle'] ? true : false,
 								'addCircleBlur'          => ( isset( $settings['add_circle_blur'] ) && 'yes' === $settings['add_circle_blur'] ) ? true : false,
@@ -1190,7 +1194,9 @@ class Image_Compare extends Widget_Base {
 								'animateOnLoad'          => 'yes' === $settings['animate_on_load'] ? true : false,
 								'entryAnimationDuration' => ! empty( $settings['entry_animation_duration']['size'] ) ? $settings['entry_animation_duration']['size'] : 0.8,
 								'fluidMode'              => 'yes' === $settings['fluid_mode'] ? true : false,
-							]
+							],
+							// Labels reach innerHTML. HEX_AMP stops an entity-encoded payload (&lt;img onerror&gt;) from being decoded back into markup by the attribute.
+							JSON_HEX_TAG | JSON_HEX_AMP
 						),
 					],
 				],

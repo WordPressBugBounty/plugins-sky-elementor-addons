@@ -11,13 +11,17 @@ var widgetStellarSlider = function ($scope, $) {
         return;
     }
 
+    // A copy, so the jQuery .data() cache stays clean when the editor
+    // re-initialises the widget.
+    var options = $.extend(true, {}, $settings);
+
     const Swiper = elementorFrontend.utils.swiper;
     initSwiper();
     async function initSwiper() {
 
-        var slider = await new Swiper($container, $settings);
+        var slider = await new Swiper($container, options);
 
-        if ($settings.pauseOnHover) {
+        if (options.pauseOnHover) {
             $stellarSlider.hover(function () {
                 slider.autoplay.stop();
             }, function () {

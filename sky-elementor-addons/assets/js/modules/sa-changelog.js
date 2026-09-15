@@ -19,10 +19,13 @@
         var $btn = $(
             '<a class="sa-cl-load-more" type="button">' +
                 '<span class="sa-cl-icon"></span>' +
-                '<span class="sa-cl-btn-label">' + btnLabel + '</span>' +
+                '<span class="sa-cl-btn-label"></span>' +
                 '<span class="sa-cl-count">+' + remaining + '</span>' +
             '</a>'
         );
+
+        // .text(), never string concat — the label is user input decoded from a data attribute.
+        $btn.find('.sa-cl-btn-label').text(btnLabel);
 
         $wrapper.after($btn);
 

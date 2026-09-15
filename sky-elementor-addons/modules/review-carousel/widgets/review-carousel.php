@@ -49,7 +49,9 @@ class Review_Carousel extends Widget_Base {
 			return [ 'swiper', 'sky-addons-styles' ];
 		}
 
-		return [ 'swiper', 'sa-review' ];
+		// 'elementor-icons' — see Review::get_style_depends(); the stars are eicons
+		// glyphs and this widget shares review.less.
+		return [ 'swiper', 'sa-review', 'elementor-icons' ];
 	}
 
 	public function get_script_depends() {
@@ -1561,16 +1563,16 @@ class Review_Carousel extends Widget_Base {
 
 			?>
 			<div class="swiper-slide sa-carousel-item sa-review">
-				<?php if ( $settings['show_photo'] === 'yes' && ! empty( $item['image']['url'] ) ) : ?>
+				<?php if ( 'yes' === $settings['show_photo'] && ! empty( $item['image']['url'] ) ) : ?>
 					<figure class="sa-review-figure">
-						<?php echo Group_Control_Image_Size::get_attachment_image_html( $item, 'thumbnail', 'image' ); ?>
+						<?php echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $item, 'thumbnail', 'image' ) ); ?>
 					</figure>
 				<?php endif; ?>
 
 
 				<div class="sa-review-body">
 					<?php
-					if ( $settings['review_position'] === 'before' ) :
+					if ( 'before' === $settings['review_position'] ) :
 						if ( ! empty( $item['review'] ) ) :
 							?>
 							<div class="sa-review-desc sa-mt-4">
@@ -1587,18 +1589,18 @@ class Review_Carousel extends Widget_Base {
 							$this->add_render_attribute( 'name' . $index, 'class', 'sa-name sa-mb-2 sa--text-title sa-mt-0' );
 							printf(
 								'<%1$s %2$s>%3$s</%1$s>',
-								Utils::validate_html_tag( $settings['name_tag'] ),
-								$this->get_render_attribute_string( 'name' . $index ),
+								esc_attr( Utils::validate_html_tag( $settings['name_tag'] ) ),
+								wp_kses_post( $this->get_render_attribute_string( 'name' . $index ) ),
 								wp_kses_post( $item['name'] )
 							);
 						}
 
-						if ( $settings['show_designation'] === 'yes' && ! empty( $item['designation'] ) ) {
+						if ( 'yes' === $settings['show_designation'] && ! empty( $item['designation'] ) ) {
 							$this->add_render_attribute( 'designation' . $index, 'class', 'sa-designation  sa-mt-0 sa-mb-2' );
 							printf(
 								'<%1$s %2$s>%3$s</%1$s>',
-								Utils::validate_html_tag( $settings['designation_tag'] ),
-								$this->get_render_attribute_string( 'designation' . $index ),
+								esc_attr( Utils::validate_html_tag( $settings['designation_tag'] ) ),
+								wp_kses_post( $this->get_render_attribute_string( 'designation' . $index ) ),
 								esc_html( $item['designation'] )
 							);
 						}
@@ -1610,7 +1612,7 @@ class Review_Carousel extends Widget_Base {
 
 					<?php
 
-					if ( $settings['review_position'] === 'after' ) :
+					if ( 'after' === $settings['review_position'] ) :
 						if ( ! empty( $item['review'] ) ) :
 							?>
 							<div class="sa-review-desc sa-mt-4">
@@ -1659,7 +1661,7 @@ class Review_Carousel extends Widget_Base {
 
 		?>
 
-		<div <?php echo $this->get_render_attribute_string( 'carousel' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'carousel' ); ?>>
 			<div class="swiper">
 				<div class="swiper-wrapper">
 

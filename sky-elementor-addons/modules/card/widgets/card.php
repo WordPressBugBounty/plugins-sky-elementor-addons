@@ -38,7 +38,7 @@ class Card extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'sky', 'card', 'box', 'informations', 'modern' ];
+		return [ 'sky', 'card', 'box', 'information', 'modern' ];
 	}
 	public function get_style_depends() {
 		if ( sky_addons_editor_mode() ) {
@@ -1502,7 +1502,7 @@ class Card extends Widget_Base {
 			return;
 		}
 
-		$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
+		$this->add_render_attribute( 'image', 'src', esc_url( $settings['image']['url'] ) );
 		$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
 		$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
 
@@ -1531,7 +1531,7 @@ class Card extends Widget_Base {
 	}
 
 	private function render_badge( $settings ) {
-		if ( $settings['show_badge'] !== 'yes' || empty( $settings['badge_text'] ) ) {
+		if ( 'yes' !== $settings['show_badge'] || empty( $settings['badge_text'] ) ) {
 			return;
 		}
 
@@ -1546,7 +1546,7 @@ class Card extends Widget_Base {
 	}
 
 	private function render_sub_title( $settings ) {
-		if ( $settings['show_sub_title'] !== 'yes' || empty( $settings['sub_title'] ) ) {
+		if ( 'yes' !== $settings['show_sub_title'] || empty( $settings['sub_title'] ) ) {
 			return;
 		}
 
@@ -1587,12 +1587,12 @@ class Card extends Widget_Base {
 	}
 
 	private function render_button( $settings ) {
-		if ( $settings['show_button'] !== 'yes' ) {
+		if ( 'yes' !== $settings['show_button'] ) {
 			return;
 		}
 
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-p-3 sa-rounded sa-align-items-center' );
-		$this->add_render_attribute( 'link_attr', 'class', ( $settings['button_full_width'] === 'yes' ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
+		$this->add_render_attribute( 'link_attr', 'class', ( 'yes' === $settings['button_full_width'] ) ? 'sa-d-flex' : 'sa-d-inline-flex' );
 
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_render_attribute( 'link_attr', 'href', esc_url( $settings['link']['url'] ) );
@@ -1618,7 +1618,7 @@ class Card extends Widget_Base {
 		?>
 		<a <?php $this->print_render_attribute_string( 'link_attr' ); ?>>
 			<?php
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'before' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'before' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
 				echo '</span>';
@@ -1634,7 +1634,7 @@ class Card extends Widget_Base {
 				);
 			endif;
 
-			if ( ! empty( $settings['button_icon']['value'] ) && $settings['button_icon_position'] === 'after' ) {
+			if ( ! empty( $settings['button_icon']['value'] ) && 'after' === $settings['button_icon_position'] ) {
 				echo '<span class="sa-icon-wrap sa-button-icon">';
 				Icons_Manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] );
 				echo '</span>';

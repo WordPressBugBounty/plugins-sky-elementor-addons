@@ -2346,7 +2346,11 @@ class Advanced_Slider extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-pagination-progressbar, {{WRAPPER}} .swiper-horizontal > .swiper-pagination-bullets' => 'bottom: {{SIZE}}{{UNIT}} !important;',
+					// Every pagination type carries `.swiper-pagination`; the per-type list this
+					// replaced existed only to out-specify Swiper's own two-class
+					// `.swiper-horizontal > .swiper-pagination-bullets` (0,2,0). Going through
+					// `.swiper` makes this (0,3,0), which beats it with one clause.
+					'{{WRAPPER}} .swiper .swiper-pagination' => 'bottom: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
@@ -2897,7 +2901,8 @@ class Advanced_Slider extends Widget_Base {
 		$item_link = '';
 		if ( true === $item_link_on && ! empty( $item['link']['url'] ) ) {
 			$target    = $item['link']['is_external'] ? '_blank' : '_self';
-			$item_link = 'onclick="window.open(\'' . esc_url( $item['link']['url'] ) . '\', \'' . $target . '\')"';
+			// esc_url() emits `'` as &#039;, which the browser decodes back inside the attribute and breaks out of the JS string — esc_js() escapes it instead.
+			$item_link = 'onclick="window.open(\'' . esc_js( esc_url_raw( $item['link']['url'] ) ) . '\', \'' . $target . '\')"';
 		}
 		?>
 		<!-- Slides -->
@@ -2958,11 +2963,11 @@ class Advanced_Slider extends Widget_Base {
 								$content = $trimmed . ( $trimmed ? '&hellip;' : '' );
 							}
 						} elseif ( ! empty( $item['_raw_content'] ) ) {
-							$content = wp_kses_post( $item['custom_text'] );
+							$content = $item['custom_text'];
 						} else {
-							$content = wp_kses_post( $this->parse_text_editor( $item['custom_text'] ) );
+							$content = $this->parse_text_editor( $item['custom_text'] );
 						}
-						printf( '<div class="sa-content">%1$s</div>', $content );
+						printf( '<div class="sa-content">%1$s</div>', wp_kses_post( $content ) );
 					endif;
 					?>
 

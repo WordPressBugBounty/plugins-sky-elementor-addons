@@ -656,18 +656,18 @@ class Animated_Heading extends Widget_Base {
 				'backSpeed'  => ! empty( $settings['typed_back_speed']['size'] ) ? (int) $settings['typed_back_speed']['size'] : 60,
 				'backDelay'  => ! empty( $settings['typed_back_delay']['size'] ) ? (int) $settings['typed_back_delay']['size'] : 700,
 				'showCursor' => $show_cursor,
-				'cursorChar' => ( $show_cursor && ! empty( $settings['typed_cursor_char'] ) ) ? $settings['typed_cursor_char'] : '|',
-			] ) );
+				'cursorChar' => ( $show_cursor && ! empty( $settings['typed_cursor_char'] ) ) ? esc_html( $settings['typed_cursor_char'] ) : '|',
+			], JSON_HEX_TAG | JSON_HEX_AMP ) );
 		} elseif ( in_array( $settings['animate_style'], $custom_styles, true ) ) {
 			$this->add_render_attribute( 'title', 'data-settings', wp_json_encode( [
 				'style'    => $settings['animate_style'],
 				'strings'  => $main_title,
 				'interval' => ! empty( $settings['word_interval']['size'] ) ? (int) $settings['word_interval']['size'] : 2000,
-			] ) );
+			], JSON_HEX_TAG | JSON_HEX_AMP ) );
 		} else {
 			$this->add_render_attribute( 'title', 'data-settings', wp_json_encode( [
 				'style'     => $settings['animate_style'],
-				'animation' => $settings['heading_animation'],
+				'animation' => sanitize_html_class( $settings['heading_animation'] ),
 				'separator' => ',',
 				'speed'     => ! empty( $settings['animated_speed']['size'] ) ? (int) $settings['animated_speed']['size'] : 2000,
 			] ) );

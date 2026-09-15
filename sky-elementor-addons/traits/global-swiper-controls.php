@@ -683,8 +683,11 @@ trait Global_Swiper_Controls {
 				'type'        => Controls_Manager::SLIDER,
 				'range'       => [
 					'px' => [
-						'min' => 1,
-						'max' => 10,
+						// Depth is a perspective distance in px, not a multiplier — the old
+						// 1-10 range topped out at a value visually identical to 0.
+						'min'  => 0,
+						'max'  => 600,
+						'step' => 10,
 					],
 				],
 				'default'     => [
@@ -908,10 +911,9 @@ trait Global_Swiper_Controls {
 		// $test  = !empty($settings["item_gap"]["size"]) || ($settings["item_gap"]["size"] === 0)  ? (int)$settings["item_gap"]["size"] : 16;
 		// print_r($test);
 
-		$elementor_vp_lg = get_option( 'elementor_viewport_lg' );
-		$elementor_vp_md = get_option( 'elementor_viewport_md' );
-		$viewport_lg     = ! empty( $elementor_vp_lg ) ? $elementor_vp_lg - 1 : 1023;
-		$viewport_md     = ! empty( $elementor_vp_md ) ? $elementor_vp_md - 1 : 767;
+		$swiper_breakpoints = sky_addons_get_swiper_breakpoints();
+		$viewport_md        = $swiper_breakpoints['md'];
+		$viewport_lg        = $swiper_breakpoints['lg'];
 
 		$columns_mobile = isset( $settings['columns_mobile'] ) ? (int) $settings['columns_mobile'] : 1;
 		$columns_tablet = isset( $settings['columns_tablet'] ) ? (int) $settings['columns_tablet'] : 2;
@@ -928,6 +930,15 @@ trait Global_Swiper_Controls {
 		// $columns = isset($settings["columns"]) && is_float($settings["columns"]) ? $settings["columns"] : $columns;
 
 		$pagination_type = ( 'none' !== $settings['pagination_type'] ) ? $settings['pagination_type'] : false;
+
+		// The base stylesheet reserves ~40px under `.swiper` for the pagination
+		// (`--sa-pagination-v-spacing` padding). With box-sizing: border-box that reserve is
+		// carved OUT of any height the user sets — and with pagination off it is pure dead
+		// space. This class lets the CSS drop the reserve only when there is no pagination;
+		// the default (no class) keeps the padded layout, so legacy markup is unaffected.
+		if ( ! $pagination_type ) {
+			$this->add_render_attribute( 'carousel', 'class', 'sa-pagination-none' );
+		}
 
 		$this->add_render_attribute(
 			[
@@ -952,8 +963,13 @@ trait Global_Swiper_Controls {
 							'effect'                => $settings['transition_effect'],
 							// 'fadeEffect'      => (isset($settings['cross_fade']) && $settings['cross_fade'] == 'yes') ? true : false,
 							'coverflowEffect'       => [
-								'depth'        => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_depth']['size'] ) && 0 === $settings['coverflow_depth']['size'] ) ) ? $settings['coverflow_depth']['size'] : 100,
-								'modifier'     => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_modifier']['size'] ) && 0 === $settings['coverflow_modifier']['size'] ) ) ? $settings['coverflow_modifier']['size'] : 1,
+								// `||`, not `&&`. The guard means "a value was set, OR it was deliberately
+								// set to 0" — with `&&` it is unsatisfiable: `! empty( 0 )` is false, and
+								// `0 === 400` is false, so no input could ever pass it and these two always
+								// fell through to the defaults below. Depth and Modifier were dead controls
+								// while their siblings rotate/stretch (which already use `||`) worked.
+								'depth'        => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_depth']['size'] ) || 0 === $settings['coverflow_depth']['size'] ) ) ? $settings['coverflow_depth']['size'] : 100,
+								'modifier'     => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_modifier']['size'] ) || 0 === $settings['coverflow_modifier']['size'] ) ) ? $settings['coverflow_modifier']['size'] : 1,
 								'rotate'       => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_rotate']['size'] ) || 0 === $settings['coverflow_rotate']['size'] ) ) ? $settings['coverflow_rotate']['size'] : 50,
 								'stretch'      => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_stretch']['size'] ) || 0 === $settings['coverflow_stretch']['size'] ) ) ? $settings['coverflow_stretch']['size'] : 0,
 
@@ -1063,7 +1079,7 @@ trait Global_Swiper_Controls {
 			$this->render_navigation();
 		endif;
 
-		if ( isset( $settings['pagination_type'] ) && $settings['pagination_type'] !== 'none' ) :
+		if ( isset( $settings['pagination_type'] ) && 'none' !== $settings['pagination_type'] ) :
 			$this->render_pagination();
 		endif;
 		?>

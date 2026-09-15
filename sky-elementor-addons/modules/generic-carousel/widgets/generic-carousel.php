@@ -49,7 +49,7 @@ class Generic_Carousel extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'sky', 'post', 'list', 'blogs', 'generic', 'grid' ];
+		return [ 'sky', 'post', 'list', 'blogs', 'generic', 'carousel' ];
 	}
 
 	public function get_style_depends() {
@@ -361,7 +361,36 @@ class Generic_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				// The panel read empty while .sa-post-item was already padded by the `sa-p-4`
+				// class in render() — so a value typed here replaced an invisible baseline
+				// instead of adding to it, and the same number meant different things from one
+				// widget to the next. This default makes the control state the truth.
+				//
+				// The class deliberately STAYS in the markup. Elementor serves a page's CSS
+				// from a cached file that only rebuilds on save, so a page saved before this
+				// default existed would otherwise render with no padding at all. The control
+				// always wins when it emits anything — `body .sa-p-4` is (0,1,1) against
+				// Elementor's (0,4,0) — including when set to 0, so the class only ever acts
+				// as the stale-cache fallback.
+				//
+				// rem, not the 24px it usually resolves to, so it matches the class whatever
+				// root font-size the theme sets.
+				//
+				// Deliberately NO tablet_default/mobile_default, even though the stylesheet
+				// sets `padding: 1rem` on .sa-post-item below 1024px. Adding them materialises
+				// a value on every widget whose owner never touched the control, and a
+				// materialised breakpoint value OVERRIDES the desktop one they did set — a
+				// customised 40px would silently become 1rem on tablet. Leaving them unset
+				// keeps Elementor's desktop-cascades-down behaviour, which is what shipped.
+				'default'    => [
+					'top'      => '1.5',
+					'right'    => '1.5',
+					'bottom'   => '1.5',
+					'left'     => '1.5',
+					'unit'     => 'rem',
+					'isLinked' => true,
+				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-post-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -372,7 +401,7 @@ class Generic_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-post-content-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -528,7 +557,14 @@ class Generic_Carousel extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-post-img-wrapper' => 'min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
+					// `height` as well as min/max — without it the box is sized but the percentage
+					// inside it is not. `.sa-post-img-wrapper img` is `height: 100%` (base.less), and a
+					// percentage height resolves against the containing block's `height` property. With
+					// only min/max-height set, `height` stays `auto`, the percentage is indeterminate and
+					// collapses to `auto` — so the image kept its natural ratio inside a taller box,
+					// leaving dead space, and `object-fit: cover` never engaged. min/max are kept so the
+					// box is still pinned if anything else tries to stretch it.
+					'{{WRAPPER}} .sa-post-img-wrapper' => 'height: {{SIZE}}{{UNIT}}; min-height: {{SIZE}}{{UNIT}}; max-height: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -709,18 +745,12 @@ class Generic_Carousel extends Widget_Base {
 			[
 				'label' => esc_html__( 'Meta', 'sky-elementor-addons' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
-				'conditions' => [
-					'relation' => 'or',
-					'terms'    => [
-						[
-							'name'  => 'show_author',
-							'value' => 'yes',
-						],
-						[
-							'name'  => 'show_date',
-							'value' => 'yes',
-						],
-					],
+				// No `show_author` term here: this widget never registers that control and its
+				// `.sa-post-meta` renders only the day/month badge. Referencing it made Elementor
+				// read a key that is not in the settings array — "Undefined array key" at
+				// includes/conditions.php:87. generic-grid already had it removed.
+				'condition' => [
+					'show_date' => 'yes',
 				],
 			]
 		);
@@ -740,7 +770,9 @@ class Generic_Carousel extends Widget_Base {
 						'icon'  => 'eicon-h-align-right',
 					],
 				],
-				'default' => 'center',
+				// Was `center` — a value with no matching key in `options` or in the dictionary
+				// below, so an untouched widget showed no selected button and emitted nothing.
+				'default' => 'top_left',
 				'selectors' => [
 					'{{WRAPPER}} .sa-post-meta' => '{{VALUE}}',
 				],
@@ -774,7 +806,20 @@ class Generic_Carousel extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				// Same story as item_padding: the markup carries `sa-px-3 sa-py-2` on
+				// .sa-post-meta (1rem sides, 0.5rem top/bottom), which this control could not
+				// see — so it read empty while the block was already padded. Those classes
+				// stay as the stale-cache fallback; this default just makes the panel honest.
+				// isLinked false because the value is genuinely asymmetric.
+				'default'    => [
+					'top'      => '0.5',
+					'right'    => '1',
+					'bottom'   => '0.5',
+					'left'     => '1',
+					'unit'     => 'rem',
+					'isLinked' => false,
+				],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-post-meta' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -787,6 +832,36 @@ class Generic_Carousel extends Widget_Base {
 				'name'     => 'meta_background',
 				'label'    => esc_html__( 'Background', 'sky-elementor-addons' ),
 				'types'    => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .sa-post-meta',
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name'     => 'meta_border',
+				'label'    => esc_html__( 'Border', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'selector' => '{{WRAPPER}} .sa-post-meta',
+			]
+		);
+
+		$this->add_responsive_control(
+			'meta_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-post-meta' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'meta_box_shadow',
+				'label'    => esc_html__( 'Box Shadow', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
 				'selector' => '{{WRAPPER}} .sa-post-meta',
 			]
 		);

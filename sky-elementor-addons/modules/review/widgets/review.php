@@ -44,7 +44,14 @@ class Review extends Widget_Base {
 			return [ 'sky-addons-styles' ];
 		}
 
-		return [ 'sa-review' ];
+		// The stars are eicons glyphs — review.less sets `font-family: eicons` and
+		// the render emits the codepoints directly, so this never goes through
+		// Icons_Manager. Elementor only enqueues `elementor-icons` on the frontend
+		// when the e_font_icon_svg experiment is OFF (frontend.php, the
+		// `wp_enqueue_style( 'elementor-icons' )` branch), so with it on the
+		// @font-face is never declared and every star renders as tofu. The handle
+		// is registered either way, so asking for it here is enough.
+		return [ 'sa-review', 'elementor-icons' ];
 	}
 
 
@@ -1114,7 +1121,7 @@ class Review extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['image']['url'] ) ) {
-			$this->add_render_attribute( 'image', 'src', $settings['image']['url'] );
+			$this->add_render_attribute( 'image', 'src', esc_url( $settings['image']['url'] ) );
 			$this->add_render_attribute( 'image', 'alt', Control_Media::get_image_alt( $settings['image'] ) );
 			$this->add_render_attribute( 'image', 'title', Control_Media::get_image_title( $settings['image'] ) );
 
@@ -1162,7 +1169,7 @@ class Review extends Widget_Base {
 
 			<div class="sa-review-body">
 				<?php
-				if ( $settings['review_position'] === 'before' ) :
+				if ( 'before' === $settings['review_position'] ) :
 					if ( ! empty( $settings['review'] ) ) :
 						?>
 						<div class="sa-review-desc sa-mt-4">
@@ -1184,7 +1191,7 @@ class Review extends Widget_Base {
 						);
 					}
 
-					if ( $settings['show_designation'] === 'yes' && ! empty( $settings['designation'] ) ) {
+					if ( 'yes' === $settings['show_designation'] && ! empty( $settings['designation'] ) ) {
 						printf(
 							'<%1$s class="%2$s">%3$s</%1$s>',
 							esc_attr( Utils::validate_html_tag( $settings['designation_tag'] ) ),
@@ -1200,7 +1207,7 @@ class Review extends Widget_Base {
 
 				<?php
 
-				if ( $settings['review_position'] === 'after' ) :
+				if ( 'after' === $settings['review_position'] ) :
 					if ( ! empty( $settings['review'] ) ) :
 						?>
 						<div class="sa-review-desc sa-mt-4">

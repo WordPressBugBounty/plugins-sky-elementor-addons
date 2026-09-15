@@ -35,7 +35,7 @@ class Step_Flow extends Widget_Base {
 	}
 
 	public function get_keywords() {
-		return [ 'card', 'sky', 'step', 'flow' ];
+		return [ 'sky', 'step', 'flow', 'process', 'steps', 'timeline' ];
 	}
 	public function get_style_depends() {
 		if ( sky_addons_editor_mode() ) {

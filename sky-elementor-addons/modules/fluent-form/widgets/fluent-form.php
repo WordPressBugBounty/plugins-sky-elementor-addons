@@ -65,6 +65,7 @@ class FluentForm extends Widget_Base {
 				[
 					'type'            => Controls_Manager::RAW_HTML,
 					'raw'             => sprintf(
+						/* translators: %1$s: plugin name linked to its install page, %2$s: current user's display name. */
 						__( 'Hello %2$s, the %1$s plugin is required for this widget to work properly. Please install and activate %1$s to access the full functionality of this widget. After installation, refresh this page to start using the form builder.', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=fluentform&tab=search&type=term' ) )
 						. '" target="_blank" rel="noopener">Fluent Form</a>',
@@ -92,6 +93,7 @@ class FluentForm extends Widget_Base {
 					'label_block' => true,
 					'options'     => [ '' => __( '-- Select a Form --', 'sky-elementor-addons' ) ] + \sky_addons_fluent_forms(),
 					'description' => sprintf(
+						/* translators: %1$s: opening link tag, %2$s: closing link tag. */
 						__( 'Create or edit forms in the %1$sFluent Forms dashboard%2$s', 'sky-elementor-addons' ),
 						'<a href="' . esc_url( admin_url( 'admin.php?page=fluent_forms' ) ) . '" target="_blank">',
 						'</a>'
@@ -992,6 +994,7 @@ class FluentForm extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( ! empty( $settings['form_id'] ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Form markup from Fluent Forms' shortcode, escaped by that plugin; wp_kses_post() would strip the form fields.
 			echo sky_addons_do_shortcode( 'fluentform', [
 				'id' => $settings['form_id'],
 			] );

@@ -112,7 +112,7 @@ class Duplicator {
 			$current_post_type = get_post_type( $post_id );
 
 			if ( in_array( $current_post_type, $all_post_types ) ) {
-				wp_redirect( admin_url( 'edit.php?post_type=' . $current_post_type ) );
+				wp_safe_redirect( admin_url( 'edit.php?post_type=' . $current_post_type ) );
 			}
 
 			exit;

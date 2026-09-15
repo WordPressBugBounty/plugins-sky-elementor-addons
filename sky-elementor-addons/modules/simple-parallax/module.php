@@ -25,13 +25,22 @@ class Module extends Module_Base {
 			'section_sky_addons_sp_controls',
 			[
 				'tab'   => Controls_Manager::TAB_ADVANCED,
-				'label' => esc_html__( 'Parallax Effects', 'sky-elementor-addons' ) . sky_addons_get_icon(),
+				'label' => esc_html__( 'Simple Parallax', 'sky-elementor-addons' ) . sky_addons_get_icon(),
 			]
 		);
 		$element->end_controls_section();
 	}
 
 	public function register_controls( $widget, $args ) {
+
+		$widget->add_control(
+			'sa_sp_notice',
+			[
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'Adds a scroll parallax to every image or video inside this widget — the media drifts within its own frame as the page scrolls, so you get depth without the layout moving. Best on a large image or a media-heavy section; skip it for logos, icons and small thumbnails.', 'sky-elementor-addons' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+			]
+		);
 
 		$widget->add_control(
 			'sa_sp_enable',
@@ -72,6 +81,10 @@ class Module extends Module_Base {
 						'max'  => 3,
 						'step' => 0.1,
 					],
+				],
+				'default'            => [
+					'unit' => 'px',
+					'size' => 1.4,
 				],
 				'frontend_available' => true,
 				'condition'          => [
@@ -115,6 +128,10 @@ class Module extends Module_Base {
 						'max'  => 5,
 						'step' => 0.1,
 					],
+				],
+				'default'            => [
+					'unit' => 'px',
+					'size' => 0,
 				],
 				'frontend_available' => true,
 				'condition'          => [
@@ -208,7 +225,7 @@ class Module extends Module_Base {
 		$widget->add_control(
 			'sa_sp_custom_container',
 			[
-				'label'              => esc_html__( 'Custom Container', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '3.4.0' ),
+				'label'              => esc_html__( 'Custom Container', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'               => Controls_Manager::TEXT,
 				'default'            => '',
 				'placeholder'        => esc_html__( 'CSS selector, e.g. .my-scroll-box', 'sky-elementor-addons' ),
@@ -216,6 +233,22 @@ class Module extends Module_Base {
 				'frontend_available' => true,
 				'condition'          => [
 					'sa_sp_enable' => 'yes',
+				],
+			]
+		);
+
+		$widget->add_control(
+			'sa_sp_custom_wrapper',
+			[
+				'label'              => esc_html__( 'Custom Wrapper', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'               => Controls_Manager::TEXT,
+				'default'            => '',
+				'placeholder'        => esc_html__( 'CSS selector, e.g. .my-wrapper', 'sky-elementor-addons' ),
+				'description'        => esc_html__( 'Use an existing ancestor as the clipping wrapper instead of letting the library inject one. Ignored when Overflow is on.', 'sky-elementor-addons' ),
+				'frontend_available' => true,
+				'condition'          => [
+					'sa_sp_enable'    => 'yes',
+					'sa_sp_overflow!' => 'yes',
 				],
 			]
 		);

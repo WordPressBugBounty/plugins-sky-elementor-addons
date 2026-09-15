@@ -978,146 +978,222 @@ class Advanced_Skill_Bars extends Widget_Base {
 	}
 
 	public function render_skill_value( $skill_value, $position = 's' ) {
-		$settings = $this->get_settings_for_display();
-		$prefix   = esc_html( $settings['value_prefix'] ?? '' );
-		$suffix   = esc_html( $settings['value_suffix'] ?? '%' );
+		$affixes = $this->get_value_affixes();
 		printf(
 			'<div class="sa-skill-value %1$s">%2$s%3$s%4$s</div>',
 			esc_attr( $position ),
-			$prefix,
+			esc_html( $affixes['prefix'] ),
 			esc_html( $skill_value ),
-			$suffix
+			esc_html( $affixes['suffix'] )
+		);
+	}
+
+	/**
+	 * Raw prefix/suffix strings.
+	 *
+	 * Kept raw on purpose — the PHP render escapes with esc_html() and the JS counter
+	 * writes them with .text(). Running them through sanitize_text_field() here would
+	 * trim a deliberate leading space (" TB"), so the counter would rewrite the first
+	 * paint "41 TB" as "41TB".
+	 */
+	protected function get_value_affixes() {
+		$settings = $this->get_settings_for_display();
+
+		return [
+			'prefix' => (string) ( $settings['value_prefix'] ?? '' ),
+			'suffix' => isset( $settings['value_suffix'] ) ? (string) $settings['value_suffix'] : '%',
+		];
+	}
+
+	/**
+	 * Settings handed to the frontend script through data-settings.
+	 *
+	 * Deliberately NOT named get_frontend_settings() — Controls_Stack already declares
+	 * that as public and drives its own frontend-settings pipeline with it.
+	 */
+	protected function get_bars_frontend_settings() {
+		$settings = $this->get_settings_for_display();
+		$affixes  = $this->get_value_affixes();
+
+		return [
+			'animDuration'  => ! empty( $settings['anim_duration']['size'] ) ? (int) $settings['anim_duration']['size'] : 2600,
+			'animThreshold' => isset( $settings['anim_threshold']['size'] ) && '' !== $settings['anim_threshold']['size'] ? (float) $settings['anim_threshold']['size'] / 100 : 0.8,
+			'valuePrefix'   => $affixes['prefix'],
+			'valueSuffix'   => $affixes['suffix'],
+		];
+	}
+
+	protected function is_value_visible() {
+		$settings = $this->get_settings_for_display();
+
+		return 'yes' === ( $settings['show_value'] ?? 'yes' );
+	}
+
+	protected function print_bar_data_attributes( $item ) {
+		printf(
+			'data-width="%1$s%%" data-max-value="%2$s"',
+			esc_attr( $item['skill_value']['size'] ),
+			esc_attr( $item['skill_max_value']['size'] )
 		);
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$skill_style        = $settings['skill_layout'];
-		$name_position      = $settings['name_position'];
-		$skill_val_position = $settings['skill_val_position'];
-		$show_value         = 'yes' === ( $settings['show_value'] ?? 'yes' );
-
-		$anim_duration  = ! empty( $settings['anim_duration']['size'] ) ? (int) $settings['anim_duration']['size'] : 2600;
-		$anim_threshold = ! empty( $settings['anim_threshold']['size'] ) ? (float) $settings['anim_threshold']['size'] / 100 : 0.8;
+		if ( empty( $settings['skill_list'] ) ) {
+			return;
+		}
 
 		$this->add_render_attribute( 'wrapper', 'class', 'sa-advanced-skills' );
-		$this->add_render_attribute( 'wrapper', 'data-settings', wp_json_encode( [
-			'animDuration'  => $anim_duration,
-			'animThreshold' => $anim_threshold,
-			'valuePrefix'   => sanitize_text_field( $settings['value_prefix'] ?? '' ),
-			'valueSuffix'   => sanitize_text_field( $settings['value_suffix'] ?? '%' ),
-		] ) );
+		$this->add_render_attribute( 'wrapper', 'data-settings', wp_json_encode( $this->get_bars_frontend_settings() ) );
 		?>
 		<div <?php $this->print_render_attribute_string( 'wrapper' ); ?>>
 
 			<?php
-			foreach ( $settings['skill_list'] as $item ) :
-				$skill_max_value = $item['skill_max_value']['size'];
-				$skill_value     = $item['skill_value']['size'];
-				$skill_name      = $item['skill_name'];
-
-				$this->add_render_attribute( 'sa-skill-item', 'class', [
-					'sa-skill-item',
-					'elementor-repeater-item-' . $item['_id'],
-				], true );
-				?>
-
-				<?php if ( $skill_style === 'default' ) : ?>
-					<div <?php $this->print_render_attribute_string( 'sa-skill-item' ); ?>>
-
-						<?php if ( $name_position === 'top' || $skill_val_position === 'top' ) : ?>
-							<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-w-100">
-								<?php
-								if ( $name_position === 'top' ) {
-									$this->render_skill_name( $skill_name, $item );
-								}
-								if ( $show_value && $skill_val_position === 'top' ) {
-									$this->render_skill_value( $skill_value, 'sa-position-null' );
-								}
-								?>
-							</div>
-						<?php endif; ?>
-
-						<div class="sa-skill-progress">
-							<div class="sa-skill-progress-bar sa-px-2 sa-d-flex sa-align-items-center"
-								data-width="<?php echo esc_attr( $skill_value ); ?>%"
-								data-max-value="<?php echo esc_attr( $skill_max_value ); ?>">
-								<?php if ( $name_position !== 'inner' && $skill_val_position === 'inner' ) : ?>
-									<div class="sa-skill-content-wrapper sa-w-100 sa-text-end">
-										<?php
-										if ( $show_value ) {
-											$this->render_skill_value( $skill_value, 'sa-position-null' );
-										}
-										?>
-									</div>
-								<?php elseif ( $name_position === 'inner' && $skill_val_position !== 'inner' ) : ?>
-									<div class="sa-skill-content-wrapper">
-										<?php
-										$this->render_skill_name( $skill_name, $item );
-										if ( $show_value && $skill_val_position === 'with-top' ) {
-											$this->render_skill_value( $skill_value, 'sa-value-top' );
-										}
-										?>
-									</div>
-								<?php elseif ( $name_position === 'inner' && $skill_val_position === 'inner' ) : ?>
-									<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-align-items-center sa-w-100">
-										<?php
-										$this->render_skill_name( $skill_name, $item );
-										if ( $show_value ) {
-											$this->render_skill_value( $skill_value, 'sa-position-null' );
-										}
-										?>
-									</div>
-								<?php elseif ( $show_value && $skill_val_position === 'with-top' ) : ?>
-									<?php $this->render_skill_value( $skill_value, 'sa-value-top' ); ?>
-								<?php endif; ?>
-							</div>
-						</div>
-
-						<?php if ( $name_position === 'bottom' || $skill_val_position === 'bottom' ) : ?>
-							<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-w-100">
-								<?php
-								if ( $name_position === 'bottom' ) {
-									$this->render_skill_name( $skill_name, $item );
-								}
-								if ( $show_value && $skill_val_position === 'bottom' ) {
-									$this->render_skill_value( $skill_value, 'sa-position-null' );
-								}
-								?>
-							</div>
-						<?php endif; ?>
-
-					</div>
-
-				<?php elseif ( $skill_style === 'vision' ) : ?>
-
-					<?php
-					$this->add_render_attribute( 'sa-skill-item-vision', 'class', [
-						'sa-style--vision sa-skill-item sa-align-items-center sa-d-flex',
-						'elementor-repeater-item-' . $item['_id'],
-					], true );
-					?>
-
-					<div <?php $this->print_render_attribute_string( 'sa-skill-item-vision' ); ?>>
-						<?php $this->render_skill_name( $skill_name, $item ); ?>
-						<div class="sa-skill-progress">
-							<div class="sa-skill-progress-bar sa-px-2"
-								data-width="<?php echo esc_attr( $skill_value ); ?>%"
-								data-max-value="<?php echo esc_attr( $skill_max_value ); ?>"></div>
-						</div>
-						<?php
-						if ( $show_value ) {
-							$this->render_skill_value( $skill_value, 'sa-position-null' );
-						}
-						?>
-					</div>
-
-				<?php endif; ?>
-
-			<?php endforeach; ?>
+			foreach ( $settings['skill_list'] as $item ) {
+				$this->render_skill_item( $item );
+			}
+			?>
 
 		</div>
 		<?php
+	}
+
+	/**
+	 * One repeater row — dispatched to the layout it belongs to.
+	 */
+	protected function render_skill_item( $item ) {
+		$settings = $this->get_settings_for_display();
+
+		if ( 'vision' === $settings['skill_layout'] ) {
+			$this->render_vision_item( $item );
+		} elseif ( 'default' === $settings['skill_layout'] ) {
+			$this->render_default_item( $item );
+		}
+	}
+
+	/**
+	 * Default layout: optional top row, bar track, optional bottom row.
+	 */
+	protected function render_default_item( $item ) {
+		$this->add_render_attribute( 'sa-skill-item', 'class', [
+			'sa-skill-item',
+			'elementor-repeater-item-' . $item['_id'],
+		], true );
+		?>
+		<div <?php $this->print_render_attribute_string( 'sa-skill-item' ); ?>>
+
+			<?php $this->render_outer_row( $item, 'top' ); ?>
+
+			<div class="sa-skill-progress">
+				<div class="sa-skill-progress-bar sa-px-2 sa-d-flex sa-align-items-center" <?php $this->print_bar_data_attributes( $item ); ?>>
+					<?php $this->render_bar_inner( $item ); ?>
+				</div>
+			</div>
+
+			<?php $this->render_outer_row( $item, 'bottom' ); ?>
+
+		</div>
+		<?php
+	}
+
+	/**
+	 * Vision layout: name, bar track, value — all on one flex row.
+	 */
+	protected function render_vision_item( $item ) {
+		$this->add_render_attribute( 'sa-skill-item-vision', 'class', [
+			'sa-style--vision sa-skill-item sa-align-items-center sa-d-flex',
+			'elementor-repeater-item-' . $item['_id'],
+		], true );
+		?>
+		<div <?php $this->print_render_attribute_string( 'sa-skill-item-vision' ); ?>>
+			<?php $this->render_skill_name( $item['skill_name'], $item ); ?>
+			<div class="sa-skill-progress">
+				<div class="sa-skill-progress-bar sa-px-2" <?php $this->print_bar_data_attributes( $item ); ?>></div>
+			</div>
+			<?php
+			if ( $this->is_value_visible() ) {
+				$this->render_skill_value( $item['skill_value']['size'], 'sa-position-null' );
+			}
+			?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * The row above or below the bar — same markup for both, only the position differs.
+	 *
+	 * @param array  $item     Repeater row.
+	 * @param string $position 'top' or 'bottom'.
+	 */
+	protected function render_outer_row( $item, $position ) {
+		$settings = $this->get_settings_for_display();
+
+		$has_name  = $position === $settings['name_position'];
+		$has_value = $this->is_value_visible() && $position === $settings['skill_val_position'];
+
+		if ( ! $has_name && ! $has_value ) {
+			return;
+		}
+		?>
+		<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-w-100">
+			<?php
+			if ( $has_name ) {
+				$this->render_skill_name( $item['skill_name'], $item );
+			}
+			if ( $has_value ) {
+				$this->render_skill_value( $item['skill_value']['size'], 'sa-position-null' );
+			}
+			?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Content placed inside the fill bar — varies by name_position + skill_val_position.
+	 */
+	protected function render_bar_inner( $item ) {
+		$settings = $this->get_settings_for_display();
+
+		$name_position = $settings['name_position'];
+		$val_position  = $settings['skill_val_position'];
+		$show_value    = $this->is_value_visible();
+		$skill_value   = $item['skill_value']['size'];
+
+		if ( 'inner' !== $name_position && 'inner' === $val_position ) {
+			?>
+			<div class="sa-skill-content-wrapper sa-w-100 sa-text-end">
+				<?php
+				if ( $show_value ) {
+					$this->render_skill_value( $skill_value, 'sa-position-null' );
+				}
+				?>
+			</div>
+			<?php
+		} elseif ( 'inner' === $name_position && 'inner' !== $val_position ) {
+			?>
+			<div class="sa-skill-content-wrapper">
+				<?php
+				$this->render_skill_name( $item['skill_name'], $item );
+				if ( $show_value && 'with-top' === $val_position ) {
+					$this->render_skill_value( $skill_value, 'sa-value-top' );
+				}
+				?>
+			</div>
+			<?php
+		} elseif ( 'inner' === $name_position && 'inner' === $val_position ) {
+			?>
+			<div class="sa-skill-content-wrapper sa-d-flex sa-justify-content-between sa-align-items-center sa-w-100">
+				<?php
+				$this->render_skill_name( $item['skill_name'], $item );
+				if ( $show_value ) {
+					$this->render_skill_value( $skill_value, 'sa-position-null' );
+				}
+				?>
+			</div>
+			<?php
+		} elseif ( $show_value && 'with-top' === $val_position ) {
+			$this->render_skill_value( $skill_value, 'sa-value-top' );
+		}
 	}
 }

@@ -1368,7 +1368,7 @@ class Dual_Button extends Widget_Base {
 	}
 
 	private function render_separator( array $settings ): void {
-		if ( $settings['show_separator'] !== 'yes' ) {
+		if ( 'yes' !== $settings['show_separator'] ) {
 			return;
 		}
 
@@ -1376,7 +1376,7 @@ class Dual_Button extends Widget_Base {
 		<span class="sa-separator">
 			<span class="sa-separator-inner">
 				<?php
-				if ( $settings['separator_content_type'] === 'icon' ) {
+				if ( 'icon' === $settings['separator_content_type'] ) {
 					Icons_Manager::render_icon( $settings['separator_content_icon'], [
 						'aria-hidden' => 'true',
 					] );

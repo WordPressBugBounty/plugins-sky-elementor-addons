@@ -326,7 +326,7 @@ trait Global_Widget_Controls {
 			[
 				'name'     => 'meta_typography',
 				'label'    => esc_html__( 'Typography', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-post-meta span, .sa-post-meta .sa-icon-wrap',
+				'selector' => '{{WRAPPER}} .sa-post-meta span, {{WRAPPER}} .sa-post-meta .sa-icon-wrap',
 			]
 		);
 
@@ -335,7 +335,7 @@ trait Global_Widget_Controls {
 			[
 				'name'     => 'meta_text_shadow',
 				'label'    => esc_html__( 'Text Shadow', 'sky-elementor-addons' ),
-				'selector' => '{{WRAPPER}} .sa-post-meta span, .sa-post-meta .sa-icon-wrap',
+				'selector' => '{{WRAPPER}} .sa-post-meta span, {{WRAPPER}} .sa-post-meta .sa-icon-wrap',
 			]
 		);
 	}
@@ -765,12 +765,31 @@ trait Global_Widget_Controls {
 		 */
 
 		$this->add_control(
+			'video_source',
+			[
+				'label'       => esc_html__( 'Video Source', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'dynamic'     => [
+					'active' => true,
+				],
+				'default'     => 'sky_video_link_meta',
+				'placeholder' => 'sky_video_link_meta',
+				'description' => esc_html__( 'Custom field key holding the video URL of each post — works with ACF, SCF, Pods or plain post meta. Or use the dynamic tag icon to pull the URL from a tag instead of a key.', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
 			'video_open',
 			[
 				'label'   => esc_html__( 'Video Open', 'sky-elementor-addons' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
+					// 'default' and 'lightbox' both open the lightbox — the render branches
+					// on `'file' !== $settings['video_open']`. Kept as-is on purpose: existing
+					// sites have 'default' stored, and dropping the option would leave their
+					// Video Open select showing nothing until re-saved.
 					'default'  => esc_html__( 'Default', 'sky-elementor-addons' ),
 					'lightbox' => esc_html__( 'Lightbox', 'sky-elementor-addons' ),
 					'file'     => esc_html__( 'Media File', 'sky-elementor-addons' ),

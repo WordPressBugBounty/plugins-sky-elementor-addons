@@ -818,6 +818,7 @@ class Testimonial_Carousel extends Widget_Base {
 			'adv_border_radius_note',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
+				/* translators: %1s: URL of the border-radius generator. */
 				'raw'             => sprintf( esc_html__( "You can easily generate Radius value from this link <a href='%1s' target='_blank'> Go </a>.", 'sky-elementor-addons' ), 'https://9elements.github.io/fancy-border-radius/' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition'       => [
@@ -1052,7 +1053,7 @@ class Testimonial_Carousel extends Widget_Base {
 
 		?>
 
-		<div <?php echo $this->get_render_attribute_string( 'carousel' ); ?>>
+		<div <?php $this->print_render_attribute_string( 'carousel' ); ?>>
 			<div class="swiper">
 				<div class="swiper-wrapper">
 

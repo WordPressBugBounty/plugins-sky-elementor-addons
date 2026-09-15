@@ -38,7 +38,12 @@ class Reading_Progress extends Widget_Base {
 			return [ 'sky-addons-styles' ];
 		}
 
-		return [ 'sa-reading-progress' ];
+		// 'elementor-icons' — the close control is an eicons glyph, set with
+		// `font-family: eicons` / `content: "\e8c1"` in the LESS rather than
+		// through Icons_Manager. Elementor skips that stylesheet on the frontend
+		// whenever the e_font_icon_svg experiment is on, leaving the glyph with no
+		// @font-face; see Review::get_style_depends() for the same problem.
+		return [ 'sa-reading-progress', 'elementor-icons' ];
 	}
 
 	public function get_script_depends() {

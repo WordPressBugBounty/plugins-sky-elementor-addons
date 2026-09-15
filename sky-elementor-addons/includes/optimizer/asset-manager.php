@@ -22,6 +22,7 @@ class Asset_Manager {
 	const EXTENSIONS = [
 		'animated-gradient-bg',
 		'backdrop-filter',
+		'button-effects',
 		'custom-clip-path',
 		'equal-height',
 		'floating-effects',

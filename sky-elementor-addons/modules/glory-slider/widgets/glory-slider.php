@@ -1405,11 +1405,11 @@ class Glory_Slider extends Widget_Base {
 		$video_properties = Embed::get_video_properties( $video_url );
 		$video_id         = isset( $video_properties['video_id'] ) ? $video_properties['video_id'] : false;
 
-		if ( $video_type === 'youtube' ) {
+		if ( 'youtube' === $video_type ) {
 			$thumb_url = '//img.youtube.com/vi/' . $video_id . '/0.jpg';
-		} elseif ( $video_type === 'dailymotion' ) {
+		} elseif ( 'dailymotion' === $video_type ) {
 			$thumb_url = '//www.dailymotion.com/thumbnail/video/' . $video_id;
-		} elseif ( $video_type === 'vimeo' ) {
+		} elseif ( 'vimeo' === $video_type ) {
 			$thumb_url = '//vumbnail.com/' . $video_id . '.jpg';
 		} else {
 			$thumb_url = Utils::get_placeholder_image_src();
@@ -1421,9 +1421,9 @@ class Glory_Slider extends Widget_Base {
 	protected function get_playlist_settings( $viewport_md, $viewport_lg ) {
 		$settings = $this->get_settings_for_display();
 
-		$item_gap        = ! empty( $settings['item_gap']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap']['size'] : 16;
-		$item_gap_tablet = ! empty( $settings['item_gap_tablet']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_tablet']['size'] : 16;
-		$item_gap_mobile = ! empty( $settings['item_gap_mobile']['size'] ) || ( $settings['item_gap']['size'] === 0 ) ? (int) $settings['item_gap_mobile']['size'] : 10;
+		$item_gap        = ! empty( $settings['item_gap']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap']['size'] : 16;
+		$item_gap_tablet = ! empty( $settings['item_gap_tablet']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_tablet']['size'] : 16;
+		$item_gap_mobile = ! empty( $settings['item_gap_mobile']['size'] ) || ( 0 === $settings['item_gap']['size'] ) ? (int) $settings['item_gap_mobile']['size'] : 10;
 
 		$speed = ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1200;
 
@@ -1438,7 +1438,7 @@ class Glory_Slider extends Widget_Base {
 			'watchSlidesVisibility' => true,
 			'watchSlidesProgress'   => true,
 			'slideToClickedSlide'   => true,
-			'mousewheel'            => ( $settings['playlist_mouse_wheel'] === 'yes' ) ? true : false,
+			'mousewheel'            => ( 'yes' === $settings['playlist_mouse_wheel'] ) ? true : false,
 			'breakpoints'           => [
 				(int) $viewport_md => [
 					'spaceBetween' => $item_gap_tablet,
@@ -1454,10 +1454,9 @@ class Glory_Slider extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		$id       = 'sa-glory-slider-' . $this->get_id();
 
-		$elementor_vp_lg = get_option( 'elementor_viewport_lg' );
-		$elementor_vp_md = get_option( 'elementor_viewport_md' );
-		$viewport_lg     = ! empty( $elementor_vp_lg ) ? $elementor_vp_lg - 1 : 1023;
-		$viewport_md     = ! empty( $elementor_vp_md ) ? $elementor_vp_md - 1 : 767;
+		$swiper_breakpoints = sky_addons_get_swiper_breakpoints();
+		$viewport_lg        = $swiper_breakpoints['lg'];
+		$viewport_md        = $swiper_breakpoints['md'];
 
 		$speed = ( ! empty( $settings['speed']['size'] ) ) ? $settings['speed']['size'] : 1200;
 
@@ -1490,10 +1489,13 @@ class Glory_Slider extends Widget_Base {
 							'observer'       => true,
 							'observeParents' => true,
 							'coverflowEffect' => [
-								'depth'        => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_depth']['size'] ) && $settings['coverflow_depth']['size'] === 0 ) ) ? $settings['coverflow_depth']['size'] : 900,
-								'modifier'     => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_modifier']['size'] ) && $settings['coverflow_modifier']['size'] === 0 ) ) ? $settings['coverflow_modifier']['size'] : 1,
-								'rotate'       => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_rotate']['size'] ) || $settings['coverflow_rotate']['size'] === 0 ) ) ? $settings['coverflow_rotate']['size'] : 30,
-								'stretch'      => ( $settings['coverflow_toggle'] === 'yes' && ( ! empty( $settings['coverflow_stretch']['size'] ) || $settings['coverflow_stretch']['size'] === 0 ) ) ? $settings['coverflow_stretch']['size'] : 20,
+								// `||`, not `&&` — see the same fix in traits/global-swiper-controls.php.
+								// With `&&` the guard is unsatisfiable (`! empty( 0 )` is false, `0 === 900`
+								// is false), so Depth and Modifier always fell through to the defaults.
+								'depth'        => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_depth']['size'] ) || 0 === $settings['coverflow_depth']['size'] ) ) ? $settings['coverflow_depth']['size'] : 900,
+								'modifier'     => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_modifier']['size'] ) || 0 === $settings['coverflow_modifier']['size'] ) ) ? $settings['coverflow_modifier']['size'] : 1,
+								'rotate'       => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_rotate']['size'] ) || 0 === $settings['coverflow_rotate']['size'] ) ) ? $settings['coverflow_rotate']['size'] : 30,
+								'stretch'      => ( 'yes' === $settings['coverflow_toggle'] && ( ! empty( $settings['coverflow_stretch']['size'] ) || 0 === $settings['coverflow_stretch']['size'] ) ) ? $settings['coverflow_stretch']['size'] : 20,
 
 								'slideShadows' => ( isset( $settings['slide_shadows'] ) && 'yes' === $settings['slide_shadows'] ) ? true : false,
 							],
@@ -1528,17 +1530,17 @@ class Glory_Slider extends Widget_Base {
 
 						$poster = $item['poster']['url'];
 
-						if ( $item['video_type'] === 'youtube' ) {
+						if ( 'youtube' === $item['video_type'] ) {
 							$video_url = $this->re_arrange_video_url( $item['youtube_url'] );
 							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'vimeo' ) {
+						} elseif ( 'vimeo' === $item['video_type'] ) {
 							$video_url = $this->re_arrange_video_url( $item['vimeo_url'] );
 							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'dailymotion' ) {
+						} elseif ( 'dailymotion' === $item['video_type'] ) {
 							$video_url = $this->re_arrange_video_url( $item['dailymotion_url'] );
 							$poster    = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'hosted' ) {
-							if ( $item['external_url_set'] === 'yes' ) {
+						} elseif ( 'hosted' === $item['video_type'] ) {
+							if ( 'yes' === $item['external_url_set'] ) {
 								$video_url = $item['external_url']['url'];
 							} else {
 								$video_url = $item['hosted_url']['url'];
@@ -1567,7 +1569,7 @@ class Glory_Slider extends Widget_Base {
 
 								<div class="sa-player-content-wrapper">
 									<?php
-									if ( $settings['show_title'] === 'yes' ) :
+									if ( 'yes' === $settings['show_title'] ) :
 										printf( '<%s class="sa-player-title sa-fw-bold sa-m-0">%s</%s>',
 											esc_attr( Utils::validate_html_tag( $settings['title_tag'] ) ),
 											wp_kses_post( $item['title'] ),
@@ -1615,13 +1617,13 @@ class Glory_Slider extends Widget_Base {
 					foreach ( $settings['video_list'] as $index => $item ) :
 						$poster = $item['poster']['url'];
 
-						if ( $item['video_type'] === 'youtube' ) {
+						if ( 'youtube' === $item['video_type'] ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'youtube', $item['youtube_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'vimeo' ) {
+						} elseif ( 'vimeo' === $item['video_type'] ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'vimeo', $item['vimeo_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'dailymotion' ) {
+						} elseif ( 'dailymotion' === $item['video_type'] ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'dailymotion', $item['dailymotion_url'] ) : $poster;
-						} elseif ( $item['video_type'] === 'hosted' ) {
+						} elseif ( 'hosted' === $item['video_type'] ) {
 							$poster = ( empty( $poster ) ) ? $this->get_video_thum( 'hosted', '' ) : $poster;
 						} else {
 						}

@@ -41,6 +41,25 @@
         };
       },
 
+      // v7 matches orientation with an exact switch on space-separated values
+      // ('up left'). Stored control values still use the v6 hyphen form.
+      normalizeOrientation: function (orientation) {
+        return String(orientation || 'up').replace('-', ' ');
+      },
+
+      // Selectors come from free-text controls and are re-read on every keystroke
+      // in the editor, so a half-typed one must not throw.
+      querySafe: function (selector) {
+        if (!selector) {
+          return null;
+        }
+        try {
+          return document.querySelector(selector);
+        } catch (e) {
+          return null;
+        }
+      },
+
       settings: function (key) {
         return this.getElementSettings('sa_sp_' + key);
       },
@@ -62,7 +81,7 @@
       run: function () {
         var self = this;
 
-        if (this.settings('enable') !== 'yes') {
+        if (this.settings('enable') !== 'yes' || typeof SimpleParallax === 'undefined') {
           return;
         }
 
@@ -73,7 +92,7 @@
           options.scale = scale.size;
         }
         if (this.settings('orientation')) {
-          options.orientation = this.settings('orientation');
+          options.orientation = this.normalizeOrientation(this.settings('orientation'));
         }
         var delay = this.settings('delay');
         if (delay && delay.size) {
@@ -91,11 +110,17 @@
         if (maxTransition && maxTransition.size) {
           options.maxTransition = maxTransition.size;
         }
-        if (this.settings('overflow')) {
-          options.overflow = this.settings('overflow') === 'yes';
+        options.overflow = this.settings('overflow') === 'yes';
+
+        // The library reads settings.customContainer as a DOM node when measuring
+        // offsets, so resolve the selector here instead of handing it a string.
+        var containerNode = this.querySafe(this.settings('custom_container'));
+        if (containerNode) {
+          options.customContainer = containerNode;
         }
-        if (this.settings('custom_container')) {
-          options.customContainer = this.settings('custom_container');
+        var customWrapper = this.settings('custom_wrapper');
+        if (customWrapper && this.querySafe(customWrapper)) {
+          options.customWrapper = customWrapper;
         }
 
         var container = this.$element;

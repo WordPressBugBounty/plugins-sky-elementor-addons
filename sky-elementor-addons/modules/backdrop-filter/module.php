@@ -547,6 +547,24 @@ class Module extends Module_Base {
 						'condition'   => [ 'sa_bf_enable' => 'yes' ],
 					]
 				);
+
+				// The ::after overlay can only inherit the WRAPPER's border-radius, which is
+				// usually 0 — a widget's visible radius typically lives on an inner element
+				// (e.g. the Audio Player card). This lets the user round the overlay to match.
+				// Registered after sa_bf_output so its identical-specificity rule wins.
+				$element->add_responsive_control(
+					'sa_bf_border_radius',
+					[
+						'label'       => esc_html__( 'Border Radius', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+						'type'        => Controls_Manager::DIMENSIONS,
+						'size_units'  => [ 'px', '%', 'em' ],
+						'description' => esc_html__( 'Match the visible radius of the widget so the filter overlay follows its corners.', 'sky-elementor-addons' ),
+						'condition'   => [ 'sa_bf_enable' => 'yes' ],
+						'selectors'   => [
+							'{{WRAPPER}}.sa-backdrop-filter-yes::after' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						],
+					]
+				);
 			}
 		}
 

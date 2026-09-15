@@ -719,9 +719,24 @@ class Team_Member extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Content Padding', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .sa-team-member .sa-content-area' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_content_padding',
+			[
+				'label'      => esc_html__( 'Overlay Content Padding', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', 'rem', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sa-team-member .sa-overlay-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition'  => [
+					'style_select' => [ 'folk', 'folker', 'slide' ],
 				],
 			]
 		);
@@ -880,15 +895,68 @@ class Team_Member extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
+				'size_units' => [ 'px', 'em', 'vh' ],
 				'range'      => [
 					'px' => [
 						'min' => 150,
 						'max' => 800,
 					],
+					'vh' => [
+						'min' => 10,
+						'max' => 100,
+					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-img-area' => 'height: {{SIZE}}{{UNIT}};',
+					// Variable, not `height` — `.sa-team-member.style-slide .sa-img-area` in
+					// team-member.less is three classes deep and tied with a direct `height`
+					// here, so the slide style ignored this control and stayed at 400px.
+					'{{WRAPPER}}' => '--sa-team-member-img-height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_object_fit',
+			[
+				'label'     => esc_html__( 'Image Fit', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => [
+					''        => esc_html__( 'Default (Cover)', 'sky-elementor-addons' ),
+					'cover'   => esc_html__( 'Cover', 'sky-elementor-addons' ),
+					'contain' => esc_html__( 'Contain', 'sky-elementor-addons' ),
+					'fill'    => esc_html__( 'Fill', 'sky-elementor-addons' ),
+					'none'    => esc_html__( 'None', 'sky-elementor-addons' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-team-member-img-fit: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'img_object_position',
+			[
+				'label'     => esc_html__( 'Image Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => '',
+				'options'   => [
+					''              => esc_html__( 'Default (Top Center)', 'sky-elementor-addons' ),
+					'center center' => esc_html__( 'Center Center', 'sky-elementor-addons' ),
+					'center left'   => esc_html__( 'Center Left', 'sky-elementor-addons' ),
+					'center right'  => esc_html__( 'Center Right', 'sky-elementor-addons' ),
+					'top center'    => esc_html__( 'Top Center', 'sky-elementor-addons' ),
+					'top left'      => esc_html__( 'Top Left', 'sky-elementor-addons' ),
+					'top right'     => esc_html__( 'Top Right', 'sky-elementor-addons' ),
+					'bottom center' => esc_html__( 'Bottom Center', 'sky-elementor-addons' ),
+					'bottom left'   => esc_html__( 'Bottom Left', 'sky-elementor-addons' ),
+					'bottom right'  => esc_html__( 'Bottom Right', 'sky-elementor-addons' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}}' => '--sa-team-member-img-position: {{VALUE}};',
+				],
+				'condition' => [
+					'img_object_fit!' => [ 'fill', 'none' ],
 				],
 			]
 		);
@@ -1175,7 +1243,7 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-name' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-name:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1282,7 +1350,7 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-job-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-job-title:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1388,7 +1456,7 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sa-text' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .sa-text:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1466,7 +1534,7 @@ class Team_Member extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Spacing', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
+				'size_units' => [ 'px', 'em', 'rem' ],
 				'range'      => [
 					'px' => [
 						'min' => 0,
@@ -1474,8 +1542,8 @@ class Team_Member extends Widget_Base {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'margin-right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'margin-right: {{SIZE}}{{UNIT}};',
+					// Feeds the list's `gap` — see the same control in Team Member Carousel.
+					'{{WRAPPER}} .sky-social-icons-wrapper' => '--sa-social-icons-gap: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1494,7 +1562,8 @@ class Team_Member extends Widget_Base {
 				],
 				'selectors'  => [
 					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link' => 'font-size: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width:auto;',
+					// Square box — see the same control in Team Member Carousel.
+					'{{WRAPPER}} .sky-social-icons-wrapper .sa-link svg' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1906,7 +1975,7 @@ class Team_Member extends Widget_Base {
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-button sa-text-decoration-none sa-my-2' );
 		$this->add_render_attribute( 'link_attr', 'class', 'sa-button-icon-' . $settings['button_icon_position'] );
 
-		if ( $settings['button_full_width'] === 'yes' ) {
+		if ( 'yes' === $settings['button_full_width'] ) {
 			$this->add_render_attribute( 'link_attr', 'class', 'sa-button--full' );
 		}
 
@@ -1956,11 +2025,11 @@ class Team_Member extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 		?>
 		<div class="sky-social-icons-wrapper">
-			<ul class="sa-m-0 sa-p-0 sa-d-inline">
+			<ul class="sa-m-0 sa-p-0">
 				<?php
 				foreach ( $settings['social_list'] as $item ) {
 					$this->add_render_attribute( 'social_link_attr', 'class', [
-						'sa-link sa-text-decoration-none  sa-me-2',
+						'sa-link sa-text-decoration-none',
 						'elementor-repeater-item-' . $item['_id'],
 					], true );
 					if ( ! empty( $item['social_link']['url'] ) ) {
@@ -1978,7 +2047,7 @@ class Team_Member extends Widget_Base {
 					}
 					?>
 
-					<li class="sa-d-inline-block">
+					<li>
 						<a <?php $this->print_render_attribute_string( 'social_link_attr' ); ?>>
 							<?php
 							if ( ! empty( $item['social_icon']['value'] ) ) {
@@ -2041,7 +2110,7 @@ class Team_Member extends Widget_Base {
 				echo wp_kses_post( Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' ) );
 			}
 			// start alter_image
-			if ( $settings['show_alter_image'] === 'yes' ) {
+			if ( 'yes' === $settings['show_alter_image'] ) {
 				$this->alter_image();
 			}
 			?>
@@ -2053,19 +2122,19 @@ class Team_Member extends Widget_Base {
 		if ( ! empty( $settings['name'] ) ) {
 			$this->name();
 		}
-		if ( $settings['show_job_title'] === 'yes' && ! empty( $settings['job_title'] ) ) {
+		if ( 'yes' === $settings['show_job_title'] && ! empty( $settings['job_title'] ) ) {
 			$this->job_title();
 		}
 	}
 
 	protected function render_socials_and_button( array $settings ): void {
-		if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'before_socials' ) {
+		if ( 'yes' === $settings['show_button'] && 'before_socials' === $settings['button_position'] ) {
 			$this->button();
 		}
-		if ( $settings['show_socials'] === 'yes' ) {
+		if ( 'yes' === $settings['show_socials'] ) {
 			$this->social_icons();
 		}
-		if ( $settings['show_button'] === 'yes' && $settings['button_position'] === 'after_socials' ) {
+		if ( 'yes' === $settings['show_button'] && 'after_socials' === $settings['button_position'] ) {
 			$this->button();
 		}
 	}
@@ -2106,13 +2175,13 @@ endif;
 					<?php $this->render_info( $settings ); ?>
 				</div>
 				<?php
-				if ( $settings['show_socials'] === 'yes' ) {
+				if ( 'yes' === $settings['show_socials'] ) {
 					$this->social_icons();
 				}
 				if ( ! empty( $settings['text'] ) ) {
 					$this->text();
 				}
-				if ( $settings['show_button'] === 'yes' ) {
+				if ( 'yes' === $settings['show_button'] ) {
 					$this->button();
 				}
 				?>
@@ -2217,7 +2286,7 @@ endif;
 			<div class="sa-content-area sa-p-3">
 				<?php
 				$this->render_info( $settings );
-				if ( $settings['show_socials'] === 'yes' ) {
+				if ( 'yes' === $settings['show_socials'] ) {
 					$this->social_icons();
 				}
 				?>

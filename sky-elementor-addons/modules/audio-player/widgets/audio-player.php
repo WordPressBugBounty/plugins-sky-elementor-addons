@@ -108,6 +108,19 @@ class Audio_Player extends Widget_Base {
 		);
 
 		$this->add_control(
+			'hide_volume_mobile',
+			[
+				'label'        => esc_html__( 'Hide Volume on Mobile', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.0.0' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'none',
+				'selectors'    => [
+					'(mobile){{WRAPPER}} .sa-audio-volume' => 'display: {{VALUE}};',
+				],
+				'condition'    => [ 'show_volume' => 'yes' ],
+			]
+		);
+
+		$this->add_control(
 			'show_time',
 			[
 				'label'        => esc_html__( 'Show Time', 'sky-elementor-addons' ),
@@ -316,10 +329,10 @@ class Audio_Player extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'media_position',
 			[
-				'label'        => esc_html__( 'Media Position', 'sky-elementor-addons' ),
+				'label'        => esc_html__( 'Media Position', 'sky-elementor-addons' ) . sky_addons_label_badge( 'updated', '4.0.0' ),
 				'type'         => Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
@@ -332,16 +345,23 @@ class Audio_Player extends Widget_Base {
 					],
 				],
 				'default'      => 'left',
-				'prefix_class' => 'sa-media-position-',
+				'prefix_class' => 'sa-media-position-%s',
+				'selectors_dictionary' => [
+					'left' => '--sa-media-direction: row; --sa-media-left-width: auto; --sa-media-right-width: auto; --sa-cover-height: 88px;',
+					'top'  => '--sa-media-direction: column; --sa-media-left-width: 100%; --sa-media-right-width: 100%; --sa-cover-height: auto;',
+				],
+				'selectors' => [
+					'{{WRAPPER}} .sa-audio-player' => '{{VALUE}}',
+				],
 				'condition'    => [ 'show_cover' => 'yes' ],
 			]
 		);
 
 		// media aligment
-		$this->add_control(
+		$this->add_responsive_control(
 			'media_alignment',
 			[
-				'label'     => esc_html__( 'Media Alignment', 'sky-elementor-addons' ),
+				'label'     => esc_html__( 'Media Alignment', 'sky-elementor-addons' ) . sky_addons_label_badge( 'updated', '4.0.0' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options' => [
 					'left' => [
@@ -852,6 +872,7 @@ class Audio_Player extends Widget_Base {
 				'type'  => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .sa-volume-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .sa-volume-slider' => '--sa-volume-fill: {{VALUE}};',
 					'{{WRAPPER}} .sa-volume-slider::-webkit-slider-thumb' => 'background: {{VALUE}};',
 					'{{WRAPPER}} .sa-volume-slider::-moz-range-thumb' => 'background: {{VALUE}};',
 				],

@@ -532,7 +532,7 @@ class Slinky_Menu extends Widget_Base {
 		$nav_menu_args = [
 			'menu'           => $nav_menu,
 			'container'      => false,
-			'menu_class'     => 'slinky-vertical-menu',
+			'menu_class'     => 'slinky-vertical-menu sa-m-0 sa-p-0',
 			'menu_id'        => $id . '-menu',
 			'echo'           => true,
 			'fallback_cb'    => false,

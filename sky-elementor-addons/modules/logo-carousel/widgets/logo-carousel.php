@@ -1035,7 +1035,7 @@ class Logo_Carousel extends Widget_Base {
 				$image = $item['logo']['url'];
 			}
 
-			$has_tooltip    = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( $item['show_tooltip'] === 'yes' );
+			$has_tooltip    = ( ! empty( $item['brand_name'] ) || ! empty( $item['brand_text'] ) ) && ( 'yes' === $item['show_tooltip'] );
 			$tippy_class    = $has_tooltip ? ' sa-tippy-tooltip' : '';
 			$flex_direction = ( 'yes' === $settings['show_brand_name'] ) ? ' sa-flex-column' : '';
 
@@ -1077,7 +1077,9 @@ class Logo_Carousel extends Widget_Base {
 				$this->add_render_attribute( $link_attr, 'data-tippy', '', true );
 
 				$tooltip_content = '<span class="sa-tippy-title sa-d-block sa-fw-bold mb-1 sa-fw-5">' . wp_kses_post( $item['brand_name'] ) . '</span>' . wp_kses_post( $item['brand_text'] );
-				$this->add_render_attribute( $link_attr, 'data-tippy-content', $tooltip_content, true );
+				// Tippy reads this attribute decoded and injects it as HTML (allowHTML). esc_attr() won't double-encode,
+				// so an entity-encoded payload would survive wp_kses_post() — encode once more here.
+				$this->add_render_attribute( $link_attr, 'data-tippy-content', htmlspecialchars( $tooltip_content, ENT_QUOTES, 'UTF-8', true ), true );
 
 				if ( $item['tooltip_placement'] ) {
 					$this->add_render_attribute( $link_attr, 'data-tippy-placement', esc_attr( $item['tooltip_placement'] ), true );
@@ -1087,19 +1089,19 @@ class Logo_Carousel extends Widget_Base {
 					$this->add_render_attribute( $link_attr, 'data-tippy-animation', esc_attr( $settings['tooltip_animation'] ), true );
 				}
 
-				if ( $settings['tooltip_offset_popover'] === 'yes' ) {
+				if ( 'yes' === $settings['tooltip_offset_popover'] ) {
 					if ( $settings['tooltip_x_offset']['size'] or $settings['tooltip_y_offset']['size'] ) {
 						$this->add_render_attribute( $link_attr, 'data-tippy-offset', '[' . $settings['tooltip_x_offset']['size'] . ',' . $settings['tooltip_y_offset']['size'] . ']', true );
 					}
 				}
 
-				if ( $settings['tooltip_arrow'] === 'yes' ) {
+				if ( 'yes' === $settings['tooltip_arrow'] ) {
 					$this->add_render_attribute( $link_attr, 'data-tippy-arrow', 'true', true );
 				} else {
 					$this->add_render_attribute( $link_attr, 'data-tippy-arrow', 'false', true );
 				}
 
-				if ( $settings['tooltip_trigger_on_click'] === 'yes' ) {
+				if ( 'yes' === $settings['tooltip_trigger_on_click'] ) {
 					$this->add_render_attribute( $link_attr, 'data-tippy-trigger', 'click', true );
 				}
 
@@ -1135,7 +1137,7 @@ class Logo_Carousel extends Widget_Base {
 					</figure>
 					<?php
 					if ( 'yes' === $settings['show_brand_name'] && ! empty( $item['brand_name'] ) ) :
-						$brand_tag = $settings['brand_name_tag'];
+						$brand_tag = Utils::validate_html_tag( $settings['brand_name_tag'] );
 						printf(
 							'<%1$s class="sa-brand-name">%2$s</%1$s>',
 							esc_attr( $brand_tag ),

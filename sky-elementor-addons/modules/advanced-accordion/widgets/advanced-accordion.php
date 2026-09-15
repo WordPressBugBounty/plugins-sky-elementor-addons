@@ -24,6 +24,21 @@ class Advanced_Accordion extends Widget_Base {
 
 	private $_query = null;
 
+	/**
+	 * Page-level FAQ state. All three are shared by every accordion on the request, which is
+	 * the point: schema.org allows one FAQPage per URL, so the questions have to be pooled
+	 * across widgets rather than each widget describing itself.
+	 *
+	 * @var array Question => [ question, answer ], keyed so a repeated question collapses.
+	 */
+	protected static $faq_entries = [];
+
+	/** @var bool Whether some accordion already owns the inline FAQPage scope. */
+	protected static $faq_scope_claimed = false;
+
+	/** @var bool Whether the wp_footer emitter is hooked. */
+	protected static $faq_footer_hooked = false;
+
 	public function get_query() {
 		return $this->_query;
 	}
@@ -212,20 +227,27 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_responsive_control(
 			'columns',
 			[
-				'label'     => esc_html__( 'Grid Columns', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => '1',
-				'options'   => [
+				'label'          => esc_html__( 'Grid Columns', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'           => Controls_Manager::SELECT,
+				'default'        => '1',
+				// Without this, mobile inherits the desktop value and a 3-column accordion
+				// stays 3 columns at 390px — three ~130px tracks in a 354px column.
+				'mobile_default' => '1',
+				'options'        => [
 					'1' => '1',
 					'2' => '2',
 					'3' => '3',
 					'4' => '4',
 				],
-				'selectors' => [
-					'{{WRAPPER}} .sa-advanced-accordion' => 'display: grid; grid-template-columns: repeat({{VALUE}}, 1fr); align-items: start;',
+				'selectors'      => [
+					// `1fr` is `minmax(auto, 1fr)`, so a track grows to its widest item's
+					// min-content instead of being capped — one panel holding a wide table or
+					// a swiper pushed the whole accordion past the column and scrolled the page
+					// sideways. `minmax(0, 1fr)` lets the track shrink below that.
+					'{{WRAPPER}} .sa-advanced-accordion' => 'display: grid; grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr)); align-items: start;',
 					'{{WRAPPER}} .sa-advanced-accordion .sa-ac-item' => 'margin-top: 0;',
 				],
-				'separator' => 'before',
+				'separator'      => 'before',
 			]
 		);
 
@@ -361,6 +383,8 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'label'       => esc_html__( 'ACF Repeater Field', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [ 'active' => true ],
+				'label_block' => true,
 				'placeholder' => esc_html__( 'Enter repeater field name', 'sky-elementor-addons' ),
 				'description' => esc_html__( 'Enter the name of the ACF repeater field.', 'sky-elementor-addons' ),
 			]
@@ -371,6 +395,8 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'label'       => esc_html__( 'Title Field Mapping', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [ 'active' => true ],
+				'label_block' => true,
 				'placeholder' => esc_html__( 'Enter sub-field name for title', 'sky-elementor-addons' ),
 			]
 		);
@@ -380,6 +406,8 @@ class Advanced_Accordion extends Widget_Base {
 			[
 				'label'       => esc_html__( 'Content Field Mapping', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
 				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => [ 'active' => true ],
+				'label_block' => true,
 				'placeholder' => esc_html__( 'Enter sub-field name for content', 'sky-elementor-addons' ),
 			]
 		);
@@ -443,10 +471,26 @@ class Advanced_Accordion extends Widget_Base {
 		$this->add_control(
 			'faq_schema',
 			[
-				'label'       => esc_html__( 'FAQ Schema (itemscope)', 'sky-elementor-addons' ),
+				'label'       => esc_html__( 'FAQ Schema', 'sky-elementor-addons' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'separator'   => 'before',
-				'description' => esc_html__( 'Enable Schema.org FAQPage microdata (itemscope) for SEO-friendly FAQ rich results.', 'sky-elementor-addons' ),
+				'description' => esc_html__( 'Describe the accordion as a Schema.org FAQPage so search engines and AI answer engines can read the questions and answers. Rows using an Elementor or AE template are skipped — their answer is a layout, not prose.', 'sky-elementor-addons' ),
+			]
+		);
+
+		$this->add_control(
+			'faq_schema_output',
+			[
+				'label'       => esc_html__( 'Schema Output', 'sky-elementor-addons' ) . sky_addons_label_badge( 'new', '4.5.0' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'both',
+				'options'     => [
+					'both'      => esc_html__( 'Both', 'sky-elementor-addons' ),
+					'jsonld'    => esc_html__( 'JSON-LD', 'sky-elementor-addons' ),
+					'microdata' => esc_html__( 'Microdata', 'sky-elementor-addons' ),
+				],
+				'description' => esc_html__( 'JSON-LD is written once per page and merges every accordion on it — this is the format Google prefers and the one most AI answer engines read. Microdata is inline in the markup; a page can only hold one FAQPage, so it is carried by the first accordion on the page.', 'sky-elementor-addons' ),
+				'condition'   => [ 'faq_schema' => 'yes' ],
 			]
 		);
 
@@ -1448,12 +1492,24 @@ class Advanced_Accordion extends Widget_Base {
 		);
 
 		$faq_schema = isset( $settings['faq_schema'] ) && 'yes' === $settings['faq_schema'];
+		$faq_output = $settings['faq_schema_output'] ?? 'both';
+		$faq_micro  = $faq_schema && in_array( $faq_output, [ 'microdata', 'both' ], true );
+		$faq_json   = $faq_schema && in_array( $faq_output, [ 'jsonld', 'both' ], true );
 
-		if ( $faq_schema ) {
+		// A page is one FAQPage. Every accordion used to open a scope of its own, so two of
+		// them — a demo section plus a global block, say — put two FAQPage scopes on one URL
+		// and a parser has to guess which is the page's FAQ; usually it takes neither. The
+		// first accordion on the page claims the scope, and the rest emit no microdata at
+		// all: their Question items would have no FAQPage to belong to. Their rows still
+		// reach the JSON-LD document, which merges the whole page into one FAQ.
+		if ( $faq_micro && ! self::$faq_scope_claimed ) {
+			self::$faq_scope_claimed = true;
 			$this->add_render_attribute( 'advanced-accordion', [
 				'itemscope' => 'itemscope',
 				'itemtype'  => 'https://schema.org/FAQPage',
 			] );
+		} else {
+			$faq_micro = false;
 		}
 
 		if ( 'posts' === $settings['content_type'] ) {
@@ -1465,6 +1521,10 @@ class Advanced_Accordion extends Widget_Base {
 		} else {
 			$items     = $settings['acc_list'] ?? [];
 			$empty_msg = '';
+		}
+
+		if ( $faq_json ) {
+			$this->collect_faq_schema( $items );
 		}
 
 		?>
@@ -1480,7 +1540,7 @@ class Advanced_Accordion extends Widget_Base {
 					?>
 					<div class="sa-acc-col">
 						<?php foreach ( $chunk as $item ) : ?>
-							<?php $this->render_item( $item, $settings, $faq_schema ); ?>
+							<?php $this->render_item( $item, $settings, $faq_micro ); ?>
 						<?php endforeach; ?>
 					</div>
 					<?php
@@ -1488,7 +1548,7 @@ class Advanced_Accordion extends Widget_Base {
 				?>
 			<?php else : ?>
 				<?php foreach ( $items as $item ) : ?>
-					<?php $this->render_item( $item, $settings, $faq_schema ); ?>
+					<?php $this->render_item( $item, $settings, $faq_micro ); ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</div>
@@ -1569,7 +1629,117 @@ class Advanced_Accordion extends Widget_Base {
 		return $items;
 	}
 
+	/**
+	 * Pool this widget's rows into the page's FAQ document.
+	 *
+	 * @param array $items Rows as render() built them.
+	 */
+	protected function collect_faq_schema( $items ) {
+		foreach ( $items as $item ) {
+			// Template rows render a whole layout — containers, widgets, sometimes their own
+			// style and script — so the "answer" would be markup rather than prose. Nothing
+			// on the page shows it is wrong, which is why it has to be skipped here.
+			if ( 'custom' !== ( $item['content_source'] ?? 'custom' ) ) {
+				continue;
+			}
+
+			$question = $this->faq_plain_text( $item['title'] ?? '' );
+			$answer   = $this->faq_plain_text( $item['custom_content'] ?? '' );
+
+			if ( '' === $question || '' === $answer ) {
+				continue;
+			}
+
+			// Two accordions can carry the same question — a demo section and a global block,
+			// the same FAQ reused. One question, one entry, and the first answer on the page
+			// wins: assigning unconditionally would let a later duplicate silently replace an
+			// earlier, fuller answer.
+			$key = md5( $question );
+
+			if ( ! isset( self::$faq_entries[ $key ] ) ) {
+				self::$faq_entries[ $key ] = [
+					'question' => $question,
+					'answer'   => $answer,
+				];
+			}
+		}
+
+		if ( ! self::$faq_footer_hooked && ! empty( self::$faq_entries ) ) {
+			self::$faq_footer_hooked = true;
+			add_action( 'wp_footer', [ __CLASS__, 'print_faq_schema' ], 99 );
+		}
+	}
+
+	/**
+	 * Reduce stored HTML to the prose a schema consumer expects.
+	 *
+	 * @param string $html Raw row content.
+	 * @return string
+	 */
+	protected function faq_plain_text( $html ) {
+		// Drop script/style bodies first — wp_strip_all_tags would keep their contents as
+		// text once the tags around them are gone.
+		$text = preg_replace( '#<(script|style)\b[^>]*>.*?</\1>#is', ' ', (string) $html );
+		// A space per tag, not an empty string: "<p>one</p><p>two</p>" must not read "onetwo".
+		$text = preg_replace( '/<[^>]*>/', ' ', $text );
+		$text = html_entity_decode( (string) $text, ENT_QUOTES, 'UTF-8' );
+
+		// The /u pass returns null on malformed UTF-8; cast so trim() never gets null.
+		return trim( (string) preg_replace( '/\s+/u', ' ', $text ) );
+	}
+
+	/**
+	 * Write the page's single FAQPage document.
+	 *
+	 * JSON-LD rather than inline microdata because it is the format Google documents as
+	 * preferred, and because most AI answer engines read JSON-LD first — several read
+	 * nothing else.
+	 */
+	public static function print_faq_schema() {
+		if ( empty( self::$faq_entries ) ) {
+			return;
+		}
+
+		$main_entity = [];
+
+		foreach ( self::$faq_entries as $entry ) {
+			$main_entity[] = [
+				'@type' => 'Question',
+				'name'  => $entry['question'],
+				'acceptedAnswer' => [
+					'@type' => 'Answer',
+					'text'  => $entry['answer'],
+				],
+			];
+		}
+
+		// Emitted once; clear so a second wp_footer pass cannot duplicate the document.
+		self::$faq_entries = [];
+
+		// The HEX flags matter here rather than being defensive noise: an answer holding a
+		// literal "<" or "&" would otherwise be written raw inside a <script> block.
+		$json = wp_json_encode(
+			[
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'mainEntity' => $main_entity,
+			],
+			JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+		);
+
+		if ( ! $json ) {
+			return;
+		}
+
+		echo '<script type="application/ld+json">' . $json . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_json_encode with the HEX flags is the escaping.
+	}
+
 	protected function render_item( $item, $settings, $faq_schema ) {
+		// itemprop="text" used to wrap whatever the row rendered, so on a template row the
+		// marked-up "answer" was an entire layout instead of prose — invisible on the page
+		// and wrong to every consumer. A template row now carries no microdata at all, the
+		// same rows the JSON-LD document skips.
+		$faq_schema = $faq_schema && 'custom' === ( $item['content_source'] ?? 'custom' );
 		?>
 		<?php if ( $faq_schema ) : ?>
 		<div class="sa-ac-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
