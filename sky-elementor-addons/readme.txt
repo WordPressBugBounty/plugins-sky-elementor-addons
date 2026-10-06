@@ -1,6 +1,6 @@
 === Sky Addons for Elementor ===
 Plugin Name: Sky Addons for Elementor
-Version: 4.0.0
+Version: 4.1.0
 Author: wowDevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, mizan42047
@@ -9,7 +9,7 @@ Donate link: https://skyaddons.com/pricing/
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.0.0
+Stable tag: 4.1.0
 License: GPLv3 or later
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -304,32 +304,39 @@ Development happens on GitHub:
 
 == Screenshots ==
 
-1. Video Gallery Widget
-2. Video Gallery Widget
-3. Video Gallery Widget
-4. Team Member Widget
-5. Team Member Widget
-6. Advanced Tooltip Extensions
-7. Particle Effects Extensions
-8. Portion Effects Widget
-9. Logo Grid Widget
-10. List Group Widget
-11. Pricing Table Widget
-12. Glory Slider Widget
-13. Testimonial Carousel Widget
-14. Advanced Skills Bar Widget
-15. Breadcrumbs Widget
-16. Momentum Slider Widget
-17. Particles Effects Widget
-18. Flow Slider Widget
-19. Pace Slider Widget
-20. Image Compare Widget
+1. Sky Addons is an Elementor addon pack and an animations builder in one — 120+ widgets, 40+ extensions and features, a theme builder, 70+ dynamic tags and a library of ready templates.
+2. Dynamic tags: fill any widget from post, author, archive, custom field, ACF or WooCommerce data — one layout that renders every record.
+3. The animations builder: extensions that attach motion to any Elementor widget — tilt, gradient text, grid canvas, button effects, reveal on scroll and floating motion, with no CSS and no keyframes.
+4. Scroll-driven motion on any section — image curtains, cursor effects, background and element parallax, ripples and clip paths, all set from the Elementor panel.
+5. Whole sections from a single widget: Showcase Wall, Horizontal Scroll, Interactive Timeline and Circle Hub.
+6. Four slider models with their own motion: Advanced Slider, Glory Slider, Momentum Slider and Panel Slider.
+7. Post layouts driven by your own query: Ultra Grid, Luster Grid, Post List and Stellar Blog Slider.
+8. Dynamic listings and overlays: Loop Grid on a custom query, live Advanced Search, News Ticker and Modal.
+9. Teams and testimonials: Team Member, Team Member Carousel, Fancy Testimonial and Review Carousel.
+10. Live social proof and one-tap contact: Google Reviews, Instagram Feed, WhatsApp Button and Post Comments.
+11. Everyday building blocks: Advanced Accordion, Content Switcher, Table of Contents, List Group, Info Box and Card.
+12. Media players styled inside Elementor, not embedded chrome: Video Player, Video Gallery, Audio Player and Image Compare.
+13. Numbers people actually read: charts, animated counters, skill bars and a step flow, all fed from the editor.
+14. Forms and account flows inside Elementor — and styled wrappers for Contact Form 7, Fluent Forms, Gravity Forms, Ninja Forms, weForms and WPForms.
+15. The widgets that usually mean another plugin: Calculator with your own formula, styled Google Maps, Pricing Table and QR Code.
+16. Theme Builder, free: header, footer, single post, archive, 404 and custom hooks — built in Elementor, with no Elementor Pro.
+17. A templates library inside the editor — import a ready page or block, then edit it like your own.
+18. Every demo page is a real page built with Sky Addons — and every one of them can be imported and edited.
+19. Every widget and extension has an off switch, and a disabled module enqueues no CSS and no JavaScript. Asset Manager bundles what is left.
+20. Every control is responsive — desktop, tablet and mobile values on every widget and every extension, plus your own breakpoints.
+21. Everything in one plugin: 120+ widgets, 40+ extensions and features, the animations builder, the theme builder, dynamic tags, a templates library and an off switch on every module.
 
 == Changelog ==
 
+= 4.1.0 [7th October 2026] =
+
+* Added: [Loop Grid](https://skyaddons.com/elementor/loop-grid-widget/) & [Loop Carousel](https://skyaddons.com/elementor/loop-carousel-widget/) widgets are now free
+* Fixed: PHP 8 fatal error when using an uploaded SVG icon in Social Icons & Stellar Slider widgets (Thanks to Ali)
+* Fixed: Theme Builder "Applies To" dropdown not showing custom post types like WooCommerce Products (Thanks to Marilisa)
+
 = 4.0.0 [15th September 2026] =
 
-* Added: Dynamic Content Feature (Build Anything)
+* Added: [Dynamic Tags](https://skyaddons.com/docs/sky-addons/dynamic-content/dynamic-tags/) Feature (Build Anything)
 * Added: [Advanced Table](https://skyaddons.com/elementor/table-widget/) widget
 * Added: [Fancy Testimonial](https://skyaddons.com/elementor/testimonial-widget/) widget
 * Added: Advanced [Tilt Effect](https://skyaddons.com/elementor/tilt-effect-extension/) Extension

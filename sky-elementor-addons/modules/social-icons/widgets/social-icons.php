@@ -905,6 +905,30 @@ class Social_Icons extends Widget_Base {
 		$this->end_controls_section();
 	}
 
+	/**
+	 * Brand slug of an ICONS control value, for the `elementor-social-icon-{slug}` colour class.
+	 *
+	 * Only a font icon stores a class string ('fab fa-facebook' → 'facebook'). An uploaded SVG
+	 * stores an array (['url' => …, 'id' => …]) and a single-class library (eicons) has no
+	 * second token — never explode() the value directly, PHP 8 fatals on the array.
+	 *
+	 * @param mixed $icon ICONS control value: [ 'value' => string|array, 'library' => string ].
+	 * @return string Sanitized slug, or '' when the icon carries no brand.
+	 */
+	private function get_social_icon_slug( $icon ) {
+		if ( ! is_array( $icon ) || empty( $icon['value'] ) || ! is_string( $icon['value'] ) ) {
+			return '';
+		}
+
+		$parts = explode( ' ', trim( $icon['value'] ), 2 );
+
+		if ( empty( $parts[1] ) ) {
+			return '';
+		}
+
+		return sanitize_html_class( str_replace( 'fa-', '', $parts[1] ) );
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		?>
@@ -912,19 +936,17 @@ class Social_Icons extends Widget_Base {
 			<?php
 			foreach ( $settings['social_icon_list'] as $index => $item ) :
 
-				$social = '';
-				if ( ! empty( $item['social_icon']['value'] ) ) {
-					$social = explode( ' ', $item['social_icon']['value'], 2 );
-
-					$social = str_replace( 'fa-', '', $social[1] );
-				}
+				$social = $this->get_social_icon_slug( $item['social_icon'] ?? [] );
 
 				$link_key = 'link_' . $index;
 				$this->add_render_attribute( $link_key, 'class', [
 					'sa-link sa-social-icon sa-text-decoration-none',
 					'elementor-repeater-item-' . $item['_id'],
-					'elementor-social-icon-' . $social,
 				] );
+
+				if ( $social ) {
+					$this->add_render_attribute( $link_key, 'class', 'elementor-social-icon-' . $social );
+				}
 
 				if ( ! empty( $settings['icons_hover_animation'] ) ) {
 					$this->add_render_attribute( $link_key, 'class', 'elementor-animation-' . esc_attr( $settings['icons_hover_animation'] ) );

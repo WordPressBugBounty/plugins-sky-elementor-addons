@@ -175,6 +175,7 @@ final class Core {
 			'root_url'    => SKY_ADDONS_URL,
 			'pro_init'    => apply_filters( 'sky_addons_pro_init', false ),
 			'system_info' => $this->get_system_info(),
+			'post_types'  => $this->get_viewable_post_types(),
 			'current_user' => [
 				'domain'       => esc_url( home_url() ),
 				'display_name' => wp_get_current_user()->display_name,
@@ -190,6 +191,32 @@ final class Core {
 		 * @param array $config
 		 */
 		return apply_filters( 'sky_addons/admin/config', $config );
+	}
+
+	/**
+	 * Viewable post types for the Theme Builder "Applies To" selector.
+	 *
+	 * Built in PHP rather than fetched from /wp/v2/types: the REST list skips
+	 * post types registered without `show_in_rest` (common in themes and older
+	 * plugins) and comes back empty when a security plugin blocks the REST API.
+	 *
+	 * @return array[] Each item: label, value (post type slug).
+	 */
+	public function get_viewable_post_types() {
+		$options = [];
+
+		foreach ( get_post_types( [], 'objects' ) as $post_type ) {
+			if ( ! is_post_type_viewable( $post_type ) ) {
+				continue;
+			}
+
+			$options[] = [
+				'label' => $post_type->labels->name ? $post_type->labels->name : $post_type->name,
+				'value' => $post_type->name,
+			];
+		}
+
+		return $options;
 	}
 
 	/**

@@ -536,7 +536,7 @@ class Generic_Grid extends Widget_Base {
 			[
 				'label'      => esc_html__( 'Height', 'sky-elementor-addons' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'em' ],
+				'size_units' => [ 'px', 'em', '%' ],
 				'range'      => [
 					'px' => [
 						'min' => 50,

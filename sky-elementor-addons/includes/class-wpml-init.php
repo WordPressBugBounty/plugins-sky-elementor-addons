@@ -51,6 +51,8 @@ class WPML_Init {
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-info-box.php';
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-list-group.php';
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-logo-carousel.php';
+		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-loop-carousel.php';
+		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-loop-grid.php';
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-fancy-testimonial.php';
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-number.php';
 		require_once SKY_ADDONS_INC_PATH . 'wpml/class-wpml-pdf-viewer.php';
@@ -150,6 +152,18 @@ class WPML_Init {
 			'conditions'        => [ 'widgetType' => 'sky-logo-carousel' ],
 			'fields'            => [],
 			'integration-class' => __NAMESPACE__ . '\\WPML_Logo_Carousel',
+		];
+
+		// Loop widgets (moved from Pro in 4.1.0 — same widget names, saved pages unchanged)
+		$nodes_to_translate['sky-loop-carousel'] = [
+			'conditions'        => [ 'widgetType' => 'sky-loop-carousel' ],
+			'fields'            => [],
+			'integration-class' => __NAMESPACE__ . '\\WPML_Loop_Carousel',
+		];
+		$nodes_to_translate['sky-loop-grid'] = [
+			'conditions'        => [ 'widgetType' => 'sky-loop-grid' ],
+			'fields'            => [],
+			'integration-class' => __NAMESPACE__ . '\\WPML_Loop_Grid',
 		];
 
 		// Number

@@ -60,6 +60,16 @@ var widgetGlobalCarousel = function ($scope, $) {
         return;
     }
 
+    // Init once per element. A widget moved from Pro to free (e.g. Loop Carousel)
+    // can be bound by both plugins' handlers while an older Pro is active;
+    // a second Swiper on the same container breaks navigation and pagination.
+    // Flag only the first match: find() also returns carousels nested inside
+    // this one's template, and those must still run their own init.
+    if ($carousel.first().data('saCarouselInit')) {
+        return;
+    }
+    $carousel.first().data('saCarouselInit', true);
+
     const Swiper = elementorFrontend.utils.swiper;
     initSwiper();
     async function initSwiper() {

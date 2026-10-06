@@ -154,6 +154,8 @@ final class Managers {
 		$modules[] = 'list-group';
 		$modules[] = 'logo-grid';
 		$modules[] = 'logo-carousel';
+		$modules[] = 'loop-grid';
+		$modules[] = 'loop-carousel';
 		$modules[] = 'momentum-slider';
 		$modules[] = 'panel-slider';
 		$modules[] = 'pdf-viewer';

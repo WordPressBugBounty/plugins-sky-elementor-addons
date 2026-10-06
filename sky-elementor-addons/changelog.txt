@@ -1,6 +1,12 @@
+= 4.1.0 [7th October 2026] =
+
+* Added: [Loop Grid](https://skyaddons.com/elementor/loop-grid-widget/) & [Loop Carousel](https://skyaddons.com/elementor/loop-carousel-widget/) widgets are now free
+* Fixed: PHP 8 fatal error when using an uploaded SVG icon in Social Icons & Stellar Slider widgets (Thanks to Ali)
+* Fixed: Theme Builder "Applies To" dropdown not showing custom post types like WooCommerce Products (Thanks to Marilisa)
+
 = 4.0.0 [15th September 2026] =
 
-* Added: Dynamic Content Feature (Build Anything)
+* Added: [Dynamic Tags](https://skyaddons.com/docs/sky-addons/dynamic-content/dynamic-tags/) Feature (Build Anything)
 * Added: [Advanced Table](https://skyaddons.com/elementor/table-widget/) widget
 * Added: [Fancy Testimonial](https://skyaddons.com/elementor/testimonial-widget/) widget
 * Added: Advanced [Tilt Effect](https://skyaddons.com/elementor/tilt-effect-extension/) Extension

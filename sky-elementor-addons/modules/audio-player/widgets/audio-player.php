@@ -981,10 +981,19 @@ class Audio_Player extends Widget_Base {
 
 	// ── Data Helpers ──────────────────────────────────────────────────────────
 
+	/**
+	 * Audio URL from the active source control.
+	 *
+	 * Never read `['url']` blindly — the `string` return type fatals on null. An empty dynamic
+	 * tag, a control hidden by its condition (Elementor nulls it) or imported data can hand
+	 * back null, [] or a bare string here.
+	 */
 	private function get_audio_url( array $settings ): string {
-		return 'remote_url' === $settings['source_type']
-			? $settings['remote_url']['url']
-			: $settings['hosted_url']['url'];
+		$key   = 'remote_url' === ( $settings['source_type'] ?? '' ) ? 'remote_url' : 'hosted_url';
+		$value = $settings[ $key ] ?? null;
+		$url   = is_array( $value ) ? ( $value['url'] ?? '' ) : $value;
+
+		return is_string( $url ) ? $url : '';
 	}
 
 	private function get_mime_type( string $url ): string {
