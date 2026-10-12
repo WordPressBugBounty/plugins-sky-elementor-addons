@@ -45,8 +45,9 @@ class Dynamic_Tag_Product_Term_Archive_URL extends Data_Tag {
 
 	private function get_product_terms(): array {
 		$terms = get_terms([
-			'taxonomy'   => 'product_cat',
-			'hide_empty' => true,
+			'taxonomy'               => 'product_cat',
+			'hide_empty'             => true,
+			'update_term_meta_cache' => false,
 		]);
 
 		if ( is_wp_error( $terms ) ) {

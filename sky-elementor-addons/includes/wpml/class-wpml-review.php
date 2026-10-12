@@ -17,7 +17,7 @@ class WPML_Review extends WPML_Module_Without_Items {
 		return [
 			'name'        => [
 				'title'       => esc_html__( 'Review: Name', 'sky-elementor-addons' ),
-				'editor_type' => 'LINE',
+				'editor_type' => 'AREA',
 			],
 			'designation' => [
 				'title'       => esc_html__( 'Review: Designation', 'sky-elementor-addons' ),

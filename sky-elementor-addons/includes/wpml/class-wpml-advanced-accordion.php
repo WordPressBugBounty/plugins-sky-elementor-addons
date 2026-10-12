@@ -50,7 +50,7 @@ class WPML_Advanced_Accordion extends WPML_Module_With_Items {
 	protected function get_editor_type( $field ) {
 		switch ( $field ) {
 			case 'title':
-				return 'LINE';
+				return 'AREA';
 
 			case 'custom_content':
 				return 'VISUAL';

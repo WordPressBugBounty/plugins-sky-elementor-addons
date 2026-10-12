@@ -17,7 +17,7 @@ class WPML_Testimonial extends WPML_Module_Without_Items {
 		return [
 			'testimonial_text' => [
 				'title'       => esc_html__( 'Testimonial: Content', 'sky-elementor-addons' ),
-				'editor_type' => 'VISUAL',
+				'editor_type' => 'AREA',
 			],
 			'testimonial_name' => [
 				'title'       => esc_html__( 'Testimonial: Name', 'sky-elementor-addons' ),

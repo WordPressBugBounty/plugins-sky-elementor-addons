@@ -67,9 +67,13 @@ class Dynamic_Tag_User_Avatar extends Data_Tag {
 		$this->add_control(
 			'sky_user_id',
 			[
-				'label'       => esc_html__( 'User', 'sky-elementor-addons' ),
-				'type'        => \Elementor\Controls_Manager::SELECT2,
-				'options'     => $this->get_users_list(),
+				'label'       => esc_html__( 'Search & Select User', 'sky-elementor-addons' ),
+				'type'        => \Sky_Addons\Includes\Controls\SelectInput\Dynamic_Select::TYPE,
+				'multiple'    => false,
+				'label_block' => true,
+				'query_args'  => [
+					'query' => 'authors',
+				],
 				'description' => esc_html__( 'Leave empty to use current user', 'sky-elementor-addons' ),
 			]
 		);
@@ -99,20 +103,6 @@ class Dynamic_Tag_User_Avatar extends Data_Tag {
 	}
 
 	protected function register_advanced_section(): void {}
-
-	private function get_users_list() {
-		$users = get_users([
-			'orderby' => 'display_name',
-			'order'   => 'ASC',
-		]);
-
-		$options = [];
-		foreach ( $users as $user ) {
-			$options[ $user->ID ] = $user->display_name;
-		}
-
-		return $options;
-	}
 
 	public function get_value( array $options = [] ) {
 		$user_id = $this->get_settings( 'sky_user_id' );

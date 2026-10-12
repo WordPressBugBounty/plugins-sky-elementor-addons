@@ -29,7 +29,7 @@ class WPML_List_Group extends WPML_Module_With_Items {
 		return [
 			'list_title' => [
 				'title'       => esc_html__( 'List Group: Title', 'sky-elementor-addons' ),
-				'editor_type' => 'AREA',
+				'editor_type' => 'LINE',
 			],
 			'list_text'  => [
 				'title'       => esc_html__( 'List Group: Text', 'sky-elementor-addons' ),

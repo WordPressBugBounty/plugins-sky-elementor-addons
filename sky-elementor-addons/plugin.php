@@ -87,7 +87,12 @@ class Sky_Addons_Plugin {
 			do_action( 'skyaddons_loaded' );
 			self::$_instance->add_actions();
 			self::$_instance->includes();
-			self::$_instance->wpml_compatibility()->init();
+
+			// WPML String Translation only; nothing WPML-related loads without it.
+			if ( defined( 'WPML_ST_VERSION' ) ) {
+				require_once SKY_ADDONS_INC_PATH . 'class-wpml-init.php';
+				self::$_instance->wpml_compatibility()->init();
+			}
 		}
 
 		return self::$_instance;
@@ -144,11 +149,6 @@ class Sky_Addons_Plugin {
 		 */
 		require_once SKY_ADDONS_INC_PATH . 'features/class-init.php';
 		\Sky_Addons\Features\Init::get_instance();
-
-		/**
-		 * WPML
-		 */
-		require_once SKY_ADDONS_INC_PATH . 'class-wpml-init.php';
 
 		/**
 		 * Asset Manager (optimizer) — class + helpers already loaded early via

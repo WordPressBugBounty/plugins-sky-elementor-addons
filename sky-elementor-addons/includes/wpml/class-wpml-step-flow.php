@@ -17,7 +17,7 @@ class WPML_Step_Flow extends WPML_Module_Without_Items {
 		return [
 			'title'      => [
 				'title'       => esc_html__( 'Step Flow: Title', 'sky-elementor-addons' ),
-				'editor_type' => 'LINE',
+				'editor_type' => 'AREA',
 			],
 			'desc'       => [
 				'title'       => esc_html__( 'Step Flow: Description', 'sky-elementor-addons' ),

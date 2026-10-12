@@ -141,7 +141,8 @@ abstract class WPML_Modules implements IWPML_Page_Builders_Module {
 	 * @param int|string     $node_id Unique node identifier.
 	 * @param mixed          $element Widget element data.
 	 * @param WPML_PB_String $string  Translated WPML_PB_String object.
-	 * @return mixed Updated repeater item (with 'index') or unchanged element data.
+	 * @return array|null Updated repeater item (with 'index'), or null when the string is not ours.
+	 *                    WPML writes any truthy return into this widget's items field.
 	 */
 	public function update( $node_id, $element, WPML_PB_String $string ) {
 		$widget_type = isset( $element['widgetType'] ) ? $element['widgetType'] : '';
@@ -170,7 +171,7 @@ abstract class WPML_Modules implements IWPML_Page_Builders_Module {
 			}
 		}
 
-		return $element;
+		return null;
 	}
 
 	/**
@@ -257,6 +258,29 @@ abstract class WPML_Module_Without_Items implements IWPML_Page_Builders_Module {
 	 */
 	protected function get_editor_type( $field ) {
 		return 'LINE';
+	}
+
+	/**
+	 * Returns the fields in WPML's node 'fields' format.
+	 *
+	 * WPML can only write an integration class's result back into a repeater, so
+	 * non-repeater fields are registered through the node's 'fields' array instead.
+	 *
+	 * @return array
+	 */
+	public function get_node_fields() {
+		$fields = [];
+
+		foreach ( $this->normalize_fields() as $name => $config ) {
+			$fields[ $name ] = [
+				'field'       => 'LINK' === $config['editor_type'] ? 'url' : $name,
+				'field_id'    => $name, // Unique string name; every LINK's 'field' is 'url'.
+				'type'        => $config['title'],
+				'editor_type' => $config['editor_type'],
+			];
+		}
+
+		return $fields;
 	}
 
 	/**

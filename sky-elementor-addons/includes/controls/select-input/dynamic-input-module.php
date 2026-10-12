@@ -161,7 +161,13 @@ class Dynamic_Input_Module {
 	 */
 	protected function get_seleced_ids() {
     // phpcs:ignore
-		return isset( $_POST['ids'] ) ? sanitize_text_field( wp_unslash( $_POST['ids'] ) ) : [];
+		if ( ! isset( $_POST['ids'] ) ) {
+			return [];
+		}
+
+		// The editor posts ids[] as an array; sanitize_text_field() would return '' for it.
+		// phpcs:ignore
+		return array_values( array_filter( array_map( 'absint', (array) wp_unslash( $_POST['ids'] ) ) ) );
 	}
 
 
@@ -348,17 +354,21 @@ class Dynamic_Input_Module {
 			return $data;
 		}
 
+		// Always bounded, and no term-meta priming: only names and ids are needed.
 		$args = [
-			'taxonomy'   => $taxonomies,
-			'hide_empty' => false,
+			'taxonomy'               => $taxonomies,
+			'hide_empty'             => false,
+			'number'                 => 20,
+			'update_term_meta_cache' => false,
 		];
 
 		if ( ! empty( $include ) ) {
-			$args['include'] = $include;
+			// Options are keyed by term_taxonomy_id (see below), not term_id.
+			$args['term_taxonomy_id'] = $include;
+			$args['number']           = count( $include );
 		}
 
 		if ( $search_text ) {
-			$args['number'] = 20;
 			$args['search'] = $search_text;
 		}
 		$terms = get_terms( $args );
@@ -393,17 +403,20 @@ class Dynamic_Input_Module {
 		$include     = $this->get_seleced_ids();
 		$search_text = $this->get_search_query();
 
+		// Always bounded: sites can hold 100k+ users.
 		$args = [
-			'fields'  => [ 'ID', 'display_name' ],
-			'orderby' => 'display_name',
+			'fields'      => [ 'ID', 'display_name' ],
+			'orderby'     => 'display_name',
+			'number'      => 20,
+			'count_total' => false,
 		];
 
 		if ( ! empty( $include ) ) {
 			$args['include'] = $include;
+			$args['number']  = count( $include );
 		}
 
 		if ( $search_text ) {
-			$args['number'] = 20;
 			$args['search'] = "*$search_text*";
 		}
 

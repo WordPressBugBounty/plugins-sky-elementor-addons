@@ -23,7 +23,7 @@ class WPML_Review_Carousel extends WPML_Module_With_Items {
 		return [
 			'name'        => [
 				'title'       => esc_html__( 'Review Carousel: Name', 'sky-elementor-addons' ),
-				'editor_type' => 'LINE',
+				'editor_type' => 'AREA',
 			],
 			'designation' => [
 				'title'       => esc_html__( 'Review Carousel: Designation', 'sky-elementor-addons' ),

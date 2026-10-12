@@ -1,3 +1,12 @@
+= 4.1.1 [12th October 2026] =
+
+* Fixed: Site crash on sites with many users caused by User Avatar dynamic tag (Thanks to Abdelhadi Touil)
+* Fixed: Search & Select controls running unlimited queries when loading saved selections
+* Improved: Lighter term queries in Search & Select controls & Product Term Archive URL dynamic tag
+* Fixed: Fatal error when saving pages with WPML active (Loop Grid, Loop Carousel, Table) (Thanks to Lucas)
+* Fixed: WPML translations corrupting repeater data (Team Member, Social Icons, Advanced Slider, Table)
+* Improved: WPML translation support for 21 more widgets
+
 = 4.1.0 [7th October 2026] =
 
 * Added: [Loop Grid](https://skyaddons.com/elementor/loop-grid-widget/) & [Loop Carousel](https://skyaddons.com/elementor/loop-carousel-widget/) widgets are now free
